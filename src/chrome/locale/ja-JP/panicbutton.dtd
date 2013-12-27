@@ -1,0 +1,27 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "セッション復元">
+<!ENTITY restoreSession.label "ブラウザセッションを復元">
+<!ENTITY quit.label "終了">
+<!ENTITY tbIconsAndText.label "アイコンとテキスト">
+<!ENTITY tbIcons.label "アイコンのみ">
+<!ENTITY tbTooltip.label "ツールチップ">
+<!ENTITY extensionPrefDlg.title "Panic Button オプション">
+<!ENTITY tabGeneral.label "全般">
+<!ENTITY tabCustomize.label "カスタマイズ">
+<!ENTITY panicButtonAction.caption "Panic Button 動作">
+<!ENTITY actionHideAll.label "すべてのウィンドウを非表示にする">
+<!ENTITY actionMinimizeAll.label "すべてのウィンドウを最小化する">
+<!ENTITY actionQuit.label "終了する">
+<!ENTITY functionKey.label "F9 キーで Panic Button を動作させる">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "ツールバーボタンの表題:">
+<!ENTITY toolbarButtonCaption.accesskey "c">
+<!ENTITY toolbarButtonIcon.label "アイコン:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "セッション復元ツールバー">
+<!ENTITY restoreBarLayout.label "表示:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "初期化">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "カスタムアイコン...">
+<!ENTITY customIcon.accesskey "u">

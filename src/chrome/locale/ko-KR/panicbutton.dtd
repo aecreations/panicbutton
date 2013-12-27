@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "세션 복구">
+<!ENTITY restoreSession.label "브라우저 세션 복구">
+<!ENTITY quit.label "나기기">
+<!ENTITY tbIconsAndText.label "아이콘과 설명">
+<!ENTITY tbIcons.label "아이콘 만">
+<!ENTITY tbTooltip.label "간단 설명">
+<!ENTITY extensionPrefDlg.title "Panic Button 선택사항">
+<!ENTITY tabGeneral.label "일반">
+<!ENTITY tabCustomize.label "사용자 지정">
+<!ENTITY panicButtonAction.caption "Panic Button 동작">
+<!ENTITY selectAction.label "동작 선택:">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "모든 창 숨기기">
+<!ENTITY actionMinimizeAll.label "모든 창 최소화">
+<!ENTITY actionQuit.label "끝내기">
+<!ENTITY actionReplace.label "숨기고 대체">
+<!ENTITY functionKey.label "F9키로 Panic Button을 동작시킵니다.">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "도구막대 버튼 설명:">
+<!ENTITY toolbarButtonCaption.accesskey "c">
+<!ENTITY toolbarButtonIcon.label "아이콘:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "세션 도구막대 복구">
+<!ENTITY restoreBarLayout.label "표시:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "재설정">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "사용자 지정 아이콘...">
+<!ENTITY customIcon.accesskey "u">

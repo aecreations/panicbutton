@@ -1,0 +1,12 @@
+pref("extensions.{24cea704-946d-11da-a72b-0800200c9a66}.description", "chrome://panicbutton/locale/panicbutton.properties");
+pref("extensions.aecreations.panicbutton.action", 0);
+pref("extensions.aecreations.panicbutton.toolbarbutton.label", "");
+pref("extensions.aecreations.panicbutton.toolbarbutton.icon", 0);
+pref("extensions.aecreations.panicbutton.toolbarbutton.custom_icon_url", "");
+pref("extensions.aecreations.panicbutton.enable_function_key", true);
+pref("extensions.aecreations.panicbutton.action.replace.web_pg_url", "http://www.mozilla.com/firefox/central/");
+pref("extensions.aecreations.panicbutton.restorebar.layout", 0);
+pref("extensions.aecreations.panicbutton.restorebar.show_tooltips", true);
+pref("extensions.aecreations.panicbutton.restorebar.position", "64,256");
+pref("extensions.aecreations.panicbutton.first_run", true);
+pref("extensions.aecreations.panicbutton.migrated_prefs", false);

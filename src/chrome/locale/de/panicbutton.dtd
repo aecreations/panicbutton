@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Sitzung wiederherstellen">
+<!ENTITY restoreSession.label "Browsersitzung wiederherstellen">
+<!ENTITY quit.label "Ausgang">
+<!ENTITY tbIconsAndText.label "Icons und Text">
+<!ENTITY tbIcons.label "Nur Icons">
+<!ENTITY tbTooltip.label "Tooltips">
+<!ENTITY extensionPrefDlg.title "Panic Button Optionen">
+<!ENTITY tabGeneral.label "Optionen">
+<!ENTITY tabCustomize.label "Anpassen">
+<!ENTITY panicButtonAction.caption "Panic Button aktion">
+<!ENTITY selectAction.label "Aktion auswählen:">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "Alle Fenster verbergen">
+<!ENTITY actionMinimizeAll.label "Alle Fenster minimieren">
+<!ENTITY actionQuit.label "Schließen">
+<!ENTITY actionReplace.label "Verbergen und wiederherstellen">
+<!ENTITY functionKey.label "F9 aktiviert den Panic Button">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "Toolbar Button Beschriftung:">
+<!ENTITY toolbarButtonCaption.accesskey "c">
+<!ENTITY toolbarButtonIcon.label "Icon:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Toolbar Sitzung wiederherstellen">
+<!ENTITY restoreBarLayout.label "Anzeigen:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "Zurücksetzen">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "Icon anpassen">
+<!ENTITY customIcon.accesskey "u">

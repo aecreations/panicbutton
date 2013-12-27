@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Paniekknop">
+<!ENTITY restoreToolbar.title "Sessie herstellen">
+<!ENTITY restoreSession.label "Browsersessie herstellen">
+<!ENTITY quit.label "Afsluiten">
+<!ENTITY tbIconsAndText.label "Pictogrammen en tekst">
+<!ENTITY tbIcons.label "Alleen pictogrammen">
+<!ENTITY tbTooltip.label "Tooltips">
+<!ENTITY extensionPrefDlg.title "Panic Button-opties">
+<!ENTITY tabGeneral.label "Algemeen">
+<!ENTITY tabCustomize.label "Aanpassen">
+<!ENTITY panicButtonAction.caption "Panic Button-actie">
+<!ENTITY selectAction.label "Selecteer actie:">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "Alle vensters verbergen">
+<!ENTITY actionMinimizeAll.label "Alle vensters minimaliseren">
+<!ENTITY actionQuit.label "Stoppen">
+<!ENTITY actionReplace.label "Verbergen en vervangen">
+<!ENTITY functionKey.label "De toets F9 roept de actie van Panic Button aan">
+<!ENTITY functionKey.accesskey "T">
+<!ENTITY toolbarButtonCaption.label "Tekst bij werkbalkknop:">
+<!ENTITY toolbarButtonCaption.accesskey "e">
+<!ENTITY toolbarButtonIcon.label "Pictogram:">
+<!ENTITY toolbarButtonIcon.accesskey "P">
+<!ENTITY restoreBar.caption "Werkbalk Sessie herstellen">
+<!ENTITY restoreBarLayout.label "Weergeven:">
+<!ENTITY restoreBarLayout.accesskey "W">
+<!ENTITY resetCustomizations.label "Reset">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "Aangepast pictogram…">
+<!ENTITY customIcon.accesskey "a">

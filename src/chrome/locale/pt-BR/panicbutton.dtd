@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Botão de Pânico">
+<!ENTITY restoreToolbar.title "Restaurar Sessão">
+<!ENTITY restoreSession.label "Restaurar sessão do navegador">
+<!ENTITY quit.label "Sair">
+<!ENTITY tbIconsAndText.label "Ícones e Texto">
+<!ENTITY tbIcons.label "Somente ícones">
+<!ENTITY tbTooltip.label "Dicas">
+<!ENTITY extensionPrefDlg.title "Opções do Botão de Pânico">
+<!ENTITY tabGeneral.label "Geral">
+<!ENTITY tabCustomize.label "Customizar">
+<!ENTITY panicButtonAction.caption "Ativar Botão de Pânico">
+<!ENTITY selectAction.label "Ação de Seleção:">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "Esconder todas as janelas">
+<!ENTITY actionMinimizeAll.label "Minimizar todas as janelas">
+<!ENTITY actionQuit.label "Sair">
+<!ENTITY actionReplace.label "Esconder e substituir">
+<!ENTITY functionKey.label "Tecla F9 ativa Botão de Pânico">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "Legenda no barra de tarefa:">
+<!ENTITY toolbarButtonCaption.accesskey "c">
+<!ENTITY toolbarButtonIcon.label "Ícone:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Restaurar Sessão com barra de tarefa">
+<!ENTITY restoreBarLayout.label "Mostrar:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "Reiniciar">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "Ícone Personalizado...">
+<!ENTITY customIcon.accesskey "u">

@@ -1,0 +1,36 @@
+<!-- Host app overlay -->
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Restore Session">
+
+<!-- Restore Session toolbar -->
+<!ENTITY restoreSession.label "Restore Browser Session">
+<!ENTITY quit.label "Exit">
+<!ENTITY tbIconsAndText.label "Icons and Text">
+<!ENTITY tbIcons.label "Icons Only">
+<!ENTITY tbTooltip.label "Tooltips">
+
+<!-- Extension preferences dialog -->
+<!ENTITY extensionPrefDlg.title "Panic Button Options">
+<!ENTITY tabGeneral.label "Options">
+<!ENTITY tabCustomize.label "Customize">
+<!ENTITY panicButtonAction.caption "Panic Button action">
+<!ENTITY selectAction.label "Select action:">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "Hide all windows">
+<!ENTITY actionMinimizeAll.label "Minimize all windows">
+<!ENTITY actionQuit.label "Quit">
+<!ENTITY actionReplace.label "Hide and replace">
+<!ENTITY functionKey.label "F9 key invokes Panic Button action">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "Toolbar button caption:">
+<!ENTITY toolbarButtonCaption.accesskey "c">
+<!ENTITY toolbarButtonIcon.label "Icon:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Restore Session toolbar">
+<!ENTITY restoreBarLayout.label "Show:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "Reset">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "Custom Icon...">
+<!ENTITY customIcon.accesskey "u">
+

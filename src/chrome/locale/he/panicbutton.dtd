@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "שחזור הפעלה">
+<!ENTITY restoreSession.label "שחזור הפעלת דפדפן">
+<!ENTITY quit.label "יציאה">
+<!ENTITY tbIconsAndText.label "סמלים וטקסט">
+<!ENTITY tbIcons.label "סמלים בלבד">
+<!ENTITY tbTooltip.label "בועות מידע">
+<!ENTITY extensionPrefDlg.title "Panic Button אפשרויות של">
+<!ENTITY tabGeneral.label "אפשרויות">
+<!ENTITY tabCustomize.label "התאמה אישית">
+<!ENTITY panicButtonAction.caption "פעולת Panic Button">
+<!ENTITY selectAction.label "בחר פעולה:">
+<!ENTITY selectAction.accesskey "פ">
+<!ENTITY actionHideAll.label "הסתר את כל החלונות">
+<!ENTITY actionMinimizeAll.label "מזער את כל החלונות">
+<!ENTITY actionQuit.label "צא">
+<!ENTITY actionReplace.label "הסתר והחלף">
+<!ENTITY functionKey.label "מקש F9 מפעיל את פעולת Panic Button">
+<!ENTITY functionKey.accesskey "מ">
+<!ENTITY toolbarButtonCaption.label "כותרת של הלחצן בסרגל הכלים:">
+<!ENTITY toolbarButtonCaption.accesskey "כ">
+<!ENTITY toolbarButtonIcon.label "סמל:">
+<!ENTITY toolbarButtonIcon.accesskey "ס">
+<!ENTITY restoreBar.caption "שחזור הפעלת סרגל הכלים">
+<!ENTITY restoreBarLayout.label "תצוגה:">
+<!ENTITY restoreBarLayout.accesskey "ת">
+<!ENTITY resetCustomizations.label "שחזר">
+<!ENTITY resetCustomizations.accesskey "ש">
+<!ENTITY customIcon.label "סמל מותאם אישית...">
+<!ENTITY customIcon.accesskey "ס">

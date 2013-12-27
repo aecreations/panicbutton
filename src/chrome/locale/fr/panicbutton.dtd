@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Rétablir la session">
+<!ENTITY restoreSession.label "Rétablir la session du navigateur">
+<!ENTITY quit.label "Quitter">
+<!ENTITY tbIconsAndText.label "Texte et icônes">
+<!ENTITY tbIcons.label "Icônes">
+<!ENTITY tbTooltip.label "Infobulles">
+<!ENTITY extensionPrefDlg.title "Options de Panic Button">
+<!ENTITY tabGeneral.label "Générales">
+<!ENTITY tabCustomize.label "Personnalisées">
+<!ENTITY panicButtonAction.caption "Action de Panic Button">
+<!ENTITY selectAction.label "Choisir une action :">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "Masquer toutes les fenêtres">
+<!ENTITY actionMinimizeAll.label "Réduire toutes les fenêtres">
+<!ENTITY actionQuit.label "Quitter">
+<!ENTITY actionReplace.label "Masquer et remplacer">
+<!ENTITY functionKey.label "La touche F9 lance l&apos;action de Panic Button">
+<!ENTITY functionKey.accesskey "t">
+<!ENTITY toolbarButtonCaption.label "Libellé du bouton de la barre d&apos;outils :">
+<!ENTITY toolbarButtonCaption.accesskey "L">
+<!ENTITY toolbarButtonIcon.label "Icône :">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Rétablir la barre d&apos;outils de la session">
+<!ENTITY restoreBarLayout.label "Afficher :">
+<!ENTITY restoreBarLayout.accesskey "A">
+<!ENTITY resetCustomizations.label "Réinitialiser">
+<!ENTITY resetCustomizations.accesskey "t">
+<!ENTITY customIcon.label "Icône personnalisée…">
+<!ENTITY customIcon.accesskey "p">

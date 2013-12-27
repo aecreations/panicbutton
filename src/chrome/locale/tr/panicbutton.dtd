@@ -1,0 +1,27 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Oturumu Geri Yükle">
+<!ENTITY restoreSession.label "Tarayıcı Oturumunu Geri Yükle">
+<!ENTITY quit.label "Çıkış">
+<!ENTITY tbIconsAndText.label "Simge ve Metin">
+<!ENTITY tbIcons.label "Sadece Simge">
+<!ENTITY tbTooltip.label "İpuçları">
+<!ENTITY extensionPrefDlg.title "Panic Button Seçenekleri">
+<!ENTITY tabGeneral.label "Genel">
+<!ENTITY tabCustomize.label "Özelleştir">
+<!ENTITY panicButtonAction.caption "Panic Button işlevi">
+<!ENTITY actionHideAll.label "Tüm pencereleri gizle">
+<!ENTITY actionMinimizeAll.label "Tüm pencereleri simge durumuna küçült">
+<!ENTITY actionQuit.label "Çıkış">
+<!ENTITY functionKey.label "F9 tuşu Panic Button işlevini çalıştırır">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "Araç çubuğu düğmesi başlığı:">
+<!ENTITY toolbarButtonCaption.accesskey "c">
+<!ENTITY toolbarButtonIcon.label "Simge:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Oturumu Geri Yükle araç çubuğu">
+<!ENTITY restoreBarLayout.label "Göster:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "Sıfırla">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "Özel Simge...">
+<!ENTITY customIcon.accesskey "u">

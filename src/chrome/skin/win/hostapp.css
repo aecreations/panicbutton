@@ -1,0 +1,129 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is Panic Button.
+ *
+ * The Initial Developer of the Original Code is 
+ * Alex Eng <ateng@users.sourceforge.net>.
+ * Portions created by the Initial Developer are Copyright (C) 2007-2013
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+
+/* 
+ * Integration with host application
+ */
+
+
+#ae-panicbutton-toolbarbutton {
+  list-style-image:  url("chrome://panicbutton/skin/all/Toolbar.png");
+}
+
+
+/*
+ * NOTE: Icons in Firefox 4 and newer on Windows and Mac are all 16x16 pixels.
+ */
+
+.ae-panicbutton-default {
+  -moz-image-region: rect(64px, 32px, 80px, 16px);
+}
+
+.ae-panicbutton-exclamation-in-ball {
+  -moz-image-region: rect(64px, 16px, 80px, 0px);
+}
+
+.ae-panicbutton-window-with-exclamation {
+  -moz-image-region: rect(64px, 48px, 80px, 32px);
+}
+
+.ae-panicbutton-window-with-cross {
+  -moz-image-region: rect(64px, 64px, 80px, 48px);
+}
+
+.ae-panicbutton-window-minimize {
+  -moz-image-region: rect(64px, 80px, 80px, 64px);
+}
+
+.ae-panicbutton-quit {
+  -moz-image-region: rect(64px, 96px, 80px, 80px);
+}
+
+.ae-panicbutton-exit-door {
+  -moz-image-region: rect(64px, 128px, 80px, 112px);
+}
+
+.ae-panicbutton-window-with-check {
+  -moz-image-region: rect(64px, 112px, 80px, 96px);
+}
+
+.ae-panicbutton-window-with-exclamation-ball {
+  -moz-image-region: rect(64px, 144px, 80px, 128px);
+}
+
+.ae-panicbutton-plain-window {
+  -moz-image-region: rect(64px, 160px, 80px, 144px);
+}
+
+.ae-panicbutton-dotted-window {
+  -moz-image-region: rect(64px, 176px, 80px, 160px);
+}
+
+.ae-panicbutton-window-with-globe {
+  -moz-image-region: rect(64px, 192px, 80px, 176px);
+}
+
+.ae-panicbutton-web-page {
+  -moz-image-region: rect(64px, 208px, 80px, 192px);
+}
+
+.ae-panicbutton-web-page-with-globe {
+  -moz-image-region: rect(64px, 224px, 80px, 208px);
+}
+
+.ae-panicbutton-web-document {
+  -moz-image-region: rect(64px, 240px, 80px, 224px);
+}
+
+.ae-panicbutton-smiley {
+  -moz-image-region: rect(64px, 256px, 80px, 240px);
+}
+
+.ae-panicbutton-picture {
+  -moz-image-region: rect(64px, 272px, 80px, 256px);
+}
+
+.ae-panicbutton-desktop {
+  -moz-image-region: rect(64px, 288px, 80px, 272px);
+}
+
+.ae-panicbutton-computer {
+  -moz-image-region: rect(64px, 304px, 80px, 288px);
+}
+
+.ae-panicbutton-letter-a {
+  -moz-image-region: rect(64px, 320px, 80px, 304px);
+}
+
+/*
+ * As of Firefox 20:
+ * Can only specify height. Although images are to scale to 16x16px, the image
+ * size is further reduced if 16px was specified as its height.  Specifying a
+ * value for the width will make the image disappear!
+ */
+.ae-panicbutton-custom-icon image {
+  /* 16 x 16 px */
+  height: 24px;
+}

@@ -1,0 +1,27 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Gendan Session">
+<!ENTITY restoreSession.label "Gendan Browser Session">
+<!ENTITY quit.label "Afslut">
+<!ENTITY tbIconsAndText.label "Ikoner og tekst">
+<!ENTITY tbIcons.label "Kun ikoner">
+<!ENTITY tbTooltip.label "Værktøjstips">
+<!ENTITY extensionPrefDlg.title "Panic Button Indstillinger">
+<!ENTITY tabGeneral.label "Generel">
+<!ENTITY tabCustomize.label "Brugerdefiner">
+<!ENTITY panicButtonAction.caption "Panic Button handling">
+<!ENTITY actionHideAll.label "Skjul alle vinduer">
+<!ENTITY actionMinimizeAll.label "Minimer alle vinduer">
+<!ENTITY actionQuit.label "Afslut">
+<!ENTITY functionKey.label "Tryk F9 for at udføre Panic Button">
+<!ENTITY functionKey.accesskey "F">
+<!ENTITY toolbarButtonCaption.label "Værktøjslinje knap tekst:">
+<!ENTITY toolbarButtonCaption.accesskey "T">
+<!ENTITY toolbarButtonIcon.label "Ikon">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Genskab Session værktøjslinje">
+<!ENTITY restoreBarLayout.label "Vis:">
+<!ENTITY restoreBarLayout.accesskey "V">
+<!ENTITY resetCustomizations.label "Nulstil">
+<!ENTITY resetCustomizations.accesskey "N">
+<!ENTITY customIcon.label "Selvvalgt ikon...">
+<!ENTITY customIcon.accesskey "E">

@@ -1,0 +1,27 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Przywracanie sesji">
+<!ENTITY restoreSession.label "Przywróć sesję przeglądarki">
+<!ENTITY quit.label "Wyjdź">
+<!ENTITY tbIconsAndText.label "ikony i tekst">
+<!ENTITY tbIcons.label "tylko ikony">
+<!ENTITY tbTooltip.label "Wskazówki">
+<!ENTITY extensionPrefDlg.title "Panic Button - opcje">
+<!ENTITY tabGeneral.label "Ogólne">
+<!ENTITY tabCustomize.label "Dostosowywanie">
+<!ENTITY panicButtonAction.caption "Akcja do wykonania">
+<!ENTITY actionHideAll.label "Ukryj wszystkie okna">
+<!ENTITY actionMinimizeAll.label "Zminimalizuj wszystkie okna">
+<!ENTITY actionQuit.label "Wyjdź">
+<!ENTITY functionKey.label "Klawisz F9 działa jak przycisk paniki">
+<!ENTITY functionKey.accesskey "K">
+<!ENTITY toolbarButtonCaption.label "Etykieta przycisku na pasku narzędzi:">
+<!ENTITY toolbarButtonCaption.accesskey "E">
+<!ENTITY toolbarButtonIcon.label "Ikona:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Pasek przywracania sesji">
+<!ENTITY restoreBarLayout.label "Pokaż:">
+<!ENTITY restoreBarLayout.accesskey "P">
+<!ENTITY resetCustomizations.label "Przywróć">
+<!ENTITY resetCustomizations.accesskey "P">
+<!ENTITY customIcon.label "Własna ikona...">
+<!ENTITY customIcon.accesskey "I">

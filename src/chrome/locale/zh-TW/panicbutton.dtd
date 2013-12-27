@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "還原狀態">
+<!ENTITY restoreSession.label "還原瀏覽器狀態">
+<!ENTITY quit.label "結束">
+<!ENTITY tbIconsAndText.label "圖示與文字">
+<!ENTITY tbIcons.label "僅圖示">
+<!ENTITY tbTooltip.label "工具提示">
+<!ENTITY extensionPrefDlg.title "Panic Button 選項">
+<!ENTITY tabGeneral.label "一般">
+<!ENTITY tabCustomize.label "自訂">
+<!ENTITY panicButtonAction.caption "Panic Button 動作">
+<!ENTITY selectAction.label "還取動作:">
+<!ENTITY selectAction.accesskey "A">
+<!ENTITY actionHideAll.label "隱藏所有視窗">
+<!ENTITY actionMinimizeAll.label "最小化所有視窗">
+<!ENTITY actionQuit.label "退出">
+<!ENTITY actionReplace.label "隱藏及取代">
+<!ENTITY functionKey.label "F9 鍵叫用 Panic Button 動作">
+<!ENTITY functionKey.accesskey "K">
+<!ENTITY toolbarButtonCaption.label "工具列按鈕標題:">
+<!ENTITY toolbarButtonCaption.accesskey "C">
+<!ENTITY toolbarButtonIcon.label "圖示:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "還原狀態工具列">
+<!ENTITY restoreBarLayout.label "顯示:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "重設">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "自訂圖示...">
+<!ENTITY customIcon.accesskey "U">

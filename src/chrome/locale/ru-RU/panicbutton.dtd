@@ -1,0 +1,27 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Восстановить сессию">
+<!ENTITY restoreSession.label "Восстановить сессию браузера">
+<!ENTITY quit.label "Выход">
+<!ENTITY tbIconsAndText.label "Значки и текст">
+<!ENTITY tbIcons.label "Только значки">
+<!ENTITY tbTooltip.label "Всплывающие подсказки">
+<!ENTITY extensionPrefDlg.title "Panic Button - Настройки">
+<!ENTITY tabGeneral.label "Общие">
+<!ENTITY tabCustomize.label "Адаптация">
+<!ENTITY panicButtonAction.caption "Действие Panic Button">
+<!ENTITY actionHideAll.label "Скрыть все окна">
+<!ENTITY actionMinimizeAll.label "Свернуть все окна">
+<!ENTITY actionQuit.label "Выйти">
+<!ENTITY functionKey.label "Клавиша F9 вызывает действие Panic Button">
+<!ENTITY functionKey.accesskey "К">
+<!ENTITY toolbarButtonCaption.label "Заголовок кнопки панели инструментов:">
+<!ENTITY toolbarButtonCaption.accesskey "З">
+<!ENTITY toolbarButtonIcon.label "Значок:">
+<!ENTITY toolbarButtonIcon.accesskey "н">
+<!ENTITY restoreBar.caption "Панель инструментов восстановления сессии">
+<!ENTITY restoreBarLayout.label "Показывать:">
+<!ENTITY restoreBarLayout.accesskey "П">
+<!ENTITY resetCustomizations.label "Восстановить">
+<!ENTITY resetCustomizations.accesskey "В">
+<!ENTITY customIcon.label "Собственный значок…">
+<!ENTITY customIcon.accesskey "б">

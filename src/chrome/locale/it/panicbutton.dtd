@@ -1,0 +1,33 @@
+<!-- Host app overlay -->
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Ripristino della sessione">
+<!-- Restore Session toolbar -->
+<!ENTITY restoreSession.label "Ripristina la sessione del browser">
+<!ENTITY quit.label "Esci">
+<!ENTITY tbIconsAndText.label "icone e testo">
+<!ENTITY tbIcons.label "solo icone">
+<!ENTITY tbTooltip.label "tooltip">
+<!-- Extension preferences dialog -->
+<!ENTITY extensionPrefDlg.title "Impostazioni di Panic Button">
+<!ENTITY tabGeneral.label "Generali">
+<!ENTITY tabCustomize.label "Aspetto">
+<!ENTITY panicButtonAction.caption "Azione da eseguire">
+<!ENTITY selectAction.label "Al clic sul pulsante nella barra degli strumenti:">
+<!ENTITY selectAction.accesskey "c">
+<!ENTITY actionHideAll.label "nascondi tutte le finestre">
+<!ENTITY actionMinimizeAll.label "riduci a icona tutte le finestre">
+<!ENTITY actionQuit.label "chiudi il browser">
+<!ENTITY actionReplace.label "nascondi e sostituisci tutte le finestre">
+<!ENTITY functionKey.label "Esegui l&apos;azione selezionata tramite la scorciatoia da tastiera F9">
+<!ENTITY functionKey.accesskey "o">
+<!ENTITY toolbarButtonCaption.label "Testo del pulsante nella barra degli strumenti:">
+<!ENTITY toolbarButtonCaption.accesskey "T">
+<!ENTITY toolbarButtonIcon.label "Icona:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Barra di ripristino della sessione">
+<!ENTITY restoreBarLayout.label "Mostra:">
+<!ENTITY restoreBarLayout.accesskey "M">
+<!ENTITY resetCustomizations.label "Ripristina elementi predefiniti">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "Icona personalizzata…">
+<!ENTITY customIcon.accesskey "z">

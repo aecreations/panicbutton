@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://panicbutton/skin/preferences.css" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://panicbutton/locale/panicbutton.dtd">
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Panic Button.
+   -
+   - The Initial Developer of the Original Code is
+   - Alex Eng <ateng@users.sourceforge.net>.
+   - Portions created by the Initial Developer are Copyright (C) 2007-2011
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<dialog id="ae-panicbutton-preferences" 
+ title="&extensionPrefDlg.title;"
+ xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+ minwidth="300" onload="init()" ondialogaccept="doOK()">
+
+  <script type="application/javascript" src="chrome://panicbutton/content/preferences.js"/>
+
+  <stringbundle id="ae-panicbutton-strings" src="chrome://panicbutton/locale/panicbutton.properties"/>
+
+  <tabbox>
+    <tabs id="dlg-tabs" onselect="initCustomizeTab()">
+      <tab label="&tabGeneral.label;"/>
+      <tab label="&tabCustomize.label;"/>
+    </tabs>
+
+    <tabpanels id="dlg-tabpanels">
+      <tabpanel id="tab-general" orient="vertical">
+        <groupbox flex="1">
+          <caption label="&panicButtonAction.caption;"/>
+	  <vbox>
+	    <grid flex="1">
+	      <columns><column/><column flex="1"/></columns>
+	      <rows>
+                <row align="center">
+                  <label value="&selectAction.label;" accesskey="&selectAction.accesskey;" control="panicbutton-action"/>
+	          <menulist id="panicbutton-action" oncommand="updatePanicButtonActionDesc()">
+	            <menupopup>
+  	              <menuitem label="&actionHideAll.label;"/>
+	              <menuitem label="&actionMinimizeAll.label;"/>
+	              <menuitem label="&actionQuit.label;"/>
+		      <menuitem label="&actionReplace.label;"/>
+                    </menupopup>
+	          </menulist>
+	        </row>
+              </rows>
+	    </grid>
+	    <separator class="very-thin"/>
+            <vbox style="height:8em">
+	      <description id="panicbutton-action-desc" flex="1"/>
+	      <grid id="replace-session-opts"  hidden="true">
+	        <columns><column flex="1"/><column/></columns>
+	        <rows>
+                  <row align="center">
+	            <textbox id="webpg-url"/>
+		    <button id="reset-url" label="&resetCustomizations.label;" 
+                     accesskey="&resetCustomizations.accesskey;"
+	             oncommand="resetWebPageURL()"/>
+                  </row>
+                </rows>
+              </grid>
+            </vbox>
+	  </vbox>
+        </groupbox>
+
+        <checkbox id="enable-function-key" label="&functionKey.label;" 
+	 accesskey="&functionKey.accesskey;" oncommand="showChangedPrefMsg()"/>
+      </tabpanel>
+
+      <tabpanel id="tab-customize" orient="vertical">
+        <grid>
+	  <columns>
+	    <column/>
+	    <column flex="1"/>
+	  </columns>
+	  <rows>
+	    <row align="center">
+  	      <label value="&toolbarButtonCaption.label;" 
+	       accesskey="&toolbarButtonCaption.accesskey;"
+	       control="toolbar-button-caption"/>
+	      <textbox id="toolbar-button-caption"/>
+	    </row>
+	  </rows>
+	</grid>
+
+	<hbox>
+	  <vbox>
+  	    <label value="&toolbarButtonIcon.label;" 
+	     accesskey="&toolbarButtonIcon.accesskey;"
+	     control="toolbar-button-icon"/>
+	    <richlistbox id="toolbar-button-icon" minwidth="48" maxheight="54"
+	     onselect="this.ensureSelectedElementIsVisible()">
+	      <richlistitem>
+	        <image id="default-icon" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="exclamation-in-ball" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="quit" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="exit-door" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="window-minimize" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="window-with-exclamation" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="window-with-exclamation-ball" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="window-with-cross" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="window-with-check" class="toolbar-icon-list"/>
+	      </richlistitem>	    
+	      <richlistitem>
+	        <image id="plain-window" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="dotted-window" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="window-with-globe" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="web-page" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="web-page-with-globe" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="web-document" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="smiley" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="picture" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="desktop" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="computer" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem>
+	        <image id="letter-a" class="toolbar-icon-list"/>
+	      </richlistitem>
+	      <richlistitem id="custom-listitem" collapsed="true">
+	        <image id="custom-image" />
+	      </richlistitem>
+	    </richlistbox>
+	  </vbox>
+	  <spacer style="width:8px"/>
+	  <vbox flex="1">
+	    <separator class="thin"/>
+	    <groupbox>
+	      <caption label="&restoreBar.caption;"/>
+	      <grid>
+		<columns>
+		  <column/>
+		  <column flex="1"/>
+		</columns>
+	        <rows>
+	          <row align="center">
+		    <label id="toolbar-layout-label" 
+		     value="&restoreBarLayout.label;"
+		     accesskey="&restoreBarLayout.accesskey;" 
+		     control="restore-session-toolbar-layout"/>
+		    <menulist id="restore-session-toolbar-layout">
+	              <menupopup>
+		        <menuitem label="&tbIconsAndText.label;" value="0"/>
+		        <menuitem label="&tbIcons.label;" value="1"/>
+		      </menupopup>
+		    </menulist>
+		  </row>
+		</rows>
+	      </grid>
+	    </groupbox>
+	    <separator flex="1"/>
+	  </vbox>
+	</hbox>
+
+        <hbox>
+	  <button label="&customIcon.label;" accesskey="&customIcon.accesskey;"
+	   oncommand="setCustomTBIcon()"/>
+	  <spacer flex="1"/>
+ 	  <button label="&resetCustomizations.label;" 
+	   accesskey="&resetCustomizations.accesskey;" 
+	   oncommand="resetCustomizations()"/>
+	</hbox>
+      </tabpanel>
+    </tabpanels>
+  </tabbox>
+</dialog>

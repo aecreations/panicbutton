@@ -1,0 +1,27 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Obnoviť Reláciu">
+<!ENTITY restoreSession.label "Obnoviť Reláciu prehliadača">
+<!ENTITY quit.label "Ukončiť">
+<!ENTITY tbIconsAndText.label "Ikony a Text">
+<!ENTITY tbIcons.label "Len Ikony">
+<!ENTITY tbTooltip.label "Nápoveda">
+<!ENTITY extensionPrefDlg.title "Možnosti Panic Button">
+<!ENTITY tabGeneral.label "Hlavné">
+<!ENTITY tabCustomize.label "Prispôsobiť">
+<!ENTITY panicButtonAction.caption "Akcia Panic Button">
+<!ENTITY actionHideAll.label "Skryť všetky okná">
+<!ENTITY actionMinimizeAll.label "Minimalizovať všetky okná">
+<!ENTITY actionQuit.label "Ukončiť">
+<!ENTITY functionKey.label "Tlačidlo F9 spustí činnosť Panic Button">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "Nadpis lišty nástrojov">
+<!ENTITY toolbarButtonCaption.accesskey "N">
+<!ENTITY toolbarButtonIcon.label "Ikona:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Obnoviť lištu relácie">
+<!ENTITY restoreBarLayout.label "Ukázať:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "Resetnúť">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "Vlastná Ikona...">
+<!ENTITY customIcon.accesskey "u">

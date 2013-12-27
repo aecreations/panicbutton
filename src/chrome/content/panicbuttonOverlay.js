@@ -1,0 +1,455 @@
+/* -*- mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is Panic Button.
+ *
+ * The Initial Developer of the Original Code is 
+ * Alex Eng <ateng@users.sourceforge.net>.
+ * Portions created by the Initial Developer are Copyright (C) 2008-2013
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+
+// Namespace inspired by browser overlay code for Minimize To Tray
+if (! ('extensions' in window)) {
+  window.extensions = {};
+}
+
+if (! ('aecreations' in window.extensions)) {
+  window.extensions.aecreations = {};
+}
+
+if (! ('panicbutton' in window.extensions.aecreations)) {
+  window.extensions.aecreations.panicbutton = {};
+}
+else {
+  throw new Error("panicbutton object already defined");
+}
+
+
+window.extensions.aecreations.panicbutton = {
+  _strBundle:       null,
+  _browserSession:  null,
+  _toolbarIconCls:  [],
+  _osEnv:           null,
+
+  _mutationObserver: null,
+
+  _cssClass: {
+    // The code for the _cssClass object is adapted from "JavaScript: The
+    // Definitive Guide" 5/e by David Flanagan (O'Reilly, 2006, pp. 381-382)
+    is: function (aElt, aCls) {
+      if (typeof aElt == "string") aElt = document.getElementById(aElt);
+
+      var classes = aElt.className;
+      if (! classes) return false;
+      if (classes == aCls) return true;
+
+      return aElt.className.search("\\b" + aCls + "\\b") != -1;
+    },
+
+    add: function (aElt, aCls) {
+      if (typeof aElt == "string") aElt = document.getElementById(aElt);
+      if (this.is(aElt, aCls)) return;
+      if (aElt.className) aCls = " " + aCls;
+      aElt.className += aCls;
+    },
+
+    remove: function (aElt, aCls) {
+      if (typeof aElt == "string") aElt = document.getElementById(aElt);
+      aElt.className = aElt.className.replace(new RegExp("\\b" + aCls + "\\b\\s*", "g"), "");
+      aElt.className = window.extensions.aecreations.panicbutton.aeString.trim(aElt.className);
+    }
+  },
+
+
+  handleEvent: function (aEvent)
+  {
+    let that = window.extensions.aecreations.panicbutton;
+
+    if (aEvent.type == "load") {
+      that.init();
+    }
+    else if (aEvent.type == "unload") {
+      window.removeEventListener("load",   that, false);
+      window.removeEventListener("unload", that, false);
+      that._mutationObserver.disconnect();
+    }
+  },
+
+
+  init: function ()
+  {
+    this._initToolbarIconClasses();
+    this._strBundle = document.getElementById("ae-panicbutton-strings");
+    try {
+      this._browserSession = Components.classes['aecreations@mozdev.org/panicbutton/browser-session;1'].getService(Components.interfaces.nsIBrowserSession);
+    }
+    catch (e) {
+      alert(e);
+    }
+
+    this._osEnv = this.aeUtils.getOS();
+    this.aeUtils.log("Panic Button OS environment: " + this._osEnv);
+
+    // Set up observer that will apply customizations to the Panic Button
+    // toolbar button when it is added to the toolbar.
+    this._mutationObserver = new MutationObserver(function (aMutationRecs, aMutationObs) {
+        aMutationRecs.forEach(function (aMutation) {
+            if (aMutation.type == "childList") {
+              for (let i = 0; i < aMutation.addedNodes.length; i++) {
+                let addedNode = aMutation.addedNodes[i];
+                if (addedNode.nodeName == "toolbarbutton" 
+                    && addedNode.id == "ae-panicbutton-toolbarbutton") {
+                  window.extensions.aecreations.panicbutton.setPanicButtonCustomizations();
+                }
+              }
+            }
+          });
+      });
+    let mutationObsConfig = { 
+      childList: true, 
+      subtree: true 
+    };
+
+    // Set the target for observing DOM mutations to be the parent element of
+    // the browser navigation toolbar.  This ensures that it will work if the
+    // user placed the Panic Button toolbar button into a custom toolbar.
+    let browserToolbox = document.getElementById("navigator-toolbox");
+    this._mutationObserver.observe(browserToolbox, mutationObsConfig);
+
+    // Migrate prefs from root to the "extensions." branch
+    let prefsMigrated = this.aeUtils.getPref("panicbutton.migrated_prefs", false);
+    if (! prefsMigrated) {
+      this.aePrefMigrator.migratePrefs();
+      this.aeUtils.setPref("panicbutton.migrated_prefs", true);
+    }
+
+    let firstRun = this.aeUtils.getPref("panicbutton.first_run", true);
+    if (firstRun) {
+      this.aeUtils.log("It appears that this is the first time you are running Panic Button.  Welcome!");
+
+      this._addPanicButton();
+      this.aeUtils.setPref("panicbutton.first_run", false);
+    }
+
+    this.applyUserPrefs();
+  },
+
+
+  _addPanicButton: function ()
+  {
+    // Add the Panic Button toolbar button to the browser's navigation toolbar,
+    // if it was not added already.
+    let toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
+    let browserNavBarElt = document.getElementById("nav-bar");
+    if (browserNavBarElt && !toolbarBtnElt) {
+      browserNavBarElt.insertItem("ae-panicbutton-toolbarbutton");
+      browserNavBarElt.setAttribute("currentset", browserNavBarElt.currentSet);
+      document.persist("nav-bar", "currentset");
+    }
+  },
+
+
+  _initToolbarIconClasses: function ()
+  {
+    this._toolbarIconCls[0]  = "ae-panicbutton-default";
+    this._toolbarIconCls[1]  = "ae-panicbutton-exclamation-in-ball";
+    this._toolbarIconCls[2]  = "ae-panicbutton-quit";
+    this._toolbarIconCls[3]  = "ae-panicbutton-exit-door";
+    this._toolbarIconCls[4]  = "ae-panicbutton-window-minimize";
+    this._toolbarIconCls[5]  = "ae-panicbutton-window-with-exclamation";
+    this._toolbarIconCls[6]  = "ae-panicbutton-window-with-exclamation-ball";
+    this._toolbarIconCls[7]  = "ae-panicbutton-window-with-cross";
+    this._toolbarIconCls[8]  = "ae-panicbutton-window-with-check";
+    this._toolbarIconCls[9]  = "ae-panicbutton-plain-window";
+    this._toolbarIconCls[10] = "ae-panicbutton-dotted-window";
+    this._toolbarIconCls[11] = "ae-panicbutton-window-with-globe";
+    this._toolbarIconCls[12] = "ae-panicbutton-web-page";
+    this._toolbarIconCls[13] = "ae-panicbutton-web-page-with-globe";
+    this._toolbarIconCls[14] = "ae-panicbutton-web-document";
+    this._toolbarIconCls[15] = "ae-panicbutton-smiley";
+    this._toolbarIconCls[16] = "ae-panicbutton-picture";
+    this._toolbarIconCls[17] = "ae-panicbutton-desktop";
+    this._toolbarIconCls[18] = "ae-panicbutton-computer";
+    this._toolbarIconCls[19] = "ae-panicbutton-letter-a";
+  },
+
+
+  applyUserPrefs: function ()
+  {
+    // Enable or disable F9 key
+    var keyEnabled = this.aeUtils.getPref("panicbutton.enable_function_key", true);
+    var keysetElt = document.getElementById("mainKeyset");
+    var panicButtonKeyElt, macPanicButtonKeyElt;
+
+    for (let i = 0; i < keysetElt.childNodes.length; i++) {
+      var child = keysetElt.childNodes[i];
+      if (child.id == "ae_key_panicbutton") {
+	panicButtonKeyElt = child;
+      }
+      else if (child.id == "ae_key_mac_panicbutton") {
+	macPanicButtonKeyElt = child;
+      }
+    }
+
+    if (keyEnabled) {
+      // The following code works, but the user must still either restart the
+      // app or open a new window for the change to take effect.
+      if (! panicButtonKeyElt) {
+	panicButtonKeyElt = document.createElement("key");
+	panicButtonKeyElt.id = "ae_key_panicbutton";
+	panicButtonKeyElt.setAttribute("keycode", "VK_F9");
+	panicButtonKeyElt.setAttribute("command", "ae_cmd_panicbutton");
+	keysetElt.appendChild(panicButtonKeyElt);
+      }
+      if (! macPanicButtonKeyElt) {
+	macPanicButtonKeyElt = document.createElement("key");
+	macPanicButtonKeyElt.id = "ae_key_mac_panicbutton";
+	macPanicButtonKeyElt.setAttribute("keycode", "VK_F9");
+	macPanicButtonKeyElt.setAttribute("modifiers", "meta");
+	macPanicButtonKeyElt.setAttribute("command", "ae_cmd_panicbutton");
+	keysetElt.appendChild(macPanicButtonKeyElt);     
+      }
+    }
+    else {
+      if (panicButtonKeyElt) {
+	keysetElt.removeChild(panicButtonKeyElt);
+      }
+      if (macPanicButtonKeyElt) {
+	keysetElt.removeChild(macPanicButtonKeyElt);
+      }
+    }
+
+    this.setPanicButtonCustomizations();
+  },
+
+
+  setPanicButtonCustomizations: function ()
+  {
+    var toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
+    if (toolbarBtnElt) {
+      // Set Panic Button toolbar button label
+      var toolbarBtnLabel = this.aeUtils.getPref("panicbutton.toolbarbutton.label", "");
+      if (toolbarBtnLabel) {
+	toolbarBtnElt.label = toolbarBtnLabel;
+      }
+      else {
+	toolbarBtnElt.label = this._strBundle.getString('panicbutton.defaultLabel');
+      }
+
+      // Set Panic Button toolbar button image
+      var oldCls = this._getOldToolbarButtonClass(toolbarBtnElt);
+      this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): old toolbar button classname: %S", oldCls));
+      var customImgURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
+
+      if (customImgURL) {
+	// URLs other than file:// are not acceptable - reset the pref and set
+	// the toolbar button to the built-in icon that was previously selected
+	if (customImgURL.search(/^file:\/\//) == -1) {
+	  this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
+	  customImgURL = "";
+	}
+	else {
+	  this._cssClass.remove(toolbarBtnElt, oldCls);
+	  this._cssClass.add(toolbarBtnElt, "ae-panicbutton-custom-icon");
+	  toolbarBtnElt.setAttribute("image", customImgURL);
+	}
+      }
+      else {
+	toolbarBtnElt.removeAttribute("image");
+      }
+
+      if (! customImgURL) {
+	var iconIdx = this.aeUtils.getPref("panicbutton.toolbarbutton.icon", 0);
+	this._cssClass.remove(toolbarBtnElt, oldCls);
+	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): after removing old classname, toolbar button classname is now: %S", toolbarBtnElt.className));
+	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): adding toolbar button class: %S", this._toolbarIconCls[iconIdx]));
+
+	this._cssClass.add(toolbarBtnElt, this._toolbarIconCls[iconIdx]);
+	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): toolbar button classname is changed to: %S", toolbarBtnElt.className));
+      }
+    }
+  },
+
+
+  _getOldToolbarButtonClass: function (aToolbarButtonElt)
+  {
+    var allClassNames = aToolbarButtonElt.className;
+    var rv = allClassNames.replace(/toolbarbutton\-1 /, "");
+    if (rv && typeof(rv) == 'string') rv = this.aeString.trim(rv);
+    return rv;
+  },
+
+
+  doPanicAction: function ()
+  {
+    var action = this.aeUtils.getPref("panicbutton.action", 0);
+
+    if (this._browserSession.replaceSession) {
+      this._restoreSession();
+      return;
+    }
+
+    if (action == this.aeConstants.PANICBUTTON_ACTION_HIDE) {
+      this._closeAll(true);
+    }
+    else if (action == this.aeConstants.PANICBUTTON_ACTION_MINIMIZE) {
+      this._minimizeAll();
+    }
+    else if (action == this.aeConstants.PANICBUTTON_ACTION_QUIT) {
+      this._closeAll(false);
+    }
+    else if (action == this.aeConstants.PANICBUTTON_ACTION_REPLACE) {
+      let replacementURL = this.aeUtils.getPref("panicbutton.action.replace.web_pg_url", this.aeConstants.REPLACE_WEB_PAGE_DEFAULT_URL);
+      this._closeAll(true, replacementURL);
+    }
+  },
+
+
+  _closeAll: function (aSaveSession, aReplacementURL)
+  {
+    if (aSaveSession) {
+      var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
+                         .getService(Components.interfaces.nsISessionStore);
+      var state = ss.getBrowserState();
+      this._browserSession.data = state;
+
+      if (aReplacementURL) {
+	this._browserSession.replaceSession = true;
+      }
+    }
+
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                       .getService(Components.interfaces.nsIWindowMediator);
+    // Close any open dialog boxes
+    // **NOTE: The enumerator returned by nsIWindowMediator.getEnumerator()
+    // will exclude system native file-picker dialogs.
+    var dlgEnum = wm.getEnumerator("");
+
+    while (dlgEnum.hasMoreElements()) {
+      var dlg = dlgEnum.getNext();
+      var docElt = dlg.document.documentElement;
+      if (docElt.tagName == "dialog" || docElt.tagName == "prefwindow"
+	  || docElt.tagName == "wizard") {
+	docElt.cancelDialog();
+      }
+    }
+
+    var wndEnum = wm.getEnumerator("");
+
+    // Need to do this to make it work on Firefox 3
+    window.setTimeout(function () { 
+      let that = window.extensions.aecreations.panicbutton;
+      that._doCloseAllWindows.apply(that,
+				    [aSaveSession, wndEnum, aReplacementURL]);
+    }, 1);
+  },
+
+  
+  _doCloseAllWindows: function (aSaveSession, aWndEnum, aReplacementURL) {
+    var that = window.extensions.aecreations.panicbutton;
+    that._closeAllWindows.apply(that, arguments);
+  },
+
+
+  _closeAllWindows: function (aSaveSession, aWndEnum, aReplacementURL)
+  {
+    // Close browser and ancillary app windows
+    while (aWndEnum.hasMoreElements()) {
+      var wnd = aWndEnum.getNext();
+      wnd.close();
+    }
+
+    if (aSaveSession && aReplacementURL) {
+      window.open(aReplacementURL);
+    }
+    else if (aSaveSession && !aReplacementURL) {
+      var wndURL = "chrome://panicbutton/content/panicbuttonToolbar.xul";
+      var wndFeatures = "chrome,dialog=0,popup";
+
+      if (this._osEnv == "Darwin") {
+	// On Mac OS X, OS_TARGET is "Darwin"
+	// Workaround strange behaviour with popups on Mac OS X; see bug 19026
+	wndURL += "?tbchrome=none";
+	wndFeatures = "chrome,dialog=0,resizable=0";
+      }
+      else if (this._osEnv == "Linux") {
+	// Neither the titlebar nor windoid border colours show up properly on
+	// Gnome or KDE; see bug 19051
+	// Also use JS persistence of windoid position since XUL persistence
+	// doesn't work on Linux
+	wndURL += "?tbchrome=override&jspos=1";
+      }
+
+      window.open(wndURL, "ae_pbtb", wndFeatures);
+    }
+    else {
+      var appStartup = Components.classes["@mozilla.org/toolkit/app-startup;1"]
+                                 .getService(Components.interfaces.nsIAppStartup);
+      appStartup.quit(appStartup.eForceQuit);
+    }
+  },
+
+  
+  _minimizeAll: function () 
+  {
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                       .getService(Components.interfaces.nsIWindowMediator);
+    var wndEnum = wm.getEnumerator("");  // Get all host app windows
+
+    while (wndEnum.hasMoreElements()) {
+      var wnd = wndEnum.getNext();
+      wnd = wnd.QueryInterface(Components.interfaces.nsIDOMChromeWindow);
+      wnd.minimize();
+    }
+  },
+
+
+  _restoreSession : function ()
+  {
+    var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
+                       .getService(Components.interfaces.nsISessionStore);
+
+    ss.setBrowserState(this._browserSession.data);
+    this._browserSession.replaceSession = false;
+    this._browserSession.data = "";
+  }
+};
+
+
+//
+// JavaScript modules
+//
+
+Components.utils.import("resource://panicbutton/modules/aeUtils.js",
+			window.extensions.aecreations.panicbutton);
+Components.utils.import("resource://panicbutton/modules/aeString.js",
+			window.extensions.aecreations.panicbutton);
+Components.utils.import("resource://panicbutton/modules/aeConstants.js",
+			window.extensions.aecreations.panicbutton);
+Components.utils.import("resource://panicbutton/modules/aePrefMigrator.js",
+			window.extensions.aecreations.panicbutton);
+
+
+//
+// Event handler initialization
+//
+
+window.addEventListener("load", window.extensions.aecreations.panicbutton, false);
+window.addEventListener("unload", window.extensions.aecreations.panicbutton, false);
+

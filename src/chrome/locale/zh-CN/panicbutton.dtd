@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "恢复进程">
+<!ENTITY restoreSession.label "恢复浏览进程">
+<!ENTITY quit.label "退出">
+<!ENTITY tbIconsAndText.label "图标和文字">
+<!ENTITY tbIcons.label "图标">
+<!ENTITY tbTooltip.label "工具提示">
+<!ENTITY extensionPrefDlg.title "Panic Button 选项">
+<!ENTITY tabGeneral.label "一般">
+<!ENTITY tabCustomize.label "定制">
+<!ENTITY panicButtonAction.caption "Panic Button 按钮动作">
+<!ENTITY selectAction.label "选择动作：">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "隐藏所有窗口">
+<!ENTITY actionMinimizeAll.label "最小化所有窗口">
+<!ENTITY actionQuit.label "退出 Firefox">
+<!ENTITY actionReplace.label "隐藏并替换">
+<!ENTITY functionKey.label "F9 调用 Panic Button 按钮动作">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "工具栏按钮文字:">
+<!ENTITY toolbarButtonCaption.accesskey "c">
+<!ENTITY toolbarButtonIcon.label "图标:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "恢复进程工具栏">
+<!ENTITY restoreBarLayout.label "显示:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "恢复">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "定制图标...">
+<!ENTITY customIcon.accesskey "u">

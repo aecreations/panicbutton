@@ -7,11 +7,11 @@
     <em:name>Panic Button</em:name>
     <em:id>{24cea704-946d-11da-a72b-0800200c9a66}</em:id>
     <em:type>2</em:type>
-    <em:version>1.5.3.1</em:version>
+    <em:version>1.5.3.1+</em:version>
     <em:description>Quickly hide all browser windows with a click of a button.</em:description>
     <em:creator>AE Creations</em:creator>
     <em:contributor>Babelzilla Translators</em:contributor>
-    <em:homepageURL>http://aecreations.mozdev.org/</em:homepageURL>
+    <em:homepageURL>http://aecreations.sourceforge.net/</em:homepageURL>
     <em:optionsURL>chrome://panicbutton/content/preferences.xul</em:optionsURL>
 
     <!-- Firefox -->

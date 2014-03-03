@@ -129,8 +129,8 @@ window.extensions.aecreations.panicbutton = {
     // Set the target for observing DOM mutations to be the parent element of
     // the browser navigation toolbar.  This ensures that it will work if the
     // user placed the Panic Button toolbar button into a custom toolbar.
-    let browserToolbox = document.getElementById("navigator-toolbox");
-    this._mutationObserver.observe(browserToolbox, mutationObsConfig);
+    let mutnObsTarget = document.getElementById("navigator-toolbox");
+    this._mutationObserver.observe(mutnObsTarget, mutationObsConfig);
 
     // Migrate prefs from root to the "extensions." branch
     let prefsMigrated = this.aeUtils.getPref("panicbutton.migrated_prefs", false);

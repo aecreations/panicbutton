@@ -16,7 +16,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2013
+ * Portions created by the Initial Developer are Copyright (C) 2008-2014
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -72,7 +72,7 @@ window.extensions.aecreations.panicbutton = {
     remove: function (aElt, aCls) {
       if (typeof aElt == "string") aElt = document.getElementById(aElt);
       aElt.className = aElt.className.replace(new RegExp("\\b" + aCls + "\\b\\s*", "g"), "");
-      aElt.className = window.extensions.aecreations.panicbutton.aeString.trim(aElt.className);
+      aElt.className = aElt.className.trim();
     }
   },
 
@@ -92,6 +92,12 @@ window.extensions.aecreations.panicbutton = {
   },
 
 
+  isAustralisUI: function ()
+  {
+    return document.getElementById("PanelUI-menu-button") != null;
+  },
+
+
   init: function ()
   {
     this._initToolbarIconClasses();
@@ -104,7 +110,7 @@ window.extensions.aecreations.panicbutton = {
     }
 
     this._osEnv = this.aeUtils.getOS();
-    this.aeUtils.log("Panic Button OS environment: " + this._osEnv);
+    this.aeUtils.log(this.aeString.format("Panic Button OS environment: %s\nHost app: %s (version %s); Australis UI: %b", this._osEnv, Application.name, Application.version, this.isAustralisUI()));
 
     // Set up observer that will apply customizations to the Panic Button
     // toolbar button when it is added to the toolbar.

@@ -16,7 +16,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2013
+ * Portions created by the Initial Developer are Copyright (C) 2008-2014
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -28,7 +28,7 @@ Components.utils.import("resource://panicbutton/modules/aeMozApplication.js");
 
 const EXPORTED_SYMBOLS = ["aeUtils"];
 
-const DEBUG = false;
+const DEBUG = true;
 const EXTENSION_ID = "{24cea704-946d-11da-a72b-0800200c9a66}";
 const PREFNAME_PREFIX = "extensions.aecreations.";
 

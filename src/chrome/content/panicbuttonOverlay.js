@@ -132,10 +132,7 @@ window.extensions.aecreations.panicbutton = {
       subtree: true 
     };
 
-    // Set the target for observing DOM mutations to be the parent element of
-    // the browser navigation toolbar.  This ensures that it will work if the
-    // user placed the Panic Button toolbar button into a custom toolbar.
-    let mutnObsTarget = document.getElementById("navigator-toolbox");
+    let mutnObsTarget = document.getElementById("browser-panel");
     this._mutationObserver.observe(mutnObsTarget, mutationObsConfig);
 
     // Migrate prefs from root to the "extensions." branch
@@ -161,6 +158,11 @@ window.extensions.aecreations.panicbutton = {
   {
     // Add the Panic Button toolbar button to the browser's navigation toolbar,
     // if it was not added already.
+    if (this.isAustralisUI()) {
+      CustomizableUI.addWidgetToArea("ae-panicbutton-toolbarbutton", "nav-bar");
+      return;
+    }
+
     let toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
     let browserNavBarElt = document.getElementById("nav-bar");
     if (browserNavBarElt && !toolbarBtnElt) {

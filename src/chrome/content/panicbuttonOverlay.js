@@ -98,7 +98,7 @@ window.aecreations.panicbutton = {
     this._initToolbarIconClasses();
     this._strBundle = document.getElementById("ae-panicbutton-strings");
     try {
-      this._browserSession = Components.classes['aecreations@mozdev.org/panicbutton/browser-session;1'].getService(Components.interfaces.nsIBrowserSession);
+      this._browserSession = Components.classes["aecreations@mozdev.org/panicbutton/browser-session;1"].getService(Components.interfaces.nsIBrowserSession);
     }
     catch (e) {
       alert(e);
@@ -254,7 +254,7 @@ window.aecreations.panicbutton = {
 	toolbarBtnElt.label = toolbarBtnLabel;
       }
       else {
-	toolbarBtnElt.label = this._strBundle.getString('panicbutton.defaultLabel');
+	toolbarBtnElt.label = this._strBundle.getString("panicbutton.defaultLabel");
       }
 
       // Set Panic Button toolbar button image
@@ -296,7 +296,7 @@ window.aecreations.panicbutton = {
   {
     var allClassNames = aToolbarButtonElt.className;
     var rv = allClassNames.replace(/toolbarbutton\-1 /, "");
-    if (rv && typeof(rv) == 'string') rv = this.aeString.trim(rv);
+    if (rv && typeof(rv) == "string") rv = this.aeString.trim(rv);
     return rv;
   },
 
@@ -358,15 +358,9 @@ window.aecreations.panicbutton = {
     let wndEnum = wm.getEnumerator("");
     let that = this;
     window.setTimeout(function () { 
-      that._doCloseAllWindows.apply(that,
-				    [aSaveSession, wndEnum, aReplacementURL]);
+      that._closeAllWindows.apply(that,
+	                          [aSaveSession, wndEnum, aReplacementURL]);
     }, 1);
-  },
-
-  
-  _doCloseAllWindows: function (aSaveSession, aWndEnum, aReplacementURL) {
-    var that = window.aecreations.panicbutton;  // Use 'this' instead???
-    that._closeAllWindows.apply(that, arguments);
   },
 
 

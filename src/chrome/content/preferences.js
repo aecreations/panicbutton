@@ -15,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2013
+ * Portions created by the Initial Developer are Copyright (C) 2008-2014
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -223,7 +223,7 @@ function doOK()
   var wndEnum = wm.getEnumerator("navigator:browser");
   while (wndEnum.hasMoreElements()) {
     var wnd = wndEnum.getNext();
-    wnd.extensions.aecreations.panicbutton.applyUserPrefs();
+    wnd.aecreations.panicbutton.applyUserPrefs();
   }
 
   return true;

@@ -24,24 +24,19 @@
  * ***** END LICENSE BLOCK ***** */
 
 
-// Namespace inspired by browser overlay code for Minimize To Tray
-if (! ('extensions' in window)) {
-  window.extensions = {};
+if (! ('aecreations' in window)) {
+  window.aecreations = {};
 }
 
-if (! ('aecreations' in window.extensions)) {
-  window.extensions.aecreations = {};
-}
-
-if (! ('panicbutton' in window.extensions.aecreations)) {
-  window.extensions.aecreations.panicbutton = {};
+if (! ('panicbutton' in window.aecreations)) {
+  window.aecreations.panicbutton = {};
 }
 else {
   throw new Error("panicbutton object already defined");
 }
 
 
-window.extensions.aecreations.panicbutton = {
+window.aecreations.panicbutton = {
   _strBundle:       null,
   _browserSession:  null,
   _toolbarIconCls:  [],
@@ -79,7 +74,7 @@ window.extensions.aecreations.panicbutton = {
 
   handleEvent: function (aEvent)
   {
-    let that = window.extensions.aecreations.panicbutton;
+    let that = window.aecreations.panicbutton;
 
     if (aEvent.type == "load") {
       that.init();
@@ -112,6 +107,8 @@ window.extensions.aecreations.panicbutton = {
     this._osEnv = this.aeUtils.getOS();
     this.aeUtils.log(this.aeString.format("Panic Button OS environment: %s\nHost app: %s (version %s); Australis UI: %b", this._osEnv, Application.name, Application.version, this.isAustralisUI()));
 
+    let that = this;
+
     // Set up observer that will apply customizations to the Panic Button
     // toolbar button when it is added to the toolbar.
     this._mutationObserver = new MutationObserver(function (aMutationRecs, aMutationObs) {
@@ -121,7 +118,7 @@ window.extensions.aecreations.panicbutton = {
                 let addedNode = aMutation.addedNodes[i];
                 if (addedNode.nodeName == "toolbarbutton" 
                     && addedNode.id == "ae-panicbutton-toolbarbutton") {
-                  window.extensions.aecreations.panicbutton.setPanicButtonCustomizations();
+                  that.setPanicButtonCustomizations();
                 }
               }
             }
@@ -358,11 +355,9 @@ window.extensions.aecreations.panicbutton = {
       }
     }
 
-    var wndEnum = wm.getEnumerator("");
-
-    // Need to do this to make it work on Firefox 3
+    let wndEnum = wm.getEnumerator("");
+    let that = this;
     window.setTimeout(function () { 
-      let that = window.extensions.aecreations.panicbutton;
       that._doCloseAllWindows.apply(that,
 				    [aSaveSession, wndEnum, aReplacementURL]);
     }, 1);
@@ -370,7 +365,7 @@ window.extensions.aecreations.panicbutton = {
 
   
   _doCloseAllWindows: function (aSaveSession, aWndEnum, aReplacementURL) {
-    var that = window.extensions.aecreations.panicbutton;
+    var that = window.aecreations.panicbutton;  // Use 'this' instead???
     that._closeAllWindows.apply(that, arguments);
   },
 
@@ -445,19 +440,19 @@ window.extensions.aecreations.panicbutton = {
 //
 
 Components.utils.import("resource://panicbutton/modules/aeUtils.js",
-			window.extensions.aecreations.panicbutton);
+			window.aecreations.panicbutton);
 Components.utils.import("resource://panicbutton/modules/aeString.js",
-			window.extensions.aecreations.panicbutton);
+			window.aecreations.panicbutton);
 Components.utils.import("resource://panicbutton/modules/aeConstants.js",
-			window.extensions.aecreations.panicbutton);
+			window.aecreations.panicbutton);
 Components.utils.import("resource://panicbutton/modules/aePrefMigrator.js",
-			window.extensions.aecreations.panicbutton);
+			window.aecreations.panicbutton);
 
 
 //
 // Event handler initialization
 //
 
-window.addEventListener("load", window.extensions.aecreations.panicbutton, false);
-window.addEventListener("unload", window.extensions.aecreations.panicbutton, false);
+window.addEventListener("load", window.aecreations.panicbutton, false);
+window.addEventListener("unload", window.aecreations.panicbutton, false);
 

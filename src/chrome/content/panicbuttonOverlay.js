@@ -38,7 +38,6 @@ else {
 
 window.aecreations.panicbutton = {
   _strBundle:       null,
-  _browserSession:  null,
   _toolbarIconCls:  [],
   _osEnv:           null,
 
@@ -97,13 +96,6 @@ window.aecreations.panicbutton = {
   {
     this._initToolbarIconClasses();
     this._strBundle = document.getElementById("ae-panicbutton-strings");
-    try {
-      this._browserSession = Components.classes["aecreations@mozdev.org/panicbutton/browser-session;1"].getService(Components.interfaces.nsIBrowserSession);
-    }
-    catch (e) {
-      alert(e);
-    }
-
     this._osEnv = this.aeUtils.getOS();
     this.aeUtils.log(this.aeString.format("Panic Button OS environment: %s\nHost app: %s (version %s); Australis UI: %b", this._osEnv, Application.name, Application.version, this.isAustralisUI()));
 
@@ -305,7 +297,7 @@ window.aecreations.panicbutton = {
   {
     var action = this.aeUtils.getPref("panicbutton.action", 0);
 
-    if (this._browserSession.replaceSession) {
+    if (this.aeBrowserSession.replaceSession) {
       this._restoreSession();
       return;
     }
@@ -332,10 +324,10 @@ window.aecreations.panicbutton = {
       var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                          .getService(Components.interfaces.nsISessionStore);
       var state = ss.getBrowserState();
-      this._browserSession.data = state;
+      this.aeBrowserSession.data = state;
 
       if (aReplacementURL) {
-	this._browserSession.replaceSession = true;
+	this.aeBrowserSession.replaceSession = true;
       }
     }
 
@@ -422,9 +414,9 @@ window.aecreations.panicbutton = {
     var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                        .getService(Components.interfaces.nsISessionStore);
 
-    ss.setBrowserState(this._browserSession.data);
-    this._browserSession.replaceSession = false;
-    this._browserSession.data = "";
+    ss.setBrowserState(this.aeBrowserSession.data);
+    this.aeBrowserSession.replaceSession = false;
+    this.aeBrowserSession.data = "";
   }
 };
 
@@ -438,6 +430,8 @@ Components.utils.import("resource://panicbutton/modules/aeUtils.js",
 Components.utils.import("resource://panicbutton/modules/aeString.js",
 			window.aecreations.panicbutton);
 Components.utils.import("resource://panicbutton/modules/aeConstants.js",
+			window.aecreations.panicbutton);
+Components.utils.import("resource://panicbutton/modules/aeBrowserSession.js",
 			window.aecreations.panicbutton);
 Components.utils.import("resource://panicbutton/modules/aePrefMigrator.js",
 			window.aecreations.panicbutton);

@@ -24,9 +24,9 @@
 
 Components.utils.import("resource://panicbutton/modules/aeUtils.js");
 Components.utils.import("resource://panicbutton/modules/aeConstants.js");
+Components.utils.import("resource://panicbutton/modules/aeBrowserSession.js");
 
 
-var gBrowserSession;
 var gStrBundle;
 
 
@@ -83,7 +83,6 @@ function $(aID)
 
 function load()
 {
-  gBrowserSession = Components.classes['aecreations@mozdev.org/panicbutton/browser-session;1'].getService(Components.interfaces.nsIBrowserSession);
   gStrBundle = $('ae-panicbutton-strings');
 
   aeUtils.log("URL of Restore Session windoid: " + window.location + "\nParameter(s): " + window.location.search);
@@ -215,8 +214,8 @@ function restoreSession()
   var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                      .getService(Components.interfaces.nsISessionStore);
 
-  ss.setBrowserState(gBrowserSession.data);
-  gBrowserSession.data = "";
+  ss.setBrowserState(aeBrowserSession.data);
+  aeBrowserSession.data = "";
 
   var params = getParamsMap(window.location.search);
 

@@ -324,6 +324,8 @@ window.aecreations.panicbutton = {
       var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                          .getService(Components.interfaces.nsISessionStore);
       var state = ss.getBrowserState();
+      this.aeUtils.logToClipboard(state);
+
       this.aeBrowserSession.data = state;
 
       if (aReplacementURL) {

@@ -100,7 +100,7 @@ var aeUtils = {
  },
 
 
- debugLogToClipboard: function (aString)
+ logToClipboard: function (aString)
  {
    if (DEBUG) {
      var cb = Cc["@mozilla.org/widget/clipboardhelper;1"].getService(Ci.nsIClipboardHelper);

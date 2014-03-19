@@ -100,6 +100,16 @@ var aeUtils = {
  },
 
 
+ debugLogToClipboard: function (aString)
+ {
+   if (DEBUG) {
+     var cb = Cc["@mozilla.org/widget/clipboardhelper;1"].getService(Ci.nsIClipboardHelper);
+     cb.copyString(aString);
+     this.beep();
+   }
+ },
+
+
  beep: function () 
  {
    var sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound);

@@ -324,8 +324,8 @@ window.aecreations.panicbutton = {
       var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                          .getService(Components.interfaces.nsISessionStore);
       var state = ss.getBrowserState();
+      
       this.aeUtils.logToClipboard(state);
-
       this.aeBrowserSession.data = state;
 
       if (aReplacementURL) {
@@ -360,14 +360,26 @@ window.aecreations.panicbutton = {
 
   _closeAllWindows: function (aSaveSession, aWndEnum, aReplacementURL)
   {
+    var isPrivateBrowsingEnabled = false;
+
     // Close browser and ancillary app windows
     while (aWndEnum.hasMoreElements()) {
       var wnd = aWndEnum.getNext();
+
+      if (this.PrivateBrowsingUtils.isWindowPrivate(wnd)) {
+        isPrivateBrowsingEnabled = true;
+      }
+
       wnd.close();
     }
 
     if (aSaveSession && aReplacementURL) {
-      window.open(aReplacementURL);
+      let wndFeatures = "titlebar,menubar,toolbar,location,personalbar,scrollbars,resizable";
+      if (isPrivateBrowsingEnabled) {
+        wndFeatures += ",private";
+      }
+
+      window.open(aReplacementURL, "_blank", wndFeatures);
     }
     else if (aSaveSession && !aReplacementURL) {
       var wndURL = "chrome://panicbutton/content/panicbuttonToolbar.xul";
@@ -437,6 +449,8 @@ Components.utils.import("resource://panicbutton/modules/aeBrowserSession.js",
 			window.aecreations.panicbutton);
 Components.utils.import("resource://panicbutton/modules/aePrefMigrator.js",
 			window.aecreations.panicbutton);
+Components.utils.import("resource://gre/modules/PrivateBrowsingUtils.jsm",
+                        window.aecreations.panicbutton);
 
 
 //

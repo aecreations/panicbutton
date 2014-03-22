@@ -16,7 +16,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2014
+ * Portions created by the Initial Developer are Copyright (C) 2008-2014
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):

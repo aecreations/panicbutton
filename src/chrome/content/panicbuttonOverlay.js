@@ -360,14 +360,16 @@ window.aecreations.panicbutton = {
 
   _closeAllWindows: function (aSaveSession, aWndEnum, aReplacementURL)
   {
-    var isPrivateBrowsingEnabled = false;
+    // If ALL browser windows are in Private Browsing mode, then the
+    // replacement window also needs to be private (issue #1).
+    var isAllPrivate = true;
 
     // Close browser and ancillary app windows
     while (aWndEnum.hasMoreElements()) {
-      var wnd = aWndEnum.getNext();
+      let wnd = aWndEnum.getNext();
 
-      if (this.PrivateBrowsingUtils.isWindowPrivate(wnd)) {
-        isPrivateBrowsingEnabled = true;
+      if (isAllPrivate && !this.PrivateBrowsingUtils.isWindowPrivate(wnd)) {
+        isAllPrivate = false;
       }
 
       wnd.close();
@@ -375,15 +377,15 @@ window.aecreations.panicbutton = {
 
     if (aSaveSession && aReplacementURL) {
       let wndFeatures = "titlebar,menubar,toolbar,location,personalbar,scrollbars,resizable";
-      if (isPrivateBrowsingEnabled) {
+      if (isAllPrivate) {
         wndFeatures += ",private";
       }
 
       window.open(aReplacementURL, "_blank", wndFeatures);
     }
     else if (aSaveSession && !aReplacementURL) {
-      var wndURL = "chrome://panicbutton/content/panicbuttonToolbar.xul";
-      var wndFeatures = "chrome,dialog=0,popup";
+      let wndURL = "chrome://panicbutton/content/panicbuttonToolbar.xul";
+      let wndFeatures = "chrome,dialog=0,popup";
 
       if (this._osEnv == "Darwin") {
 	// On Mac OS X, OS_TARGET is "Darwin"

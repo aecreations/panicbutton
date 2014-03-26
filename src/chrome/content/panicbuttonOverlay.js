@@ -196,10 +196,10 @@ window.aecreations.panicbutton = {
 
     for (let i = 0; i < keysetElt.childNodes.length; i++) {
       var child = keysetElt.childNodes[i];
-      if (child.id == "ae_key_panicbutton") {
+      if (child.id == "key_ae_panicbutton") {
 	panicButtonKeyElt = child;
       }
-      else if (child.id == "ae_key_mac_panicbutton") {
+      else if (child.id == "key_ae_mac_panicbutton") {
 	macPanicButtonKeyElt = child;
       }
     }
@@ -209,17 +209,17 @@ window.aecreations.panicbutton = {
       // app or open a new window for the change to take effect.
       if (! panicButtonKeyElt) {
 	panicButtonKeyElt = document.createElement("key");
-	panicButtonKeyElt.id = "ae_key_panicbutton";
+	panicButtonKeyElt.id = "key_ae_panicbutton";
 	panicButtonKeyElt.setAttribute("keycode", "VK_F9");
-	panicButtonKeyElt.setAttribute("command", "ae_cmd_panicbutton");
+	panicButtonKeyElt.setAttribute("command", "cmd_ae_panicbutton");
 	keysetElt.appendChild(panicButtonKeyElt);
       }
       if (! macPanicButtonKeyElt) {
 	macPanicButtonKeyElt = document.createElement("key");
-	macPanicButtonKeyElt.id = "ae_key_mac_panicbutton";
+	macPanicButtonKeyElt.id = "key_ae_mac_panicbutton";
 	macPanicButtonKeyElt.setAttribute("keycode", "VK_F9");
 	macPanicButtonKeyElt.setAttribute("modifiers", "meta");
-	macPanicButtonKeyElt.setAttribute("command", "ae_cmd_panicbutton");
+	macPanicButtonKeyElt.setAttribute("command", "cmd_ae_panicbutton");
 	keysetElt.appendChild(macPanicButtonKeyElt);     
       }
     }
@@ -358,15 +358,15 @@ window.aecreations.panicbutton = {
   },
 
 
-  _closeAllWindows: function (aSaveSession, aWndEnum, aReplacementURL)
+  _closeAllWindows: function (aSaveSession, aBrowserWndEnum, aReplacementURL)
   {
     // If ALL browser windows are in Private Browsing mode, then the
     // replacement window also needs to be private (issue #1).
     var isAllPrivate = true;
 
     // Close browser and ancillary app windows
-    while (aWndEnum.hasMoreElements()) {
-      let wnd = aWndEnum.getNext();
+    while (aBrowserWndEnum.hasMoreElements()) {
+      let wnd = aBrowserWndEnum.getNext();
 
       if (isAllPrivate && !this.PrivateBrowsingUtils.isWindowPrivate(wnd)) {
         isAllPrivate = false;

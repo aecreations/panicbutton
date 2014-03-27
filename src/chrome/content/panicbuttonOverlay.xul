@@ -41,12 +41,6 @@
      oncommand="window.aecreations.panicbutton.doPanicAction()"/>
   </commandset>
 
-  <keyset id="mainKeyset">
-    <key id="key_ae_panicbutton" keycode="VK_F9" command="cmd_ae_panicbutton"/>
-    <key id="key_ae_mac_panicbutton" keycode="VK_F9" modifiers="meta"
-     command="cmd_ae_panicbutton"/>
-  </keyset>
-
   <toolbarpallete id="BrowserToolbarPalette">
     <toolbarbutton id="ae-panicbutton-toolbarbutton" 
      class="toolbarbutton-1 ae-panicbutton-default"

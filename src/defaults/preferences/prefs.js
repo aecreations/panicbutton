@@ -4,7 +4,7 @@ pref("extensions.aecreations.panicbutton.toolbarbutton.label", "");
 pref("extensions.aecreations.panicbutton.toolbarbutton.icon", 0);
 pref("extensions.aecreations.panicbutton.toolbarbutton.custom_icon_url", "");
 pref("extensions.aecreations.panicbutton.key", "VK_F9");
-pref("extensions.aecreations.panicbutton.key.modifers", "");
+pref("extensions.aecreations.panicbutton.key.modifiers", "");
 pref("extensions.aecreations.panicbutton.enable_function_key", true);
 pref("extensions.aecreations.panicbutton.action.replace.web_pg_url", "http://www.mozilla.com/firefox/central/");
 pref("extensions.aecreations.panicbutton.restorebar.layout", 0);

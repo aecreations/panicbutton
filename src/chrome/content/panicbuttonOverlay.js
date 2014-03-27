@@ -189,50 +189,54 @@ window.aecreations.panicbutton = {
 
   applyUserPrefs: function ()
   {
-    // Enable or disable F9 key
-    var keyEnabled = this.aeUtils.getPref("panicbutton.enable_function_key", true);
+    this.setKeyboardShortcut();
+    this.setPanicButtonCustomizations();
+  },
+
+
+  setKeyboardShortcut: function ()
+  {
     var keysetElt = document.getElementById("mainKeyset");
-    var panicButtonKeyElt, macPanicButtonKeyElt;
+    var keycode = this.aeUtils.getPref("panicbutton.key", "");
+    var keyModifiers = this.aeUtils.getPref("panicbutton.key.modifiers", "");
+    var panicButtonKeyElt;
 
     for (let i = 0; i < keysetElt.childNodes.length; i++) {
       var child = keysetElt.childNodes[i];
       if (child.id == "key_ae_panicbutton") {
 	panicButtonKeyElt = child;
       }
-      else if (child.id == "key_ae_mac_panicbutton") {
-	macPanicButtonKeyElt = child;
-      }
     }
 
-    if (keyEnabled) {
-      // The following code works, but the user must still either restart the
-      // app or open a new window for the change to take effect.
+    if (keycode) {
       if (! panicButtonKeyElt) {
-	panicButtonKeyElt = document.createElement("key");
-	panicButtonKeyElt.id = "key_ae_panicbutton";
-	panicButtonKeyElt.setAttribute("keycode", "VK_F9");
-	panicButtonKeyElt.setAttribute("command", "cmd_ae_panicbutton");
-	keysetElt.appendChild(panicButtonKeyElt);
+        panicButtonKeyElt = document.createElement("key");
+        panicButtonKeyElt.id = "key_ae_panicbutton";
+        panicButtonKeyElt.setAttribute("command", "cmd_ae_panicbutton");
+        panicButtonKeyElt.setAttribute("keycode", keycode);
+
+        if (keyModifiers) {
+          panicButtonKeyElt.setAttribute("modifiers", keyModifiers);
+        }
+
+        keysetElt.appendChild(panicButtonKeyElt);
       }
-      if (! macPanicButtonKeyElt) {
-	macPanicButtonKeyElt = document.createElement("key");
-	macPanicButtonKeyElt.id = "key_ae_mac_panicbutton";
-	macPanicButtonKeyElt.setAttribute("keycode", "VK_F9");
-	macPanicButtonKeyElt.setAttribute("modifiers", "meta");
-	macPanicButtonKeyElt.setAttribute("command", "cmd_ae_panicbutton");
-	keysetElt.appendChild(macPanicButtonKeyElt);     
+      else {
+        panicButtonKeyElt.setAttribute("keycode", keycode);
+
+        if (keyModifiers) {
+          panicButtonKeyElt.setAttribute("modifiers", keyModifiers);
+        }
+        else {
+          panicButtonKeyElt.removeAttribute("modifiers");
+        }
       }
     }
     else {
       if (panicButtonKeyElt) {
 	keysetElt.removeChild(panicButtonKeyElt);
       }
-      if (macPanicButtonKeyElt) {
-	keysetElt.removeChild(macPanicButtonKeyElt);
-      }
     }
-
-    this.setPanicButtonCustomizations();
   },
 
 

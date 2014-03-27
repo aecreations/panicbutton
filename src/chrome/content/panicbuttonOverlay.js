@@ -209,6 +209,7 @@ window.aecreations.panicbutton = {
     }
 
     if (keycode) {
+      this.aeUtils.log(this.aeString.format("Panic Button: Setting keyboard shortcut: keycode=%S; modifiers=%S", keycode, keyModifiers));
       if (! panicButtonKeyElt) {
         panicButtonKeyElt = document.createElement("key");
         panicButtonKeyElt.id = "key_ae_panicbutton";

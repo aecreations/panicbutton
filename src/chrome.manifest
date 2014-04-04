@@ -35,10 +35,3 @@ locale	panicbutton	sv-SE	chrome/locale/sv-SE/
 #locale	panicbutton	uk-UA	chrome/locale/uk-UA/
 locale	panicbutton	zh-CN	chrome/locale/zh-CN/
 locale	panicbutton	zh-TW	chrome/locale/zh-TW/
-
-
-interfaces	components/nsIBrowserSession.xpt
-
-# nsIBrowserSession
-component	{ecb163c0-d7f5-11dc-95ff-0800200c9a66}	components/nsBrowserSession.js
-contract	aecreations@mozdev.org/panicbutton/browser-session;1	{ecb163c0-d7f5-11dc-95ff-0800200c9a66}

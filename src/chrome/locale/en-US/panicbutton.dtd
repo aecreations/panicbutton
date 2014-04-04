@@ -10,6 +10,9 @@
 <!ENTITY tbTooltip.label "Tooltips">
 
 <!-- Extension preferences dialog -->
+<!ENTITY prefOptions.label "Options">
+<!ENTITY prefCustomize.label "Customize">
+
 <!ENTITY extensionPrefDlg.title "Panic Button Options">
 <!ENTITY tabGeneral.label "Options">
 <!ENTITY tabCustomize.label "Customize">

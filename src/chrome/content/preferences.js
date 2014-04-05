@@ -239,5 +239,5 @@ function doOK()
 
 function showNewPreferencesDlg()
 {
-  window.open("chrome://panicbutton/content/options.xul", "panicbutton_prefsEx", "chrome,dialog,centerscreen");
+  window.openDialog("chrome://panicbutton/content/options.xul", "dlg_panicbutton_prefsEx", "chrome,titlebar,toolbar,centerscreen,dialog=yes", "pane-general");
 }

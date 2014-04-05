@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://panicbutton-laf/skin/options.css" type="text/css"?>
+<?xml-stylesheet href="chrome://panicbutton/skin/options.css" type="text/css"?>
 
 <!DOCTYPE prefwindow SYSTEM "chrome://panicbutton/locale/panicbutton.dtd">
 
@@ -27,7 +27,7 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 
-<prefwindow id="ae-panicbutton-prefs"
+<prefwindow id="ae-panicbutton-preferences"
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
  onunload="unloadDlg()" ondialogaccept="applyPrefChanges()">
 

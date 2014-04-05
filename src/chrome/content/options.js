@@ -53,7 +53,7 @@ function initDlg()
     else {
       titleKey = "panicbuttonPreferences";
     }
-    $("ae-panicbutton-prefs").setAttribute("title", gStrBundle.getString(titleKey));
+    $("ae-panicbutton-preferences").setAttribute("title", gStrBundle.getString(titleKey));
 
     gIsDlgInitialized = true;
   }
@@ -69,7 +69,7 @@ function applyPrefChanges()
 
 function unloadDlg()
 {
-  var instantApplyPrefs = $("ae-panicbutton-prefs").instantApply;
+  var instantApplyPrefs = $("ae-panicbutton-preferences").instantApply;
 
   if (instantApplyPrefs) {
     applyPrefChanges();

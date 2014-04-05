@@ -30,7 +30,9 @@
 <dialog id="ae-panicbutton-preferences" 
  title="&extensionPrefDlg.title;"
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
- minwidth="300" onload="init()" ondialogaccept="doOK()">
+ minwidth="300" buttons="accept,cancel,extra2"
+ buttonlabelextra2="Preferences..." buttonaccesskeyextra2="P"
+ onload="init()" ondialogaccept="doOK()" ondialogextra2="showNewPreferencesDlg()">
 
   <script type="application/javascript" src="chrome://panicbutton/content/preferences.js"/>
 

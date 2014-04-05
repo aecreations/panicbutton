@@ -80,7 +80,7 @@ function init()
     gEnableFuncKey.label = gStrBundle.getString("macEnableShortcutKey");
   }
 
-  gEnableFuncKey.checked = aeUtils.getPref("panicbutton.enable_function_key", true);
+  gEnableFuncKey.checked = aeUtils.getPref("panicbutton.key", "VK_F9");
 
   gToolbarIconListElt = $("toolbar-button-icon");
 
@@ -202,6 +202,13 @@ function doOK()
   aeUtils.setPref("panicbutton.toolbarbutton.label", gToolbarBtnCaption.value);
   aeUtils.setPref("panicbutton.restorebar.layout", gRestSessToolbarLayout.selectedIndex);
 
+  let (key = "") {
+    if (gEnableFuncKey.checked) {
+      key = "VK_F9";
+    }
+    aeUtils.setPref("panicbutton.key", key);
+  };
+
   if (! gURLTextboxElt.value) {
     gURLTextboxElt.value = "about:blank";
   }
@@ -229,3 +236,8 @@ function doOK()
   return true;
 }
 
+
+function showNewPreferencesDlg()
+{
+  window.open("chrome://panicbutton/content/options.xul", "panicbutton_prefsEx", "chrome,dialog,centerscreen");
+}

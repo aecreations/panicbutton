@@ -25,11 +25,21 @@
 Components.utils.import("resource://panicbutton/modules/aeUtils.js");
 Components.utils.import("resource://panicbutton/modules/aeConstants.js");
 
+const PANICBUTTON_SHORTCUT_KEY = "VK_F9";
+
+var gPanicButtonActionDescKeys = ["Hide", "Minimize", "Quit", "Replace"];
+
+
+function $(aID)
+{
+  return document.getElementById(aID);
+}
+
 
 function initPrefPaneGeneral()
 {
   initDlg();
-  /***
+
   // Workaround to height rendering issue on the <description> element of the
   // pref dialog.  Do not do this on platforms where pref dialogs dynamically
   // adjust their heights when switching between pref panes (e.g. Mac OS X), as
@@ -37,11 +47,36 @@ function initPrefPaneGeneral()
   var fadeInEffect = Application.prefs.get("browser.preferences.animateFadeIn");
   if (! fadeInEffect.value) {
     window.sizeToContent();
-    let vboxId = "TO DO: Put the ID of the <vbox> element here";
+    let vboxId = "panicbutton-action-detail";
     let vbox = $(vboxId);
     vbox.height = vbox.boxObject.height;
     window.sizeToContent();
   }
-  ***/
-  // TO DO: Other initialization code here
+
+  updatePanicButtonActionDesc(true);
+
+  var shortcutKey = aeUtils.getPref("panicbutton.key", PANICBUTTON_SHORTCUT_KEY);
+  $("enable-function-key").checked = Boolean(shortcutKey);
+}
+
+
+function updatePanicButtonActionDesc(aInitDlg)
+{
+  var panicButtonActionDesc = $("panicbutton-action-desc");
+  var actionIndex = $("panicbutton-action").selectedIndex;
+  var actionDescKey = "actionDesc" + gPanicButtonActionDescKeys[actionIndex];
+  var actionDescTxtNode = document.createTextNode(gStrBundle.getString(actionDescKey));
+
+  if (! aInitDlg) {
+    panicButtonActionDesc.removeChild(panicButtonActionDesc.firstChild);
+  }
+
+  panicButtonActionDesc.appendChild(actionDescTxtNode);
+}
+
+
+function applyGeneralPrefChanges()
+{
+  var shortcutKey = $("enable-function-key").checked ? PANICBUTTON_SHORTCUT_KEY : "";
+  aeUtils.setPref("panicbutton.key", shortcutKey);
 }

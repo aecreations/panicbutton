@@ -23,3 +23,23 @@
  * ***** END LICENSE BLOCK ***** */
 
 @import url("chrome://global/skin/global.css");
+
+
+separator.very-thin {
+  height: 0.25em;
+}
+
+#panicbutton-action-desc {
+  width:        25em;
+  margin-left: 1.5em;
+}
+
+
+.ae-caption {
+  margin-left: 0px;
+}
+
+.ae-group-box {
+  -moz-box-flex: 1;
+  margin-left: 1.0em;
+}

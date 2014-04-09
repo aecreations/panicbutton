@@ -62,8 +62,10 @@ function initDlg()
 
 function applyPrefChanges()
 {
-  // TO DO: Perform any necessary actions to update the extension preferences
-  // when this dialog is closed.
+  if (typeof(applyGeneralPrefChanges) == "function") {
+    // This function is only defined if its originating pref pane was loaded.
+    applyGeneralPrefChanges();
+  }
 }
 
 

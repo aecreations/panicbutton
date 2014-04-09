@@ -12,11 +12,13 @@
 <!-- Extension preferences dialog -->
 <!ENTITY prefOptions.label "Options">
 <!ENTITY prefCustomize.label "Customize">
+<!ENTITY panicButtonAction.label "Panic Button action:">
+<!ENTITY panicButtonAction.accesskey "a">
+<!ENTITY shortcutKey.caption "Shortcut Key">
 
 <!ENTITY extensionPrefDlg.title "Panic Button Options">
 <!ENTITY tabGeneral.label "Options">
 <!ENTITY tabCustomize.label "Customize">
-<!ENTITY panicButtonAction.caption "Panic Button action">
 <!ENTITY selectAction.label "Select action:">
 <!ENTITY selectAction.accesskey "a">
 <!ENTITY actionHideAll.label "Hide all windows">
@@ -37,3 +39,5 @@
 <!ENTITY customIcon.label "Custom Icon...">
 <!ENTITY customIcon.accesskey "u">
 
+<!-- DEPRECATED -->
+<!ENTITY panicButtonAction.caption "Panic Button action">

@@ -30,10 +30,46 @@
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <prefpane id="pane-general" onpaneload="initPrefPaneGeneral()">
-    <label value="pane-general"/>
-    
-    <!-- TO DO: Put preferences pane elements here -->
 
+    <preferences>
+      <preference id="panicbutton-action-pref" type="int"
+       name="extensions.aecreations.panicbutton.action"/>
+    </preferences>
+
+    <vbox style="min-width:32em">
+      <grid flex="1">
+        <columns><column/><column flex="1"/></columns>
+          <rows>
+            <row align="center">
+              <label value="&panicButtonAction.label;"
+	       accesskey="&panicButtonAction.accesskey;"
+               control="panicbutton-action"/>
+              <menulist id="panicbutton-action" 
+               preference="panicbutton-action-pref"
+               oncommand="updatePanicButtonActionDesc()">
+                <menupopup>
+                  <menuitem label="&actionHideAll.label;" value="0"/>
+                  <menuitem label="&actionMinimizeAll.label;" value="1"/>
+                  <menuitem label="&actionQuit.label;" value="2"/>
+                  <menuitem label="&actionReplace.label;" value="3"/>
+                </menupopup>
+              </menulist>
+	    </row>
+          </rows>
+        </grid>
+        <separator class="very-thin"/>
+        <vbox id="panicbutton-action-detail">
+          <description id="panicbutton-action-desc" flex="1"/>
+	</vbox>
+
+        <caption class="ae-caption" label="&shortcutKey.caption;"/>
+        <separator class="groove"/>
+        <vbox class="ae-group-box">
+          <checkbox id="enable-function-key" label="&functionKey.label;" 
+  	   accesskey="&functionKey.accesskey;"/>
+	</vbox>
+     </vbox>
+    
   </prefpane>
 
   <!-- Must put all other non-<prefpane> elements after the <prefpane>,

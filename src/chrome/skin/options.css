@@ -29,6 +29,10 @@ separator.very-thin {
   height: 0.25em;
 }
 
+#panicbutton-action-detail {
+  height: 10em;
+}
+
 #panicbutton-action-desc {
   width:        25em;
   margin-left: 1.5em;

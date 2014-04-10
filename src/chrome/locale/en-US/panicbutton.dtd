@@ -13,14 +13,15 @@
 <!ENTITY prefOptions.label "Options">
 <!ENTITY prefCustomize.label "Customize">
 <!ENTITY panicButtonAction.label "Panic Button action:">
-<!ENTITY panicButtonAction.accesskey "a">
+<!ENTITY panicButtonAction.accesskey "P">
 <!ENTITY shortcutKey.caption "Shortcut Key">
+<!ENTITY restoreBarLayout.caption "Restore Session Toolbar Layout">
+<!ENTITY tbIconsAndText.accesskey "T">
+<!ENTITY tbIcons.accesskey "I">
+<!ENTITY replaceUrl.label "Web Location (URL):">
+<!ENTITY replaceUrl.accesskey "L">
 
 <!ENTITY extensionPrefDlg.title "Panic Button Options">
-<!ENTITY tabGeneral.label "Options">
-<!ENTITY tabCustomize.label "Customize">
-<!ENTITY selectAction.label "Select action:">
-<!ENTITY selectAction.accesskey "a">
 <!ENTITY actionHideAll.label "Hide all windows">
 <!ENTITY actionMinimizeAll.label "Minimize all windows">
 <!ENTITY actionQuit.label "Quit">
@@ -31,9 +32,6 @@
 <!ENTITY toolbarButtonCaption.accesskey "c">
 <!ENTITY toolbarButtonIcon.label "Icon:">
 <!ENTITY toolbarButtonIcon.accesskey "I">
-<!ENTITY restoreBar.caption "Restore Session toolbar">
-<!ENTITY restoreBarLayout.label "Show:">
-<!ENTITY restoreBarLayout.accesskey "S">
 <!ENTITY resetCustomizations.label "Reset">
 <!ENTITY resetCustomizations.accesskey "R">
 <!ENTITY customIcon.label "Custom Icon...">
@@ -41,3 +39,10 @@
 
 <!-- DEPRECATED -->
 <!ENTITY panicButtonAction.caption "Panic Button action">
+<!ENTITY restoreBar.caption "Restore Session toolbar">
+<!ENTITY restoreBarLayout.label "Show:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY tabGeneral.label "Options">
+<!ENTITY tabCustomize.label "Customize">
+<!ENTITY selectAction.label "Select action:">
+<!ENTITY selectAction.accesskey "a">

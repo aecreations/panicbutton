@@ -34,6 +34,10 @@
     <preferences>
       <preference id="panicbutton-action-pref" type="int"
        name="extensions.aecreations.panicbutton.action"/>
+      <preference id="restore-session-toolbar-layout-pref" type="int"
+       name="extensions.aecreations.panicbutton.restorebar.layout"/>
+      <preference id="replace-url-pref" type="string"
+       name="extensions.aecreations.panicbutton.action.replace.web_pg_url"/>
     </preferences>
 
     <vbox style="min-width:32em">
@@ -62,6 +66,38 @@
           <description id="panicbutton-action-desc" flex="1"/>
 	</vbox>
 
+        <deck id="panicbutton-action-options">
+	  <vbox id="panicbutton-action-options-hide-all">
+	    <groupbox>
+	      <caption label="&restoreBarLayout.caption;"/>
+	      <radiogroup id="restore-session-toolbar-layout"
+	       orient="horizontal"
+               preference="restore-session-toolbar-layout-pref">
+                <radio label="&tbIconsAndText.label;"
+                 accesskey="&tbIconsAndText.accesskey;" value="0"/>
+		<radio label="&tbIcons.label;" 
+                 accesskey="&tbIcons.accesskey;" value="1"/>
+              </radiogroup>
+	    </groupbox>
+          </vbox>
+
+	  <vbox id="panicbutton-action-options-minimize-all"/>
+	  <vbox id="panicbutton-action-options-quit"/>
+	  <vbox id="panicbutton-action-options-hide-and-replace">
+            <groupbox orient="horizontal">
+  	      <caption>
+                <label value="&replaceUrl.label;" 
+                 accesskey="&replaceUrl.accesskey;" control="webpg-url"/>
+              </caption>
+              <textbox id="webpg-url" flex="1" preference="replace-url-pref"/>
+              <button id="reset-url" label="&resetCustomizations.label;" 
+               accesskey="&resetCustomizations.accesskey;"
+               oncommand="resetWebPageURL()"/>
+            </groupbox>
+          </vbox>
+        </deck>
+	<separator class="thin"/>
+	
         <caption class="ae-caption" label="&shortcutKey.caption;"/>
         <separator class="groove"/>
         <vbox class="ae-group-box">

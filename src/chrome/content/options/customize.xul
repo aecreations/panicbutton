@@ -30,9 +30,27 @@
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <prefpane id="pane-customize" onpaneload="initPrefPaneCustomize()">
-    <label value="pane-customize"/>
 
-    <!-- TO DO: Put preferences pane elements here -->
+    <preferences>
+      <preference id="toolbar-btn-caption-pref" type="string"
+       name="extensions.aecreations.panicbutton.toolbarbutton.label"/>
+    </preferences>
+
+    <separator class="very-thin"/>
+    <vbox>
+      <grid>
+        <columns><column/><column flex="1"/></columns>
+        <rows>
+          <row align="center">
+            <label value="&toolbarButtonCaption.label;" 
+             accesskey="&toolbarButtonCaption.accesskey;"
+             control="toolbar-button-caption"/>
+            <textbox id="toolbar-button-caption"
+             preference="toolbar-btn-caption-pref"/>
+          </row>
+        </rows>
+      </grid>
+    </vbox>
 
   </prefpane>
 

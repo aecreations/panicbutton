@@ -29,19 +29,13 @@ Components.utils.import("resource://panicbutton/modules/aeConstants.js");
 function initPrefPaneCustomize()
 {
   initDlg();
-  /***
-  // Workaround to height rendering issue on the <description> element of the
-  // pref dialog.  Do not do this on platforms where pref dialogs dynamically
-  // adjust their heights when switching between pref panes (e.g. Mac OS X), as
-  // it will interfere with the dialog height.
-  var fadeInEffect = Application.prefs.get("browser.preferences.animateFadeIn");
-  if (! fadeInEffect.value) {
-    window.sizeToContent();
-    let vboxId = "TO DO: Put the ID of the <vbox> element here";
-    let vbox = $(vboxId);
-    vbox.height = vbox.boxObject.height;
-    window.sizeToContent();
+
+  var toolbarBtnCaption = $("toolbar-button-caption");
+  var toolbarBtnLabel = aeUtils.getPref("panicbutton.toolbarbutton.label", "");
+  if (toolbarBtnLabel) {
+    toolbarBtnCaption.value = toolbarBtnLabel;
   }
-  ***/
-  // TO DO: Other initialization code here
+  else {
+    toolbarBtnCaption.value = gStrBundle.getString("panicbutton.defaultLabel");
+  }
 }

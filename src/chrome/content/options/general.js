@@ -55,6 +55,8 @@ function initPrefPaneGeneral()
 
   updatePanicButtonActionDesc(true);
 
+  $("panicbutton-action-options").selectedIndex = aeUtils.getPref("panicbutton.action");
+
   var shortcutKey = aeUtils.getPref("panicbutton.key", PANICBUTTON_SHORTCUT_KEY);
   $("enable-function-key").checked = Boolean(shortcutKey);
 }
@@ -72,6 +74,14 @@ function updatePanicButtonActionDesc(aInitDlg)
   }
 
   panicButtonActionDesc.appendChild(actionDescTxtNode);
+
+  $("panicbutton-action-options").selectedIndex = actionIndex;
+}
+
+
+function resetWebPageURL()
+{
+  $("webpg-url").value = aeConstants.REPLACE_WEB_PAGE_DEFAULT_URL;
 }
 
 

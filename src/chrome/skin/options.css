@@ -30,14 +30,18 @@ separator.very-thin {
 }
 
 #panicbutton-action-detail {
-  height: 10em;
+  height: 6em;
+}
+
+#panicbutton-action-options {
+  height: 4em;
+  margin-left: 1.5em;
 }
 
 #panicbutton-action-desc {
   width:        25em;
   margin-left: 1.5em;
 }
-
 
 .ae-caption {
   margin-left: 0px;

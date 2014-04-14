@@ -43,6 +43,10 @@ separator.very-thin {
   margin-left: 1.5em;
 }
 
+separator.groove {
+  margin-top: 3px !important;
+}
+
 .ae-caption {
   margin-left: 0px;
 }
@@ -50,4 +54,94 @@ separator.very-thin {
 .ae-group-box {
   -moz-box-flex: 1;
   margin-left: 1.0em;
+}
+
+/* Icon picker */
+.toolbar-icon-list {
+  list-style-image: url("chrome://panicbutton/skin/all/Toolbar.png");
+}
+
+#default-icon {
+  -moz-image-region: rect(40px, 48px, 64px, 24px);
+}
+
+#exclamation-in-ball {
+  -moz-image-region: rect(40px, 24px, 64px, 0px);
+}
+
+#window-with-exclamation {
+  -moz-image-region: rect(40px, 72px, 64px, 48px);
+}
+
+#window-with-cross {
+  -moz-image-region: rect(40px, 96px, 64px, 72px);
+}
+
+#window-minimize {
+  -moz-image-region: rect(40px, 120px, 64px, 96px);
+}
+
+#quit {
+  -moz-image-region: rect(40px, 144px, 64px, 120px);
+}
+
+#exit-door {
+  -moz-image-region: rect(40px, 192px, 64px, 168px);
+}
+
+#window-with-check {
+  -moz-image-region: rect(40px, 168px, 64px, 144px);
+}
+
+#window-with-exclamation-ball {
+  -moz-image-region: rect(40px, 216px, 64px, 192px);
+}
+
+#plain-window {
+  -moz-image-region: rect(40px, 240px, 64px, 216px);
+}
+
+#dotted-window {
+  -moz-image-region: rect(40px, 264px, 64px, 240px);
+}
+
+#window-with-globe {
+  -moz-image-region: rect(40px, 288px, 64px, 264px);
+}
+
+#web-page {
+  -moz-image-region: rect(40px, 312px, 64px, 288px);
+}
+
+#web-page-with-globe {
+  -moz-image-region: rect(40px, 336px, 64px, 312px);
+}
+
+#web-document {
+  -moz-image-region: rect(40px, 360px, 64px, 336px);
+}
+
+#smiley {
+  -moz-image-region: rect(40px, 384px, 64px, 360px);
+}
+
+#picture {
+  -moz-image-region: rect(40px, 408px, 64px, 384px);
+}
+
+#desktop {
+  -moz-image-region: rect(40px, 432px, 64px, 408px);
+}
+
+#computer {
+  -moz-image-region: rect(40px, 456px, 64px, 432px);
+}
+
+#letter-a {
+  -moz-image-region: rect(40px, 480px, 64px, 456px);
+}
+
+#custom-image {
+  width: 24px;
+  height: 24px;
 }

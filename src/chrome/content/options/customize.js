@@ -39,3 +39,15 @@ function initPrefPaneCustomize()
     toolbarBtnCaption.value = gStrBundle.getString("panicbutton.defaultLabel");
   }
 }
+
+
+function setCustomTBIcon()
+{
+  alert("This action is not available right now.");
+}
+
+
+function resetCustomizations()
+{
+  alert("This action is not available right now.");
+}

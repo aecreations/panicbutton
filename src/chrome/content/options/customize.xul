@@ -51,6 +51,62 @@
         </rows>
       </grid>
     </vbox>
+    <separator class="thin"/>
+    <label value="&toolbarButtonIcon.label;"
+     accesskey="&toolbarButtonIcon.accesskey;" control="toolbar-button-icon"/>
+    <radiogroup id="toolbar-button-icon">
+      <grid flex="1">
+        <columns>
+          <column flex="1"/>
+          <column flex="1"/>
+          <column flex="1"/>
+          <column flex="1"/>
+          <column flex="1"/>
+        </columns>
+	<rows>
+          <row>
+            <radio id="default-icon" class="toolbar-icon-list" selected="true"/>
+            <radio id="exclamation-in-ball" class="toolbar-icon-list"/>
+            <radio id="quit" class="toolbar-icon-list"/>
+            <radio id="exit-door" class="toolbar-icon-list"/>
+            <radio id="window-minimize" class="toolbar-icon-list"/>
+            <radio id="window-with-exclamation" class="toolbar-icon-list"/>
+          </row>
+          <row>
+            <radio id="window-with-exclamation-ball" class="toolbar-icon-list"/>
+            <radio id="window-with-cross" class="toolbar-icon-list"/>
+            <radio id="window-with-check" class="toolbar-icon-list"/>
+            <radio id="plain-window" class="toolbar-icon-list"/>
+            <radio id="dotted-window" class="toolbar-icon-list"/>
+            <radio id="window-with-globe" class="toolbar-icon-list"/>
+          </row>
+          <row>
+            <radio id="web-page" class="toolbar-icon-list"/>
+            <radio id="web-page-with-globe" class="toolbar-icon-list"/>
+            <radio id="web-document" class="toolbar-icon-list"/>
+            <radio id="smiley" class="toolbar-icon-list"/>
+            <radio id="picture" class="toolbar-icon-list"/>
+            <radio id="desktop" class="toolbar-icon-list"/>
+          </row>
+          <row>
+            <radio id="computer" class="toolbar-icon-list"/>
+            <radio id="letter-a" class="toolbar-icon-list"/>
+            <radio id="custom-image" hidden="true"/>
+            <spacer flex="1"/>
+            <spacer flex="1"/>
+          </row>
+        </rows>
+      </grid>
+    </radiogroup>
+    <separator class="thin"/>
+    <hbox>
+      <button label="&customIcon.label;" accesskey="&customIcon.accesskey;"
+       oncommand="setCustomTBIcon()"/>
+      <spacer flex="1"/>
+      <button label="&resetCustomizations.label;" 
+       accesskey="&resetCustomizations.accesskey;" 
+       oncommand="resetCustomizations()"/>
+    </hbox>
 
   </prefpane>
 

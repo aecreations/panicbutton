@@ -41,6 +41,47 @@ function initPrefPaneCustomize()
 }
 
 
+function toolbarButtonIcon_keypress(aEvent)
+{
+  var toolbarButtonIcon = $("toolbar-button-icon");
+  var currentIdx = toolbarButtonIcon.selectedIndex;
+  var numCols = 6;
+  var maxIcons = $("custom-image").hidden ? 20 : 21;
+  var newIdx, dir;
+
+  // Override the default handling of arrow keys when inside the <radiogroup>,
+  // so that the up- and down-arrow keys can be correctly handled.
+  switch (aEvent.keyCode) {
+  case aEvent.DOM_VK_LEFT:
+    newIdx = currentIdx - 1;
+    break;
+
+  case aEvent.DOM_VK_RIGHT:
+    newIdx = currentIdx + 1;
+    break;
+
+  case aEvent.DOM_VK_UP:
+    newIdx = currentIdx - numCols;
+    break;
+
+  case aEvent.DOM_VK_DOWN:
+    newIdx = currentIdx + numCols;
+    break;
+
+  default:
+    return;
+  }
+
+  if (newIdx < 0 || newIdx > maxIcons - 1) {
+    newIdx = currentIdx;
+  }
+
+  toolbarButtonIcon.selectedIndex = newIdx;
+
+  aEvent.preventDefault();
+}
+
+
 function setCustomTBIcon()
 {
   alert("This action is not available right now.");

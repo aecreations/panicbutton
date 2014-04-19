@@ -60,6 +60,18 @@ function initDlg()
 }
 
 
+function prefwindow_keydown(aEvent)
+{
+  if (aEvent.target.nodeName == "radiogroup"
+      && aEvent.target.id == "toolbar-button-icon") {
+    if (typeof(toolbarButtonIcon_keypress) == "function") {
+      // Function defined in chrome://panicbutton/content/options/customize.xul
+      toolbarButtonIcon_keypress(aEvent);
+    }
+  }
+}
+
+
 function applyPrefChanges()
 {
   if (typeof(applyGeneralPrefChanges) == "function") {

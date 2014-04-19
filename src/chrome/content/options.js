@@ -26,6 +26,9 @@
 Components.utils.import("resource://panicbutton/modules/aeUtils.js");
 Components.utils.import("resource://panicbutton/modules/aeConstants.js");
 
+const Cc = Components.classes;
+const Ci = Components.interfaces;
+
 var gStrBundle;
 var gIsDlgInitialized;
 
@@ -77,6 +80,17 @@ function applyPrefChanges()
   if (typeof(applyGeneralPrefChanges) == "function") {
     // This function is only defined if its originating pref pane was loaded.
     applyGeneralPrefChanges();
+  }
+
+  if (typeof(applyCustomizePrefChanges) == "function") {
+    applyCustomizePrefChanges();
+  }
+
+  var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
+  var wndEnum = wm.getEnumerator("navigator:browser");
+  while (wndEnum.hasMoreElements()) {
+    var wnd = wndEnum.getNext();
+    wnd.aecreations.panicbutton.applyUserPrefs();
   }
 }
 

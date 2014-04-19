@@ -29,7 +29,8 @@
 
 <prefwindow id="ae-panicbutton-preferences"
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
- onunload="unloadDlg()" ondialogaccept="applyPrefChanges()">
+ onunload="unloadDlg()" ondialogaccept="applyPrefChanges()"
+ onkeydown="prefwindow_keydown(event)">
 
   <prefpane id="pane-general" label="&prefOptions.label;"
    src="chrome://panicbutton/content/options/general.xul"/>

@@ -64,9 +64,9 @@ function prefwindow_keydown(aEvent)
 {
   if (aEvent.target.nodeName == "radiogroup"
       && aEvent.target.id == "toolbar-button-icon") {
-    if (typeof(toolbarButtonIcon_keypress) == "function") {
+    if (typeof(iconPickerKeyboardNav) == "function") {
       // Function defined in chrome://panicbutton/content/options/customize.xul
-      toolbarButtonIcon_keypress(aEvent);
+      iconPickerKeyboardNav(aEvent);
     }
   }
 }

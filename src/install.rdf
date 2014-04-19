@@ -12,7 +12,7 @@
     <em:creator>AE Creations</em:creator>
     <em:contributor>Babelzilla Translators</em:contributor>
     <em:homepageURL>http://aecreations.sourceforge.net/</em:homepageURL>
-    <em:optionsURL>chrome://panicbutton/content/preferences.xul</em:optionsURL>
+    <em:optionsURL>chrome://panicbutton/content/options.xul</em:optionsURL>
 
     <!-- Firefox -->
     <em:targetApplication>

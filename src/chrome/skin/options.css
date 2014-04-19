@@ -141,7 +141,7 @@ separator.groove {
   -moz-image-region: rect(40px, 480px, 64px, 456px);
 }
 
-#custom-image {
+#custom-image image {
   width: 24px;
   height: 24px;
 }

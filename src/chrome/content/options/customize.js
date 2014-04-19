@@ -41,7 +41,7 @@ function initPrefPaneCustomize()
 }
 
 
-function toolbarButtonIcon_keypress(aEvent)
+function iconPickerKeyboardNav(aEvent)
 {
   var toolbarButtonIcon = $("toolbar-button-icon");
   var currentIdx = toolbarButtonIcon.selectedIndex;

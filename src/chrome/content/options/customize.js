@@ -24,12 +24,15 @@
 
 Components.utils.import("resource://panicbutton/modules/aeUtils.js");
 Components.utils.import("resource://panicbutton/modules/aeConstants.js");
+Components.utils.import("resource://panicbutton/modules/aeString.js");
+
+const CUSTOM_TB_ICON_INDEX = 20;
 
 
 function initPrefPaneCustomize()
 {
   initDlg();
-
+  /**
   var toolbarBtnCaption = $("toolbar-button-caption");
   var toolbarBtnLabel = aeUtils.getPref("panicbutton.toolbarbutton.label", "");
   if (toolbarBtnLabel) {
@@ -37,6 +40,11 @@ function initPrefPaneCustomize()
   }
   else {
     toolbarBtnCaption.value = gStrBundle.getString("panicbutton.defaultLabel");
+  }
+  **/
+  var imgURL = aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
+  if (imgURL) {
+    initAndSelectCustomTBIcon(imgURL);
   }
 }
 
@@ -84,11 +92,63 @@ function iconPickerKeyboardNav(aEvent)
 
 function setCustomTBIcon()
 {
-  alert("This action is not available right now.");
+  var fp = Cc["@mozilla.org/filepicker;1"].createInstance(Ci.nsIFilePicker);
+ 
+  fp.init(window, gStrBundle.getString("customIconDlgTitle"), fp.modeOpen);
+  fp.appendFilters(fp.filterImages);
+
+  var fpShownCallback = {
+    done: function (aResult) {
+      if (aResult != fp.returnOK) {
+	return;
+      }
+
+      let imgURL = fp.fileURL.QueryInterface(Ci.nsIURI).spec;
+      if (! imgURL) {
+	aeUtils.alertEx(document.title, gStrBundle.getString("errorInvalidCustomIconURL"));
+	return;
+      }
+
+      initAndSelectCustomTBIcon(imgURL);
+    }
+  };
+
+  fp.open(fpShownCallback);
+}
+
+
+function initAndSelectCustomTBIcon(aCustomIconURL)
+{
+  let toolbarBtnIcon = $("toolbar-button-icon");
+  let customImgItem = $("custom-image");
+
+  customImgItem.removeAttribute("hidden");
+  customImgItem.style.listStyleImage = aeString.format("url(%s)", aCustomIconURL);
+  toolbarBtnIcon.selectedIndex = toolbarBtnIcon.itemCount - 1;
+  toolbarBtnIcon.focus();
 }
 
 
 function resetCustomizations()
 {
-  alert("This action is not available right now.");
+  $("toolbar-button-caption").value = gStrBundle.getString("panicbutton.defaultLabel");
+  $("toolbar-button-icon").selectedIndex = 0;
+}
+
+
+function applyCustomizePrefChanges()
+{
+  var toolbarButtonIcon = $("toolbar-button-icon");
+
+  if (toolbarButtonIcon.selectedIndex == CUSTOM_TB_ICON_INDEX) {
+    let imgURL = $("custom-image").style.listStyleImage;
+    imgURL = imgURL.substring(imgURL.indexOf('"')+1, imgURL.lastIndexOf('"'));
+    aeUtils.log(aeString.format("URL of custom Panic Button toolbar button image: %S", imgURL));
+    aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", imgURL);
+  }
+  else {
+    aeUtils.setPref("panicbutton.toolbarbutton.icon", 
+		    toolbarButtonIcon.selectedIndex);
+    aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
+  }
 }

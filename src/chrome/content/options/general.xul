@@ -62,7 +62,7 @@
           </rows>
         </grid>
         <separator class="very-thin"/>
-        <vbox id="panicbutton-action-detail">
+        <vbox id="panicbutton-action-detail" class="has-description">
           <description id="panicbutton-action-desc" flex="1"/>
 	</vbox>
 
@@ -100,7 +100,8 @@
 	
         <caption class="ae-caption" label="&shortcutKey.caption;"/>
         <separator class="ae-separator"/>
-        <vbox class="ae-group-box">
+        <vbox class="ae-group-box has-description">
+          <description>&prefChange.desc;</description>
           <checkbox id="enable-function-key" label="&functionKey.label;" 
   	   accesskey="&functionKey.accesskey;"/>
 	</vbox>

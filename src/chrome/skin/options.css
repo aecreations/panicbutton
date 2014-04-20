@@ -61,6 +61,11 @@ separator.very-thin {
 }
 
 /* Icon picker */
+#toolbar-button-icon {
+  -moz-appearance: treeview;
+}
+
+/* Icons for the icon picker */
 .toolbar-icon-list {
   list-style-image: url("chrome://panicbutton/skin/all/Toolbar.png");
 }

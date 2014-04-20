@@ -114,7 +114,7 @@ function initAndSelectCustomTBIcon(aCustomIconURL)
   let customImgItem = $("custom-image");
 
   customImgItem.removeAttribute("hidden");
-  customImgItem.style.listStyleImage = aeString.format("url(%s)", aCustomIconURL);
+  customImgItem.style.listStyleImage = aeString.format("url(%S)", aCustomIconURL);
   toolbarBtnIcon.selectedIndex = toolbarBtnIcon.itemCount - 1;
   toolbarBtnIcon.focus();
 }

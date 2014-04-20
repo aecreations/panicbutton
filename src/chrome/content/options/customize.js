@@ -32,16 +32,7 @@ const CUSTOM_TB_ICON_INDEX = 20;
 function initPrefPaneCustomize()
 {
   initDlg();
-  /**
-  var toolbarBtnCaption = $("toolbar-button-caption");
-  var toolbarBtnLabel = aeUtils.getPref("panicbutton.toolbarbutton.label", "");
-  if (toolbarBtnLabel) {
-    toolbarBtnCaption.value = toolbarBtnLabel;
-  }
-  else {
-    toolbarBtnCaption.value = gStrBundle.getString("panicbutton.defaultLabel");
-  }
-  **/
+
   var imgURL = aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
   if (imgURL) {
     initAndSelectCustomTBIcon(imgURL);

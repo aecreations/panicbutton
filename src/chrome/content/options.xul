@@ -33,9 +33,11 @@
  onkeydown="prefwindow_keydown(event)">
 
   <prefpane id="pane-general" label="&prefOptions.label;"
+   image="chrome://panicbutton/skin/images/general.png"
    src="chrome://panicbutton/content/options/general.xul"/>
 
   <prefpane id="pane-customize" label="&prefCustomize.label;"
+   image="chrome://panicbutton/skin/images/customize.png"
    src="chrome://panicbutton/content/options/customize.xul"/>
 
   <!-- Must put all other non-<prefpane> elements after the last <prefpane>,

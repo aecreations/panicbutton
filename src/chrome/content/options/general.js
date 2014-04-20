@@ -47,10 +47,13 @@ function initPrefPaneGeneral()
   var fadeInEffect = Application.prefs.get("browser.preferences.animateFadeIn");
   if (! fadeInEffect.value) {
     window.sizeToContent();
-    let vboxId = "panicbutton-action-detail";
-    let vbox = $(vboxId);
-    vbox.height = vbox.boxObject.height;
-    window.sizeToContent();
+    let vboxes = document.getElementsByClassName("has-description");
+
+    for (let i = 0; i < vboxes.length; i++) {
+      let vbox = vboxes[i];
+      vbox.height = vbox.boxObject.height;
+      window.sizeToContent();      
+    }
   }
 
   updatePanicButtonActionDesc(true);

@@ -82,6 +82,10 @@ function updatePanicButtonActionDesc(aInitDlg)
 function resetWebPageURL()
 {
   $("webpg-url").value = aeConstants.REPLACE_WEB_PAGE_DEFAULT_URL;
+
+  // Also need to set the <preference> element's value, because it won't be set
+  // automatically when the user clicked the "Reset" button.
+  $("replace-url-pref").value = aeConstants.REPLACE_WEB_PAGE_DEFAULT_URL;
 }
 
 

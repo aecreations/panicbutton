@@ -94,6 +94,10 @@ function resetWebPageURL()
 
 function applyGeneralPrefChanges()
 {
+  if ($("webpg-url").value.trim() == "") {
+    aeUtils.setPref("panicbutton.action.replace.web_pg_url", "about:blank");
+  }
+
   var shortcutKey = $("enable-function-key").checked ? PANICBUTTON_SHORTCUT_KEY : "";
   aeUtils.setPref("panicbutton.key", shortcutKey);
 }

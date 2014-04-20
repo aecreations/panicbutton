@@ -20,6 +20,7 @@
 <!ENTITY tbIcons.accesskey "I">
 <!ENTITY replaceUrl.label "Web Location (URL):">
 <!ENTITY replaceUrl.accesskey "L">
+<!ENTITY prefChange.desc "Changes to this setting will take effect in new browser windows.">
 
 <!ENTITY extensionPrefDlg.title "Panic Button Options">
 <!ENTITY actionHideAll.label "Hide all windows">

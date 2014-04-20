@@ -99,7 +99,7 @@
 	<separator class="thin"/>
 	
         <caption class="ae-caption" label="&shortcutKey.caption;"/>
-        <separator class="groove"/>
+        <separator class="ae-separator"/>
         <vbox class="ae-group-box">
           <checkbox id="enable-function-key" label="&functionKey.label;" 
   	   accesskey="&functionKey.accesskey;"/>

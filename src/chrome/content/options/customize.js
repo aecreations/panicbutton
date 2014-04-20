@@ -131,8 +131,12 @@ function initAndSelectCustomTBIcon(aCustomIconURL)
 
 function resetCustomizations()
 {
-  $("toolbar-button-caption").value = gStrBundle.getString("panicbutton.defaultLabel");
   $("toolbar-button-icon").selectedIndex = 0;
+  $("toolbar-button-caption").value = gStrBundle.getString("panicbutton.defaultLabel");
+
+  // Also need to set the <preference> element's value, because it won't be set
+  // automatically when the user clicked the "Reset" button.
+  $("toolbar-btn-caption-pref").value = gStrBundle.getString("panicbutton.defaultLabel");
 }
 
 

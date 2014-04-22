@@ -65,89 +65,90 @@ separator.very-thin {
   -moz-appearance: treeview;
 }
 
-/* Icons for the icon picker */
+/* Icons for the icon picker.  On Firefox 28 or older on Linux, a different
+toolbar icon image file should be used. */
 .toolbar-icon-list {
   list-style-image: url("chrome://panicbutton/skin/all/Toolbar.png");
 }
 
 #default-icon {
-  -moz-image-region: rect(40px, 48px, 64px, 24px);
+  -moz-image-region: rect(18px, 48px, 42px, 24px);
 }
 
 #exclamation-in-ball {
-  -moz-image-region: rect(40px, 24px, 64px, 0px);
+  -moz-image-region: rect(18px, 24px, 42px, 0px);
 }
 
 #window-with-exclamation {
-  -moz-image-region: rect(40px, 72px, 64px, 48px);
+  -moz-image-region: rect(18px, 72px, 42px, 48px);
 }
 
 #window-with-cross {
-  -moz-image-region: rect(40px, 96px, 64px, 72px);
+  -moz-image-region: rect(18px, 96px, 42px, 72px);
 }
 
 #window-minimize {
-  -moz-image-region: rect(40px, 120px, 64px, 96px);
+  -moz-image-region: rect(18px, 120px, 42px, 96px);
 }
 
 #quit {
-  -moz-image-region: rect(40px, 144px, 64px, 120px);
+  -moz-image-region: rect(18px, 144px, 42px, 120px);
 }
 
 #exit-door {
-  -moz-image-region: rect(40px, 192px, 64px, 168px);
+  -moz-image-region: rect(18px, 192px, 42px, 168px);
 }
 
 #window-with-check {
-  -moz-image-region: rect(40px, 168px, 64px, 144px);
+  -moz-image-region: rect(18px, 168px, 42px, 144px);
 }
 
 #window-with-exclamation-ball {
-  -moz-image-region: rect(40px, 216px, 64px, 192px);
+  -moz-image-region: rect(18px, 216px, 42px, 192px);
 }
 
 #plain-window {
-  -moz-image-region: rect(40px, 240px, 64px, 216px);
+  -moz-image-region: rect(18px, 240px, 42px, 216px);
 }
 
 #dotted-window {
-  -moz-image-region: rect(40px, 264px, 64px, 240px);
+  -moz-image-region: rect(18px, 264px, 42px, 240px);
 }
 
 #window-with-globe {
-  -moz-image-region: rect(40px, 288px, 64px, 264px);
+  -moz-image-region: rect(18px, 288px, 42px, 264px);
 }
 
 #web-page {
-  -moz-image-region: rect(40px, 312px, 64px, 288px);
+  -moz-image-region: rect(18px, 312px, 42px, 288px);
 }
 
 #web-page-with-globe {
-  -moz-image-region: rect(40px, 336px, 64px, 312px);
+  -moz-image-region: rect(18px, 336px, 42px, 312px);
 }
 
 #web-document {
-  -moz-image-region: rect(40px, 360px, 64px, 336px);
+  -moz-image-region: rect(18px, 360px, 42px, 336px);
 }
 
 #smiley {
-  -moz-image-region: rect(40px, 384px, 64px, 360px);
+  -moz-image-region: rect(18px, 384px, 42px, 360px);
 }
 
 #picture {
-  -moz-image-region: rect(40px, 408px, 64px, 384px);
+  -moz-image-region: rect(18px, 408px, 42px, 384px);
 }
 
 #desktop {
-  -moz-image-region: rect(40px, 432px, 64px, 408px);
+  -moz-image-region: rect(18px, 432px, 42px, 408px);
 }
 
 #computer {
-  -moz-image-region: rect(40px, 456px, 64px, 432px);
+  -moz-image-region: rect(18px, 456px, 42px, 432px);
 }
 
 #letter-a {
-  -moz-image-region: rect(40px, 480px, 64px, 456px);
+  -moz-image-region: rect(18px, 480px, 42px, 456px);
 }
 
 #custom-image image {

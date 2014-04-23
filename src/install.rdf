@@ -11,7 +11,8 @@
     <em:description>Quickly hide all browser windows with a click of a button.</em:description>
     <em:creator>AE Creations</em:creator>
     <em:contributor>Babelzilla Translators</em:contributor>
-    <em:homepageURL>http://aecreations.sourceforge.net/</em:homepageURL>
+    <em:iconURL>chrome://panicbutton/skin/images/icon.png</em:iconURL>
+    <em:homepageURL>http://aecreations.sourceforge.net/panicbutton/</em:homepageURL>
     <em:optionsURL>chrome://panicbutton/content/options.xul</em:optionsURL>
 
     <!-- Firefox -->

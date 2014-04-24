@@ -200,10 +200,10 @@ toolbar[iconsize="small"] .ae-panicbutton-letter-a {
 
 .ae-panicbutton-custom-icon image {
   /* 24x24 px */
-  height: 24px;
+  height: 32px;
 }
 
 toolbar[iconsize="small"] .ae-panicbutton-custom-icon image {
   /* 16x16 px */
-  height: 16px;
+  height: 24px;
 }

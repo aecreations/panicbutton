@@ -68,7 +68,7 @@ separator.very-thin {
 /* Icons for the icon picker.  On Firefox 28 or older on Linux, a different
 toolbar icon image file should be used. */
 .toolbar-icon-list {
-  list-style-image: url("chrome://panicbutton/skin/all/Toolbar.png");
+  list-style-image: url("chrome://panicbutton/skin/images/Toolbar.png");
 }
 
 #default-icon {

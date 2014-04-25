@@ -22,7 +22,6 @@
 <!ENTITY replaceUrl.accesskey "L">
 <!ENTITY prefChange.desc "Changes to this setting will take effect in new browser windows.">
 
-<!ENTITY extensionPrefDlg.title "Panic Button Options">
 <!ENTITY actionHideAll.label "Hide all windows">
 <!ENTITY actionMinimizeAll.label "Minimize all windows">
 <!ENTITY actionQuit.label "Quit">
@@ -37,13 +36,3 @@
 <!ENTITY resetCustomizations.accesskey "R">
 <!ENTITY customIcon.label "Custom Icon...">
 <!ENTITY customIcon.accesskey "u">
-
-<!-- DEPRECATED -->
-<!ENTITY panicButtonAction.caption "Panic Button action">
-<!ENTITY restoreBar.caption "Restore Session toolbar">
-<!ENTITY restoreBarLayout.label "Show:">
-<!ENTITY restoreBarLayout.accesskey "S">
-<!ENTITY tabGeneral.label "Options">
-<!ENTITY tabCustomize.label "Customize">
-<!ENTITY selectAction.label "Select action:">
-<!ENTITY selectAction.accesskey "a">

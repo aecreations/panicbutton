@@ -40,7 +40,7 @@
        name="extensions.aecreations.panicbutton.action.replace.web_pg_url"/>
     </preferences>
 
-    <vbox style="min-width:32em">
+    <vbox>
       <grid flex="1">
         <columns><column/><column flex="1"/></columns>
           <rows>

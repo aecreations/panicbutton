@@ -25,22 +25,16 @@
 @import url("chrome://global/skin/global.css");
 
 
+prefwindow {
+  min-width: 32em;
+}
+
+prefpane description {
+  font: message-box;
+}
+
 separator.very-thin {
   height: 0.25em;
-}
-
-#panicbutton-action-detail {
-  height: 6em;
-}
-
-#panicbutton-action-options {
-  height: 4em;
-  margin-left: 1.5em;
-}
-
-#panicbutton-action-desc {
-  width:        25em;
-  margin-left: 1.5em;
 }
 
 .ae-separator {
@@ -58,6 +52,20 @@ separator.very-thin {
 .ae-group-box {
   -moz-box-flex: 1;
   margin-left: 1.0em;
+}
+
+#panicbutton-action-detail {
+  height: 6em;
+}
+
+#panicbutton-action-options {
+  height: 4em;
+  margin-left: 1.5em;
+}
+
+#panicbutton-action-desc {
+  width:        25em;
+  margin-left: 1.5em;
 }
 
 /* Icon picker */

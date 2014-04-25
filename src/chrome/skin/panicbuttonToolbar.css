@@ -39,15 +39,8 @@
   padding-top: 1px;
 }
 
-#windoid-close-btn {
-  list-style-image: url("chrome://panicbutton/skin/all/windoidCtrls.png");
-
-  /* Disabled close button */
-  -moz-image-region: rect(45px, 14px, 60px, 0px);
-}
-
 toolbarbutton {
-  list-style-image: url("chrome://panicbutton/skin/all/panicbuttonToolbar.png");
+  list-style-image: url("chrome://panicbutton/skin/images/panicbuttonToolbar.png");
 }
 
 /* Workaround to unwanted margin on right of toolbarbutton images in the

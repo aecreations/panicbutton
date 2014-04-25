@@ -116,7 +116,7 @@ function load()
   }
 
   if (tbChromeOverride) {
-    $("windoid-title-bar").style.backgroundImage = "url('chrome://panicbutton/skin/all/windoidTitleBar.png')";
+    $("windoid-title-bar").style.backgroundImage = "url('chrome://panicbutton/skin/images/windoidTitleBar.png')";
     $("windoid-border").style.border = "2px solid #808080";
   }
 

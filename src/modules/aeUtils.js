@@ -29,6 +29,7 @@ Components.utils.import("resource://panicbutton/modules/aeMozApplication.js");
 const EXPORTED_SYMBOLS = ["aeUtils"];
 
 const DEBUG = true;
+const LOG_TO_CLIPBOARD = false;
 const EXTENSION_ID = "{24cea704-946d-11da-a72b-0800200c9a66}";
 const PREFNAME_PREFIX = "extensions.aecreations.";
 
@@ -102,7 +103,7 @@ var aeUtils = {
 
  logToClipboard: function (aString)
  {
-   if (DEBUG) {
+   if (DEBUG && LOG_TO_CLIPBOARD) {
      var cb = Cc["@mozilla.org/widget/clipboardhelper;1"].getService(Ci.nsIClipboardHelper);
      cb.copyString(aString);
      this.beep();

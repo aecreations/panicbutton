@@ -34,89 +34,90 @@
 
 
 /*
- * Icons in Firefox 4 and newer on Windows and Mac are all 18x18 pixels.
+ * Icons in Firefox 4 and newer on Windows and Mac are all 16x16 pixels.
  * These apply to the toolbar button on the navigation bar.
  */
 
 .ae-panicbutton-default {
-  -moz-image-region: rect(0px, 36px, 18px, 18px);
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
 }
 
 .ae-panicbutton-exclamation-in-ball {
-  -moz-image-region: rect(0px, 18px, 18px, 0px);
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
 }
 
 .ae-panicbutton-window-with-exclamation {
-  -moz-image-region: rect(0px, 54px, 18px, 36px);
+  -moz-image-region: rect(0px, 48px, 16px, 32px);
 }
 
 .ae-panicbutton-window-with-cross {
-  -moz-image-region: rect(0px, 72px, 18px, 54px);
+  -moz-image-region: rect(0px, 64px, 16px, 48px);
 }
 
 .ae-panicbutton-window-minimize {
-  -moz-image-region: rect(0px, 90px, 18px, 72px);
+  -moz-image-region: rect(0px, 80px, 16px, 64px);
 }
 
 .ae-panicbutton-quit {
-  -moz-image-region: rect(0px, 108px, 18px, 90px);
+  -moz-image-region: rect(0px, 96px, 16px, 80px);
 }
 
 .ae-panicbutton-exit-door {
-  -moz-image-region: rect(0px, 144px, 18px, 126px);
+  -moz-image-region: rect(0px, 128px, 16px, 112px);
 }
 
 .ae-panicbutton-window-with-check {
-  -moz-image-region: rect(0px, 126px, 18px, 108px);
+  -moz-image-region: rect(0px, 112px, 16px, 96px);
 }
 
 .ae-panicbutton-window-with-exclamation-ball {
-  -moz-image-region: rect(0px, 162px, 18px, 144px);
+  -moz-image-region: rect(0px, 144px, 16px, 128px);
 }
 
 .ae-panicbutton-plain-window {
-  -moz-image-region: rect(0px, 180px, 18px, 162px);
+  -moz-image-region: rect(0px, 160px, 16px, 144px);
 }
 
 .ae-panicbutton-dotted-window {
-  -moz-image-region: rect(0px, 198px, 18px, 180px);
+  -moz-image-region: rect(0px, 176px, 16px, 160px);
 }
 
 .ae-panicbutton-window-with-globe {
-  -moz-image-region: rect(0px, 216px, 18px, 198px);
+  -moz-image-region: rect(0px, 192px, 16px, 176px);
 }
 
 .ae-panicbutton-web-page {
-  -moz-image-region: rect(0px, 234px, 18px, 216px);
+  -moz-image-region: rect(0px, 208px, 16px, 192px);
 }
 
 .ae-panicbutton-web-page-with-globe {
-  -moz-image-region: rect(0px, 252px, 18px, 234px);
+  -moz-image-region: rect(0px, 224px, 16px, 208px);
 }
 
 .ae-panicbutton-web-document {
-  -moz-image-region: rect(0px, 270px, 18px, 252px);
+  -moz-image-region: rect(0px, 240px, 16px, 224px);
 }
 
 .ae-panicbutton-smiley {
-  -moz-image-region: rect(0px, 288px, 18px, 270px);
+  -moz-image-region: rect(0px, 256px, 16px, 240px);
 }
 
 .ae-panicbutton-picture {
-  -moz-image-region: rect(0px, 306px, 18px, 288px);
+  -moz-image-region: rect(0px, 272px, 16px, 256px);
 }
 
 .ae-panicbutton-desktop {
-  -moz-image-region: rect(0px, 324px, 18px, 306px);
+  -moz-image-region: rect(0px, 288px, 16px, 272px);
 }
 
 .ae-panicbutton-computer {
-  -moz-image-region: rect(0px, 342px, 18px, 324px);
+  -moz-image-region: rect(0px, 304px, 16px, 288px);
 }
 
 .ae-panicbutton-letter-a {
-  -moz-image-region: rect(0px, 360px, 18px, 342px);
+  -moz-image-region: rect(0px, 320px, 16px, 304px);
 }
+
 
 /*
  * As of Firefox 20:
@@ -131,7 +132,7 @@
 
 
 /*
- * Menu panel icons - for Firefox Australis
+ * For Firefox Australis: 32x32 icons for the Customize screen
  */
 
 #ae-panicbutton-toolbarbutton[cui-areatype="menu-panel"].ae-panicbutton-default,

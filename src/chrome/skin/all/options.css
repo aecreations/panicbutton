@@ -29,6 +29,12 @@ prefwindow {
   min-width: 32em;
 }
 
+/* Fix for Mac OS X issue where pref dialog heights are sometimes wrong. */
+prefpane > .content-box,
+prefwindow > .paneDeckContainer {
+  overflow: visible;
+}
+
 prefpane description {
   font: message-box;
 }

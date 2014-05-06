@@ -182,6 +182,8 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
   }
 
   var buttons = $("windoid-content");
+  var restoreBtn = buttons.childNodes[0];
+  var exitBtn = buttons.childNodes[1];
 
   if (aLayoutPref == aeConstants.RESTOREBAR_LAYOUT_ICONSONLY) {
     for (let i = 0; i < buttons.childNodes.length; i++) {
@@ -194,18 +196,13 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
     }
     
     if (aeUtils.getOS() == "Darwin") {
-      let restoreSessionBtn = $("restore-session");
-      let quitBrowserBtn = $("quit-browser");
-
       // Center the toolbar button icon
-      restoreSessionBtn.style.paddingLeft = "18px";
-      quitBrowserBtn.style.paddingLeft = "18px";
+      restoreBtn.style.paddingLeft = "18px";
+      exitBtn.style.paddingLeft = "18px";
     }
   }
   else {
     // aLayoutPref == aeConstants.RESTOREBAR_LAYOUT_ICONSANDTEXT
-    var restoreBtn = buttons.childNodes[0];
-    var exitBtn = buttons.childNodes[1];
     restoreBtn.setAttribute("label", gStrBundle.getString("restoreSession"));
     exitBtn.setAttribute("label", gStrBundle.getString("exit"));
 
@@ -214,11 +211,8 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
     }
 
     if (aeUtils.getOS() == "Darwin") {
-      let restoreSessionBtn = $("restore-session");
-      let quitBrowserBtn = $("quit-browser");
-
-      restoreSessionBtn.style.paddingLeft = "4px";
-      quitBrowserBtn.style.paddingLeft = "4px";
+      restoreBtn.style.paddingLeft = "4px";
+      exitBtn.style.paddingLeft = "4px";
     }
   }
 

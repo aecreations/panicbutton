@@ -97,10 +97,22 @@ function load()
   // windoid sizing issues on that OS since Firefox 17 - 18 or so.
   // Inline CSS is added to make the cosmetic workaround less ugly.
   if (aeUtils.getOS() == "Darwin") {
-    $("windoid-content").orient = "vertical";
-    $("restore-session").style.marginBottom = "3px";
-    $("quit-browser").style.borderTop = "1px solid threedshadow";
-    $("quit-browser").style.paddingTop = "4px";
+    let contentElt = $("windoid-content");
+    contentElt.orient = "vertical";
+    contentElt.style.backgroundColor = "ActiveCaption";
+    
+    let restoreSessionBtn = $("restore-session");
+    let quitBrowserBtn = $("quit-browser");
+
+    restoreSessionBtn.style.borderRadius = "5px";
+    restoreSessionBtn.style.border = "1px solid #888888";
+    restoreSessionBtn.style.padding = "4px 4px 4px 4px";
+    restoreSessionBtn.style.marginBottom = "2px";
+    restoreSessionBtn.style.backgroundColor = "ButtonFace";
+    quitBrowserBtn.style.borderRadius = "5px";
+    quitBrowserBtn.style.border = "1px solid #888888";
+    quitBrowserBtn.style.padding = "4px 4px 4px 4px";
+    quitBrowserBtn.style.backgroundColor = "ButtonFace";
   }
 
   var tbLayoutPref = aeUtils.getPref("panicbutton.restorebar.layout", 0);
@@ -119,6 +131,8 @@ function load()
     $("windoid-title-bar").style.backgroundImage = "url('chrome://panicbutton/skin/images/windoidTitleBar.png')";
     $("windoid-border").style.border = "2px solid #808080";
   }
+
+  window.sizeToContent();
 
   if (isJSWindoidPositionPersistenceEnabled(params)) {
     window.setTimeout(function () { setToolbarPosition() }, 1);
@@ -171,12 +185,21 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 
   if (aLayoutPref == aeConstants.RESTOREBAR_LAYOUT_ICONSONLY) {
     for (let i = 0; i < buttons.childNodes.length; i++) {
-      var childNode = buttons.childNodes[i];
-      var label = childNode.getAttribute("label");
+      let childNode = buttons.childNodes[i];
+      let label = childNode.getAttribute("label");
       childNode.removeAttribute("label");
       if (aeUtils.getPref("panicbutton.restorebar.show_tooltips", true)) {
 	childNode.setAttribute("tooltiptext", label);
       }
+    }
+    
+    if (aeUtils.getOS() == "Darwin") {
+      let restoreSessionBtn = $("restore-session");
+      let quitBrowserBtn = $("quit-browser");
+
+      // Center the toolbar button icon
+      restoreSessionBtn.style.paddingLeft = "18px";
+      quitBrowserBtn.style.paddingLeft = "18px";
     }
   }
   else {
@@ -188,6 +211,14 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 
     for (let i = 0; i < buttons.childNodes.length; i++) {
       buttons.childNodes[i].removeAttribute("tooltiptext");
+    }
+
+    if (aeUtils.getOS() == "Darwin") {
+      let restoreSessionBtn = $("restore-session");
+      let quitBrowserBtn = $("quit-browser");
+
+      restoreSessionBtn.style.paddingLeft = "4px";
+      quitBrowserBtn.style.paddingLeft = "4px";
     }
   }
 

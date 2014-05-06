@@ -10,9 +10,9 @@ $(DIST_FILE):
 	zip -r $(DIST_FILE) * -x $(EXCLUDE)
 
 put:
-	cp $(DIST_FILE) $(DIST_DEST)
+	cp -v $(DIST_FILE) $(DIST_DEST)
 
 clean:
-	rm $(DIST_FILE)
+	rm -v *.xpi
 
 # END Makefile

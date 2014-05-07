@@ -33,6 +33,12 @@ function initPrefPaneCustomize()
 {
   initDlg();
 
+  var toolbarBtnLabel = aeUtils.getPref("panicbutton.toolbarbutton.label", "");
+  if (! toolbarBtnLabel) {
+    $("toolbar-button-caption").value = gStrBundle.getString("panicbutton.defaultLabel");
+    $("toolbar-btn-caption-pref").value = gStrBundle.getString("panicbutton.defaultLabel");
+  }
+
   var imgURL = aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
   if (imgURL) {
     initAndSelectCustomTBIcon(imgURL);

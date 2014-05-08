@@ -35,6 +35,15 @@ prefwindow > .paneDeckContainer {
   overflow: visible;
 }
 
+prefwindow[animated="true"] #pane-general {
+  height: 24em;
+}
+
+prefwindow[animated="true"] #pane-customize {
+  height: 18em;
+}
+
+
 prefpane description {
   font: message-box;
 }
@@ -58,6 +67,10 @@ separator.very-thin {
 .ae-group-box {
   -moz-box-flex: 1;
   margin-left: 1.0em;
+}
+
+.indent {
+  margin-left: 2.5em;
 }
 
 #panicbutton-action-detail {

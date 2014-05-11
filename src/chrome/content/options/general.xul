@@ -38,6 +38,8 @@
        name="extensions.aecreations.panicbutton.restorebar.layout"/>
       <preference id="replace-url-pref" type="string"
        name="extensions.aecreations.panicbutton.action.replace.web_pg_url"/>
+      <preference id="enable-shortcut-key-pref" type="bool"
+       name="extensions.aecreations.panicbutton.key.enabled"/>
     </preferences>
 
     <vbox>
@@ -102,8 +104,46 @@
         <separator class="ae-separator"/>
         <vbox class="ae-group-box has-description">
           <description>&prefChange.desc;</description>
-          <checkbox id="enable-function-key" label="&functionKey.label;" 
-  	   accesskey="&functionKey.accesskey;"/>
+          <checkbox id="enable-function-key" label="&enableKey.label;" 
+  	   accesskey="&enableKey.accesskey;" preference="enable-shortcut-key-pref"/>
+	  <hbox class="indent">
+            <menulist id="panicbutton-key-modifiers">
+              <menupopup>
+                <menuitem label="" value=""/>
+	        <menuitem id="key-modifiers-accelshift" value="accel shift"/>
+	        <menuitem id="key-modifiers-altshift" value="alt shift"/>
+              </menupopup>
+            </menulist>
+
+            <menulist id="panicbutton-key">
+              <menupopup>
+		<menuitem label="&key.VK_F1;" value="VK_F1"/>
+		<menuitem label="&key.VK_F2;" value="VK_F2"/>
+		<menuitem label="&key.VK_F3;" value="VK_F3"/>
+		<menuitem label="&key.VK_F4;" value="VK_F4"/>
+                <menuitem label="&key.VK_F5;" value="VK_F5"/>
+                <menuitem label="&key.VK_F6;" value="VK_F6"/>
+                <menuitem label="&key.VK_F7;" value="VK_F7"/>
+                <menuitem label="&key.VK_F8;" value="VK_F8"/>
+                <menuitem label="&key.VK_F9;" value="VK_F9"/>
+		<menuitem label="&key.VK_F10;" value="VK_F10"/>
+		<menuitem label="&key.VK_F11;" value="VK_F11"/>
+		<menuitem label="&key.VK_F12;" value="VK_F12"/>
+		<menuitem label="&key.VK_PAGE_UP;" value="VK_PAGE_UP"/>
+		<menuitem label="&key.VK_PAGE_DOWN;" value="VK_PAGE_DOWN"/>
+		<menuitem label="&key.VK_HOME;" value="VK_HOME"/>
+		<menuitem label="&key.VK_END;" value="VK_END"/>
+                <menuitem label="&key.VK_LEFT;" value="VK_LEFT"/>
+		<menuitem label="&key.VK_RIGHT;" value="VK_RIGHT"/>
+		<menuitem label="&key.VK_UP;" value="VK_UP"/>
+		<menuitem label="&key.VK_DOWN;" value="VK_DOWN"/>
+		<menuitem label="&key.VK_INSERT;" value="VK_INSERT"/>
+		<menuitem label="&key.VK_DELETE;" value="VK_DELETE" id="key-del"/>
+		<menuitem label="&key.VK_PAUSE;" value="VK_PAUSE"/>
+		<menuitem label="&key.VK_PRINTSCREEN;" value="VK_PRINTSCREEN"/>
+              </menupopup>
+            </menulist>
+          </hbox>
 	</vbox>
      </vbox>
     

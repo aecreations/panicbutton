@@ -127,6 +127,13 @@ function resetWebPageURL()
 }
 
 
+function togglePanicButtonKey(aIsEnabled)
+{
+  $("panicbutton-key").disabled = !aIsEnabled;
+  $("panicbutton-key-modifiers").disabled = !aIsEnabled;
+}
+
+
 function applyGeneralPrefChanges()
 {
   if ($("webpg-url").value.trim() == "") {

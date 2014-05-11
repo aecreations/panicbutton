@@ -45,7 +45,10 @@ function initPrefPaneGeneral()
   // adjust their heights when switching between pref panes (e.g. Mac OS X), as
   // it will interfere with the dialog height.
   var fadeInEffect = Application.prefs.get("browser.preferences.animateFadeIn");
+  aeUtils.log("fadeInEffect: " + fadeInEffect.value);
+
   if (! fadeInEffect.value) {
+    aeUtils.log("Initializing workaround for prefpane height issue (this should NOT be executed if running on Mac OS X)");
     window.sizeToContent();
     let vboxes = document.getElementsByClassName("has-description");
 
@@ -55,13 +58,45 @@ function initPrefPaneGeneral()
       window.sizeToContent();      
     }
   }
+  aeUtils.log("END prefpane height initialization");
 
   updatePanicButtonActionDesc(true);
 
   $("panicbutton-action-options").selectedIndex = aeUtils.getPref("panicbutton.action");
 
-  var shortcutKey = aeUtils.getPref("panicbutton.key", PANICBUTTON_SHORTCUT_KEY);
-  $("enable-function-key").checked = Boolean(shortcutKey);
+  // Set up the display of the modifier keys and the Delete key on Mac OS X.
+  var keyModifiersAccelShift = "keyModifiersAccelShift";
+  var keyModifiersAltShift = "keyModifiersAltShift";
+  if (aeUtils.getOS() == "Darwin") {
+    keyModifiersAccelShift += "Mac";
+    keyModifiersAltShift += "Mac";
+    $("key-del").label = gStrBundle.getString("keyDeleteMac");
+  }
+
+  $("key-modifiers-accelshift").label = gStrBundle.getString(keyModifiersAccelShift);
+  $("key-modifiers-altshift").label = gStrBundle.getString(keyModifiersAltShift);
+
+  
+
+  // Select the shortcut key and its modifiers.
+  var key = aeUtils.getPref("panicbutton.key", PANICBUTTON_SHORTCUT_KEY);
+  var modifiers = aeUtils.getPref("panicbutton.key.modifiers", "");
+  var allKeys = $("panicbutton-key").menupopup.childNodes;
+  var allModifiers = $("panicbutton-key-modifiers").menupopup.childNodes;
+
+  for (let i = 0; i < allKeys.length; i++) {
+    if (allKeys[i].getAttribute("value") == key) {
+      $("panicbutton-key").selectedIndex = i;
+      break;
+    }
+  }
+
+  for (let i = 0; i < allModifiers.length; i++) {
+    if (allModifiers[i].getAttribute("value") == modifiers) {
+      $("panicbutton-key-modifiers").selectedIndex = i
+      break;
+    }
+  }
 }
 
 
@@ -98,6 +133,9 @@ function applyGeneralPrefChanges()
     aeUtils.setPref("panicbutton.action.replace.web_pg_url", "about:blank");
   }
 
-  var shortcutKey = $("enable-function-key").checked ? PANICBUTTON_SHORTCUT_KEY : "";
-  aeUtils.setPref("panicbutton.key", shortcutKey);
+  var key = $("panicbutton-key").selectedItem.value;
+  var modifiers = $("panicbutton-key-modifiers").selectedItem.value;
+
+  aeUtils.setPref("panicbutton.key", key);
+  aeUtils.setPref("panicbutton.key.modifiers", modifiers);
 }

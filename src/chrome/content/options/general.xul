@@ -104,7 +104,8 @@
         <separator class="ae-separator"/>
         <vbox class="ae-group-box has-description">
           <description>&prefChange.desc;</description>
-          <checkbox id="enable-function-key" label="&enableKey.label;" 
+          <checkbox id="enable-function-key" label="&enableKey.label;"
+           oncommand="togglePanicButtonKey(this.checked)"
   	   accesskey="&enableKey.accesskey;" preference="enable-shortcut-key-pref"/>
 	  <hbox class="indent">
             <menulist id="panicbutton-key-modifiers">

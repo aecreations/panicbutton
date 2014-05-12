@@ -1,5 +1,6 @@
 # Firefox
-overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/panicbuttonOverlay.xul
+overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/panicbuttonOverlay.xul	appversion<=28.*
+overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/panicbuttonOverlay2.xul	appversion>28.*
 
 # Styling for extension UI elements (except browser toolbar button)
 skin	  panicbutton	classic	    chrome/skin/
@@ -9,7 +10,7 @@ skin	  panicbutton-laf	classic	chrome/skin/all/
 
 # Linux-specific styling:
 # On Firefox 28 or older, use the older color icons (24x24 and 16x16 sizes).
-# On Firefox 29 or newer, use the B+W 18x18 icons to integrate with Australis.
+# On Firefox 29 or newer, use the B+W 16x16 icons to integrate with Australis.
 skin	 panicbutton-laf   classic    chrome/skin/linux/	os=Linux	appversion<=28.*
 skin	 panicbutton-laf   classic    chrome/skin/all/		os=Linux	appversion>28.*
 

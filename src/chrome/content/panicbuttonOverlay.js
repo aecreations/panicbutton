@@ -85,7 +85,10 @@ window.aecreations.panicbutton = {
       
       window.removeEventListener("load",   that, false);
       window.removeEventListener("unload", that, false);
-      that._mutationObserver.disconnect();
+
+      if (that._mutationObserver) {
+        that._mutationObserver.disconnect();
+      }
     }
   },
 
@@ -105,10 +108,11 @@ window.aecreations.panicbutton = {
 
     let that = this;
 
-    // Set up observer that will apply customizations to the Panic Button
-    // toolbar button when it is added to the toolbar.
-    this._mutationObserver = new MutationObserver(function (aMutationRecs, aMutationObs) {
-        aMutationRecs.forEach(function (aMutation) {
+    if (! this.isAustralisUI()) {
+      // Set up observer that will apply customizations to the Panic Button
+      // toolbar button when it is added to the toolbar.
+      this._mutationObserver = new MutationObserver(function (aMutationRecs, aMutationObs) {
+          aMutationRecs.forEach(function (aMutation) {
             if (aMutation.type == "childList") {
               for (let i = 0; i < aMutation.addedNodes.length; i++) {
                 let addedNode = aMutation.addedNodes[i];
@@ -120,13 +124,14 @@ window.aecreations.panicbutton = {
             }
           });
       });
-    let mutationObsConfig = { 
-      childList: true, 
-      subtree: true 
-    };
+      let mutationObsConfig = { 
+        childList: true, 
+        subtree: true 
+      };
 
-    let mutnObsTarget = document.getElementById("browser-panel");
-    this._mutationObserver.observe(mutnObsTarget, mutationObsConfig);
+      let mutnObsTarget = document.getElementById("browser-panel");
+      this._mutationObserver.observe(mutnObsTarget, mutationObsConfig);
+    }
 
     // Migrate prefs from root to the "extensions." branch
     let prefsMigrated = this.aeUtils.getPref("panicbutton.migrated_prefs", false);
@@ -141,8 +146,8 @@ window.aecreations.panicbutton = {
 
       // Set the default label for the toolbar button.
       this.aeUtils.setPref("panicbutton.toolbarbutton.label", this._strBundle.getString("panicbutton.defaultLabel"));
-      this._addPanicButton();
 
+      this._addPanicButton();
       this.aeUtils.setPref("panicbutton.first_run", false);
     }
 

@@ -36,4 +36,10 @@
     <stringbundle id="ae-panicbutton-strings" src="chrome://panicbutton/locale/panicbutton.properties"/>
   </stringbundleset>
 
+  <!-- Needed for the Panic Button key -->
+  <commandset id="mainCommandSet">
+    <command id="cmd_ae_panicbutton" 
+     oncommand="window.aecreations.panicbutton.doPanicAction()"/>
+  </commandset>
+
 </overlay>

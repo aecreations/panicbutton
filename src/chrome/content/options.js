@@ -90,7 +90,7 @@ function applyPrefChanges()
   var wndEnum = wm.getEnumerator("navigator:browser");
   while (wndEnum.hasMoreElements()) {
     var wnd = wndEnum.getNext();
-    wnd.aecreations.panicbutton.applyUserPrefs();
+    wnd.aecreations.panicbutton.applyUserPrefs(true);
   }
 }
 

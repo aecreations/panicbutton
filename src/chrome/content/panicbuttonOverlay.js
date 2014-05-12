@@ -148,7 +148,7 @@ window.aecreations.panicbutton = {
     // Add the Panic Button toolbar button to the browser's navigation toolbar,
     // if it was not added already.
     if (this.isAustralisUI()) {
-      CustomizableUI.addWidgetToArea("ae-panicbutton-toolbarbutton", "nav-bar");
+      CustomizableUI.addWidgetToArea("ae-panicbutton-toolbarbutton", CustomizableUI.AREA_NAVBAR);
       return;
     }
 
@@ -189,7 +189,17 @@ window.aecreations.panicbutton = {
 
   applyUserPrefs: function ()
   {
-    this.setKeyboardShortcut();
+    var isKeyboardShortcutEnabled = this.aeUtils.getPref("panicbutton.key.enabled");
+    if (isKeyboardShortcutEnabled) {
+      this.setKeyboardShortcut();
+    }
+    else {
+      let panicButtonKeyElt = document.getElementById("key_ae_panicbutton");
+      if (panicButtonKeyElt) {
+        panicButtonKeyElt.parentNode.removeChild(panicButtonKeyElt);
+      }
+    }
+
     this.setPanicButtonCustomizations();
   },
 
@@ -284,6 +294,23 @@ window.aecreations.panicbutton = {
 
 	this._cssClass.add(toolbarBtnElt, this._toolbarIconCls[iconIdx]);
 	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): toolbar button classname is changed to: %S", toolbarBtnElt.className));
+      }
+    }
+    else {
+      // Toolbar button wasn't located.  If on Australis, check if it is inside
+      // the menu panel.
+      if (this.isAustralisUI) {
+        let widgetLocInfo = CustomizableUI.getPlacementOfWidget("ae-panicbutton-toolbarbutton");
+        if (widgetLocInfo && widgetLocInfo.area == CustomizableUI.AREA_PANEL) {
+          this.aeUtils.log("Panic Button: Toolbar button is inside the menu panel!");
+          // TO DO: Remove the toolbar button and replace it with an API widget
+        }
+        else {
+          this.aeUtils.log("Panic Button: Toolbar button was not placed anywhere.");
+        }
+      }
+      else {
+        this.aeUtils.log("Panic Button: Cannot locate toolbar button");
       }
     }
   },

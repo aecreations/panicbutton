@@ -79,6 +79,10 @@ window.aecreations.panicbutton = {
       that.init();
     }
     else if (aEvent.type == "unload") {
+      if (that.isAustralisUI()) {
+        CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
+      }
+      
       window.removeEventListener("load",   that, false);
       window.removeEventListener("unload", that, false);
       that._mutationObserver.disconnect();
@@ -135,7 +139,10 @@ window.aecreations.panicbutton = {
     if (firstRun) {
       this.aeUtils.log("It appears that this is the first time you are running Panic Button.  Welcome!");
 
+      // Set the default label for the toolbar button.
+      this.aeUtils.setPref("panicbutton.toolbarbutton.label", this._strBundle.getString("panicbutton.defaultLabel"));
       this._addPanicButton();
+
       this.aeUtils.setPref("panicbutton.first_run", false);
     }
 
@@ -148,7 +155,27 @@ window.aecreations.panicbutton = {
     // Add the Panic Button toolbar button to the browser's navigation toolbar,
     // if it was not added already.
     if (this.isAustralisUI()) {
-      CustomizableUI.addWidgetToArea("ae-panicbutton-toolbarbutton", CustomizableUI.AREA_NAVBAR);
+      this.aeUtils.log("Panic Button: First-time execution - creating Panic Button widget");
+
+      CustomizableUI.createWidget({
+        id: "ae-panicbutton-toolbarbutton",
+        type: "custom",
+        defaultArea: CustomizableUI.AREA_NAVBAR,
+        onBuild: function (aDocument) {
+          let that = aDocument.defaultView.aecreations.panicbutton;
+          let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
+          toolbarBtn.id = "ae-panicbutton-toolbarbutton";
+          toolbarBtn.className = "toolbarbutton-1 ae-panicbutton-exclamation-in-ball";
+          toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
+          toolbarBtn.addEventListener("command", function (aEvent) {
+            let wnd = aEvent.target.ownerDocument.defaultView;
+            wnd.aecreations.panicbutton.doPanicAction();
+          }, false);
+
+          return toolbarBtn;
+        }
+      });
+
       return;
     }
 
@@ -187,9 +214,9 @@ window.aecreations.panicbutton = {
   },
 
 
-  applyUserPrefs: function ()
+  applyUserPrefs: function (aFromPrefWnd)
   {
-    var isKeyboardShortcutEnabled = this.aeUtils.getPref("panicbutton.key.enabled");
+    var isKeyboardShortcutEnabled = this.aeUtils.getPref("panicbutton.key.enabled", true);
     if (isKeyboardShortcutEnabled) {
       this.setKeyboardShortcut();
     }
@@ -200,7 +227,7 @@ window.aecreations.panicbutton = {
       }
     }
 
-    this.setPanicButtonCustomizations();
+    this.setPanicButtonCustomizations(aFromPrefWnd);
   },
 
 
@@ -251,8 +278,45 @@ window.aecreations.panicbutton = {
   },
 
 
-  setPanicButtonCustomizations: function ()
+  setPanicButtonCustomizations: function (aFromPrefWnd)
   {
+    if (this.isAustralisUI) {
+      if (aFromPrefWnd) {
+        this.aeUtils.log("Panic Button: Destroying and recreating widget");
+        // To update the Panic Button widget (button icon or label),
+        // destroy the widget, then recreate it with the updated properties.
+        CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
+      }
+
+      this.aeUtils.log("Panic Button: Adding Panic Button widget");
+
+      let iconIdx = this.aeUtils.getPref("panicbutton.toolbarbutton.icon", 0);
+      let tbClsName = this._toolbarIconCls[iconIdx];
+
+      // TO DO: Initialize custom toolbar button icon.
+
+      CustomizableUI.createWidget({
+        id: "ae-panicbutton-toolbarbutton",
+        type: "custom",
+        defaultArea: CustomizableUI.AREA_NAVBAR,
+        onBuild: function (aDocument) {
+          let that = aDocument.defaultView.aecreations.panicbutton;
+          let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
+          toolbarBtn.id = "ae-panicbutton-toolbarbutton";
+          toolbarBtn.className = "toolbarbutton-1 " + tbClsName;
+          toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
+          toolbarBtn.addEventListener("command", function (aEvent) {
+            let wnd = aEvent.target.ownerDocument.defaultView;
+            wnd.aecreations.panicbutton.doPanicAction();
+          }, false);
+
+          return toolbarBtn;
+        }
+      });
+
+      return;
+    }
+
     var toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
     if (toolbarBtnElt) {
       // Set Panic Button toolbar button label
@@ -294,23 +358,6 @@ window.aecreations.panicbutton = {
 
 	this._cssClass.add(toolbarBtnElt, this._toolbarIconCls[iconIdx]);
 	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): toolbar button classname is changed to: %S", toolbarBtnElt.className));
-      }
-    }
-    else {
-      // Toolbar button wasn't located.  If on Australis, check if it is inside
-      // the menu panel.
-      if (this.isAustralisUI) {
-        let widgetLocInfo = CustomizableUI.getPlacementOfWidget("ae-panicbutton-toolbarbutton");
-        if (widgetLocInfo && widgetLocInfo.area == CustomizableUI.AREA_PANEL) {
-          this.aeUtils.log("Panic Button: Toolbar button is inside the menu panel!");
-          // TO DO: Remove the toolbar button and replace it with an API widget
-        }
-        else {
-          this.aeUtils.log("Panic Button: Toolbar button was not placed anywhere.");
-        }
-      }
-      else {
-        this.aeUtils.log("Panic Button: Cannot locate toolbar button");
       }
     }
   },

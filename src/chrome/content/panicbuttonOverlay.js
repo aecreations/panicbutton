@@ -280,7 +280,7 @@ window.aecreations.panicbutton = {
 
   setPanicButtonCustomizations: function (aFromPrefWnd)
   {
-    if (this.isAustralisUI) {
+    if (this.isAustralisUI()) {
       if (aFromPrefWnd) {
         this.aeUtils.log("Panic Button: Destroying and recreating widget");
         // To update the Panic Button widget (button icon or label),
@@ -293,7 +293,18 @@ window.aecreations.panicbutton = {
       let iconIdx = this.aeUtils.getPref("panicbutton.toolbarbutton.icon", 0);
       let tbClsName = this._toolbarIconCls[iconIdx];
 
-      // TO DO: Initialize custom toolbar button icon.
+      // Initialize custom toolbar button icon.
+      let customImgURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
+      if (customImgURL) {
+        if (! this._isValidCustomToolbarIconURL(customImgURL)) {
+          this.aeUtils.log("Panic Button: Invalid custom icon URL was specified; resetting to last-used icon class\nURL=" + customImgURL);
+	  this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
+	  customImgURL = "";
+	}
+        else {
+          tbClsName = "ae-panicbutton-custom-icon";
+        }
+      }
 
       CustomizableUI.createWidget({
         id: "ae-panicbutton-toolbarbutton",
@@ -305,6 +316,11 @@ window.aecreations.panicbutton = {
           toolbarBtn.id = "ae-panicbutton-toolbarbutton";
           toolbarBtn.className = "toolbarbutton-1 " + tbClsName;
           toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
+
+          if (customImgURL) {
+            toolbarBtn.setAttribute("image", customImgURL);
+          }
+
           toolbarBtn.addEventListener("command", function (aEvent) {
             let wnd = aEvent.target.ownerDocument.defaultView;
             wnd.aecreations.panicbutton.doPanicAction();
@@ -334,17 +350,15 @@ window.aecreations.panicbutton = {
       var customImgURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
 
       if (customImgURL) {
-	// URLs other than file:// are not acceptable - reset the pref and set
-	// the toolbar button to the built-in icon that was previously selected
-	if (customImgURL.search(/^file:\/\//) == -1) {
+        if (! this._isValidCustomToolbarIconURL(customImgURL)) {
 	  this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
 	  customImgURL = "";
-	}
-	else {
-	  this._cssClass.remove(toolbarBtnElt, oldCls);
-	  this._cssClass.add(toolbarBtnElt, "ae-panicbutton-custom-icon");
-	  toolbarBtnElt.setAttribute("image", customImgURL);
-	}
+        }
+        else {
+          this._cssClass.remove(toolbarBtnElt, oldCls);
+          this._cssClass.add(toolbarBtnElt, "ae-panicbutton-custom-icon");
+          toolbarBtnElt.setAttribute("image", customImgURL);
+        }
       }
       else {
 	toolbarBtnElt.removeAttribute("image");
@@ -360,6 +374,13 @@ window.aecreations.panicbutton = {
 	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): toolbar button classname is changed to: %S", toolbarBtnElt.className));
       }
     }
+  },
+
+
+  _isValidCustomToolbarIconURL: function (aCustomImgURL)
+  {
+    // URLs other than file:// are not acceptable.
+    return (aCustomImgURL.search(/^file:\/\//) != -1);
   },
 
 

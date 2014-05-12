@@ -297,7 +297,6 @@ window.aecreations.panicbutton = {
       let customImgURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
       if (customImgURL) {
         if (! this._isValidCustomToolbarIconURL(customImgURL)) {
-          this.aeUtils.log("Panic Button: Invalid custom icon URL was specified; resetting to last-used icon class\nURL=" + customImgURL);
 	  this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
 	  customImgURL = "";
 	}

@@ -39,7 +39,7 @@
       <preference id="replace-url-pref" type="string"
        name="extensions.aecreations.panicbutton.action.replace.web_pg_url"/>
       <preference id="enable-shortcut-key-pref" type="bool"
-       name="extensions.aecreations.panicbutton.key.enabled"/>
+       name="extensions.aecreations.panicbutton.enable_function_key"/>
     </preferences>
 
     <vbox>

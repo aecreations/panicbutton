@@ -80,7 +80,7 @@ window.aecreations.panicbutton = {
     }
     else if (aEvent.type == "unload") {
       if (that.isAustralisUI()) {
-        CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
+        that._destroyPanicButtonWidget();
       }
       
       window.removeEventListener("load",   that, false);
@@ -162,34 +162,17 @@ window.aecreations.panicbutton = {
     if (this.isAustralisUI()) {
       this.aeUtils.log("Panic Button: First-time execution - creating Panic Button widget");
 
-      CustomizableUI.createWidget({
-        id: "ae-panicbutton-toolbarbutton",
-        type: "custom",
-        defaultArea: CustomizableUI.AREA_NAVBAR,
-        onBuild: function (aDocument) {
-          let that = aDocument.defaultView.aecreations.panicbutton;
-          let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
-          toolbarBtn.id = "ae-panicbutton-toolbarbutton";
-          toolbarBtn.className = "toolbarbutton-1 ae-panicbutton-exclamation-in-ball";
-          toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
-          toolbarBtn.addEventListener("command", function (aEvent) {
-            let wnd = aEvent.target.ownerDocument.defaultView;
-            wnd.aecreations.panicbutton.doPanicAction();
-          }, false);
-
-          return toolbarBtn;
-        }
-      });
-
-      return;
+      this._createPanicButtonWidget("ae-panicbutton-default");
     }
-
-    let toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
-    let browserNavBarElt = document.getElementById("nav-bar");
-    if (browserNavBarElt && !toolbarBtnElt) {
-      browserNavBarElt.insertItem("ae-panicbutton-toolbarbutton");
-      browserNavBarElt.setAttribute("currentset", browserNavBarElt.currentSet);
-      document.persist("nav-bar", "currentset");
+    else {
+      // Firefox 28 or older
+      let toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
+      let browserNavBarElt = document.getElementById("nav-bar");
+      if (browserNavBarElt && !toolbarBtnElt) {
+        browserNavBarElt.insertItem("ae-panicbutton-toolbarbutton");
+        browserNavBarElt.setAttribute("currentset", browserNavBarElt.currentSet);
+        document.persist("nav-bar", "currentset");
+      }
     }
   },
 
@@ -219,9 +202,43 @@ window.aecreations.panicbutton = {
   },
 
 
+  _createPanicButtonWidget: function (aClsName, aCustomImgURL)
+  {
+    CustomizableUI.createWidget({
+      id: "ae-panicbutton-toolbarbutton",
+      type: "custom",
+      defaultArea: CustomizableUI.AREA_NAVBAR,
+      onBuild: function (aDocument) {
+        let that = aDocument.defaultView.aecreations.panicbutton;
+        let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
+        toolbarBtn.id = "ae-panicbutton-toolbarbutton";
+        toolbarBtn.className = "toolbarbutton-1 " + aClsName;
+        toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
+
+        if (aCustomImgURL) {
+          toolbarBtn.setAttribute("image", aCustomImgURL);
+        }
+
+        toolbarBtn.addEventListener("command", function (aEvent) {
+          let wnd = aEvent.target.ownerDocument.defaultView;
+          wnd.aecreations.panicbutton.doPanicAction();
+        }, false);
+
+        return toolbarBtn;
+      }
+    });
+  },
+
+
+  _destroyPanicButtonWidget: function ()
+  {
+    CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
+  },
+
+
   applyUserPrefs: function (aFromPrefWnd)
   {
-    var isKeyboardShortcutEnabled = this.aeUtils.getPref("panicbutton.key.enabled", true);
+    var isKeyboardShortcutEnabled = this.aeUtils.getPref("panicbutton.enable_function_key", true);
     if (isKeyboardShortcutEnabled) {
       this.setKeyboardShortcut();
     }
@@ -290,7 +307,7 @@ window.aecreations.panicbutton = {
         this.aeUtils.log("Panic Button: Destroying and recreating widget");
         // To update the Panic Button widget (button icon or label),
         // destroy the widget, then recreate it with the updated properties.
-        CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
+        this._destroyPanicButtonWidget();
       }
 
       this.aeUtils.log("Panic Button: Adding Panic Button widget");
@@ -310,33 +327,11 @@ window.aecreations.panicbutton = {
         }
       }
 
-      CustomizableUI.createWidget({
-        id: "ae-panicbutton-toolbarbutton",
-        type: "custom",
-        defaultArea: CustomizableUI.AREA_NAVBAR,
-        onBuild: function (aDocument) {
-          let that = aDocument.defaultView.aecreations.panicbutton;
-          let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
-          toolbarBtn.id = "ae-panicbutton-toolbarbutton";
-          toolbarBtn.className = "toolbarbutton-1 " + tbClsName;
-          toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
-
-          if (customImgURL) {
-            toolbarBtn.setAttribute("image", customImgURL);
-          }
-
-          toolbarBtn.addEventListener("command", function (aEvent) {
-            let wnd = aEvent.target.ownerDocument.defaultView;
-            wnd.aecreations.panicbutton.doPanicAction();
-          }, false);
-
-          return toolbarBtn;
-        }
-      });
-
+      this._createPanicButtonWidget(tbClsName, customImgURL);
       return;
     }
 
+    // Firefox 28 or older
     var toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
     if (toolbarBtnElt) {
       // Set Panic Button toolbar button label

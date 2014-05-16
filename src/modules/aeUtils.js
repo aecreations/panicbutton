@@ -31,6 +31,7 @@ const EXPORTED_SYMBOLS = ["aeUtils"];
 const DEBUG = true;
 const LOG_TO_CLIPBOARD = false;
 const EXTENSION_ID = "{24cea704-946d-11da-a72b-0800200c9a66}";
+const WNDTYPE_FX_BROWSER    = "navigator:browser";
 const PREFNAME_PREFIX = "extensions.aecreations.";
 
 
@@ -98,6 +99,17 @@ var aeUtils = {
  setPref: function (aPrefKey, aPrefValue)
  {
    Application.prefs.setValue(PREFNAME_PREFIX + aPrefKey, aPrefValue);
+ },
+
+
+ getRecentHostAppWindow: function ()
+ {
+   var rv;
+   var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
+
+   rv = wm.getMostRecentWindow(WNDTYPE_FX_BROWSER);
+
+   return rv;
  },
 
 

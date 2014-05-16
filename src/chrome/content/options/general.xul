@@ -108,7 +108,7 @@
            oncommand="togglePanicButtonKey(this.checked)"
   	   accesskey="&enableKey.accesskey;" preference="enable-shortcut-key-pref"/>
 	  <hbox class="indent">
-            <menulist id="panicbutton-key-modifiers">
+            <menulist id="panicbutton-key-modifiers" oncommand="checkForKeyConflict()">
               <menupopup>
                 <menuitem label="" value=""/>
 	        <menuitem id="key-modifiers-accelshift" value="accel shift"/>
@@ -116,7 +116,7 @@
               </menupopup>
             </menulist>
 
-            <menulist id="panicbutton-key">
+            <menulist id="panicbutton-key" oncommand="checkForKeyConflict()">
               <menupopup>
 		<menuitem label="&key.VK_F1;" value="VK_F1"/>
 		<menuitem label="&key.VK_F2;" value="VK_F2"/>
@@ -145,6 +145,7 @@
               </menupopup>
             </menulist>
           </hbox>
+	  <label id="key-conflict-alert" class="indent" style="visibility:hidden">&keyConflictAlert.desc;</label>
 	</vbox>
      </vbox>
     

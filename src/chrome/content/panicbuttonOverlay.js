@@ -205,7 +205,7 @@ window.aecreations.panicbutton = {
   _createPanicButtonWidget: function (aClsName, aCustomImgURL)
   {
     if (! this.isAustralisUI()) {
-      throw new Error("Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
+      throw new Error("Panic Button: Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
     }
 
     CustomizableUI.createWidget({
@@ -237,7 +237,7 @@ window.aecreations.panicbutton = {
   _destroyPanicButtonWidget: function ()
   {
     if (! this.isAustralisUI()) {
-      throw new Error("Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
+      throw new Error("Panic Button: Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
     }
 
     CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");

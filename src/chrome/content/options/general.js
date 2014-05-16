@@ -24,6 +24,7 @@
 
 Components.utils.import("resource://panicbutton/modules/aeUtils.js");
 Components.utils.import("resource://panicbutton/modules/aeConstants.js");
+Components.utils.import("resource://panicbutton/modules/aeKeyConflictDetector.js");
 
 const PANICBUTTON_SHORTCUT_KEY = "VK_F9";
 
@@ -59,6 +60,10 @@ function initPrefPaneGeneral()
     }
   }
   aeUtils.log("END prefpane height initialization");
+
+  let hostAppWnd = aeUtils.getRecentHostAppWindow();
+  aeKeyConflictDetector.init(hostAppWnd);
+  aeUtils.log(aeKeyConflictDetector.dump());
 
   updatePanicButtonActionDesc(true);
 
@@ -145,4 +150,26 @@ function applyGeneralPrefChanges()
 
   aeUtils.setPref("panicbutton.key", key);
   aeUtils.setPref("panicbutton.key.modifiers", modifiers);
+}
+
+
+function checkForKeyConflict()
+{
+  var key = $("panicbutton-key").selectedItem.value;
+  var modifiers = $("panicbutton-key-modifiers").selectedItem.value;
+  var keyConflictAlertElt = $("key-conflict-alert");
+
+  if (modifiers == "" && (key == "VK_UP" || key == "VK_DOWN" || key == "VK_LEFT" || key == "VK_RIGHT" || key == "VK_PAGE_UP" || key == "VK_PAGE_DOWN" || key == "VK_HOME" || key == "VK_END")) {
+    keyConflictAlertElt.style.visibility = "visible";
+    return;
+  }
+
+  var assignedCmd = aeKeyConflictDetector.lookupShortcutKey(key, modifiers);
+
+  if (assignedCmd) {
+    keyConflictAlertElt.style.visibility = "visible";
+  }
+  else {
+    keyConflictAlertElt.style.visibility = "hidden";
+  }
 }

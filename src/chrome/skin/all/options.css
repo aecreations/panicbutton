@@ -36,7 +36,7 @@ prefwindow > .paneDeckContainer {
 }
 
 prefwindow[animated="true"] #pane-general {
-  height: 30em;
+  height: 28em;
 }
 
 prefwindow[animated="true"] #pane-customize {

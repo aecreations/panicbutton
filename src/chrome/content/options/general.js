@@ -102,6 +102,8 @@ function initPrefPaneGeneral()
       break;
     }
   }
+
+  aeKeyConflictDetector.addExemptKey(key, modifiers);
 }
 
 

@@ -37,6 +37,10 @@ var aeKeyConflictDetector = {
   // The value of each key is the command ID that the shortcut key is bound to.
  _keyBindings: {},
 
+  // Hash table that is similar in structure to _keyBindings, but this is for
+  // keys that should NOT be checked when checking for key conflicts.
+ _exemptKeys: {},
+  
 
  init: function (aHostAppWnd)
  {
@@ -75,6 +79,13 @@ var aeKeyConflictDetector = {
  },
 
 
+ addExemptKey: function (aKey, aModifiers)
+ {
+   let idx = this._getKeyString(aKey, aModifiers);
+   this._exemptKeys[idx] = 1;
+ },
+
+
  dump: function ()
  {
    let rv = "---\naeKeyConflictDetector.js: All keys in hash table:\n\n";
@@ -93,8 +104,12 @@ var aeKeyConflictDetector = {
    let rv = null;
 
    let keyStr = this._getKeyString(aKey, aModifiers);
-   let cmd = this._keyBindings[keyStr];
 
+   if (this._exemptKeys[keyStr]) {
+     return rv;
+   }
+   
+   let cmd = this._keyBindings[keyStr];
    if (cmd) {
      rv = cmd;
    }

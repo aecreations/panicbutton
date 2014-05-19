@@ -9,6 +9,11 @@
 <!ENTITY tbIcons.label "Icons Only">
 <!ENTITY tbTooltip.label "Tooltips">
 
+<!-- Instant Customize -->
+<!ENTITY changePanicButtonIcon.label "Change Icon">
+<!ENTITY changePanicButtonIcon.title "Select An Icon">
+<!ENTITY panicButtonCustomize.label "Customize...">
+
 <!-- Extension preferences dialog -->
 <!ENTITY prefOptions.label "Options">
 <!ENTITY prefCustomize.label "Customize">

@@ -28,7 +28,8 @@
  */
 
 
-#ae-panicbutton-toolbarbutton {
+#ae-panicbutton-toolbarbutton,
+#ae-panicbutton-customize-panel #ae-panicbutton-icon-picker {
   list-style-image:  url("chrome://panicbutton/skin/images/Toolbar.png");
 }
 
@@ -236,3 +237,95 @@ toolbarpaletteitem[place="palette"][removable="true"] > #ae-panicbutton-toolbarb
 }
 
 
+/*
+ * For the Instant Customize icon picker: 24x24 icons
+ */
+
+#ae-panicbutton-icon-picker .ae-panicbutton-default {
+  -moz-image-region: rect(18px, 48px, 42px, 24px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-exclamation-in-ball {
+  -moz-image-region: rect(18px, 24px, 42px, 0px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-window-with-exclamation {
+  -moz-image-region: rect(18px, 72px, 42px, 48px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-window-with-cross {
+  -moz-image-region: rect(18px, 96px, 42px, 72px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-window-minimize {
+  -moz-image-region: rect(18px, 120px, 42px, 96px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-quit {
+  -moz-image-region: rect(18px, 144px, 42px, 120px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-exit-door {
+  -moz-image-region: rect(18px, 192px, 42px, 168px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-window-with-check {
+  -moz-image-region: rect(18px, 168px, 42px, 144px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-window-with-exclamation-ball {
+  -moz-image-region: rect(18px, 216px, 42px, 192px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-plain-window {
+  -moz-image-region: rect(18px, 240px, 42px, 216px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-dotted-window {
+  -moz-image-region: rect(18px, 264px, 42px, 240px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-window-with-globe {
+  -moz-image-region: rect(18px, 288px, 42px, 264px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-web-page {
+  -moz-image-region: rect(18px, 312px, 42px, 288px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-web-page-with-globe {
+  -moz-image-region: rect(18px, 336px, 42px, 312px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-web-document {
+  -moz-image-region: rect(18px, 360px, 42px, 336px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-smiley {
+  -moz-image-region: rect(18px, 384px, 42px, 360px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-picture {
+  -moz-image-region: rect(18px, 408px, 42px, 384px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-desktop {
+  -moz-image-region: rect(18px, 432px, 42px, 408px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-computer {
+  -moz-image-region: rect(18px, 456px, 42px, 432px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-letter-a {
+  -moz-image-region: rect(18px, 480px, 42px, 456px);
+}
+
+#ae-panicbutton-icon-picker .ae-panicbutton-custom image {
+  width: 24px;
+  height: 24px;
+}
+
+#ae-panicbutton-customize-panel-title {
+  font-weight: bold;
+}

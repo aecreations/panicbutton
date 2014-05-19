@@ -42,4 +42,43 @@
      oncommand="window.aecreations.panicbutton.doPanicAction()"/>
   </commandset>
 
+  <popupset id="mainPopupSet">
+    <menupopup id="toolbar-context-menu">
+      <menuitem id="ae-panicbutton-instant-customize" label="&changePanicButtonIcon.label;" hidden="true" oncommand="window.aecreations.panicbutton.openInstantCustomizePopup()"/>
+    </menupopup>
+
+    <panel id="ae-panicbutton-customize-panel">
+      <label id="ae-panicbutton-customize-panel-title" value="&changePanicButtonIcon.title;"/>
+      <toolbar id="ae-panicbutton-icon-picker">
+        <toolbarbutton class="ae-panicbutton-default" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-exclamation-in-ball" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-quit" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-exit-door" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-window-minimize" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-window-with-exclamation" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-window-with-exclamation-ball" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-window-with-cross" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-window-with-check" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-plain-window" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-dotted-window" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-window-with-globe" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-web-page" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-web-page-with-globe" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-web-document" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-smiley" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-picture" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-desktop" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-computer" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton class="ae-panicbutton-letter-a" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+        <toolbarbutton id="ae-panicbutton-custom-icon" class="ae-panicbutton-custom" hidden="true" type="radio" group="icon" oncommand="window.aecreations.panicbutton.selectNewIcon(this.className)"/>
+      </toolbar>
+      <toolbar flex="1">
+        <toolbarspacer flex="1"/>
+        <toolbarbutton label="&panicButtonCustomize.label;"
+         oncommand="window.aecreations.panicbutton.showCustomizeDlg()"/>
+        <toolbarspacer flex="1"/>
+      </toolbar>
+    </panel>
+  </popupset>
+
 </overlay>

@@ -152,6 +152,12 @@ window.aecreations.panicbutton = {
     }
 
     this.applyUserPrefs();
+
+    if (this.isAustralisUI()) {
+      let tbCxtMenu = document.getElementById("toolbar-context-menu");
+      let that = this;
+      tbCxtMenu.addEventListener("popupshowing", function (aEvent) { that.initInstantCustomizePanel(aEvent); }, false);
+    }
   },
 
 
@@ -222,6 +228,8 @@ window.aecreations.panicbutton = {
         if (aCustomImgURL) {
           toolbarBtn.setAttribute("image", aCustomImgURL);
         }
+
+        toolbarBtn.setAttribute("popup", "ae-panicbutton-customize-panel");
 
         toolbarBtn.addEventListener("command", function (aEvent) {
           let wnd = aEvent.target.ownerDocument.defaultView;
@@ -397,6 +405,74 @@ window.aecreations.panicbutton = {
     var rv = allClassNames.replace(/toolbarbutton\-1 /, "");
     if (rv && typeof(rv) == "string") rv = this.aeString.trim(rv);
     return rv;
+  },
+
+
+  initInstantCustomizePanel: function (aEvent)
+  {
+    let that = window.aecreations.panicbutton;
+    let targetElt = aEvent.target;
+    let menuitem = document.getElementById("ae-panicbutton-instant-customize");
+
+    menuitem.hidden = !(targetElt.triggerNode && targetElt.triggerNode.id == "ae-panicbutton-toolbarbutton");
+  },
+
+
+  openInstantCustomizePopup: function ()
+  {
+    let panel = document.getElementById("ae-panicbutton-customize-panel");
+    let toolbarBtn = document.getElementById("ae-panicbutton-toolbarbutton");
+    panel.openPopup(toolbarBtn, "after_start", 0, 0, false, false);
+
+    // Select the current icon.
+    let customIconURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
+    if (customIconURL) {
+      let customBtn = document.getElementById("ae-panicbutton-custom-icon");
+      customBtn.hidden = false;
+      customBtn.checked = true;
+      customBtn.image = customIconURL;
+    }
+    else {
+      let iconIdx = this.aeUtils.getPref("panicbutton.toolbarbutton.icon", 0);
+      let clsName = this._toolbarIconCls[iconIdx];
+      let toolbarBtnNodes = document.getElementsByClassName(clsName);
+      toolbarBtnNodes[0].checked = true;
+    }
+  },
+
+
+  selectNewIcon: function (aClsName)
+  {
+    let panel = document.getElementById("ae-panicbutton-customize-panel");
+    panel.hidePopup();
+
+    this.aeUtils.log("Setting new icon: " + aClsName);
+
+    // User reselects the custom icon - in this case, it is a no-op
+    if (aClsName == "ae-panicbutton-custom") {
+      return;
+    }
+
+    for (let i = 0; i < this._toolbarIconCls.length; i++) {
+      if (this._toolbarIconCls[i] == aClsName) {
+        this.aeUtils.setPref("panicbutton.toolbarbutton.icon", i);
+        break;
+      }
+    }
+
+    let customBtn = document.getElementById("ae-panicbutton-custom-icon");
+    if (! customBtn.hidden) {
+      customBtn.hidden = true;
+      this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
+    }
+
+    this.setPanicButtonCustomizations(true);
+  },
+
+
+  showCustomizeDlg: function ()
+  {
+    window.openDialog("chrome://panicbutton/content/options.xul", "dlg_panicbutton_customize", "chrome,titlebar,toolbar,centerscreen,dialog=yes", "pane-customize");
   },
 
 

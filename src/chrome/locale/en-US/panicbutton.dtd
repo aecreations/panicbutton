@@ -10,7 +10,8 @@
 <!ENTITY tbTooltip.label "Tooltips">
 
 <!-- Instant Customize -->
-<!ENTITY changePanicButtonIcon.label "Change Icon">
+<!ENTITY changePanicButtonIcon.label "Change Icon...">
+<!ENTITY changePanicButtonIcon.accesskey "I">
 <!ENTITY changePanicButtonIcon.title "Select An Icon">
 <!ENTITY panicButtonCustomize.label "Customize...">
 

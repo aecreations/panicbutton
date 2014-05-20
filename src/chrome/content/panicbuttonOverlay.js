@@ -239,6 +239,8 @@ window.aecreations.panicbutton = {
         return toolbarBtn;
       }
     });
+
+    this.aeUtils.log("Panic Button: created widget");
   },
 
 
@@ -248,6 +250,7 @@ window.aecreations.panicbutton = {
       throw new Error("Panic Button: Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
     }
 
+    this.aeUtils.log("Panic Button: destroying widget");
     CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
   },
 
@@ -414,7 +417,7 @@ window.aecreations.panicbutton = {
     let targetElt = aEvent.target;
     let menuitem = document.getElementById("ae-panicbutton-instant-customize");
 
-    menuitem.hidden = !(targetElt.triggerNode && targetElt.triggerNode.id == "ae-panicbutton-toolbarbutton");
+    menuitem.hidden = !(targetElt.triggerNode && targetElt.triggerNode.id && targetElt.triggerNode.id == "ae-panicbutton-toolbarbutton");
   },
 
 
@@ -422,7 +425,7 @@ window.aecreations.panicbutton = {
   {
     let panel = document.getElementById("ae-panicbutton-customize-panel");
     let toolbarBtn = document.getElementById("ae-panicbutton-toolbarbutton");
-    panel.openPopup(toolbarBtn, "after_start", 0, 0, false, false);
+    panel.openPopup(toolbarBtn, "bottomcenter topleft", 0, -7, false, false);
 
     // Select the current icon.
     let customIconURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
@@ -464,6 +467,18 @@ window.aecreations.panicbutton = {
     if (! customBtn.hidden) {
       customBtn.hidden = true;
       this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
+    }
+
+    // Manually unset the "checked" state on all toolbarbuttons.  This is a
+    // workaround to an XUL bug where if toolbar buttons inside a <grid>, each
+    // row of toolbarbuttons act as independent radio groups!
+    let toolbar = document.getElementById("ae-panicbutton-icon-picker");
+    let toolbarBtns = toolbar.getElementsByTagName("toolbarbutton");
+    for (let i = 0; i < toolbarBtns.length; i++) {
+      if (toolbarBtns[i].hasAttribute("checked")
+          && toolbarBtns[i].className != aClsName) {
+        toolbarBtns[i].removeAttribute("checked");
+      }
     }
 
     this.setPanicButtonCustomizations(true);

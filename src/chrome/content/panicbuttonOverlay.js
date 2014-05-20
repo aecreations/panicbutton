@@ -425,7 +425,7 @@ window.aecreations.panicbutton = {
   {
     let panel = document.getElementById("ae-panicbutton-customize-panel");
     let toolbarBtn = document.getElementById("ae-panicbutton-toolbarbutton");
-    panel.openPopup(toolbarBtn, "bottomcenter topleft", 0, -7, false, false);
+    panel.openPopup(toolbarBtn, "bottomcenter topleft", 0, -2, false, false);
 
     // Select the current icon.
     let customIconURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");

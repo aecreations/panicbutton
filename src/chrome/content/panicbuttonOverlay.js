@@ -421,7 +421,7 @@ window.aecreations.panicbutton = {
   },
 
 
-  openInstantCustomizePopup: function ()
+  openInstantCustomizePanel: function ()
   {
     let panel = document.getElementById("ae-panicbutton-customize-panel");
     let toolbarBtn = document.getElementById("ae-panicbutton-toolbarbutton");

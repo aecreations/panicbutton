@@ -47,7 +47,7 @@
       <menuitem id="ae-panicbutton-instant-customize" hidden="true"
        label="&changePanicButtonIcon.label;"
        accesskey="&changePanicButtonIcon.accesskey;"
-       oncommand="window.aecreations.panicbutton.openInstantCustomizePopup()"/>
+       oncommand="window.aecreations.panicbutton.openInstantCustomizePanel()"/>
     </menupopup>
 
     <panel id="ae-panicbutton-customize-panel" type="arrow">

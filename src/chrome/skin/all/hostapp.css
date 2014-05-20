@@ -327,5 +327,10 @@ toolbarpaletteitem[place="palette"][removable="true"] > #ae-panicbutton-toolbarb
 }
 
 #ae-panicbutton-customize-panel-title {
-  font-weight: bold;
+  font-size: 16px;
+}
+
+#ae-panicbutton-customize {
+  padding-left: 0px;
+  -moz-appearance: toolbarbutton;
 }

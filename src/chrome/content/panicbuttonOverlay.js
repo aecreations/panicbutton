@@ -423,9 +423,16 @@ window.aecreations.panicbutton = {
 
   openInstantCustomizePanel: function ()
   {
+    if (this.aeUtils.getOS() == "Darwin") {
+      // Panel doesn't look very nice on Mac OS X, so instead, show the
+      // extension preferences dialog, Customize panel.
+      this.showCustomizeDlg();
+      return;
+    }
+
     let panel = document.getElementById("ae-panicbutton-customize-panel");
     let toolbarBtn = document.getElementById("ae-panicbutton-toolbarbutton");
-    panel.openPopup(toolbarBtn, "bottomcenter topleft", 0, -2, false, false);
+    panel.openPopup(toolbarBtn, "bottomcenter topleft", 0, -7, false, false);
 
     // Select the current icon.
     let customIconURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
@@ -470,13 +477,12 @@ window.aecreations.panicbutton = {
     }
 
     // Manually unset the "checked" state on all toolbarbuttons.  This is a
-    // workaround to an XUL bug where if toolbar buttons inside a <grid>, each
-    // row of toolbarbuttons act as independent radio groups!
+    // workaround to an XUL bug where if toolbar buttons are inside a <grid>,
+    // each row of toolbarbuttons act as independent radio groups!
     let toolbar = document.getElementById("ae-panicbutton-icon-picker");
     let toolbarBtns = toolbar.getElementsByTagName("toolbarbutton");
     for (let i = 0; i < toolbarBtns.length; i++) {
-      if (toolbarBtns[i].hasAttribute("checked")
-          && toolbarBtns[i].className != aClsName) {
+      if (toolbarBtns[i].hasAttribute("checked") && toolbarBtns[i].className != aClsName) {
         toolbarBtns[i].removeAttribute("checked");
       }
     }

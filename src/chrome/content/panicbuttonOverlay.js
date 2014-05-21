@@ -154,6 +154,7 @@ window.aecreations.panicbutton = {
     this.applyUserPrefs();
 
     if (this.isAustralisUI()) {
+      this.aeUtils.log("Panic Button: Initializing context menu on browser toolbar buttons");
       let tbCxtMenu = document.getElementById("toolbar-context-menu");
       let that = this;
       tbCxtMenu.addEventListener("popupshowing", function (aEvent) { that.initInstantCustomizePanel(aEvent); }, false);
@@ -214,44 +215,67 @@ window.aecreations.panicbutton = {
       throw new Error("Panic Button: Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
     }
 
-    CustomizableUI.createWidget({
-      id: "ae-panicbutton-toolbarbutton",
-      type: "custom",
-      defaultArea: CustomizableUI.AREA_NAVBAR,
-      onBuild: function (aDocument) {
-        let that = aDocument.defaultView.aecreations.panicbutton;
-        let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
-        toolbarBtn.id = "ae-panicbutton-toolbarbutton";
-        toolbarBtn.className = "toolbarbutton-1 " + aClsName;
-        toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
+    try {
+      CustomizableUI.createWidget({
+        id: "ae-panicbutton-toolbarbutton",
+        type: "custom",
+        defaultArea: CustomizableUI.AREA_NAVBAR,
+        onBuild: function (aDocument) {
+          let that = aDocument.defaultView.aecreations.panicbutton;
+          let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
+          toolbarBtn.id = "ae-panicbutton-toolbarbutton";
+          toolbarBtn.className = "toolbarbutton-1 " + aClsName;
+          toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
 
-        if (aCustomImgURL) {
-          toolbarBtn.setAttribute("image", aCustomImgURL);
+          if (aCustomImgURL) {
+            toolbarBtn.setAttribute("image", aCustomImgURL);
+          }
+
+          toolbarBtn.addEventListener("command", function (aEvent) {
+            let wnd = aEvent.target.ownerDocument.defaultView;
+            wnd.aecreations.panicbutton.doPanicAction();
+          }, false);
+
+          return toolbarBtn;
         }
-
-        toolbarBtn.setAttribute("popup", "ae-panicbutton-customize-panel");
-
-        toolbarBtn.addEventListener("command", function (aEvent) {
-          let wnd = aEvent.target.ownerDocument.defaultView;
-          wnd.aecreations.panicbutton.doPanicAction();
-        }, false);
-
-        return toolbarBtn;
-      }
-    });
+      });
+    } 
+    catch (e) { 
+      this.aeUtils.log("Panic Button: Exception thrown by CustomizableUI.createWidget(): " + e); 
+    }
 
     this.aeUtils.log("Panic Button: created widget");
   },
 
 
-  _destroyPanicButtonWidget: function ()
+  _destroyPanicButtonWidget: function (aForceDestroy)
   {
     if (! this.isAustralisUI()) {
       throw new Error("Panic Button: Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
     }
 
-    this.aeUtils.log("Panic Button: destroying widget");
-    CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
+    if (aForceDestroy) {
+      this.aeUtils.log("Panic Button: Forcing destruction of widget");
+      CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
+    }
+    else {
+      // Check how many browser windows are open.  Only perform the destruction
+      // when there are no windows remaining, and aForceDestroy is NOT set. 
+      let wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                         .getService(Components.interfaces.nsIWindowMediator);
+      let wndEnum = wm.getEnumerator("navigator:browser");
+      let numWnds = 0;
+
+      while (wndEnum.hasMoreElements()) {
+        wndEnum.getNext();
+        numWnds++;
+      }
+
+      if (numWnds == 0) {
+        this.aeUtils.log("Panic Button: No more browser window remaining; destroying widget");
+        CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
+      }
+    }
   },
 
 
@@ -326,7 +350,7 @@ window.aecreations.panicbutton = {
         this.aeUtils.log("Panic Button: Destroying and recreating widget");
         // To update the Panic Button widget (button icon or label),
         // destroy the widget, then recreate it with the updated properties.
-        this._destroyPanicButtonWidget();
+        this._destroyPanicButtonWidget(true);
       }
 
       this.aeUtils.log("Panic Button: Adding Panic Button widget");

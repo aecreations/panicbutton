@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Ikara botoia">
+<!ENTITY restoreToolbar.title "Saioa berrezarri">
+<!ENTITY restoreSession.label "Nabigatzaile saioa berrezarri">
+<!ENTITY quit.label "Irten">
+<!ENTITY tbIconsAndText.label "Ikonoak eta testua">
+<!ENTITY tbIcons.label "Ikonoak soilik">
+<!ENTITY tbTooltip.label "Argibideak">
+<!ENTITY extensionPrefDlg.title "Ikara botoiaren aukerak">
+<!ENTITY tabGeneral.label "Aukerak">
+<!ENTITY tabCustomize.label "Pertsonalizatu">
+<!ENTITY panicButtonAction.caption "Ikara botoiaren ekintza">
+<!ENTITY selectAction.label "Hautatu ekintza:">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "Leiho guztiak ezkutatu">
+<!ENTITY actionMinimizeAll.label "Leiho guztiak minimizatu">
+<!ENTITY actionQuit.label "Irten">
+<!ENTITY actionReplace.label "Ezkutatu eta ordeztu">
+<!ENTITY functionKey.label "F9 teklak Ikara botoi ekintza deitzen du">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "Tresna-barra botoiaren testua:">
+<!ENTITY toolbarButtonCaption.accesskey "t">
+<!ENTITY toolbarButtonIcon.label "Ikonoa:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Saioa berrezarri tresna-barra">
+<!ENTITY restoreBarLayout.label "Erakutsi:">
+<!ENTITY restoreBarLayout.accesskey "E">
+<!ENTITY resetCustomizations.label "Berrezarri">
+<!ENTITY resetCustomizations.accesskey "B">
+<!ENTITY customIcon.label "Pertsonalizatutako ikonoa...">
+<!ENTITY customIcon.accesskey "P">

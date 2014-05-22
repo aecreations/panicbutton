@@ -1,0 +1,30 @@
+<!ENTITY panicButton.label "Panic Button">
+<!ENTITY restoreToolbar.title "Munkamenet helyreállítása">
+<!ENTITY restoreSession.label "Munkamenet helyreállítása">
+<!ENTITY quit.label "Kilépés">
+<!ENTITY tbIconsAndText.label "Ikonok és szöveg">
+<!ENTITY tbIcons.label "Csak ikonok">
+<!ENTITY tbTooltip.label "Buborék súgó">
+<!ENTITY extensionPrefDlg.title "Panic Buttom beállításai">
+<!ENTITY tabGeneral.label "Beállítások">
+<!ENTITY tabCustomize.label "Testreszabás">
+<!ENTITY panicButtonAction.caption "Panic Button action">
+<!ENTITY selectAction.label "Művelet kiválasztása">
+<!ENTITY selectAction.accesskey "a">
+<!ENTITY actionHideAll.label "Összes ablak elrejtése">
+<!ENTITY actionMinimizeAll.label "Összes ablak minimalizálása">
+<!ENTITY actionQuit.label "Kilépés">
+<!ENTITY actionReplace.label "Elrejtés és kicserélés">
+<!ENTITY functionKey.label "Panic Button aktiválása az F9 billentyűvel">
+<!ENTITY functionKey.accesskey "k">
+<!ENTITY toolbarButtonCaption.label "Eszköztár neve">
+<!ENTITY toolbarButtonCaption.accesskey "c">
+<!ENTITY toolbarButtonIcon.label "Ikon:">
+<!ENTITY toolbarButtonIcon.accesskey "I">
+<!ENTITY restoreBar.caption "Munkafolyamat-eszköztár helyreállítása">
+<!ENTITY restoreBarLayout.label "Megjelenítés:">
+<!ENTITY restoreBarLayout.accesskey "S">
+<!ENTITY resetCustomizations.label "Helyreállítás">
+<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY customIcon.label "Saját ikon feltöltése">
+<!ENTITY customIcon.accesskey "u">

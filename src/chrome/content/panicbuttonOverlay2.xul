@@ -55,7 +55,7 @@
         <label id="ae-panicbutton-customize-panel-title" 
          value="&changePanicButtonIcon.title;"/>
         <separator class="thin"/>      
-        <toolbar id="ae-panicbutton-icon-picker">
+        <hbox id="ae-panicbutton-icon-picker">
           <grid>
 	    <columns>
 	      <column/><column/><column/><column/><column/><column/><column/>
@@ -90,14 +90,14 @@
 	       </row>
              </rows>
            </grid>
-        </toolbar>
+        </hbox>
         <separator class="thin"/>
         <hbox flex="1">
-          <toolbarspacer flex="1"/>
-          <toolbarbutton id="ae-panicbutton-customize"
+          <spacer flex="1"/>
+          <button id="ae-panicbutton-customize"
            label="&panicButtonCustomize.label;"
            oncommand="window.aecreations.panicbutton.showCustomizeDlg()"/>
-          <toolbarspacer flex="1"/>
+          <spacer flex="1"/>
         </hbox>
       </vbox>
     </panel>

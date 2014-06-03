@@ -8,6 +8,9 @@ skin	  panicbutton	classic	    chrome/skin/
 # Browser toolbar button
 skin	  panicbutton-laf	classic	chrome/skin/all/
 
+# Mac-specific styling
+skin	  panicbutton-laf	classic	chrome/skin/mac/	os=Darwin
+
 # Linux-specific styling:
 # On Firefox 28 or older, use the older color icons (24x24 and 16x16 sizes).
 # On Firefox 29 or newer, use the B+W 16x16 icons to integrate with Australis.

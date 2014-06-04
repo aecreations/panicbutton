@@ -15,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2013
+ * Portions created by the Initial Developer are Copyright (C) 2008-2014
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -95,24 +95,9 @@ function load()
 
   // Change orientation of windoid buttons to vertical on Mac OS X, due to
   // windoid sizing issues on that OS since Firefox 17 - 18 or so.
-  // Inline CSS is added to make the cosmetic workaround less ugly.
   if (aeUtils.getOS() == "Darwin") {
     let contentElt = $("windoid-content");
     contentElt.orient = "vertical";
-    contentElt.style.backgroundColor = "ActiveCaption";
-    
-    let restoreSessionBtn = $("restore-session");
-    let quitBrowserBtn = $("quit-browser");
-
-    restoreSessionBtn.style.borderRadius = "5px";
-    restoreSessionBtn.style.border = "1px solid #888888";
-    restoreSessionBtn.style.padding = "4px 4px 4px 4px";
-    restoreSessionBtn.style.marginBottom = "2px";
-    restoreSessionBtn.style.backgroundColor = "ButtonFace";
-    quitBrowserBtn.style.borderRadius = "5px";
-    quitBrowserBtn.style.border = "1px solid #888888";
-    quitBrowserBtn.style.padding = "4px 4px 4px 4px";
-    quitBrowserBtn.style.backgroundColor = "ButtonFace";
   }
 
   var tbLayoutPref = aeUtils.getPref("panicbutton.restorebar.layout", 0);
@@ -194,12 +179,6 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 	childNode.setAttribute("tooltiptext", label);
       }
     }
-    
-    if (aeUtils.getOS() == "Darwin") {
-      // Center the toolbar button icon
-      restoreBtn.style.paddingLeft = "18px";
-      exitBtn.style.paddingLeft = "18px";
-    }
   }
   else {
     // aLayoutPref == aeConstants.RESTOREBAR_LAYOUT_ICONSANDTEXT
@@ -208,11 +187,6 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 
     for (let i = 0; i < buttons.childNodes.length; i++) {
       buttons.childNodes[i].removeAttribute("tooltiptext");
-    }
-
-    if (aeUtils.getOS() == "Darwin") {
-      restoreBtn.style.paddingLeft = "4px";
-      exitBtn.style.paddingLeft = "4px";
     }
   }
 

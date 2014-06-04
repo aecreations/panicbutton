@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://panicbutton/skin/panicbuttonToolbar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://panicbutton-laf/skin/panicbuttonToolbar.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://panicbutton/locale/panicbutton.dtd">
 
@@ -20,7 +20,7 @@
    -
    - The Initial Developer of the Original Code is
    - Alex Eng <ateng@users.sourceforge.net>.
-   - Portions created by the Initial Developer are Copyright (C) 2008-2011
+   - Portions created by the Initial Developer are Copyright (C) 2008-2014
    - the Initial Developer. All Rights Reserved.
    -
    - Contributor(s):

@@ -81,6 +81,8 @@ window.aecreations.panicbutton = {
     else if (aEvent.type == "unload") {
       if (that.isAustralisUI()) {
         that._destroyPanicButtonWidget();
+        let tbCxtMenu = document.getElementById("toolbar-context-menu");
+        tbCxtMenu.removeEventListener("popupshowing", that._initInstantCustomizePanel, false);
       }
       
       window.removeEventListener("load",   that, false);
@@ -156,9 +158,16 @@ window.aecreations.panicbutton = {
     if (this.isAustralisUI()) {
       this.aeUtils.log("Panic Button: Initializing context menu on browser toolbar buttons");
       let tbCxtMenu = document.getElementById("toolbar-context-menu");
-      let that = this;
-      tbCxtMenu.addEventListener("popupshowing", function (aEvent) { that.initInstantCustomizePanel(aEvent); }, false);
+      tbCxtMenu.addEventListener("popupshowing", this._initInstantCustomizePanel, false);
     }
+  },
+
+
+  // To be invoked only by an event handler
+  _initInstantCustomizePanel: function (aEvent)
+  {
+    let that = window.aecreations.panicbutton;
+    that.initInstantCustomizePanel(aEvent);
   },
 
 
@@ -500,24 +509,30 @@ window.aecreations.panicbutton = {
       this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
     }
 
-    // Manually unset the "checked" state on all toolbarbuttons.  This is a
-    // workaround to an XUL bug where if toolbar buttons are inside a <grid>,
-    // each row of toolbarbuttons act as independent radio groups!
-    let toolbar = document.getElementById("ae-panicbutton-icon-picker");
-    let toolbarBtns = toolbar.getElementsByTagName("toolbarbutton");
-    for (let i = 0; i < toolbarBtns.length; i++) {
-      if (toolbarBtns[i].hasAttribute("checked") && toolbarBtns[i].className != aClsName) {
-        toolbarBtns[i].removeAttribute("checked");
-      }
-    }
-
+    this._resetInstantCustomizePanelSelection();
     this.setPanicButtonCustomizations(true);
   },
 
 
   showCustomizeDlg: function ()
   {
+    this._resetInstantCustomizePanelSelection();
     window.openDialog("chrome://panicbutton/content/options.xul", "dlg_panicbutton_customize", "chrome,titlebar,toolbar,centerscreen,dialog=yes", "pane-customize");
+  },
+
+
+  _resetInstantCustomizePanelSelection: function ()
+  {
+    // Manually unset the "checked" state on all toolbarbuttons.  This is a
+    // workaround to an XUL bug where if toolbar buttons are inside a <grid>,
+    // each row of toolbarbuttons act as independent radio groups!
+    let toolbar = document.getElementById("ae-panicbutton-icon-picker");
+    let toolbarBtns = toolbar.getElementsByTagName("toolbarbutton");
+    for (let i = 0; i < toolbarBtns.length; i++) {
+      if (toolbarBtns[i].hasAttribute("checked")) {
+        toolbarBtns[i].removeAttribute("checked");
+      }
+    }
   },
 
 

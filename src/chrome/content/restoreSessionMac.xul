@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://panicbutton-laf/skin/panicbuttonToolbar.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://panicbutton/locale/panicbutton.dtd">
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Panic Button.
+   -
+   - The Initial Developer of the Original Code is
+   - Alex Eng <ateng@users.sourceforge.net>.
+   - Portions created by the Initial Developer are Copyright (C) 2008-2014
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ id="ae-panicbutton-restoresession-toolbar" 
+ orient="vertical"
+ screenX="64" screenY="256" persist="screenX screenY"
+ onload="load()">
+
+  <script type="application/javascript" src="chrome://panicbutton/content/panicbuttonToolbar.js"/>
+
+  <stringbundle id="ae-panicbutton-strings" src="chrome://panicbutton/locale/panicbutton.properties"/>
+
+  <popupset>
+    <menupopup id="toolbar-context-menu" onpopupshowing="this.childNodes[aeUtils.getPref('panicbutton.restorebar.layout',0)].setAttribute('checked','true')">
+      <menuitem id="tb-layout-icons-and-text" type="radio" name="tbLayoutOpt"
+       label="&tbIconsAndText.label;"
+       oncommand="setToolbarLayout(aeConstants.RESTOREBAR_LAYOUT_ICONSANDTEXT)"/>
+      <menuitem id="tb-layout-icons-only" type="radio" name="tbLayoutOpt"
+       label="&tbIcons.label;"
+       oncommand="setToolbarLayout(aeConstants.RESTOREBAR_LAYOUT_ICONSONLY)"/>
+    </menupopup>
+  </popupset>
+  
+  <toolbar id="windoid-content" context="toolbar-context-menu" orient="vertical">
+    <toolbarbutton id="restore-session" label="&restoreSession.label;"
+     oncommand="restoreSession()" />
+    <toolbarbutton id="quit-browser" label="&quit.label;"
+     oncommand="quitBrowser()" />
+  </toolbar>
+
+</window>

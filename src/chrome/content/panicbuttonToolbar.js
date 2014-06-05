@@ -93,24 +93,10 @@ function load()
   window.addEventListener("focus", function (e) { gWindoid.focus(e) }, false);
   window.addEventListener("blur", function (e) { gWindoid.blur(e) }, false);
 
-  // Change orientation of windoid buttons to vertical on Mac OS X, due to
-  // windoid sizing issues on that OS since Firefox 17 - 18 or so.
-  if (aeUtils.getOS() == "Darwin") {
-    let contentElt = $("windoid-content");
-    contentElt.orient = "vertical";
-  }
-
   var tbLayoutPref = aeUtils.getPref("panicbutton.restorebar.layout", 0);
   setToolbarLayout(tbLayoutPref, true);
 
-  var tbChromeDisabled = (params["tbchrome"] && params["tbchrome"] == "none");
   var tbChromeOverride = (params["tbchrome"] && params["tbchrome"] == "override");
-
-  if (tbChromeDisabled) {
-    $("ae-panicbutton-restoresession-toolbar").style.border = "none";
-    $("windoid-title").style.display = "none";
-    $("windoid-border").style.border = "none";
-  }
 
   if (tbChromeOverride) {
     $("windoid-title-bar").style.backgroundImage = "url('chrome://panicbutton/skin/images/windoidTitleBar.png')";

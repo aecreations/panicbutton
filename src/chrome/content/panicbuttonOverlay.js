@@ -627,13 +627,19 @@ window.aecreations.panicbutton = {
       window.open(aReplacementURL, "_blank", wndFeatures);
     }
     else if (aSaveSession && !aReplacementURL) {
-      let wndURL = "chrome://panicbutton/content/panicbuttonToolbar.xul";
+      let wndURL = "chrome://panicbutton/content/";
+      if (this._osEnv == "Darwin") {
+        wndURL += "restoreSessionMac.xul";
+      }
+      else {
+        wndURL += "panicbuttonToolbar.xul";
+      }
+      
       let wndFeatures = "chrome,dialog=0,popup";
 
       if (this._osEnv == "Darwin") {
 	// On Mac OS X, OS_TARGET is "Darwin"
 	// Workaround strange behaviour with popups on Mac OS X; see bug 19026
-	wndURL += "?tbchrome=none";
 	wndFeatures = "chrome,dialog=0,resizable=0";
       }
       else if (this._osEnv == "Linux") {

@@ -52,8 +52,8 @@ toolbarbutton {
   padding: 4px 4px 4px 4px;
   margin-bottom: 2px;
 
-  background-image: -moz-linear-gradient(top, #f8f8f8 0%, #ccc 100%);
-  box-shadow: 0 1px 0 0 #fff;
+  background-image: -moz-linear-gradient(top, #f8f8f8 0%, #cccccc 100%);
+  box-shadow: 0 1px 0 0 #dcdcdc;
 }
 
 /* Workaround to unwanted margin on right of toolbarbutton images in the
@@ -71,7 +71,7 @@ toolbarbutton[tooltiptext] {
 }
 
 toolbarbutton:active {
-  background-image: -moz-linear-gradient(top, #a8a8a8 0%, #bfbfbf 15%, #d8d8d8 85%, #e6e6e6 100%);
+  background-image: -moz-linear-gradient(top, #a8a8a8 0%, #bfbfbf 15%, #d8d8d8 80%, #e6e6e6 100%);
 }
 
 #restore-session {

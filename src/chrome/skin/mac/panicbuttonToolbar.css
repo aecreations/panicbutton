@@ -29,19 +29,9 @@
 @import url("chrome://global/skin/global.css");
 
 
-#windoid-border {
-  border:  2px solid threedshadow;
-  padding: 1px;
-}
-
-#windoid-title {
-  background-color: activecaption;
-  height: 15px;
-}
-
 #windoid-content {
-  background-color: activecaption;
   padding-top: 1px;
+  padding-bottom: 2px;
 }
 
 toolbarbutton {
@@ -50,7 +40,7 @@ toolbarbutton {
   border: 1px solid #888888;
   border-radius: 5px;
   padding: 4px 4px 4px 4px;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 
   background-image: -moz-linear-gradient(top, #f8f8f8 0%, #cccccc 100%);
   box-shadow: 0 1px 0 0 #dcdcdc;

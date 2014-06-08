@@ -632,7 +632,7 @@ window.aecreations.panicbutton = {
         wndURL += "restoreSessionMac.xul";
       }
       else {
-        wndURL += "panicbuttonToolbar.xul";
+        wndURL += "restoreSession.xul";
       }
       
       let wndFeatures = "chrome,dialog=0,popup";

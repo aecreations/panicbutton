@@ -2,10 +2,10 @@
 overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/panicbuttonOverlay.xul	appversion<=28.*
 overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/panicbuttonOverlay2.xul	appversion>28.*
 
-# Styling for extension UI elements (except browser toolbar button)
+# Styling not specific to any platform
 skin	  panicbutton	classic	    chrome/skin/
 
-# Browser toolbar button
+# Styling for platforms other than those explicitly defined below
 skin	  panicbutton-laf	classic	chrome/skin/all/
 
 # Mac-specific styling

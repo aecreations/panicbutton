@@ -165,6 +165,10 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 	childNode.setAttribute("tooltiptext", label);
       }
     }
+
+    if (aeUtils.getOS() == "Darwin") {
+      $("ae-panicbutton-restoresession-toolbar").style.width = "5.5em";
+    }
   }
   else {
     // aLayoutPref == aeConstants.RESTOREBAR_LAYOUT_ICONSANDTEXT
@@ -173,6 +177,10 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 
     for (let i = 0; i < buttons.childNodes.length; i++) {
       buttons.childNodes[i].removeAttribute("tooltiptext");
+    }
+
+    if (aeUtils.getOS() == "Darwin") {
+      $("ae-panicbutton-restoresession-toolbar").style.width = "16em";
     }
   }
 

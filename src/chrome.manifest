@@ -8,6 +8,9 @@ skin	  panicbutton	classic	    chrome/skin/
 # Styling for platforms other than those explicitly defined below
 skin	  panicbutton-laf	classic	chrome/skin/all/
 
+# Windows-specific styling (mainly for the host app toolbar overlay)
+skin	  panicbutton-laf  	classic chrome/skin/win/	os=WINNT
+
 # Mac-specific styling
 skin	  panicbutton-laf	classic	chrome/skin/mac/	os=Darwin
 

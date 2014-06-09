@@ -1,0 +1,169 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is Panic Button.
+ *
+ * The Initial Developer of the Original Code is 
+ * Alex Eng <ateng@users.sourceforge.net>.
+ * Portions created by the Initial Developer are Copyright (C) 2014
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+@import url("chrome://global/skin/global.css");
+
+
+prefwindow {
+  min-width: 32em;
+}
+
+prefpane description {
+  font: message-box;
+}
+
+separator.very-thin {
+  height: 0.25em;
+}
+
+.ae-separator {
+  height: 0px !important;
+  border-top: 1px solid threedshadow;
+  border-bottom: 1px solid threedhighlight;
+  margin-top: 3px;
+  margin-bottom: 0.4em;
+}
+
+.ae-caption {
+  margin-left: 0px;
+}
+
+.ae-group-box {
+  -moz-box-flex: 1;
+  margin-left: 1.0em;
+}
+
+.indent {
+  margin-left: 2.5em;
+}
+
+#panicbutton-action-detail {
+  height: 6em;
+}
+
+#panicbutton-action-options {
+  height: 4em;
+  margin-left: 1.5em;
+}
+
+#panicbutton-action-desc {
+  width:        25em;
+  margin-left: 1.5em;
+}
+
+/* Icon picker */
+#toolbar-button-icon {
+  -moz-appearance: treeview;
+}
+
+/* Icons for the icon picker.  On Firefox 28 or older on Linux, a different
+toolbar icon image file should be used. */
+.toolbar-icon-list {
+  list-style-image: url("chrome://panicbutton/skin/images/Toolbar.png");
+}
+
+#default-icon {
+  -moz-image-region: rect(18px, 48px, 42px, 24px);
+}
+
+#exclamation-in-ball {
+  -moz-image-region: rect(18px, 24px, 42px, 0px);
+}
+
+#window-with-exclamation {
+  -moz-image-region: rect(18px, 72px, 42px, 48px);
+}
+
+#window-with-cross {
+  -moz-image-region: rect(18px, 96px, 42px, 72px);
+}
+
+#window-minimize {
+  -moz-image-region: rect(18px, 120px, 42px, 96px);
+}
+
+#quit {
+  -moz-image-region: rect(18px, 144px, 42px, 120px);
+}
+
+#exit-door {
+  -moz-image-region: rect(18px, 192px, 42px, 168px);
+}
+
+#window-with-check {
+  -moz-image-region: rect(18px, 168px, 42px, 144px);
+}
+
+#window-with-exclamation-ball {
+  -moz-image-region: rect(18px, 216px, 42px, 192px);
+}
+
+#plain-window {
+  -moz-image-region: rect(18px, 240px, 42px, 216px);
+}
+
+#dotted-window {
+  -moz-image-region: rect(18px, 264px, 42px, 240px);
+}
+
+#window-with-globe {
+  -moz-image-region: rect(18px, 288px, 42px, 264px);
+}
+
+#web-page {
+  -moz-image-region: rect(18px, 312px, 42px, 288px);
+}
+
+#web-page-with-globe {
+  -moz-image-region: rect(18px, 336px, 42px, 312px);
+}
+
+#web-document {
+  -moz-image-region: rect(18px, 360px, 42px, 336px);
+}
+
+#smiley {
+  -moz-image-region: rect(18px, 384px, 42px, 360px);
+}
+
+#picture {
+  -moz-image-region: rect(18px, 408px, 42px, 384px);
+}
+
+#desktop {
+  -moz-image-region: rect(18px, 432px, 42px, 408px);
+}
+
+#computer {
+  -moz-image-region: rect(18px, 456px, 42px, 432px);
+}
+
+#letter-a {
+  -moz-image-region: rect(18px, 480px, 42px, 456px);
+}
+
+#custom-image image {
+  width: 24px;
+  height: 24px;
+}

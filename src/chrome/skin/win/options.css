@@ -29,10 +29,6 @@ prefwindow {
   min-width: 32em;
 }
 
-prefpane description {
-  font: message-box;
-}
-
 separator.very-thin {
   height: 0.25em;
 }
@@ -80,7 +76,7 @@ separator.very-thin {
 /* Icons for the icon picker.  On Firefox 28 or older on Linux, a different
 toolbar icon image file should be used. */
 .toolbar-icon-list {
-  list-style-image: url("chrome://panicbutton/skin/images/Toolbar.png");
+  list-style-image: url("chrome://panicbutton-laf/skin/images/Toolbar.png");
 }
 
 #default-icon {

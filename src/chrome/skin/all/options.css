@@ -26,7 +26,7 @@
 
 
 prefwindow {
-  min-width: 32em;
+  min-width: 33em;
 }
 
 prefpane description {
@@ -59,7 +59,7 @@ separator.very-thin {
 }
 
 #panicbutton-action-detail {
-  height: 6em;
+  height: 5.5em;
 }
 
 #panicbutton-action-options {

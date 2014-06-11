@@ -5,26 +5,57 @@
 <!ENTITY tbIconsAndText.label "Pictogrammen en tekst">
 <!ENTITY tbIcons.label "Alleen pictogrammen">
 <!ENTITY tbTooltip.label "Tooltips">
-<!ENTITY extensionPrefDlg.title "Panic Button-opties">
-<!ENTITY tabGeneral.label "Algemeen">
-<!ENTITY tabCustomize.label "Aanpassen">
-<!ENTITY panicButtonAction.caption "Panic Button-actie">
-<!ENTITY selectAction.label "Selecteer actie:">
-<!ENTITY selectAction.accesskey "a">
+<!ENTITY changePanicButtonIcon.label "Pictogram wijzigen…">
+<!ENTITY changePanicButtonIcon.accesskey "i">
+<!ENTITY changePanicButtonIcon.title "Selecteer een pictogram">
+<!ENTITY panicButtonCustomize.label "Aanpassen…">
+<!ENTITY prefOptions.label "Opties">
+<!ENTITY prefCustomize.label "Aanpassen">
+<!ENTITY panicButtonAction.label "Paniekknopactie:">
+<!ENTITY panicButtonAction.accesskey "P">
+<!ENTITY shortcutKey.caption "Sneltoets">
+<!ENTITY restoreBarLayout.caption "Lay-out werkbalk Sessie herstellen">
+<!ENTITY tbIconsAndText.accesskey "c">
+<!ENTITY tbIcons.accesskey "i">
+<!ENTITY replaceUrl.label "Weblocatie (URL):">
+<!ENTITY replaceUrl.accesskey "l">
+<!ENTITY prefChange.desc "Wijzigingen aan deze instelling worden van kracht in nieuwe browservensters.">
 <!ENTITY actionHideAll.label "Alle vensters verbergen">
 <!ENTITY actionMinimizeAll.label "Alle vensters minimaliseren">
 <!ENTITY actionQuit.label "Stoppen">
 <!ENTITY actionReplace.label "Verbergen en vervangen">
-<!ENTITY functionKey.label "De toets F9 roept de actie van Panic Button aan">
-<!ENTITY functionKey.accesskey "T">
+<!ENTITY enableKey.label "Druk deze toetsen om de Paniekknopactie te starten:">
+<!ENTITY enableKey.accesskey "t">
 <!ENTITY toolbarButtonCaption.label "Tekst bij werkbalkknop:">
 <!ENTITY toolbarButtonCaption.accesskey "e">
 <!ENTITY toolbarButtonIcon.label "Pictogram:">
 <!ENTITY toolbarButtonIcon.accesskey "P">
-<!ENTITY restoreBar.caption "Werkbalk Sessie herstellen">
-<!ENTITY restoreBarLayout.label "Weergeven:">
-<!ENTITY restoreBarLayout.accesskey "W">
 <!ENTITY resetCustomizations.label "Reset">
 <!ENTITY resetCustomizations.accesskey "R">
 <!ENTITY customIcon.label "Aangepast pictogram…">
 <!ENTITY customIcon.accesskey "a">
+<!ENTITY keyConflictAlert.desc "De geselecteerde toetsen worden al gebruikt.">
+<!ENTITY key.VK_PAUSE "Pauzeren">
+<!ENTITY key.VK_PAGE_UP "PgUp">
+<!ENTITY key.VK_PAGE_DOWN "PgDn">
+<!ENTITY key.VK_HOME "Home">
+<!ENTITY key.VK_END "End">
+<!ENTITY key.VK_LEFT "Links">
+<!ENTITY key.VK_RIGHT "Rechts">
+<!ENTITY key.VK_UP "Omhoog">
+<!ENTITY key.VK_DOWN "Omlaag">
+<!ENTITY key.VK_PRINTSCREEN "PrtScn">
+<!ENTITY key.VK_INSERT "Insert">
+<!ENTITY key.VK_DELETE "Delete">
+<!ENTITY key.VK_F1 "F1">
+<!ENTITY key.VK_F2 "F2">
+<!ENTITY key.VK_F3 "F3">
+<!ENTITY key.VK_F4 "F4">
+<!ENTITY key.VK_F5 "F5">
+<!ENTITY key.VK_F6 "F6">
+<!ENTITY key.VK_F7 "F7">
+<!ENTITY key.VK_F8 "F8">
+<!ENTITY key.VK_F9 "F9">
+<!ENTITY key.VK_F10 "F10">
+<!ENTITY key.VK_F11 "F11">
+<!ENTITY key.VK_F12 "F12">

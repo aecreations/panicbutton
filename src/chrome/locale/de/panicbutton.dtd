@@ -5,26 +5,57 @@
 <!ENTITY tbIconsAndText.label "Icons und Text">
 <!ENTITY tbIcons.label "Nur Icons">
 <!ENTITY tbTooltip.label "Tooltips">
-<!ENTITY extensionPrefDlg.title "Panic Button Optionen">
-<!ENTITY tabGeneral.label "Optionen">
-<!ENTITY tabCustomize.label "Anpassen">
-<!ENTITY panicButtonAction.caption "Panic Button aktion">
-<!ENTITY selectAction.label "Aktion auswählen:">
-<!ENTITY selectAction.accesskey "a">
+<!ENTITY changePanicButtonIcon.label "Icon ändern">
+<!ENTITY changePanicButtonIcon.accesskey "I">
+<!ENTITY changePanicButtonIcon.title "Wähle ein Icon">
+<!ENTITY panicButtonCustomize.label "Anpassen">
+<!ENTITY prefOptions.label "Optionen">
+<!ENTITY prefCustomize.label "Anpassen">
+<!ENTITY panicButtonAction.label "Panic Button Aktion:">
+<!ENTITY panicButtonAction.accesskey "P">
+<!ENTITY shortcutKey.caption "Tasrenkürzel">
+<!ENTITY restoreBarLayout.caption "Toolbar Layout der Sitzung wiederherstellen">
+<!ENTITY tbIconsAndText.accesskey "T">
+<!ENTITY tbIcons.accesskey "I">
+<!ENTITY replaceUrl.label "Web Location (URL):">
+<!ENTITY replaceUrl.accesskey "L">
+<!ENTITY prefChange.desc "Änderungen an diesen Einstellungen werden sich auf neue Fenster auswirken.">
 <!ENTITY actionHideAll.label "Alle Fenster verbergen">
 <!ENTITY actionMinimizeAll.label "Alle Fenster minimieren">
 <!ENTITY actionQuit.label "Schließen">
 <!ENTITY actionReplace.label "Verbergen und wiederherstellen">
-<!ENTITY functionKey.label "F9 aktiviert den Panic Button">
-<!ENTITY functionKey.accesskey "k">
+<!ENTITY enableKey.label "Drücke diese Tasten um den Panic Button auszulösen:">
+<!ENTITY enableKey.accesskey "k">
 <!ENTITY toolbarButtonCaption.label "Toolbar Button Beschriftung:">
 <!ENTITY toolbarButtonCaption.accesskey "c">
 <!ENTITY toolbarButtonIcon.label "Icon:">
 <!ENTITY toolbarButtonIcon.accesskey "I">
-<!ENTITY restoreBar.caption "Toolbar Sitzung wiederherstellen">
-<!ENTITY restoreBarLayout.label "Anzeigen:">
-<!ENTITY restoreBarLayout.accesskey "S">
 <!ENTITY resetCustomizations.label "Zurücksetzen">
 <!ENTITY resetCustomizations.accesskey "R">
 <!ENTITY customIcon.label "Icon anpassen">
 <!ENTITY customIcon.accesskey "u">
+<!ENTITY keyConflictAlert.desc "Die gewählten Tasten sind bereits in Benutzung.">
+<!ENTITY key.VK_PAUSE "Pause">
+<!ENTITY key.VK_PAGE_UP "Bild auf">
+<!ENTITY key.VK_PAGE_DOWN "Bild ab">
+<!ENTITY key.VK_HOME "Pos 1">
+<!ENTITY key.VK_END "Ende">
+<!ENTITY key.VK_LEFT "Links">
+<!ENTITY key.VK_RIGHT "Rechts">
+<!ENTITY key.VK_UP "Oben">
+<!ENTITY key.VK_DOWN "Unten">
+<!ENTITY key.VK_PRINTSCREEN "Druck">
+<!ENTITY key.VK_INSERT "Einfügen">
+<!ENTITY key.VK_DELETE "Entfernen">
+<!ENTITY key.VK_F1 "F1">
+<!ENTITY key.VK_F2 "F2">
+<!ENTITY key.VK_F3 "F3">
+<!ENTITY key.VK_F4 "F4">
+<!ENTITY key.VK_F5 "F5">
+<!ENTITY key.VK_F6 "F6">
+<!ENTITY key.VK_F7 "F7">
+<!ENTITY key.VK_F8 "F8">
+<!ENTITY key.VK_F9 "F9">
+<!ENTITY key.VK_F10 "F10">
+<!ENTITY key.VK_F11 "F11">
+<!ENTITY key.VK_F12 "F12">

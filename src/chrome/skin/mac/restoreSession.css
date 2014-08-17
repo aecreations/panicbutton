@@ -35,7 +35,7 @@
 }
 
 toolbarbutton {
-  list-style-image: url("chrome://panicbutton/skin/images/panicbuttonToolbar.png");
+  list-style-image: url("chrome://panicbutton/skin/images/restoreSession.png");
 
   border: 1px solid #888888;
   border-radius: 5px;

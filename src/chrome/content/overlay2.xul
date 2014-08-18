@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://panicbutton-laf/skin/hostapp.css" type="text/css"?>
+<?xml-stylesheet href="chrome://panicbutton-laf/skin/overlay.css" type="text/css"?>
 
 <!DOCTYPE overlay SYSTEM "chrome://panicbutton/locale/panicbutton.dtd">
 
@@ -30,7 +30,7 @@
 <overlay id="ae-panicbutton-overlay"
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/javascript" src="chrome://panicbutton/content/panicbuttonOverlay.js" />
+  <script type="application/javascript" src="chrome://panicbutton/content/overlay.js" />
 
   <stringbundleset id="stringbundleset">
     <stringbundle id="ae-panicbutton-strings" src="chrome://panicbutton/locale/panicbutton.properties"/>

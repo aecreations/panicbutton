@@ -30,7 +30,7 @@
 
 #ae-panicbutton-toolbarbutton,
 #ae-panicbutton-customize-panel #ae-panicbutton-icon-picker {
-  list-style-image:  url("chrome://panicbutton/skin/images/Toolbar.png");
+  list-style-image:  url("chrome://panicbutton/skin/images/overlayToolbar.png");
 }
 
 

@@ -75,7 +75,7 @@ separator.very-thin {
 
 /* Icons for the icon picker */
 .toolbar-icon-list {
-  list-style-image: url("chrome://panicbutton/skin/linux/Toolbar.png");
+  list-style-image: url("chrome://panicbutton/skin/linux/overlayToolbar.png");
 }
 
 #default-icon {

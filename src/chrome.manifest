@@ -1,6 +1,6 @@
 # Firefox
-overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/panicbuttonOverlay.xul	appversion<=28.*
-overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/panicbuttonOverlay2.xul	appversion>28.*
+overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/overlay.xul	appversion<=28.*
+overlay	chrome://browser/content/browser.xul	chrome://panicbutton/content/overlay2.xul	appversion>28.*
 
 # Styling not specific to any platform
 skin	  panicbutton	classic	    chrome/skin/
@@ -21,7 +21,7 @@ skin	 panicbutton-laf   classic    chrome/skin/linux/	os=Linux	appversion<=28.*
 skin	 panicbutton-laf   classic    chrome/skin/all/		os=Linux	appversion>28.*
 
 # Toolbar palette
-style	chrome://global/content/customizeToolbar.xul	chrome://panicbutton-laf/skin/hostapp.css
+style	chrome://global/content/customizeToolbar.xul	chrome://panicbutton-laf/skin/overlay.css
 
 resource	panicbutton	./
 content	panicbutton	chrome/content/
@@ -35,13 +35,13 @@ locale	panicbutton	fr	chrome/locale/fr/
 #locale	panicbutton	he	chrome/locale/he/
 #locale	panicbutton	hu-HU	chrome/locale/hu-HU/
 locale	panicbutton	it	chrome/locale/it/
-#locale	panicbutton	lt	chrome/locale/lt/
+locale	panicbutton	lt	chrome/locale/lt/
 #locale	panicbutton	ja-JP	chrome/locale/ja-JP/
-#locale	panicbutton	ko-KR	chrome/locale/ko-KR/
+locale	panicbutton	ko-KR	chrome/locale/ko-KR/
 locale	panicbutton	nl	chrome/locale/nl/
-#locale	panicbutton	pl	chrome/locale/pl/
+locale	panicbutton	pl	chrome/locale/pl/
 locale	panicbutton	pt-BR	chrome/locale/pt-BR/
-#locale	panicbutton	ru-RU	chrome/locale/ru-RU/
+locale	panicbutton	ru-RU	chrome/locale/ru-RU/
 #locale	panicbutton	sk-SK	chrome/locale/sk-SK/
 #locale	panicbutton	sv-SE	chrome/locale/sv-SE/
 locale	panicbutton	tr	chrome/locale/tr/

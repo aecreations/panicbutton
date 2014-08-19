@@ -51,10 +51,7 @@
   
   <vbox id="windoid-border">
 
-  <hbox id="windoid-title">
-    <titlebar id="windoid-title-bar" flex="1" />
-  </hbox>
-
+  <titlebar id="windoid-title-bar" flex="1"/>
   <toolbar id="windoid-content" context="toolbar-context-menu">
     <toolbarbutton id="restore-session" label="&restoreSession.label;"
      oncommand="restoreSession()" />

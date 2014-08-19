@@ -40,12 +40,16 @@ var gWindoid = {
 
   focus: function (aEvent)
   {
-    this.titlebarElt.style.backgroundColor = "activecaption";
+    if (this.titlebarElt) {
+      this.titlebarElt.style.backgroundColor = "activecaption";
+    }
   },
 
   blur:  function (aEvent)
   {
-    this.titlebarElt.style.backgroundColor = "inactivecaption";
+    if (this.titlebarElt) {
+      this.titlebarElt.style.backgroundColor = "inactivecaption";
+    }
   }
 };
 

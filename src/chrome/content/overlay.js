@@ -586,9 +586,11 @@ window.aecreations.panicbutton = {
     while (dlgEnum.hasMoreElements()) {
       var dlg = dlgEnum.getNext();
       var docElt = dlg.document.documentElement;
-      if (docElt.tagName == "dialog" || docElt.tagName == "prefwindow"
-	  || docElt.tagName == "wizard") {
+      if (docElt.tagName == "dialog" || docElt.tagName == "prefwindow") {
 	docElt.cancelDialog();
+      }
+      else if (docElt.tagName == "wizard") {
+        docElt.cancel();
       }
     }
 

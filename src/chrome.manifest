@@ -35,7 +35,7 @@ locale	panicbutton	fr	chrome/locale/fr/
 #locale	panicbutton	he	chrome/locale/he/
 #locale	panicbutton	hu-HU	chrome/locale/hu-HU/
 locale	panicbutton	it	chrome/locale/it/
-locale	panicbutton	lt	chrome/locale/lt/
+#locale	panicbutton	lt	chrome/locale/lt/
 #locale	panicbutton	ja-JP	chrome/locale/ja-JP/
 locale	panicbutton	ko-KR	chrome/locale/ko-KR/
 locale	panicbutton	nl	chrome/locale/nl/

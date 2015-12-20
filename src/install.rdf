@@ -7,7 +7,7 @@
     <em:name>Panic Button</em:name>
     <em:id>{24cea704-946d-11da-a72b-0800200c9a66}</em:id>
     <em:type>2</em:type>
-    <em:version>2.0.2</em:version>
+    <em:version>2.0.2+</em:version>
     <em:description>Quickly hide all browser windows with a click of a button.</em:description>
     <em:creator>AE Creations</em:creator>
     <em:contributor>Babelzilla Translators</em:contributor>
@@ -19,8 +19,8 @@
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-	<em:minVersion>24.0</em:minVersion>
-	<em:maxVersion>33.*</em:maxVersion>
+	<em:minVersion>31.0</em:minVersion>
+	<em:maxVersion>43.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>

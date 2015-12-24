@@ -9,7 +9,7 @@ EXCLUDE=*~ *\.html *\.psp *\.pl *\.idl *\.devel *\.release Makefile
 $(DIST_FILE):
 	zip -r $(DIST_FILE) * -x $(EXCLUDE)
 
-put:
+copy:
 	cp -v $(DIST_FILE) $(DIST_DEST)
 
 clean:

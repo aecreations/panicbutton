@@ -16,19 +16,19 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2014
+ * Portions created by the Initial Developer are Copyright (C) 2008-2015
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
  *
  * ***** END LICENSE BLOCK ***** */
 
-Components.utils.import("resource://panicbutton/modules/aeMozApplication.js");
+Components.utils.import("resource://gre/modules/Services.jsm");
 
 
 const EXPORTED_SYMBOLS = ["aeUtils"];
 
-const DEBUG = false;
+const DEBUG = true;
 const LOG_TO_CLIPBOARD = false;
 const EXTENSION_ID = "{24cea704-946d-11da-a72b-0800200c9a66}";
 const WNDTYPE_FX_BROWSER    = "navigator:browser";
@@ -37,8 +37,6 @@ const PREFNAME_PREFIX = "extensions.aecreations.";
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
-
-var Application = aeGetMozApplicationObj();
 
 
 var aeUtils = {
@@ -78,6 +76,30 @@ var aeUtils = {
  },
 
 
+ getHostAppID: function ()
+ {
+   var xulAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+
+   return xulAppInfo.ID;
+ },
+
+
+ getHostAppName: function ()
+ {
+   var xulAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+
+   return xulAppInfo.name;
+ },
+
+
+ getHostAppVersion: function ()
+ {
+   var xulAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+
+   return xulAppInfo.version;
+ },
+
+
  getOS: function ()
  {
    var rv;
@@ -90,15 +112,53 @@ var aeUtils = {
 
  getPref: function (aPrefKey, aDefaultValue)
  {
-   // aPrefKey is the pref name, but without the "extensions.aecreations."
-   // prefix.
-   return Application.prefs.getValue(PREFNAME_PREFIX + aPrefKey, aDefaultValue);
+   let prefName = PREFNAME_PREFIX + aPrefKey;
+   let prefs = Services.prefs;
+   let prefType = prefs.getPrefType(prefName);
+   let rv = undefined;
+
+   if (prefType == prefs.PREF_STRING) {
+     rv = prefs.getCharPref(prefName);
+   }
+   else if (prefType == prefs.PREF_INT) {
+     rv = prefs.getIntPref(prefName);
+   }
+   else if (prefType == prefs.PREF_BOOL) {
+     rv = prefs.getBoolPref(prefName);
+   }
+   else {
+     // Pref doesn't exist if prefType == prefs.PREF_INVALID.
+     rv = aDefaultValue;
+   }
+
+   return rv;
  },
 
 
  setPref: function (aPrefKey, aPrefValue)
  {
-   Application.prefs.setValue(PREFNAME_PREFIX + aPrefKey, aPrefValue);
+   let prefName = PREFNAME_PREFIX + aPrefKey;
+   let prefs = Services.prefs;
+   let prefType = prefs.getPrefType(prefName);
+
+   if (prefType == prefs.PREF_INT) {
+     prefs.setIntPref(prefName, aPrefValue);
+   }
+   else if (prefType == prefs.PREF_BOOL) {
+     prefs.setBoolPref(prefName, aPrefValue);
+   }
+   else if (prefType == prefs.PREF_STRING) {
+     prefs.setCharPref(prefName, aPrefValue);
+   }
+ },
+
+
+ hasPref: function (aPrefKey)
+ {
+   let prefName = PREFNAME_PREFIX + aPrefKey;
+   let prefs = Services.prefs;
+
+   return (prefs.getPrefType(prefName) != prefs.PREF_INVALID);
  },
 
 

@@ -16,7 +16,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2014
+ * Portions created by the Initial Developer are Copyright (C) 2008-2015
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -106,7 +106,7 @@ window.aecreations.panicbutton = {
     this._initToolbarIconClasses();
     this._strBundle = document.getElementById("ae-panicbutton-strings");
     this._osEnv = this.aeUtils.getOS();
-    this.aeUtils.log(this.aeString.format("Panic Button OS environment: %s\nHost app: %s (version %s); Australis UI: %b", this._osEnv, Application.name, Application.version, this.isAustralisUI()));
+    this.aeUtils.log(this.aeString.format("Panic Button OS environment: %s; host app: %s (version %s); Australis UI: %b", this._osEnv, this.aeUtils.getHostAppName(), this.aeUtils.getHostAppVersion(), this.isAustralisUI()));
 
     let that = this;
 

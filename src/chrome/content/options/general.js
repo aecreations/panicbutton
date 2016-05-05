@@ -16,13 +16,14 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2014
+ * Portions created by the Initial Developer are Copyright (C) 2014-2016
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
  *
  * ***** END LICENSE BLOCK ***** */
 
+Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://panicbutton/modules/aeUtils.js");
 Components.utils.import("resource://panicbutton/modules/aeConstants.js");
 Components.utils.import("resource://panicbutton/modules/aeKeyConflictDetector.js");
@@ -46,8 +47,9 @@ function initPrefPaneGeneral()
   // pref dialog.  Do not do this on platforms where pref dialogs dynamically
   // adjust their heights when switching between pref panes (e.g. Mac OS X), as
   // it will interfere with the dialog height.
-  var fadeInEffect = Application.prefs.get("browser.preferences.animateFadeIn");
-  aeUtils.log("fadeInEffect: " + fadeInEffect.value);
+  var prefSvc = Services.prefs;
+  var fadeInEffect = prefSvc.getBoolPref("browser.preferences.animateFadeIn");
+  aeUtils.log("fadeInEffect: " + fadeInEffect);
 
   if (! fadeInEffect.value) {
     aeUtils.log("Initializing workaround for prefpane height issue (this should NOT be executed if running on Mac OS X)");

@@ -208,8 +208,6 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 
 function restoreSession()
 {
-  let dummyWnd = window.open("about:blank", "ae_pbdum", "left=-500,top=-500,width=128,height=128");
-
   let ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                      .getService(Components.interfaces.nsISessionStore);
 
@@ -218,8 +216,6 @@ function restoreSession()
 
   aeBrowserSession.replaceSession = false;
   aeBrowserSession.data = "";
-
-  dummyWnd.close();
   
   var params = getParamsMap(window.location.search);
 

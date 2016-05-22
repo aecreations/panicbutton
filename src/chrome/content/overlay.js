@@ -636,6 +636,9 @@ window.aecreations.panicbutton = {
       }
 
       window.open(aReplacementURL, "_blank", wndFeatures);
+
+      // Finally, close the browser window that triggered the action.
+      window.close();
     }
     else if (aSaveSession && !aReplacementURL) {
       let wndURL = "chrome://panicbutton/content/";

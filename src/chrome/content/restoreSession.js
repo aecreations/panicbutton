@@ -15,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2014
+ * Portions created by the Initial Developer are Copyright (C) 2008-2016
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -208,12 +208,19 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 
 function restoreSession()
 {
-  var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
+  let dummyWnd = window.open("about:blank", "ae_pbdum", "left=-500,top=-500,width=128,height=128");
+
+  let ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                      .getService(Components.interfaces.nsISessionStore);
 
-  ss.setBrowserState(aeBrowserSession.data);
+  let sessionData = aeBrowserSession.data;
+  ss.setBrowserState(sessionData);
+
+  aeBrowserSession.replaceSession = false;
   aeBrowserSession.data = "";
 
+  dummyWnd.close();
+  
   var params = getParamsMap(window.location.search);
 
   if (isJSWindoidPositionPersistenceEnabled(params)) {
@@ -221,6 +228,7 @@ function restoreSession()
     aeUtils.setPref("panicbutton.restorebar.position",
 		    window.screenX + "," +  window.screenY);
   }
+
   window.close();
 }
 

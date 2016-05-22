@@ -16,7 +16,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2015
+ * Portions created by the Initial Developer are Copyright (C) 2008-2016
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -566,14 +566,17 @@ window.aecreations.panicbutton = {
     if (aSaveSession) {
       var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                          .getService(Components.interfaces.nsISessionStore);
-      var state = ss.getBrowserState();
-      
+      var state = ss.getBrowserState();      
+
       this.aeUtils.logToClipboard(state);
       this.aeBrowserSession.data = state;
 
       if (aReplacementURL) {
 	this.aeBrowserSession.replaceSession = true;
       }
+
+      let xulWindowElt = window.document.documentElement;
+      xulWindowElt.setAttribute("aePanicButtonWindowCloser", "true");
     }
 
     var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
@@ -609,7 +612,7 @@ window.aecreations.panicbutton = {
     // replacement window also needs to be private (issue #1).
     var isAllPrivate = true;
 
-    // Close browser and ancillary app windows
+    // Close all browser and ancillary app windows
     while (aBrowserWndEnum.hasMoreElements()) {
       let wnd = aBrowserWndEnum.getNext();
 
@@ -617,6 +620,12 @@ window.aecreations.panicbutton = {
         isAllPrivate = false;
       }
 
+      if (wnd.document.documentElement.hasAttribute("aePanicButtonWindowCloser")) {
+        // Don't close the window that triggered the Panic Button action; it
+        // should be closed last.
+        continue;
+      }
+      
       wnd.close();
     }
 
@@ -653,6 +662,9 @@ window.aecreations.panicbutton = {
       }
 
       window.open(wndURL, "ae_pbtb", wndFeatures);
+      
+      // Finally, close the browser window that triggered the action.
+      window.close();
     }
     else {
       var appStartup = Components.classes["@mozilla.org/toolkit/app-startup;1"]
@@ -681,7 +693,9 @@ window.aecreations.panicbutton = {
     var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                        .getService(Components.interfaces.nsISessionStore);
 
-    ss.setBrowserState(this.aeBrowserSession.data);
+    let sessionData = this.aeBrowserSession.data;
+    ss.setBrowserState(sessionData);
+
     this.aeBrowserSession.replaceSession = false;
     this.aeBrowserSession.data = "";
   }

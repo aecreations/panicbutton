@@ -208,6 +208,8 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 
 function restoreSession()
 {
+  window.open("about:blank", "", "");
+
   let ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                      .getService(Components.interfaces.nsISessionStore);
 

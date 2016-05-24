@@ -28,7 +28,7 @@ Components.utils.import("resource://gre/modules/Services.jsm");
 
 const EXPORTED_SYMBOLS = ["aeUtils"];
 
-const DEBUG = true;
+const DEBUG = false;
 const LOG_TO_CLIPBOARD = false;
 const EXTENSION_ID = "{24cea704-946d-11da-a72b-0800200c9a66}";
 const WNDTYPE_FX_BROWSER    = "navigator:browser";

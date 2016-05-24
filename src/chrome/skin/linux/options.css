@@ -15,7 +15,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2014
+ * Portions created by the Initial Developer are Copyright (C) 2014-2016
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -161,4 +161,25 @@ separator.very-thin {
 #custom-image image {
   width: 24px;
   height: 24px;
+}
+
+#toolbar-button-icon radio {
+    -moz-appearance: none;
+}
+
+#toolbar-button-icon radio .radio-check-box1 {
+    display: none;
+}
+
+#toolbar-button-icon radio .radio-label-box {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#toolbar-button-icon radio .radio-label-box .radio-label {
+    display: none;
+}
+
+#toolbar-button-icon radio[selected="true"] {
+    background-color: highlight;
 }

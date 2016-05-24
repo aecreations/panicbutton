@@ -169,11 +169,11 @@ toolbar icon image file should be used. */
 }
 
 #toolbar-button-icon radio {
-    -moz-appearance: none;
+    -moz-appearance: none !important;
 }
 
 #toolbar-button-icon radio .radio-check-box1 {
-    display: none;
+    display: none !important;
 }
 
 #toolbar-button-icon radio .radio-label-box {

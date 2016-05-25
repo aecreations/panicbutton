@@ -166,22 +166,10 @@ toolbar icon image file should be used. */
 
 #toolbar-button-icon radio {
     -moz-appearance: none;
-}
-
-#toolbar-button-icon radio .radio-check-box1 {
-    display: none;
-}
-
-#toolbar-button-icon radio .radio-label-box {
-    margin-left: 0;
-    margin-right: 0;
-}
-
-#toolbar-button-icon radio .radio-label-box .radio-label {
-    display: none;
+    border: 2px solid transparent;
 }
 
 #toolbar-button-icon radio[selected="true"] {
-    background-color: highlight;
+    border: 2px solid highlight;
 }
 

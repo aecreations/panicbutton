@@ -21,7 +21,7 @@ skin	 panicbutton-laf   classic    chrome/skin/linux/	os=Linux	appversion<=28.*
 skin	 panicbutton-laf   classic    chrome/skin/all/		os=Linux	appversion>28.*
 
 # Toolbar palette
-style	chrome://global/content/customizeToolbar.xul	chrome://panicbutton-laf/skin/overlay.css
+style	chrome://global/content/customizeToolbar.xul	chrome://panicbutton/skin/overlay.css
 
 resource	panicbutton	./
 content	panicbutton	chrome/content/

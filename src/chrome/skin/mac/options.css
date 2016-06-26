@@ -89,7 +89,7 @@ separator.very-thin {
 
 /* Icon picker */
 #toolbar-button-icon {
-  -moz-appearance: groupbox;
+  -moz-appearance: listbox;
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 2px;

@@ -56,61 +56,63 @@
     <separator class="thin"/>
     <label value="&toolbarButtonIcon.label;"
      accesskey="&toolbarButtonIcon.accesskey;" control="toolbar-button-icon"/>
-    <radiogroup id="toolbar-button-icon" preference="toolbar-btn-icon-pref">
-      <grid flex="1">
-        <columns>
-          <column flex="1"/>
-          <column flex="1"/>
-          <column flex="1"/>
-          <column flex="1"/>
-          <column flex="1"/>
-        </columns>
-	<rows>
-          <row>
-            <radio id="default-icon" class="toolbar-icon-list" value="0"/>
-            <radio id="exclamation-in-ball" class="toolbar-icon-list" value="1"/>
-            <radio id="quit" class="toolbar-icon-list" value="2"/>
-            <radio id="exit-door" class="toolbar-icon-list" value="3"/>
-            <radio id="window-minimize" class="toolbar-icon-list" value="4"/>
-            <radio id="window-with-exclamation" class="toolbar-icon-list"
-             value="5"/>
-          </row>
-          <row>
-            <radio id="window-with-exclamation-ball" class="toolbar-icon-list"
-             value="6"/>
-            <radio id="window-with-cross" class="toolbar-icon-list" value="7"/>
-            <radio id="window-with-check" class="toolbar-icon-list" value="8"/>
-            <radio id="plain-window" class="toolbar-icon-list" value="9"/>
-            <radio id="dotted-window" class="toolbar-icon-list" value="10"/>
-            <radio id="window-with-globe" class="toolbar-icon-list" value="11"/>
-          </row>
-          <row>
-            <radio id="web-page" class="toolbar-icon-list" value="12"/>
-            <radio id="web-page-with-globe" class="toolbar-icon-list"
-             value="13"/>
-            <radio id="web-document" class="toolbar-icon-list" value="14"/>
-            <radio id="smiley" class="toolbar-icon-list" value="15"/>
-            <radio id="picture" class="toolbar-icon-list" value="16"/>
-            <radio id="desktop" class="toolbar-icon-list" value="17"/>
-          </row>
-          <row>
-            <radio id="computer" class="toolbar-icon-list" value="18"/>
-            <radio id="letter-a" class="toolbar-icon-list" value="19"/>
-            <radio id="custom-image" hidden="true" value="20"/>
-            <spacer flex="1"/>
-            <spacer flex="1"/>
-          </row>
-        </rows>
-      </grid>
-    </radiogroup>
-    <separator class="thin"/>
+
     <hbox>
-      <button label="&customIcon.label;" accesskey="&customIcon.accesskey;"
-       oncommand="setCustomTBIcon()"/>
-      <spacer flex="1"/>
-      <button label="&resetCustomizations.label;" 
-       accesskey="&resetCustomizations.accesskey;" 
-       oncommand="resetCustomizations()"/>
+      <radiogroup id="toolbar-button-icon" preference="toolbar-btn-icon-pref">
+        <grid flex="1">
+          <columns>
+            <column flex="1"/>
+            <column flex="1"/>
+            <column flex="1"/>
+            <column flex="1"/>
+            <column flex="1"/>
+          </columns>
+          <rows>
+            <row>
+              <radio id="default-icon" class="toolbar-icon-list" value="0"/>
+              <radio id="exclamation-in-ball" class="toolbar-icon-list" value="1"/>
+              <radio id="quit" class="toolbar-icon-list" value="2"/>
+              <radio id="exit-door" class="toolbar-icon-list" value="3"/>
+              <radio id="window-minimize" class="toolbar-icon-list" value="4"/>
+              <radio id="window-with-exclamation" class="toolbar-icon-list"
+               value="5"/>
+            </row>
+            <row>
+              <radio id="window-with-exclamation-ball" class="toolbar-icon-list" value="6"/>
+              <radio id="window-with-cross" class="toolbar-icon-list" value="7"/>
+              <radio id="window-with-check" class="toolbar-icon-list" value="8"/>
+              <radio id="plain-window" class="toolbar-icon-list" value="9"/>
+              <radio id="dotted-window" class="toolbar-icon-list" value="10"/>
+              <radio id="window-with-globe" class="toolbar-icon-list" value="11"/>
+            </row>
+            <row>
+              <radio id="web-page" class="toolbar-icon-list" value="12"/>
+              <radio id="web-page-with-globe" class="toolbar-icon-list"
+               value="13"/>
+              <radio id="web-document" class="toolbar-icon-list" value="14"/>
+              <radio id="smiley" class="toolbar-icon-list" value="15"/>
+              <radio id="picture" class="toolbar-icon-list" value="16"/>
+              <radio id="desktop" class="toolbar-icon-list" value="17"/>
+            </row>
+            <row>
+              <radio id="computer" class="toolbar-icon-list" value="18"/>
+              <radio id="letter-a" class="toolbar-icon-list" value="19"/>
+              <radio id="custom-image" hidden="true" value="20"/>
+              <spacer flex="1"/>
+              <spacer flex="1"/>
+            </row>
+          </rows>
+        </grid>
+      </radiogroup>
+
+      <vbox flex="1" style="margin-left:6px">
+        <button label="&customIcon.label;" accesskey="&customIcon.accesskey;"
+         oncommand="setCustomTBIcon()"/>
+        <spacer flex="1"/>
+        <button label="&resetCustomizations.label;" 
+         accesskey="&resetCustomizations.accesskey;" 
+         oncommand="resetCustomizations()"/>
+      </vbox>
     </hbox>
 
   </prefpane>

@@ -43,16 +43,14 @@ var aeUtils = {
 
  alertEx : function (aTitle, aMessage)
  {
-   var prmpt = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
-   prmpt.alert(null, aTitle, aMessage);
+   Services.prompt.alert(null, aTitle, aMessage);
  },
 
 
  confirmEx: function (aTitle, aMessage)
  {
    var rv;
-   var prmpt = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
-   rv = prmpt.confirm(null, aTitle, aMessage);
+   rv = Services.prompt.confirm(null, aTitle, aMessage);
    return rv;
  },
 
@@ -193,8 +191,7 @@ var aeUtils = {
  log: function (aMessage)
  {
    if (DEBUG) {
-     var consoleSvc = Cc["@mozilla.org/consoleservice;1"].getService(Ci.nsIConsoleService);
-     consoleSvc.logStringMessage(aMessage);
+     Services.console.logStringMessage(aMessage);
    }
  },
 
@@ -211,9 +208,9 @@ var aeUtils = {
 // String bundle wrapper object
 //
 
-function aeStringBundle()
+function aeStringBundle(aStrBundleURL)
 {
-  this._strBundle = Services.strings.createBundle("chrome://panicbutton/locale/panicbutton.properties");
+  this._strBundle = Services.strings.createBundle(aStrBundleURL);
 }
 
 aeStringBundle.prototype.getString = function (aKey)

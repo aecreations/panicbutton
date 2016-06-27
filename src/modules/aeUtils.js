@@ -16,7 +16,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2008-2015
+ * Portions created by the Initial Developer are Copyright (C) 2008-2016
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -190,14 +190,36 @@ var aeUtils = {
  },
 
 
- log: function (aMessage) {
-    if (DEBUG) {
-      var consoleSvc = Cc["@mozilla.org/consoleservice;1"].getService(Ci.nsIConsoleService);
-      consoleSvc.logStringMessage(aMessage);
-    }
-  }
+ log: function (aMessage)
+ {
+   if (DEBUG) {
+     var consoleSvc = Cc["@mozilla.org/consoleservice;1"].getService(Ci.nsIConsoleService);
+     consoleSvc.logStringMessage(aMessage);
+   }
+ },
+
+ 
+ getStringBundle: function ()
+ {
+   let rv = new aeStringBundle();
+   return rv;
+ }
 };
 
+
+//
+// String bundle wrapper object
+//
+
+function aeStringBundle()
+{
+  this._strBundle = Services.strings.createBundle("chrome://panicbutton/locale/panicbutton.properties");
+}
+
+aeStringBundle.prototype.getString = function (aKey)
+{
+  return this._strBundle.GetStringFromName(aKey);
+};
 
 
 

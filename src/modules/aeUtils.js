@@ -55,6 +55,16 @@ var aeUtils = {
  },
 
 
+ promptPassword: function (aTitle, aMessage, aPswdInput)
+ {
+   var rv;
+
+   rv = Services.prompt.promptPassword(null, aTitle, aMessage, aPswdInput, null, {});
+
+   return rv;
+ },
+
+ 
  getExtensionID: function ()
  {
    return EXTENSION_ID;
@@ -196,9 +206,9 @@ var aeUtils = {
  },
 
  
- getStringBundle: function ()
+ getStringBundle: function (aStringBundleURL)
  {
-   let rv = new aeStringBundle();
+   let rv = new aeStringBundle(aStringBundleURL);
    return rv;
  }
 };

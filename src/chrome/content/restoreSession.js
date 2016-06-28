@@ -25,6 +25,7 @@
 Components.utils.import("resource://panicbutton/modules/aeUtils.js");
 Components.utils.import("resource://panicbutton/modules/aeConstants.js");
 Components.utils.import("resource://panicbutton/modules/aeBrowserSession.js");
+Components.utils.import("resource://panicbutton/modules/aePasswdMgr.js");
 
 
 var gStrBundle;
@@ -208,6 +209,21 @@ function setToolbarLayout(aLayoutPref, aOnLoad)
 
 function restoreSession()
 {
+  let loginMgrKey = gStrBundle.getString("loginMgrKey");
+  if (aePasswdMgr.loginExists(loginMgrKey)) {
+    let pswd = aePasswdMgr.getPassword(loginMgrKey);
+    let pswdInput = "";
+
+    do {
+      let pswdInputObj = {};
+      let prmptResult = aeUtils.promptPassword("", gStrBundle.getString("pswdPrmpt"), pswdInputObj);
+      if (! prmptResult) {
+	return;
+      }
+      pswdInput = pswdInputObj.value;
+    } while (pswdInput != pswd);
+  }
+
   window.open("about:blank", "", "");
 
   let ss = Components.classes["@mozilla.org/browser/sessionstore;1"]

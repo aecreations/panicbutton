@@ -31,6 +31,7 @@ Components.utils.import("resource://panicbutton/modules/aeKeyConflictDetector.js
 const PANICBUTTON_SHORTCUT_KEY = "VK_F9";
 
 var gPanicButtonActionDescKeys = ["Hide", "Minimize", "Quit", "Replace"];
+var gStrBundle;
 
 
 function $(aID)
@@ -176,5 +177,31 @@ function checkForKeyConflict()
   }
   else {
     keyConflictAlertElt.style.visibility = "hidden";
+  }
+}
+
+
+function setPassword()
+{
+  let dlgArgs = {
+    changedPswd: null,
+    newPswd: null,
+    removedPswd: null,
+    userCancel: null
+  };
+
+  window.openDialog("chrome://panicbutton/content/setPassword.xul", "ae_panicbtn_setpswd", "modal,centerscreen", dlgArgs);
+
+  if (! dlgArgs.userCancel) {
+    // TO DO: Show confirmation mini-banner next to "Set Password" button
+
+    // TEMPORARY
+    if (dlgArgs.removedPswd) {
+      aeUtils.alertEx(document.title, gStrBundle.getString("removePasswordConfirm"));
+    }
+    else if (dlgArgs.newPswd || dlgArgs.changedPswd) {
+      aeUtils.alertEx(document.title, gStrBundle.getString("setPasswordConfirm"));
+    }
+    // END TEMPORARY
   }
 }

@@ -19,7 +19,7 @@
    -
    - The Initial Developer of the Original Code is
    - Alex Eng <ateng@users.sourceforge.net>.
-   - Portions created by the Initial Developer are Copyright (C) 2014
+   - Portions created by the Initial Developer are Copyright (C) 2016
    - the Initial Developer. All Rights Reserved.
    -
    - Contributor(s):
@@ -81,6 +81,10 @@
                  accesskey="&tbIcons.accesskey;" value="1"/>
               </radiogroup>
 	    </groupbox>
+	    <hbox>
+              <button id="set-pswd-hide-all" label="&setPassword.label;"
+	       accesskey="&setPassword.accesskey;" oncommand="setPassword()"/>
+	    </hbox>
           </vbox>
 
 	  <vbox id="panicbutton-action-options-minimize-all"/>
@@ -96,6 +100,11 @@
                accesskey="&resetCustomizations.accesskey;"
                oncommand="resetWebPageURL()"/>
             </groupbox>
+            <hbox>
+              <button id="set-pswd-hide-and-replace"
+	       label="&setPassword.label;" accesskey="&setPassword.accesskey;"
+	       oncommand="setPassword()"/>
+	    </hbox>
           </vbox>
         </deck>
 	<separator class="thin"/>

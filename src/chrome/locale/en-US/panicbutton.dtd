@@ -42,6 +42,8 @@
 <!ENTITY customIcon.label "Custom Icon...">
 <!ENTITY customIcon.accesskey "u">
 <!ENTITY keyConflictAlert.desc "The selected keys are already in use.">
+<!ENTITY setPassword.label "Set Password…">
+<!ENTITY setPassword.accesskey "S">
 
 <!ENTITY key.VK_PAUSE "Pause">
 <!ENTITY key.VK_PAGE_UP "Page Up">
@@ -67,3 +69,16 @@
 <!ENTITY key.VK_F10 "F10">
 <!ENTITY key.VK_F11 "F11">
 <!ENTITY key.VK_F12 "F12">
+
+<!-- Password dialogs -->
+<!ENTITY setPassword.title "Set Password">
+<!ENTITY oldPswd.label "Old password:">
+<!ENTITY oldPswd.accesskey "O">
+<!ENTITY enterPswd.label "Enter new password:">
+<!ENTITY enterPswd.accesskey "E">
+<!ENTITY confirmPswd.label "Confirm password:">
+<!ENTITY confirmPswd.accesskey "c">
+<!ENTITY removePswd.label "Remove Password">
+<!ENTITY removePswd.accesskey "R">
+<!ENTITY setPswd.label "Set Password">
+<!ENTITY setPswd.accesskey "S">

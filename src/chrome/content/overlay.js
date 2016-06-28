@@ -693,7 +693,22 @@ window.aecreations.panicbutton = {
 
   _restoreSession : function ()
   {
-    var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
+    let loginMgrKey = this._strBundle.getString("loginMgrKey");
+    if (this.aePasswdMgr.loginExists(loginMgrKey)) {
+      let pswd = this.aePasswdMgr.getPassword(loginMgrKey);
+      let pswdInput = "";
+
+      do {
+        let pswdInputObj = {};
+        let prmptResult = this.aeUtils.promptPassword("", this._strBundle.getString("pswdPrmpt"), pswdInputObj);
+        if (! prmptResult) {
+          return;
+        }
+        pswdInput = pswdInputObj.value;
+      } while (pswdInput != pswd);
+    }
+    
+    let ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
                        .getService(Components.interfaces.nsISessionStore);
 
     let sessionData = this.aeBrowserSession.data;
@@ -718,6 +733,8 @@ Components.utils.import("resource://panicbutton/modules/aeConstants.js",
 Components.utils.import("resource://panicbutton/modules/aeBrowserSession.js",
 			window.aecreations.panicbutton);
 Components.utils.import("resource://panicbutton/modules/aePrefMigrator.js",
+			window.aecreations.panicbutton);
+Components.utils.import("resource://panicbutton/modules/aePasswdMgr.js",
 			window.aecreations.panicbutton);
 Components.utils.import("resource://gre/modules/PrivateBrowsingUtils.jsm",
                         window.aecreations.panicbutton);

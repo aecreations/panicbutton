@@ -12,7 +12,7 @@
 <!-- Instant Customize -->
 <!ENTITY changePanicButtonIcon.label "Change Icon...">
 <!ENTITY changePanicButtonIcon.accesskey "I">
-<!ENTITY changePanicButtonIcon.title "Select An Icon">
+<!ENTITY changePanicButtonIcon.title "Select an icon">
 <!ENTITY panicButtonCustomize.label "Customize...">
 
 <!-- Extension preferences dialog -->

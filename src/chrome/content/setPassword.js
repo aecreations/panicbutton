@@ -74,9 +74,33 @@ function accept()
     return false;
   }
 
-  // TO DO: What happens if both password fields are empty?
+  let isPasswordSet = aePasswdMgr.loginExists(gLoginMgrKey);
+  if (isPasswordSet) {
+    let enteredOldPswd = $("old-password").value;
+    let currentPswd = aePasswdMgr.getPassword(gLoginMgrKey);
+    if (enteredOldPswd != currentPswd) {
+      aeUtils.beep();
+      $("old-password").select();
+      $("old-password").focus();
+      return false;
+    }
+  }
+  
+  if (passwd == "" && confirmPasswd == "") {
+    if (isPasswordSet) {
+      // If both password fields are empty, clear the password as if the user
+      // had clicked "Remove Password"
+      removePassword();
+      return true;
+    }
+    else {
+      aeUtils.beep();
+      $("enter-password").focus();
+      return false;
+    }
+  }
 
-  if (aePasswdMgr.loginExists(gLoginMgrKey)) {
+  if (isPasswordSet) {
     let oldPswd = $("old-password").value;
     aePasswdMgr.updateLogin(gLoginMgrKey, oldPswd, passwd);
     gDlgArgs.changedPswd = true;

@@ -231,11 +231,12 @@ window.aecreations.panicbutton = {
         defaultArea: CustomizableUI.AREA_NAVBAR,
         onBuild: function (aDocument) {
           let that = aDocument.defaultView.aecreations.panicbutton;
+          let strBundle = aDocument.getElementById("ae-panicbutton-strings");
           let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
           toolbarBtn.id = "ae-panicbutton-toolbarbutton";
           toolbarBtn.className = "toolbarbutton-1 " + aClsName;
 
-          let label = that.aeUtils.getPref("panicbutton.toolbarbutton.label", that._strBundle.getString("panicbutton.defaultLabel"));
+          let label = that.aeUtils.getPref("panicbutton.toolbarbutton.label", strBundle.getString("panicbutton.defaultLabel"));
           toolbarBtn.setAttribute("label", label);
 
           if (that.aeUtils.getPref("panicbutton.toolbarbutton.show_tooltip", true)) {

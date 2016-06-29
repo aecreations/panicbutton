@@ -234,8 +234,14 @@ window.aecreations.panicbutton = {
           let toolbarBtn = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbarbutton");
           toolbarBtn.id = "ae-panicbutton-toolbarbutton";
           toolbarBtn.className = "toolbarbutton-1 " + aClsName;
-          toolbarBtn.setAttribute("label", that.aeUtils.getPref("panicbutton.toolbarbutton.label", "Panic Button"));
 
+          let label = that.aeUtils.getPref("panicbutton.toolbarbutton.label", that._strBundle.getString("panicbutton.defaultLabel"));
+          toolbarBtn.setAttribute("label", label);
+
+          if (that.aeUtils.getPref("panicbutton.toolbarbutton.show_tooltip", true)) {
+            toolbarBtn.setAttribute("tooltiptext", label);            
+          }
+          
           if (aCustomImgURL) {
             toolbarBtn.setAttribute("image", aCustomImgURL);
           }

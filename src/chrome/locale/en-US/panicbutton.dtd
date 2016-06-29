@@ -44,6 +44,8 @@
 <!ENTITY keyConflictAlert.desc "The selected keys are already in use.">
 <!ENTITY setPassword.label "Set Password…">
 <!ENTITY setPassword.accesskey "S">
+<!ENTITY showTooltip.label "Show caption in tooltip">
+<!ENTITY showTooltip.accesskey "S">
 
 <!ENTITY key.VK_PAUSE "Pause">
 <!ENTITY key.VK_PAGE_UP "Page Up">

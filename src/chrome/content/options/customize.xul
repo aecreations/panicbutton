@@ -19,7 +19,7 @@
    -
    - The Initial Developer of the Original Code is
    - Alex Eng <ateng@users.sourceforge.net>.
-   - Portions created by the Initial Developer are Copyright (C) 2014
+   - Portions created by the Initial Developer are Copyright (C) 2014-2016
    - the Initial Developer. All Rights Reserved.
    -
    - Contributor(s):
@@ -36,6 +36,8 @@
        name="extensions.aecreations.panicbutton.toolbarbutton.label"/>
       <preference id="toolbar-btn-icon-pref" type="int"
        name="extensions.aecreations.panicbutton.toolbarbutton.icon"/>
+      <preference id="show-tooltip-pref" type="bool"
+       name="extensions.aecreations.panicbutton.toolbarbutton.show_tooltip"/>
     </preferences>
 
     <separator class="very-thin"/>
@@ -50,6 +52,11 @@
             <textbox id="toolbar-button-caption"
              preference="toolbar-btn-caption-pref"/>
           </row>
+	  <row>
+	    <spacer flex="1"/>
+	    <checkbox id="show-tooltip" label="&showTooltip.label;"
+             accesskey="&showTooltip.accesskey;" preference="show-tooltip-pref"/>
+	  </row>
         </rows>
       </grid>
     </vbox>

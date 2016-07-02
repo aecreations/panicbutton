@@ -115,13 +115,17 @@
       <vbox flex="1" style="margin-left:6px">
         <button label="&customIcon.label;" accesskey="&customIcon.accesskey;"
          oncommand="setCustomTBIcon()"/>
-        <spacer flex="1"/>
-        <button label="&resetCustomizations.label;" 
-         accesskey="&resetCustomizations.accesskey;" 
-         oncommand="resetCustomizations()"/>
       </vbox>
     </hbox>
 
+    <separator/>
+      <hbox>
+        <button label="&restoreDefaults.label;" 
+         accesskey="&restoreDefaults.accesskey;" 
+         oncommand="resetCustomizations()"/>
+        <spacer flex="1"/>
+      </hbox>
+    <separator flex="1"/>
   </prefpane>
 
   <!-- Must put all other non-<prefpane> elements after the <prefpane>,

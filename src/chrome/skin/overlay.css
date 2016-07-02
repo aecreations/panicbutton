@@ -28,12 +28,29 @@
  */
 
 
-#ae-panicbutton-toolbarbutton,
-#ae-panicbutton-customize-panel #ae-panicbutton-icon-picker {
-  list-style-image:  url("chrome://panicbutton-laf/skin/images/overlayToolbar.png");
+@media all {
+    
+  #ae-panicbutton-toolbarbutton,
+  #ae-panicbutton-customize-panel #ae-panicbutton-icon-picker {
+    list-style-image:  url("chrome://panicbutton-laf/skin/images/overlayToolbar.svg");
+  }
 }
 
+@media (-moz-os-version: windows-win7) {
+  #ae-panicbutton-toolbarbutton,
+  #ae-panicbutton-customize-panel #ae-panicbutton-icon-picker {
+    list-style-image:  url("chrome://panicbutton/skin/win/images/overlayToolbar.png");
+  }
+}
 
+@media (-moz-os-version: windows-win10) {
+  #ae-panicbutton-toolbarbutton,
+  #ae-panicbutton-customize-panel #ae-panicbutton-icon-picker {
+    list-style-image:  url("chrome://panicbutton-laf/skin/images/overlayToolbar.svg");
+  }
+}
+
+ 
 /*
  * Toolbar button icons for the navigation bar.
  */

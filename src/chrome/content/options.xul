@@ -20,7 +20,7 @@
    -
    - The Initial Developer of the Original Code is
    - Alex Eng <ateng@users.sourceforge.net>.
-   - Portions created by the Initial Developer are Copyright (C) 2014
+   - Portions created by the Initial Developer are Copyright (C) 2014-2016
    - the Initial Developer. All Rights Reserved.
    -
    - Contributor(s):
@@ -33,11 +33,11 @@
  onkeydown="prefwindow_keydown(event)">
 
   <prefpane id="pane-general" label="&prefOptions.label;"
-   image="chrome://panicbutton/skin/images/general.png"
+   image="chrome://panicbutton/skin/images/general.svg"
    src="chrome://panicbutton/content/options/general.xul"/>
 
   <prefpane id="pane-customize" label="&prefCustomize.label;"
-   image="chrome://panicbutton/skin/images/customize.png"
+   image="chrome://panicbutton/skin/images/customize.svg"
    src="chrome://panicbutton/content/options/customize.xul"/>
 
   <!-- Must put all other non-<prefpane> elements after the last <prefpane>,

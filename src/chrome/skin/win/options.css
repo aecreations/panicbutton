@@ -95,9 +95,18 @@ separator.very-thin {
 }
 
 /* Icons for the icon picker. */
-.toolbar-icon-list {
-  list-style-image: url("chrome://panicbutton-laf/skin/images/overlayToolbar.png");
+@media all {
+  .toolbar-icon-list {
+    list-style-image: url("chrome://panicbutton/skin/win/images/overlayToolbar-win7.png");
+  }
 }
+/***
+@media (-moz-os-version: windows-win10) {
+  .toolbar-icon-list {
+    list-style-image: url("chrome://panicbutton/skin/win/images/overlayToolbar.svg");
+  }
+}
+***/
 
 #default-icon {
   -moz-image-region: rect(16px, 48px, 40px, 24px);

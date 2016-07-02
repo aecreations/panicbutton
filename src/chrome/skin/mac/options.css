@@ -134,7 +134,7 @@ separator.very-thin {
 
 /* Icons for the icon picker. */
 .toolbar-icon-list {
-  list-style-image: url("chrome://panicbutton-laf/skin/images/overlayToolbar.png");
+  list-style-image: url("chrome://panicbutton-laf/skin/images/overlayToolbar.svg");
 }
 
 #default-icon {

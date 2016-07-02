@@ -39,7 +39,7 @@
 @media (-moz-os-version: windows-win7) {
   #ae-panicbutton-toolbarbutton,
   #ae-panicbutton-customize-panel #ae-panicbutton-icon-picker {
-    list-style-image:  url("chrome://panicbutton/skin/win/images/overlayToolbar.png");
+    list-style-image:  url("chrome://panicbutton/skin/win/images/overlayToolbar-win7.png");
   }
 }
 

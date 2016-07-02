@@ -37,8 +37,8 @@
 <!ENTITY toolbarButtonCaption.accesskey "c">
 <!ENTITY toolbarButtonIcon.label "Icon:">
 <!ENTITY toolbarButtonIcon.accesskey "I">
-<!ENTITY resetCustomizations.label "Reset">
-<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY restoreDefaults.label "Restore to Default">
+<!ENTITY restoreDefaults.accesskey "R">
 <!ENTITY customIcon.label "Custom Icon...">
 <!ENTITY customIcon.accesskey "u">
 <!ENTITY keyConflictAlert.desc "The selected keys are already in use.">

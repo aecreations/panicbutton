@@ -96,8 +96,8 @@
                  accesskey="&replaceUrl.accesskey;" control="webpg-url"/>
               </caption>
               <textbox id="webpg-url" flex="1" preference="replace-url-pref"/>
-              <button id="reset-url" label="&resetCustomizations.label;" 
-               accesskey="&resetCustomizations.accesskey;"
+              <button id="reset-url" label="&restoreDefaults.label;" 
+               accesskey="&restoreDefaults.accesskey;"
                oncommand="resetWebPageURL()"/>
             </groupbox>
             <hbox>

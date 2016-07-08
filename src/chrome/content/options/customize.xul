@@ -60,10 +60,9 @@
         </rows>
       </grid>
     </vbox>
-    <separator class="thin"/>
+
     <label value="&toolbarButtonIcon.label;"
      accesskey="&toolbarButtonIcon.accesskey;" control="toolbar-button-icon"/>
-
     <hbox>
       <radiogroup id="toolbar-button-icon" preference="toolbar-btn-icon-pref">
         <grid flex="1">
@@ -120,8 +119,8 @@
 
     <separator/>
       <hbox>
-        <button label="&restoreDefaults.label;" 
-         accesskey="&restoreDefaults.accesskey;" 
+        <button label="&resetAll.label;" 
+         accesskey="&resetAll.accesskey;" 
          oncommand="resetCustomizations()"/>
         <spacer flex="1"/>
       </hbox>

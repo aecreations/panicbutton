@@ -55,6 +55,24 @@ var aeUtils = {
  },
 
 
+ confirmYesNo: function (aTitle, aMessage, aIsDefaultButtonNo)
+ {
+   var rv;
+   var prmpt = Services.prompt;
+   
+   var btnFlags = prmpt.STD_YES_NO_BUTTONS;
+   btnFlags += (aIsDefaultButtonNo ? prmpt.BUTTON_POS_1_DEFAULT : prmpt.BUTTON_POS_0_DEFAULT);
+
+   // Return values of nsIPromptService.confirmEx(): 0 = Yes; 1 = No
+   var btnIdx = prmpt.confirmEx(null, aTitle, aMessage, btnFlags, "", "", "", "", {});
+
+   // Invert the return value (which is the index of the pressed button) so
+   // that the return value of this method is like aeUtils.confirmEx()
+   rv = Math.abs(btnIdx - 1);
+
+   return rv;
+ },
+
  promptPassword: function (aTitle, aMessage, aPswdInput)
  {
    var rv;

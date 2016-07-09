@@ -16,7 +16,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2014
+ * Portions created by the Initial Developer are Copyright (C) 2014-2016
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -129,12 +129,20 @@ function initAndSelectCustomTBIcon(aCustomIconURL)
 
 function resetCustomizations()
 {
+  let confirmReset = aeUtils.confirmYesNo(gStrBundle.getString("customizeTitle"), gStrBundle.getString("confirmResetCust"), true);
+
+  if (! confirmReset) {
+    return;
+  }
+  
   $("toolbar-button-icon").selectedIndex = 0;
+  $("show-tooltip").checked = true;
   $("toolbar-button-caption").value = gStrBundle.getString("panicbutton.defaultLabel");
 
   // Also need to set the <preference> element's value, because it won't be set
   // automatically when the user clicked the "Reset" button.
   $("toolbar-btn-caption-pref").value = gStrBundle.getString("panicbutton.defaultLabel");
+  $("show-tooltip-pref").value = true;
 }
 
 

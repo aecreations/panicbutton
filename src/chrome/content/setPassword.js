@@ -44,8 +44,8 @@ function init()
   gStrBundle = aeUtils.getStringBundle("chrome://panicbutton/locale/panicbutton.properties");
   gLoginMgrKey = gStrBundle.getString("loginMgrKey");
 
-  if (aePasswdMgr.loginExists(gLoginMgrKey)) {
-    $("old-password-vbox").hidden = false;
+  if (! aePasswdMgr.loginExists(gLoginMgrKey)) {
+    $("old-password-fields").style.display = "none";
   }
 }
 
@@ -111,7 +111,7 @@ function accept()
   }
 
   gDlgArgs.userCancel = false;
-  return true;
+  window.close();
 }
 
 

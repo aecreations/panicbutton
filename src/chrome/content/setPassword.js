@@ -64,6 +64,22 @@ function removePassword()
     aeUtils.beep();
     return;
   }
+
+  let currentPswd = aePasswdMgr.getPassword(gLoginMgrKey);
+      
+  if ($("old-password").value != currentPswd) {
+    let pswdInputObj = {};
+    let prmptResult = aeUtils.promptPassword("", gStrBundle.getString("pswdPrmpt"), pswdInputObj);
+
+    if (! prmptResult) {
+      return;
+    }
+    
+    if (pswdInputObj.value != currentPswd) {
+      aeUtils.alertEx(document.title, gStrBundle.getString("pswdToRemove"));
+      return;
+    }
+  }
   
   aePasswdMgr.deleteLogin(gLoginMgrKey);
   gDlgArgs.userCancel = false;

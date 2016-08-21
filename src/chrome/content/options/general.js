@@ -190,7 +190,7 @@ function setPassword()
     userCancel: null
   };
 
-  window.openDialog("chrome://panicbutton/content/setPassword.xul", "ae_panicbtn_setpswd", "modal,centerscreen", dlgArgs);
+  window.openDialog("chrome://panicbutton/content/setPassword.xhtml", "ae_panicbtn_setpswd", "chrome,modal,centerscreen,width=350,height=180", dlgArgs);
 
   if (! dlgArgs.userCancel) {
     // TO DO: Show confirmation mini-banner next to "Set Password" button

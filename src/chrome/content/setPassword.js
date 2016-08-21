@@ -44,9 +44,17 @@ function init()
   gStrBundle = aeUtils.getStringBundle("chrome://panicbutton/locale/panicbutton.properties");
   gLoginMgrKey = gStrBundle.getString("loginMgrKey");
 
-  if (! aePasswdMgr.loginExists(gLoginMgrKey)) {
-    $("old-password-fields").style.display = "none";
+  if (aePasswdMgr.loginExists(gLoginMgrKey)) {
+    $("dlg-banner").style.display = "none";
+    $("old-password").focus();
   }
+  else {
+    $("old-password-fields").style.display = "none";
+    $("btn-remove-pswd").style.display = "none";
+    $("enter-password").focus();
+  }
+
+  window.sizeToContent();
 }
 
 

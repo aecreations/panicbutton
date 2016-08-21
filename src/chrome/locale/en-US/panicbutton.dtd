@@ -75,6 +75,7 @@
 <!ENTITY key.VK_F12 "F12">
 
 <!-- Password dialogs -->
+<!ENTITY setPswd.description "You can set a password to restore the browser session when the Panic Button action is Hide All Windows or Hide and Replace.">
 <!ENTITY setPassword.title "Set Password">
 <!ENTITY oldPswd.label "Old password:">
 <!ENTITY oldPswd.accesskey "O">

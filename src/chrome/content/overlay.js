@@ -41,8 +41,6 @@ window.aecreations.panicbutton = {
   _toolbarIconCls:  [],
   _osEnv:           null,
 
-  _mutationObserver: null,
-
   _cssClass: {
     // The code for the _cssClass object is adapted from "JavaScript: The
     // Definitive Guide" 5/e by David Flanagan (O'Reilly, 2006, pp. 381-382)
@@ -79,25 +77,13 @@ window.aecreations.panicbutton = {
       that.init();
     }
     else if (aEvent.type == "unload") {
-      if (that.isAustralisUI()) {
-        that._destroyPanicButtonWidget();
-        let tbCxtMenu = document.getElementById("toolbar-context-menu");
-        tbCxtMenu.removeEventListener("popupshowing", that._initInstantCustomizePanel, false);
-      }
+      that._destroyPanicButtonWidget();
+      let tbCxtMenu = document.getElementById("toolbar-context-menu");
+      tbCxtMenu.removeEventListener("popupshowing", that._initInstantCustomizePanel, false);
       
       window.removeEventListener("load",   that, false);
       window.removeEventListener("unload", that, false);
-
-      if (that._mutationObserver) {
-        that._mutationObserver.disconnect();
-      }
     }
-  },
-
-
-  isAustralisUI: function ()
-  {
-    return document.getElementById("PanelUI-menu-button") != null;
   },
 
 
@@ -106,34 +92,7 @@ window.aecreations.panicbutton = {
     this._initToolbarIconClasses();
     this._strBundle = document.getElementById("ae-panicbutton-strings");
     this._osEnv = this.aeUtils.getOS();
-    this.aeUtils.log(this.aeString.format("Panic Button OS environment: %s; host app: %s (version %s); Australis UI: %b", this._osEnv, this.aeUtils.getHostAppName(), this.aeUtils.getHostAppVersion(), this.isAustralisUI()));
-
-    let that = this;
-
-    if (! this.isAustralisUI()) {
-      // Set up observer that will apply customizations to the Panic Button
-      // toolbar button when it is added to the toolbar.
-      this._mutationObserver = new MutationObserver(function (aMutationRecs, aMutationObs) {
-          aMutationRecs.forEach(function (aMutation) {
-            if (aMutation.type == "childList") {
-              for (let i = 0; i < aMutation.addedNodes.length; i++) {
-                let addedNode = aMutation.addedNodes[i];
-                if (addedNode.nodeName == "toolbarbutton" 
-                    && addedNode.id == "ae-panicbutton-toolbarbutton") {
-                  that.setPanicButtonCustomizations();
-                }
-              }
-            }
-          });
-      });
-      let mutationObsConfig = { 
-        childList: true, 
-        subtree: true 
-      };
-
-      let mutnObsTarget = document.getElementById("browser-panel");
-      this._mutationObserver.observe(mutnObsTarget, mutationObsConfig);
-    }
+    this.aeUtils.log(this.aeString.format("Panic Button OS environment: %s; host app: %s (version %s)", this._osEnv, this.aeUtils.getHostAppName(), this.aeUtils.getHostAppVersion()));
 
     // Migrate prefs from root to the "extensions." branch
     let prefsMigrated = this.aeUtils.getPref("panicbutton.migrated_prefs", false);
@@ -155,11 +114,9 @@ window.aecreations.panicbutton = {
 
     this.applyUserPrefs();
 
-    if (this.isAustralisUI()) {
-      this.aeUtils.log("Panic Button: Initializing context menu on browser toolbar buttons");
-      let tbCxtMenu = document.getElementById("toolbar-context-menu");
-      tbCxtMenu.addEventListener("popupshowing", this._initInstantCustomizePanel, false);
-    }
+    this.aeUtils.log("Panic Button: Initializing context menu on browser toolbar buttons");
+    let tbCxtMenu = document.getElementById("toolbar-context-menu");
+    tbCxtMenu.addEventListener("popupshowing", this._initInstantCustomizePanel, false);
   },
 
 
@@ -175,21 +132,9 @@ window.aecreations.panicbutton = {
   {
     // Add the Panic Button toolbar button to the browser's navigation toolbar,
     // if it was not added already.
-    if (this.isAustralisUI()) {
-      this.aeUtils.log("Panic Button: First-time execution - creating Panic Button widget");
+    this.aeUtils.log("Panic Button: First-time execution - creating Panic Button widget");
 
-      this._createPanicButtonWidget("ae-panicbutton-default");
-    }
-    else {
-      // Firefox 28 or older
-      let toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
-      let browserNavBarElt = document.getElementById("nav-bar");
-      if (browserNavBarElt && !toolbarBtnElt) {
-        browserNavBarElt.insertItem("ae-panicbutton-toolbarbutton");
-        browserNavBarElt.setAttribute("currentset", browserNavBarElt.currentSet);
-        document.persist("nav-bar", "currentset");
-      }
-    }
+    this._createPanicButtonWidget("ae-panicbutton-default");
   },
 
 
@@ -220,10 +165,6 @@ window.aecreations.panicbutton = {
 
   _createPanicButtonWidget: function (aClsName, aCustomImgURL)
   {
-    if (! this.isAustralisUI()) {
-      throw new Error("Panic Button: Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
-    }
-
     try {
       CustomizableUI.createWidget({
         id: "ae-panicbutton-toolbarbutton",
@@ -266,10 +207,6 @@ window.aecreations.panicbutton = {
 
   _destroyPanicButtonWidget: function (aForceDestroy)
   {
-    if (! this.isAustralisUI()) {
-      throw new Error("Panic Button: Attempting to invoke Australis-specific code in a non-Australis version of Firefox!");
-    }
-
     if (aForceDestroy) {
       this.aeUtils.log("Panic Button: Forcing destruction of widget");
       CustomizableUI.destroyWidget("ae-panicbutton-toolbarbutton");
@@ -361,77 +298,31 @@ window.aecreations.panicbutton = {
 
   setPanicButtonCustomizations: function (aFromPrefWnd)
   {
-    if (this.isAustralisUI()) {
-      if (aFromPrefWnd) {
-        this.aeUtils.log("Panic Button: Destroying and recreating widget");
-        // To update the Panic Button widget (button icon or label),
-        // destroy the widget, then recreate it with the updated properties.
-        this._destroyPanicButtonWidget(true);
-      }
-
-      this.aeUtils.log("Panic Button: Adding Panic Button widget");
-
-      let iconIdx = this.aeUtils.getPref("panicbutton.toolbarbutton.icon", 0);
-      let tbClsName = this._toolbarIconCls[iconIdx];
-
-      // Initialize custom toolbar button icon.
-      let customImgURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
-      if (customImgURL) {
-        if (! this._isValidCustomToolbarIconURL(customImgURL)) {
-	  this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
-	  customImgURL = "";
-	}
-        else {
-          tbClsName = "ae-panicbutton-custom-icon";
-        }
-      }
-
-      this._createPanicButtonWidget(tbClsName, customImgURL);
-      return;
+    if (aFromPrefWnd) {
+      this.aeUtils.log("Panic Button: Destroying and recreating widget");
+      // To update the Panic Button widget (button icon or label),
+      // destroy the widget, then recreate it with the updated properties.
+      this._destroyPanicButtonWidget(true);
     }
 
-    // Firefox 28 or older
-    var toolbarBtnElt = document.getElementById("ae-panicbutton-toolbarbutton");
-    if (toolbarBtnElt) {
-      // Set Panic Button toolbar button label
-      var toolbarBtnLabel = this.aeUtils.getPref("panicbutton.toolbarbutton.label", "");
-      if (toolbarBtnLabel) {
-	toolbarBtnElt.label = toolbarBtnLabel;
+    this.aeUtils.log("Panic Button: Adding Panic Button widget");
+
+    let iconIdx = this.aeUtils.getPref("panicbutton.toolbarbutton.icon", 0);
+    let tbClsName = this._toolbarIconCls[iconIdx];
+
+    // Initialize custom toolbar button icon.
+    let customImgURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
+    if (customImgURL) {
+      if (! this._isValidCustomToolbarIconURL(customImgURL)) {
+        this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
+        customImgURL = "";
       }
       else {
-	toolbarBtnElt.label = this._strBundle.getString("panicbutton.defaultLabel");
-      }
-
-      // Set Panic Button toolbar button image
-      var oldCls = this._getOldToolbarButtonClass(toolbarBtnElt);
-      this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): old toolbar button classname: %S", oldCls));
-      var customImgURL = this.aeUtils.getPref("panicbutton.toolbarbutton.custom_icon_url", "");
-
-      if (customImgURL) {
-        if (! this._isValidCustomToolbarIconURL(customImgURL)) {
-	  this.aeUtils.setPref("panicbutton.toolbarbutton.custom_icon_url", "");
-	  customImgURL = "";
-        }
-        else {
-          this._cssClass.remove(toolbarBtnElt, oldCls);
-          this._cssClass.add(toolbarBtnElt, "ae-panicbutton-custom-icon");
-          toolbarBtnElt.setAttribute("image", customImgURL);
-        }
-      }
-      else {
-	toolbarBtnElt.removeAttribute("image");
-      }
-
-      if (! customImgURL) {
-	var iconIdx = this.aeUtils.getPref("panicbutton.toolbarbutton.icon", 0);
-	this._cssClass.remove(toolbarBtnElt, oldCls);
-	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): after removing old classname, toolbar button classname is now: %S", toolbarBtnElt.className));
-	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): adding toolbar button class: %S", this._toolbarIconCls[iconIdx]));
-
-	this._cssClass.add(toolbarBtnElt, this._toolbarIconCls[iconIdx]);
-	this.aeUtils.log(this.aeString.format("setPanicButtonCustomizations(): toolbar button classname is changed to: %S", toolbarBtnElt.className));
+        tbClsName = "ae-panicbutton-custom-icon";
       }
     }
+
+    this._createPanicButtonWidget(tbClsName, customImgURL);
   },
 
 

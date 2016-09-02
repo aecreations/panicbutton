@@ -40,7 +40,7 @@
 }
 
 toolbarbutton {
-  list-style-image: url("chrome://panicbutton/skin/images/restoreSession.png");
+  list-style-image: url("chrome://panicbutton/skin/images/restoreSession.svg");
 }
 
 /* Workaround to unwanted margin on right of toolbarbutton images in the

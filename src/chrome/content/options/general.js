@@ -125,6 +125,9 @@ function updatePanicButtonActionDesc(aInitDlg)
   panicButtonActionDesc.appendChild(actionDescTxtNode);
 
   $("panicbutton-action-options").selectedIndex = actionIndex;
+
+  // Clear the password confirmation banners if they are displaying.
+  clearPasswordBanners();
 }
 
 
@@ -181,7 +184,7 @@ function checkForKeyConflict()
 }
 
 
-function setPassword()
+function setPassword(aPanicButtonAction)
 {
   let dlgArgs = {
     changedPswd: null,
@@ -193,15 +196,26 @@ function setPassword()
   window.openDialog("chrome://panicbutton/content/setPassword.xhtml", "ae_panicbtn_setpswd", "chrome,modal,centerscreen,width=350,height=180", dlgArgs);
 
   if (! dlgArgs.userCancel) {
-    // TO DO: Show confirmation mini-banner next to "Set Password" button
-
-    // TEMPORARY
+    let bannerID = "set-pswd-banner-";
+    if (aPanicButtonAction == aeConstants.PANICBUTTON_ACTION_HIDE) {
+      bannerID += "hide-all";
+    }
+    else if (aePanicButtonAction == aeConstants.PANICBUTTON_ACTION_REPLACE) {
+      bannerID += "hide-and-replace";
+    }
+    
     if (dlgArgs.removedPswd) {
-      aeUtils.alertEx(document.title, gStrBundle.getString("removePasswordConfirm"));
+      $(bannerID).value = gStrBundle.getString("removePasswordConfirm");
     }
     else if (dlgArgs.newPswd || dlgArgs.changedPswd) {
-      aeUtils.alertEx(document.title, gStrBundle.getString("setPasswordConfirm"));
+      $(bannerID).value = gStrBundle.getString("setPasswordConfirm");
     }
-    // END TEMPORARY
   }
+}
+
+
+function clearPasswordBanners()
+{
+  $("set-pswd-banner-hide-all").value = "";
+  $("set-pswd-banner-hide-and-replace").value = "";
 }

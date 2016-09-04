@@ -54,6 +54,11 @@ separator.very-thin {
   margin-left: 2.5em;
 }
 
+.confirmation-banner {
+  font-weight: bold;
+  color: #2d6e49;
+}
+
 #panicbutton-action-detail {
   height: 5.5em;
 }

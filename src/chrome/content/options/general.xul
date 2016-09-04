@@ -19,7 +19,7 @@
    -
    - The Initial Developer of the Original Code is
    - Alex Eng <ateng@users.sourceforge.net>.
-   - Portions created by the Initial Developer are Copyright (C) 2016
+   - Portions created by the Initial Developer are Copyright (C) 2014-2016
    - the Initial Developer. All Rights Reserved.
    -
    - Contributor(s):
@@ -81,10 +81,16 @@
                  accesskey="&tbIcons.accesskey;" value="1"/>
               </radiogroup>
 	    </groupbox>
-	    <hbox>
-              <button id="set-pswd-hide-all" label="&setPassword.label;"
-	       accesskey="&setPassword.accesskey;" oncommand="setPassword()"/>
-	    </hbox>
+	    <grid>
+              <columns><column/><column flex="1"/></columns>
+	      <rows>
+ 	        <row align="center">	  
+                  <button id="set-pswd-hide-all" label="&setPassword.label;"
+	           accesskey="&setPassword.accesskey;" oncommand="setPassword(aeConstants.PANICBUTTON_ACTION_HIDE)"/>
+                  <label id="set-pswd-banner-hide-all" class="confirmation-banner" value=""/>
+		</row>
+	      </rows>
+	    </grid>
           </vbox>
 
 	  <vbox id="panicbutton-action-options-minimize-all"/>
@@ -100,11 +106,17 @@
                accesskey="&reset.accesskey;"
                oncommand="resetWebPageURL()"/>
             </groupbox>
-            <hbox>
-              <button id="set-pswd-hide-and-replace"
-	       label="&setPassword.label;" accesskey="&setPassword.accesskey;"
-	       oncommand="setPassword()"/>
-	    </hbox>
+            <grid>
+	      <columns><column/><column flex="1"/></columns>
+	      <rows>
+		<row align="center">
+                  <button id="set-pswd-hide-and-replace"
+   	           label="&setPassword.label;" accesskey="&setPassword.accesskey;"
+	           oncommand="setPassword(aeConstants.PANICBUTTON_ACTION_REPLACE)"/>
+                  <label id="set-pswd-banner-hide-and-replace" class="confirmation-banner" value=""/>
+                </row>
+              </rows>
+	    </grid>
           </vbox>
         </deck>
 	<separator class="thin"/>

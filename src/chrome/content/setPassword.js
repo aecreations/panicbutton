@@ -58,6 +58,21 @@ function init()
 }
 
 
+function handleKeyPress(aEvent)
+{
+  if (aEvent.target.tagName == "button") {
+    return;
+  }
+  
+  if (aEvent.key == "Enter") {
+    accept();
+  }
+  else if (aEvent.key == "Escape") {
+    cancel();
+  }
+}
+
+
 function removePassword()
 {
   if (! aePasswdMgr.loginExists(gLoginMgrKey)) {

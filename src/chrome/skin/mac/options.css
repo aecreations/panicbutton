@@ -74,7 +74,7 @@ separator.very-thin {
 }
 
 .confirmation-banner {
-  font-weight: bold;
+  font: small-caption;
   color: #2d6e49;
 }
 

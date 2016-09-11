@@ -20,7 +20,7 @@
    -
    - The Initial Developer of the Original Code is
    - Alex Eng <ateng@users.sourceforge.net>.
-   - Portions created by the Initial Developer are Copyright (C) 2008-2014
+   - Portions created by the Initial Developer are Copyright (C) 2008-2016
    - the Initial Developer. All Rights Reserved.
    -
    - Contributor(s):
@@ -49,11 +49,11 @@
     </menupopup>
   </popupset>
   
-  <toolbar id="windoid-content" context="toolbar-context-menu" orient="vertical">
+  <vbox id="windoid-content" context="toolbar-context-menu">
     <toolbarbutton id="restore-session" label="&restoreSession.label;"
      oncommand="restoreSession()" />
     <toolbarbutton id="quit-browser" label="&quit.label;"
      oncommand="quitBrowser()" />
-  </toolbar>
+  </vbox>
 
 </window>

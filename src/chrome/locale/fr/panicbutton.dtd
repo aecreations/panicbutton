@@ -1,14 +1,21 @@
+<!-- Host app overlay -->
 <!ENTITY panicButton.label "Panic Button">
 <!ENTITY restoreToolbar.title "Rétablir la session">
+
+<!-- Restore Session toolbar -->
 <!ENTITY restoreSession.label "Rétablir la session du navigateur">
 <!ENTITY quit.label "Quitter">
 <!ENTITY tbIconsAndText.label "Texte et icônes">
 <!ENTITY tbIcons.label "Icônes">
 <!ENTITY tbTooltip.label "Infobulles">
+
+<!-- Instant Customize -->
 <!ENTITY changePanicButtonIcon.label "Changer l'icône…">
 <!ENTITY changePanicButtonIcon.accesskey "i">
 <!ENTITY changePanicButtonIcon.title "Choisir une icône">
 <!ENTITY panicButtonCustomize.label "Personnaliser…">
+
+<!-- Extension preferences dialog -->
 <!ENTITY prefOptions.label "Options">
 <!ENTITY prefCustomize.label "Personnaliser">
 <!ENTITY panicButtonAction.label "Action de Panic Button :">
@@ -30,11 +37,18 @@
 <!ENTITY toolbarButtonCaption.accesskey "L">
 <!ENTITY toolbarButtonIcon.label "Icône :">
 <!ENTITY toolbarButtonIcon.accesskey "I">
-<!ENTITY resetCustomizations.label "Réinitialiser">
-<!ENTITY resetCustomizations.accesskey "t">
+<!ENTITY reset.label "Réinitialiser">
+<!ENTITY reset.accesskey "R">
+<!ENTITY resetAll.label "Tout réinitialiser">
+<!ENTITY resetAll.accesskey "T">
 <!ENTITY customIcon.label "Icône personnalisée…">
 <!ENTITY customIcon.accesskey "p">
 <!ENTITY keyConflictAlert.desc "Les touches sélectionnées sont déjà utilisées.">
+<!ENTITY setPassword.label "Mot de passe…">
+<!ENTITY setPassword.accesskey "M">
+<!ENTITY showTooltip.label "Afficher la légende en infobulle">
+<!ENTITY showTooltip.accesskey "A">
+
 <!ENTITY key.VK_PAUSE "Pause">
 <!ENTITY key.VK_PAGE_UP "Page précédente">
 <!ENTITY key.VK_PAGE_DOWN "Page suivante">
@@ -59,3 +73,17 @@
 <!ENTITY key.VK_F10 "F10">
 <!ENTITY key.VK_F11 "F11">
 <!ENTITY key.VK_F12 "F12">
+
+<!-- Password dialogs -->
+<!ENTITY setPswd.description "Vous pouvez saisir un mot de passe pour réinitialiser la session du navigateur quand le bouton anti-panique est paramétré soit pour « Masquer toutes les fenêtres » soit pour « Masquer et remplacer ».">
+<!ENTITY setPassword.title "Saisir un mot de passe">
+<!ENTITY oldPswd.label "Ancien mot de passe :">
+<!ENTITY oldPswd.accesskey "n">
+<!ENTITY enterPswd.label "Nouveau mot de passe :">
+<!ENTITY enterPswd.accesskey "N">
+<!ENTITY confirmPswd.label "Confirmez le nouveau mot de passe :">
+<!ENTITY confirmPswd.accesskey "C">
+<!ENTITY removePswd.label "Supprimer le mot de passe">
+<!ENTITY removePswd.accesskey "S">
+<!ENTITY setPswd.label "Saisir un mot de passe">
+<!ENTITY setPswd.accesskey "i">

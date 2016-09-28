@@ -1,14 +1,21 @@
+<!-- Host app overlay -->
 <!ENTITY panicButton.label "Paniekknop">
 <!ENTITY restoreToolbar.title "Sessie herstellen">
+
+<!-- Restore Session toolbar -->
 <!ENTITY restoreSession.label "Browsersessie herstellen">
 <!ENTITY quit.label "Afsluiten">
 <!ENTITY tbIconsAndText.label "Pictogrammen en tekst">
 <!ENTITY tbIcons.label "Alleen pictogrammen">
 <!ENTITY tbTooltip.label "Tooltips">
+
+<!-- Instant Customize -->
 <!ENTITY changePanicButtonIcon.label "Pictogram wijzigen…">
 <!ENTITY changePanicButtonIcon.accesskey "i">
 <!ENTITY changePanicButtonIcon.title "Selecteer een pictogram">
 <!ENTITY panicButtonCustomize.label "Aanpassen…">
+
+<!-- Extension preferences dialog -->
 <!ENTITY prefOptions.label "Opties">
 <!ENTITY prefCustomize.label "Aanpassen">
 <!ENTITY panicButtonAction.label "Paniekknopactie:">
@@ -30,11 +37,18 @@
 <!ENTITY toolbarButtonCaption.accesskey "e">
 <!ENTITY toolbarButtonIcon.label "Pictogram:">
 <!ENTITY toolbarButtonIcon.accesskey "P">
-<!ENTITY resetCustomizations.label "Reset">
-<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY reset.label "Herinitialiseren">
+<!ENTITY reset.accesskey "H">
+<!ENTITY resetAll.label "Alles herinitialiseren">
+<!ENTITY resetAll.accesskey "H">
 <!ENTITY customIcon.label "Aangepast pictogram…">
 <!ENTITY customIcon.accesskey "a">
 <!ENTITY keyConflictAlert.desc "De geselecteerde toetsen worden al gebruikt.">
+<!ENTITY setPassword.label "Wachtwoord instellen…">
+<!ENTITY setPassword.accesskey "W">
+<!ENTITY showTooltip.label "Tekst in tooltip weergeven">
+<!ENTITY showTooltip.accesskey "W">
+
 <!ENTITY key.VK_PAUSE "Pauzeren">
 <!ENTITY key.VK_PAGE_UP "PgUp">
 <!ENTITY key.VK_PAGE_DOWN "PgDn">
@@ -59,3 +73,17 @@
 <!ENTITY key.VK_F10 "F10">
 <!ENTITY key.VK_F11 "F11">
 <!ENTITY key.VK_F12 "F12">
+
+<!-- Password dialogs -->
+<!ENTITY setPswd.description "U kunt een wachtwoord instellen om de browsersessie te herstellen wanneer de actie van de paniekknop Alle vensters verbergen of Verbergen en vervangen is.">
+<!ENTITY setPassword.title "Wachtwoord instellen">
+<!ENTITY oldPswd.label "Oud wachtwoord:">
+<!ENTITY oldPswd.accesskey "O">
+<!ENTITY enterPswd.label "Voer nieuw wachtwoord in:">
+<!ENTITY enterPswd.accesskey "V">
+<!ENTITY confirmPswd.label "Wachtwoord bevestigen:">
+<!ENTITY confirmPswd.accesskey "b">
+<!ENTITY removePswd.label "Wachtwoord verwijderen">
+<!ENTITY removePswd.accesskey "j">
+<!ENTITY setPswd.label "Wachtwoord instellen">
+<!ENTITY setPswd.accesskey "s">

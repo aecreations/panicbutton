@@ -1,41 +1,55 @@
+<!-- Host app overlay -->
 <!ENTITY panicButton.label "Panic Button">
-<!ENTITY restoreToolbar.title "恢复进程">
-<!ENTITY restoreSession.label "恢复浏览进程">
+<!ENTITY restoreToolbar.title "恢复会话">
+
+<!-- Restore Session toolbar -->
+<!ENTITY restoreSession.label "恢复浏览器会话">
 <!ENTITY quit.label "退出">
 <!ENTITY tbIconsAndText.label "图标和文字">
-<!ENTITY tbIcons.label "图标">
+<!ENTITY tbIcons.label "仅图标">
 <!ENTITY tbTooltip.label "工具提示">
+
+<!-- Instant Customize -->
 <!ENTITY changePanicButtonIcon.label "更换图标...">
 <!ENTITY changePanicButtonIcon.accesskey "I">
-<!ENTITY changePanicButtonIcon.title "选择图标">
+<!ENTITY changePanicButtonIcon.title "选择一个图标">
 <!ENTITY panicButtonCustomize.label "定制...">
+
+<!-- Extension preferences dialog -->
 <!ENTITY prefOptions.label "选项">
 <!ENTITY prefCustomize.label "定制">
 <!ENTITY panicButtonAction.label "Panic Button 动作：">
 <!ENTITY panicButtonAction.accesskey "P">
 <!ENTITY shortcutKey.caption "快捷键">
-<!ENTITY restoreBarLayout.caption "恢复进程工具栏布局">
+<!ENTITY restoreBarLayout.caption "恢复会话工具栏布局">
 <!ENTITY tbIconsAndText.accesskey "T">
 <!ENTITY tbIcons.accesskey "I">
 <!ENTITY replaceUrl.label "网址(URL):">
 <!ENTITY replaceUrl.accesskey "L">
-<!ENTITY prefChange.desc "更改该设置将生效于新打开的窗口。">
+<!ENTITY prefChange.desc "此设置的更改将在新打开的浏览器窗口中生效。">
 <!ENTITY actionHideAll.label "隐藏所有窗口">
 <!ENTITY actionMinimizeAll.label "最小化所有窗口">
 <!ENTITY actionQuit.label "退出 Firefox">
 <!ENTITY actionReplace.label "隐藏并替换">
-<!ENTITY enableKey.label "以下按键调用 Panic Button 动作：">
+<!ENTITY enableKey.label "以下按键将调用 Panic Button 动作：">
 <!ENTITY enableKey.accesskey "k">
 <!ENTITY toolbarButtonCaption.label "工具栏按钮文字：">
 <!ENTITY toolbarButtonCaption.accesskey "c">
-<!ENTITY toolbarButtonIcon.label "图标:">
+<!ENTITY toolbarButtonIcon.label "图标：">
 <!ENTITY toolbarButtonIcon.accesskey "I">
-<!ENTITY resetCustomizations.label "恢复">
-<!ENTITY resetCustomizations.accesskey "R">
+<!ENTITY reset.label "重置">
+<!ENTITY reset.accesskey "R">
+<!ENTITY resetAll.label "全部重置">
+<!ENTITY resetAll.accesskey "R">
 <!ENTITY customIcon.label "定制图标...">
 <!ENTITY customIcon.accesskey "u">
-<!ENTITY keyConflictAlert.desc "该按键已在使用中。">
-<!ENTITY key.VK_PAUSE "暂停">
+<!ENTITY keyConflictAlert.desc "选定的按键已在使用中。">
+<!ENTITY setPassword.label "设置密码…">
+<!ENTITY setPassword.accesskey "S">
+<!ENTITY showTooltip.label "在工具提示中显示标题">
+<!ENTITY showTooltip.accesskey "S">
+
+<!ENTITY key.VK_PAUSE "Pause">
 <!ENTITY key.VK_PAGE_UP "Page Up">
 <!ENTITY key.VK_PAGE_DOWN "Page Down">
 <!ENTITY key.VK_HOME "Home">
@@ -59,3 +73,17 @@
 <!ENTITY key.VK_F10 "F10">
 <!ENTITY key.VK_F11 "F11">
 <!ENTITY key.VK_F12 "F12">
+
+<!-- Password dialogs -->
+<!ENTITY setPswd.description "您可以为恢复浏览器会话设置一个密码，当 Panic Button 动作为隐藏所有窗口或隐藏并替换。">
+<!ENTITY setPassword.title "设置密码">
+<!ENTITY oldPswd.label "旧密码：">
+<!ENTITY oldPswd.accesskey "O">
+<!ENTITY enterPswd.label "输入新密码：">
+<!ENTITY enterPswd.accesskey "E">
+<!ENTITY confirmPswd.label "确认密码：">
+<!ENTITY confirmPswd.accesskey "c">
+<!ENTITY removePswd.label "移除密码">
+<!ENTITY removePswd.accesskey "R">
+<!ENTITY setPswd.label "设置密码">
+<!ENTITY setPswd.accesskey "S">

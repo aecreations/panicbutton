@@ -112,13 +112,15 @@
       </radiogroup>
 
       <vbox flex="1" style="margin-left:6px">
-        <button label="&customIcon.label;" accesskey="&customIcon.accesskey;"
-         oncommand="setCustomTBIcon()"/>
+        <button id="custom-icon" label="&customIcon.label;"
+         accesskey="&customIcon.accesskey;" oncommand="setCustomTBIcon()"/>
       </vbox>
     </hbox>
 
     <separator/>
       <hbox>
+        <button id="custom-icon-alt" hidden="true" label="&customIcon.label;"
+	 accesskey="&customIcon.accesskey;" oncommand="setCustomTBIcon()"/>
         <button label="&resetAll.label;" 
          accesskey="&resetAll.accesskey;" 
          oncommand="resetCustomizations()"/>

@@ -44,6 +44,11 @@ function initPrefPaneCustomize()
   if (imgURL) {
     initAndSelectCustomTBIcon(imgURL);
   }
+
+  if (aeUtils.getOS() == "Linux") {
+    $("custom-icon").hidden = true;
+    $("custom-icon-alt").hidden = false;
+  }
 }
 
 

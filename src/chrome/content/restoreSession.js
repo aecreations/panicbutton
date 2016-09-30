@@ -213,15 +213,35 @@ function restoreSession()
   if (aePasswdMgr.loginExists(loginMgrKey)) {
     let pswd = aePasswdMgr.getPassword(loginMgrKey);
     let pswdInput = "";
+    let tempHideWindoid = false;
+    let windoidPos = null;
 
+    // Prevent the Restore Session windoid from blocking the password prompt
+    // on Linux by temporarily moving it off screen (issue #24)
+    if (aeUtils.getOS() == "Linux") {
+      tempHideWindoid = true;
+      windoidPos = {
+        x: window.screenX,
+	y: window.screenY
+      };
+      window.moveTo(-2000, 0);
+    }
+    
     do {
       let pswdInputObj = {};
       let prmptResult = aeUtils.promptPassword("", gStrBundle.getString("pswdPrmpt"), pswdInputObj);
       if (! prmptResult) {
+	if (tempHideWindoid) {
+	  window.moveTo(windoidPos.x, windoidPos.y);
+	}
 	return;
       }
       pswdInput = pswdInputObj.value;
     } while (pswdInput != pswd);
+
+    if (tempHideWindoid) {
+      window.moveTo(windoidPos.x, windoidPos.y);
+    }
   }
 
   window.open("about:blank", "", "");

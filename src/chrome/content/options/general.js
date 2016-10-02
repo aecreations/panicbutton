@@ -200,7 +200,7 @@ function setPassword(aPanicButtonAction)
     if (aPanicButtonAction == aeConstants.PANICBUTTON_ACTION_HIDE) {
       bannerID += "hide-all";
     }
-    else if (aePanicButtonAction == aeConstants.PANICBUTTON_ACTION_REPLACE) {
+    else if (aPanicButtonAction == aeConstants.PANICBUTTON_ACTION_REPLACE) {
       bannerID += "hide-and-replace";
     }
     

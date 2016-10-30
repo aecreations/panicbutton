@@ -46,7 +46,7 @@
 @media (-moz-os-version: windows-win10) {
   #ae-panicbutton-toolbarbutton,
   #ae-panicbutton-customize-panel #ae-panicbutton-icon-picker {
-    list-style-image:  url("chrome://panicbutton-laf/skin/images/overlayToolbar.svg");
+    list-style-image:  url("chrome://panicbutton/skin/all/images/overlayToolbar.svg");
   }
 }
 

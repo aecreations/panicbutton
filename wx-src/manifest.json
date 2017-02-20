@@ -1,0 +1,36 @@
+{
+    "manifest_version": 2,
+    "name": "Panic Button/wx",
+    "description": "Quickly hide all browser windows with a click of a button.",
+    "version": "4.0pre1",
+    "homepage_url": "http://aecreations.sourceforge.net/panicbutton/index.php",
+
+    "icons": {
+        "48": "icons/panicbutton-wx.png"
+    },
+
+    "permissions": ["storage", "sessions"],
+      
+    "background": {
+        "scripts": ["background.js"]
+    },
+
+    "browser_action": {
+	"default_icon": {
+	    "16": "icons/default16.svg",
+	    "32": "icons/default32.svg"
+	},
+	"default_title": "Panic Button/wx"
+    },
+
+    "commands": {
+	"ae-panicbutton": {
+	    "suggested_key": { "default": "F9" },
+	    "description": "Panic Button"
+	}
+    },
+    
+    "options_ui": {
+	"page": "options.html"
+    }
+}

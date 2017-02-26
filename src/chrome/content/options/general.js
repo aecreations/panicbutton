@@ -16,7 +16,7 @@
  *
  * The Initial Developer of the Original Code is 
  * Alex Eng <ateng@users.sourceforge.net>.
- * Portions created by the Initial Developer are Copyright (C) 2014-2016
+ * Portions created by the Initial Developer are Copyright (C) 2014-2017
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -66,7 +66,6 @@ function initPrefPaneGeneral()
       window.sizeToContent();      
     }
   }
-  aeUtils.log("END prefpane height initialization");
 
   let hostAppWnd = aeUtils.getRecentHostAppWindow();
   aeKeyConflictDetector.init(hostAppWnd);

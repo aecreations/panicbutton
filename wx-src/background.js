@@ -96,8 +96,7 @@ function panic()
       closeAll(false);
     }
     else if (action == PANICBUTTON_ACTION_REPLACE) {
-      // TO DO: Get the replacement URL from user settings.
-      let replacementURL = REPLACE_WEB_PAGE_DEFAULT_URL;
+      let replacementURL = aResult.replacementWebPgURL;
       closeAll(true, replacementURL);
     }
   }, onError);

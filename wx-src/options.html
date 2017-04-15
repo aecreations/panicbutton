@@ -8,7 +8,16 @@
         font-family: sans-serif;
         font-size: 10pt;
       }
+      
       #prefs-general { margin-bottom: 16px; }
+
+      #panicbutton-action-options-hide-and-replace {
+        display: none;
+      }
+
+      #webpg-url {
+        width: 16em;
+      }
     </style>
   </head>
 
@@ -16,12 +25,18 @@
     <form>
       <div id="prefs-general">
         <label for="panicbutton-action">Panic Button action:</label>
-        <select id="panicbutton-action" name="panicbutton-action">
+        <select id="panicbutton-action" name="panicbutton-action"
+	 onchange="updatePanicButtonActionDesc(this.options[this.selectedIndex].value)">
 	  <option value="0" disabled>Hide all windows (N/A)</option>
   	  <option value="1">Hide and replace</option>
 	  <option value="2">Minimize all windows</option>
 	  <option value="3">Close all windows</option>
         </select>
+
+	<div id="panicbutton-action-options-hide-and-replace">
+	  <label for="webpg-url">Web location (URL):</label>
+	  <input type="text" id="webpg-url"/>
+	</div>
         <br/>
         <input type="checkbox" id="shortcut-key">
         <label for="shortcut-key">Enable F9 key to invoke Panic Button action</label>

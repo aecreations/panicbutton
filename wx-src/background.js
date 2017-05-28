@@ -23,18 +23,12 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-const PANICBUTTON_ACTION_HIDE = 0;
-const PANICBUTTON_ACTION_REPLACE = 1;
-const PANICBUTTON_ACTION_MINIMIZE = 2;
-const PANICBUTTON_ACTION_QUIT = 3;
-
+const PANICBUTTON_ACTION_REPLACE = 0;
+const PANICBUTTON_ACTION_MINIMIZE = 1;
+const PANICBUTTON_ACTION_QUIT = 2;
 
 const REPLACE_WEB_PAGE_DEFAULT_URL = "http://aecreations.sourceforge.net/";
 
-
-//
-// Initialization
-//
 
 var gHideAll = false;
 var gRestoreSessionWndID = null;
@@ -42,56 +36,61 @@ var gReplaceSession = false;
 var gReplacemtWndID = null;
 var gNumClosedWnds = 0;
 
-var brwsInfo = browser.runtime.getBrowserInfo();
-brwsInfo.then(aInfo => { console.log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
 
-var sysInfo = browser.runtime.getPlatformInfo();
-sysInfo.then(aInfo => { console.log("Panic Button/wx: OS: " + aInfo.os); });
+function init()
+{
+  let brwsInfo = browser.runtime.getBrowserInfo();
+  brwsInfo.then(aInfo => { console.log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
 
+  let sysInfo = browser.runtime.getPlatformInfo();
+  sysInfo.then(aInfo => { console.log("Panic Button/wx: OS: " + aInfo.os); });
 
-browser.browserAction.onClicked.addListener(aTab => { panic() });
+  browser.browserAction.onClicked.addListener(aTab => { panic() });
 
-// TO DO: Customize the Panic Button icon by calling
-// browser.browserAction.setIcon()
+  let getPrefs = browser.storage.local.get();
+  getPrefs.then(aResult => {
+    // TO DO: Customize the Panic Button icon by calling
+    // browser.browserAction.setIcon()
+  });
 
-
-browser.windows.onCreated.addListener(aWnd => {
-  console.log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-});
-
-
-browser.windows.onRemoved.addListener(aWndID => {
-  console.log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-  console.log("Closing window ID: " + aWndID);
-});
+  browser.windows.onCreated.addListener(aWnd => {
+    console.log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
+  });
 
 
-browser.commands.onCommand.addListener(aCmd => {
-  if (aCmd == "ae-panicbutton") {
-    let getPrefs = browser.storage.local.get();
-    getPrefs.then(aResult => {
-      console.log("Panic Button/wx: Shortcut key enabled: " + aResult.shortcutKey);
-      if (aResult.shortcutKey) {
-        panic();
-      }
-    });
-  }
-});
+  browser.windows.onRemoved.addListener(aWndID => {
+    console.log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
+    console.log("Closing window ID: " + aWndID);
+  });
 
-browser.runtime.onInstalled.addListener(aDetails => {
-  if (aDetails.reason == "install") {
-    console.log("Panic Button/wx: Extension installed.");
+  browser.commands.onCommand.addListener(aCmd => {
+    if (aCmd == "ae-panicbutton") {
+      let getPrefs = browser.storage.local.get();
+      getPrefs.then(aResult => {
+        console.log("Panic Button/wx: Shortcut key enabled: " + aResult.shortcutKey);
+        if (aResult.shortcutKey) {
+          panic();
+        }
+      });
+    }
+  });
 
-    let aePanicButtonPrefs = {
-      action: PANICBUTTON_ACTION_REPLACE,
-      shortcutKey: true,
-      replacementWebPgURL: REPLACE_WEB_PAGE_DEFAULT_URL
-    };
+  browser.runtime.onInstalled.addListener(aDetails => {
+    if (aDetails.reason == "install") {
+      console.log("Panic Button/wx: Extension installed.");
+
+      let aePanicButtonPrefs = {
+        action: PANICBUTTON_ACTION_REPLACE,
+        caption: "Panic Button/wx",
+        shortcutKey: true,
+        replacementWebPgURL: REPLACE_WEB_PAGE_DEFAULT_URL
+      };
     
-    let initPrefs = browser.storage.local.set(aePanicButtonPrefs);
-    initPrefs.catch(onError);
-  }
-});
+      let initPrefs = browser.storage.local.set(aePanicButtonPrefs);
+      initPrefs.catch(onError);
+    }
+  });
+}
 
 
 function panic()
@@ -107,20 +106,15 @@ function panic()
   getPrefs.then(aResult => {
     let action = aResult.action;
     
-    if (action == PANICBUTTON_ACTION_HIDE) {
-      //closeAll(true);
-      console.log("Panic Button/wx: The 'Hide All Windows' action is curently not supported =(");
-      return;
+    if (action == PANICBUTTON_ACTION_REPLACE) {
+      let replacementURL = aResult.replacementWebPgURL;
+      closeAll(true, replacementURL);
     }
     else if (action == PANICBUTTON_ACTION_MINIMIZE) {
       minimizeAll();
     }
     else if (action == PANICBUTTON_ACTION_QUIT) {
       closeAll(false);
-    }
-    else if (action == PANICBUTTON_ACTION_REPLACE) {
-      let replacementURL = aResult.replacementWebPgURL;
-      closeAll(true, replacementURL);
     }
   }, onError);
 }
@@ -249,4 +243,5 @@ function onError(aError)
 }
 
 
+init();
 

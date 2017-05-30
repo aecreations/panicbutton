@@ -48,6 +48,9 @@ function initOptions(aEvent)
     if (aResult.action == PANICBUTTON_ACTION_REPLACE) {
       $("panicbutton-action-options-hide-and-replace").style.display = "block";
     }
+
+    $("toolbar-button-caption").value = aResult.toolbarBtnLabel;
+    $("toolbar-button-icon").selectedIndex = aResult.toolbarBtnIcon;
   }, onError);
 }
 
@@ -60,7 +63,9 @@ function saveOptions(aEvent)
   let aePanicButtonPrefs = {
     action: actionSelect.options[actionSelect.selectedIndex].value,
     shortcutKey: $("shortcut-key").checked,
-    replacementWebPgURL: $("webpg-url").value
+    replacementWebPgURL: $("webpg-url").value,
+    toolbarBtnIcon: $("toolbar-button-icon").selectedIndex,
+    toolbarBtnLabel: $("toolbar-button-caption").value
   };
     
   let setPrefs = browser.storage.local.set(aePanicButtonPrefs);

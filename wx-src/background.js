@@ -35,10 +35,32 @@ var gRestoreSessionWndID = null;
 var gReplaceSession = false;
 var gReplacemtWndID = null;
 var gNumClosedWnds = 0;
+var gResetPrefs = false;
 
 
 function init()
 {
+  browser.runtime.onInstalled.addListener(aDetails => {
+    if (aDetails.reason == "install") {
+      console.log("Panic Button/wx: Extension installed.");
+      setDefaultPrefs();
+    }
+  });
+
+  browser.storage.onChanged.addListener((aChanges, aAreaName) => {
+    console.log("Panic Button/wx: Detected change to local storage. Change object: ");
+    console.log(aChanges);
+  });
+  
+  browser.windows.onCreated.addListener(aWnd => {
+    console.log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
+  });
+
+  browser.windows.onRemoved.addListener(aWndID => {
+    console.log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
+    console.log("Closing window ID: " + aWndID);
+  });
+
   let brwsInfo = browser.runtime.getBrowserInfo();
   brwsInfo.then(aInfo => { console.log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
 
@@ -49,18 +71,19 @@ function init()
 
   let getPrefs = browser.storage.local.get();
   getPrefs.then(aResult => {
-    // TO DO: Customize the Panic Button icon by calling
-    // browser.browserAction.setIcon()
-  });
+    console.log("Setting preferences for Panic Button/wx");
 
-  browser.windows.onCreated.addListener(aWnd => {
-    console.log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-  });
-
-
-  browser.windows.onRemoved.addListener(aWndID => {
-    console.log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-    console.log("Closing window ID: " + aWndID);
+    // Handle the case where the prefs aren't initialized yet, because the
+    // above onInstalled event handler has not yet finished.
+    let toolbarBtnIconIdx = aResult.toolbarBtnIcon;
+    if (aResult.toolbarBtnIcon !== undefined) {
+      setToolbarButtonIcon(toolbarBtnIconIdx);
+    }
+    
+    let toolbarButtonLabel = aResult.toolbarBtnLabel;
+    if (aResult.toolbarBtnLabel !== undefined) {
+      browser.browserAction.setTitle({ title: toolbarButtonLabel });
+    }
   });
 
   browser.commands.onCommand.addListener(aCmd => {
@@ -74,20 +97,34 @@ function init()
       });
     }
   });
+}
 
-  browser.runtime.onInstalled.addListener(aDetails => {
-    if (aDetails.reason == "install") {
-      console.log("Panic Button/wx: Extension installed.");
 
-      let aePanicButtonPrefs = {
-        action: PANICBUTTON_ACTION_REPLACE,
-        caption: "Panic Button/wx",
-        shortcutKey: true,
-        replacementWebPgURL: REPLACE_WEB_PAGE_DEFAULT_URL
-      };
+function setDefaultPrefs()
+{
+  let aePanicButtonPrefs = {
+    action: PANICBUTTON_ACTION_REPLACE,
+    toolbarBtnIcon: 0,
+    toolbarBtnLabel: "Panic Button",
+    shortcutKey: true,
+    replacementWebPgURL: REPLACE_WEB_PAGE_DEFAULT_URL
+  };
     
-      let initPrefs = browser.storage.local.set(aePanicButtonPrefs);
-      initPrefs.catch(onError);
+  let initPrefs = browser.storage.local.set(aePanicButtonPrefs);
+  initPrefs.catch(onError);
+}
+
+
+function setToolbarButtonIcon(aIconIndex)
+{
+  let toolbarBtnIcons = ["default", "exclamation-in-ball", "quit", "exit-door", "smiley", "desktop", "computer", "letter-a"];
+
+  let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
+  browser.browserAction.setIcon({
+    path: {
+      16: "icons/" + toolbarBtnIconName + "16.png",
+      32: "icons/" + toolbarBtnIconName + "32.png",
+      64: "icons/" + toolbarBtnIconName + "64.png"
     }
   });
 }

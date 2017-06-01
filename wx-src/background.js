@@ -42,14 +42,20 @@ function init()
 {
   browser.runtime.onInstalled.addListener(aDetails => {
     if (aDetails.reason == "install") {
-      console.log("Panic Button/wx: Extension installed.");
+      console.log("Panic Button/wx: Extension installed - initializing prefs");
       setDefaultPrefs();
     }
   });
 
   browser.storage.onChanged.addListener((aChanges, aAreaName) => {
-    console.log("Panic Button/wx: Detected change to local storage. Change object: ");
-    console.log(aChanges);
+    console.log("Panic Button/wx: Detected change to local storage");
+
+    let changedPrefs = Object.keys(aChanges);
+
+    for (let pref of changedPrefs) {
+      console.log("Setting pref [" + pref + " = " + aChanges[pref].newValue + "]");
+      setPanicButtonCustomization(pref, aChanges[pref].newValue);
+    }
   });
   
   browser.windows.onCreated.addListener(aWnd => {
@@ -112,6 +118,23 @@ function setDefaultPrefs()
     
   let initPrefs = browser.storage.local.set(aePanicButtonPrefs);
   initPrefs.catch(onError);
+}
+
+
+function setPanicButtonCustomization(aPrefName, aPrefValue)
+{
+  switch (aPrefName) {
+  case "toolbarBtnIcon":
+    setToolbarButtonIcon(aPrefValue);
+    break;
+
+  case "toolbarBtnLabel":
+    browser.browserAction.setTitle({ title: aPrefValue });
+    break;
+
+  default:
+    break;
+  }
 }
 
 

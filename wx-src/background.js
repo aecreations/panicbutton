@@ -140,7 +140,7 @@ function setPanicButtonCustomization(aPrefName, aPrefValue)
 
 function setToolbarButtonIcon(aIconIndex)
 {
-  let toolbarBtnIcons = ["default", "exclamation-in-ball", "quit", "exit-door", "smiley", "desktop", "computer", "letter-a"];
+  let toolbarBtnIcons = ["default", "exclamation-in-ball", "quit", "exit-door", "window-minimize", "window-with-exclamation", "window-with-exclamation-ball", "window-with-cross", "window-with-check", "plain-window", "dotted-window", "window-with-globe", "web-page", "web-page-with-globe", "web-document", "smiley", "picture", "desktop", "computer", "letter-a"];
 
   let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
   browser.browserAction.setIcon({

@@ -4,7 +4,12 @@
     "description": "Quickly hide all browser windows with a click of a button.",
     "version": "4.0a1+",
     "homepage_url": "http://aecreations.sourceforge.net/panicbutton/index.php",
-
+    "applications": {
+	"gecko": {
+	    "strict_min_version": "52.0"
+	}
+    },
+    
     "icons": {
         "48": "icons/panicbutton-wx.png"
     },

@@ -35,7 +35,6 @@ var gRestoreSessionWndID = null;
 var gReplaceSession = false;
 var gReplacemtWndID = null;
 var gNumClosedWnds = 0;
-var gResetPrefs = false;
 
 
 function init()
@@ -182,7 +181,6 @@ function panic()
 
 function restoreBrowserSession()
 {
-  // Requires Firefox 52 or newer.
   let getSessions = browser.sessions.getRecentlyClosed();
   getSessions.then(aSessions => {
     if (aSessions.length == 0) {
@@ -259,21 +257,6 @@ function closeAll(aSaveSession, aReplacementURL)
       url: aReplacementURL
     });
     openWnd.then(aWnd => { gReplacemtWndID = aWnd.id; }, onError);
-  }
-  else if (aSaveSession && !aReplacementURL) {
-    gHideAll = true;
-
-    let openRestoreSessionWnd = browser.windows.create({
-      url: "./restoreSession.html",
-      type: "detached_panel",
-      width: 208,
-      height: 72
-    });
-
-    openRestoreSessionWnd.then(aWnd => {
-      gRestoreSessionWndID = aWnd.id;
-      console.log("Restore Session windoid ID: " + aWnd.id);
-    }, onError);
   }
   
   let getAllWnd = browser.windows.getAll();

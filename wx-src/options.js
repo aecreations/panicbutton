@@ -50,7 +50,11 @@ function initOptions(aEvent)
     }
 
     $("toolbar-button-caption").value = aResult.toolbarBtnLabel;
-    $("toolbar-button-icon").selectedIndex = aResult.toolbarBtnIcon;
+
+      let toolbarBtnIcons = ["default", "exclamation-in-ball", "quit", "exit-door", "window-minimize", "window-with-exclamation", "window-with-exclamation-ball", "window-with-cross", "window-with-check", "plain-window", "dotted-window", "window-with-globe", "web-page", "web-page-with-globe", "web-document", "smiley", "picture", "desktop", "computer", "letter-a"];
+
+      let toolbarBtnIconID = toolbarBtnIcons[aResult.toolbarBtnIcon];
+      $(toolbarBtnIconID).checked = true;
   }, onError);
 }
 
@@ -64,7 +68,7 @@ function saveOptions(aEvent)
     action: actionSelect.options[actionSelect.selectedIndex].value,
     shortcutKey: $("shortcut-key").checked,
     replacementWebPgURL: $("webpg-url").value,
-    toolbarBtnIcon: $("toolbar-button-icon").selectedIndex,
+    toolbarBtnIcon: document.querySelector("input[name='toolbar-button-icon']:checked").value,
     toolbarBtnLabel: $("toolbar-button-caption").value
   };
     
@@ -97,7 +101,7 @@ function resetWebPageURL()
 
 function onError(aError)
 {
-  console.log("!! Panic Button/wx: " + aError);
+  console.error("Panic Button/wx: " + aError);
 }
 
 

@@ -33,7 +33,9 @@
         font-size: 10pt;
       }
       
-      #prefs-general { margin-bottom: 16px; }
+      #prefs-general {
+        margin-bottom: 16px;
+      }
 
       #panicbutton-action-options-hide-and-replace {
         display: none;
@@ -41,6 +43,23 @@
 
       #webpg-url {
         width: 16em;
+      }
+
+      #toolbar-button-icon {
+        width: 330px;
+      }
+      
+      #toolbar-button-icon input[type="radio"] {
+        display: none;
+      }
+
+      #toolbar-button-icon label > img {
+        padding: 4px;
+        margin: 2px;
+      }
+
+      #toolbar-button-icon input[type="radio"]:checked + label img {
+        background-color: highlight;
       }
     </style>
   </head>
@@ -69,29 +88,50 @@
 	<label for="toolbar-button-caption">Toolbar button caption:</label>
 	<input type="text" id="toolbar-button-caption"/>
 	<br/>
-	<label for="toolbar-button-icon">Icon:</label>
-	<select id="toolbar-button-icon" name="toolbar-button-icon">
-	  <option value="default">Default</option>
-	  <option value="exclamation-in-ball">Exclamation in ball</option>
-	  <option value="quit">Quit</option>
-	  <option value="exit-door">Exit door</option>
-	  <option value="window-minimize">Window minimize</option>
-	  <option value="window-with-exclamation">Window with exclamation</option>
-	  <option value="window-with-exclamation-ball">Window with exclamation ball</option>
-	  <option value="window-with-cross">Window with cross</option>
-	  <option value="window-with-check">Window with check</option>
-	  <option value="plain-window">Plain window</option>
-	  <option value="dotted-window">Dotted window</option>
-	  <option value="window-with-globe">Window with globe</option>
-	  <option value="web-page">Web page</option>
-	  <option value="web-page-with-globe">Web page with globe</option>
-	  <option value="web-document">Web document</option>
-	  <option value="smiley">Smiley</option>
-	  <option value="picture">Picture</option>
-	  <option value="desktop">Desktop</option>
-	  <option value="computer">Computer</option>
-	  <option value="letter-a">Letter 'A'</option>
-	</select>
+
+	<label>Icon:</label>
+	<fieldset id="toolbar-button-icon">
+	  <input type="radio" name="toolbar-button-icon" id="default" value="0">
+	  <label for="default"><img src="icons/default24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="exclamation-in-ball" value="1">
+	  <label for="exclamation-in-ball"><img src="icons/exclamation-in-ball24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="quit" value="2">
+	  <label for="quit"><img src="icons/quit24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="exit-door" value="3">
+	  <label for="exit-door"><img src="icons/exit-door24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="window-minimize" value="4">
+	  <label for="window-minimize"><img src="icons/window-minimize24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="window-with-exclamation" value="5">
+	  <label for="window-with-exclamation"><img src="icons/window-with-exclamation24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="window-with-exclamation-ball" value="6">
+	  <label for="window-with-exclamation-ball"><img src="icons/window-with-exclamation-ball24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="window-with-cross" value="7">
+	  <label for="window-with-cross"><img src="icons/window-with-cross24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="window-with-check" value="8">
+	  <label for="window-with-check"><img src="icons/window-with-check24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="plain-window" value="9">
+	  <label for="plain-window"><img src="icons/plain-window24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="dotted-window" value="10">
+	  <label for="dotted-window"><img src="icons/dotted-window24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="window-with-globe" value="11">
+	  <label for="window-with-globe"><img src="icons/window-with-globe24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="web-page" value="12">
+	  <label for="web-page"><img src="icons/web-page24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="web-page-with-globe" value="13">
+	  <label for="web-page-with-globe"><img src="icons/web-page-with-globe24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="web-document" value="14">
+	  <label for="web-document"><img src="icons/web-document24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="smiley" value="15">
+	  <label for="smiley"><img src="icons/smiley24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="picture" value="16">	  
+	  <label for="picture"><img src="icons/picture24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="desktop" value="17">
+	  <label for="desktop"><img src="icons/desktop24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="computer" value="18">
+	  <label for="computer"><img src="icons/computer24.png"></label>
+	  <input type="radio" name="toolbar-button-icon" id="letter-a" value="19">
+	  <label for="letter-a"><img src="icons/letter-a24.png"></label>
+	</fieldset>
       </div>
       <br/>
       <button type="submit">Save</button>

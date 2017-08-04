@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Panic Button/wx",
     "description": "Quickly hide all browser windows with a click of a button.",
-    "version": "4.0a2",
+    "version": "4.0a2+",
     "homepage_url": "http://aecreations.sourceforge.net/panicbutton/index.php",
     "applications": {
 	"gecko": {
@@ -37,6 +37,7 @@
     },
     
     "options_ui": {
-	"page": "options.html"
+	"page": "options.html",
+	"browser_style": true
     }
 }

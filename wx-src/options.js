@@ -27,7 +27,9 @@ const PANICBUTTON_ACTION_REPLACE = 0;
 const PANICBUTTON_ACTION_MINIMIZE = 1;
 const PANICBUTTON_ACTION_QUIT = 2;
 
+const DEFAULT_TOOLBAR_BTN_LABEL = "Panic Button";
 const REPLACE_WEB_PAGE_DEFAULT_URL = "http://aecreations.sourceforge.net/";
+
 
 var gActionDescs = [
   "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session.",
@@ -71,8 +73,6 @@ function initOptions(aEvent)
 
 function saveOptions(aEvent)
 {
-  aEvent.preventDefault();
-
   let actionSelect = $("panicbutton-action");
   let aePanicButtonPrefs = {
     action: actionSelect.options[actionSelect.selectedIndex].value,
@@ -108,9 +108,16 @@ function updatePanicButtonActionDesc(aEvent)
 }
 
 
-function resetWebPageURL()
+function resetWebPageURL(aEvent)
 {
   $("webpg-url").value = REPLACE_WEB_PAGE_DEFAULT_URL;
+}
+
+
+function resetCustomizations(aEvent)
+{
+  $("toolbar-button-caption").value = DEFAULT_TOOLBAR_BTN_LABEL;
+  $("default").checked = true;
 }
 
 
@@ -121,6 +128,8 @@ function onError(aError)
 
 
 document.addEventListener("DOMContentLoaded", initOptions, false);
-document.querySelector("form").addEventListener("submit", saveOptions, false);
+document.querySelector("#reset-url").addEventListener("click", resetWebPageURL, false);
+document.querySelector("#save-prefs").addEventListener("click", saveOptions, false);
+document.querySelector("#reset-customizations").addEventListener("click", resetCustomizations, false);
 document.querySelector("#panicbutton-action").addEventListener("change", updatePanicButtonActionDesc, false);
 

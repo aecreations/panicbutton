@@ -41,10 +41,17 @@
       button {
         font-size: 10pt;
         height: 32px;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      fieldset button {
+        font-size: 9pt;
+        height: 24px;
         padding-left: 18px;
         padding-right: 18px;
       }
-
+      
       .fieldset-content {
         padding: 8px;
       }
@@ -80,6 +87,7 @@
         -moz-appearance: treeview;
         padding: 4px;
         width: 320px;
+        margin-bottom: 12px;
       }
       
       #toolbar-button-icon input[type="radio"] {
@@ -98,7 +106,7 @@
   </head>
 
   <body>
-    <form>
+    <div id="ae-panicbutton-preferences">
       <fieldset id="prefs-general">
         <legend>Options</legend>
 
@@ -118,6 +126,7 @@
   	    <div id="panicbutton-action-options-hide-and-replace" class="browser-style">
 	      <label for="webpg-url">Web location (URL):</label>
 	      <input type="text" id="webpg-url" class="browser-style">
+	      <button id="reset-url" class="browser-style" onclick="resetWebPgURL()">Reset</button>
 	    </div>
 	  </div>
 
@@ -180,13 +189,15 @@
 	    <input type="radio" name="toolbar-button-icon" id="letter-a" value="19">
 	    <label for="letter-a"><img src="icons/letter-a24.png"></label>
 	  </div>
+
+	  <button id="reset-customizations" class="browser-style">Reset</button>
 	</div>
       </fieldset>
 
       <div class="row" style="margin-top:14px;margin-left:2px">
-        <button class="browser-style" type="submit">Save</button>
+        <button id="save-prefs" class="browser-style" onclick="saveOptions(event)">Save</button>
       </div>
-    </form>
+    </div>
 
     <script type="application/javascript" src="options.js"></script>
   </body>

@@ -29,8 +29,15 @@ const PANICBUTTON_ACTION_QUIT = 2;
 
 const REPLACE_WEB_PAGE_DEFAULT_URL = "http://aecreations.sourceforge.net/";
 
+var gActionDescs = [
+  "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session.",
+  "Minimizes all browser windows.",
+  "Closes all browser windows."
+];
 
-function $(aID) {
+
+function $(aID)
+{
   return document.getElementById(aID);
 }
 
@@ -44,6 +51,9 @@ function initOptions(aEvent)
     $("panicbutton-action").selectedIndex = aResult.action;
     $("shortcut-key").checked = aResult.shortcutKey;
     $("webpg-url").value = aResult.replacementWebPgURL;
+
+    let actionDescTextNode = document.createTextNode(gActionDescs[aResult.action]);
+    $("panicbutton-action-desc").appendChild(actionDescTextNode);
 
     if (aResult.action == PANICBUTTON_ACTION_REPLACE) {
       $("panicbutton-action-options-hide-and-replace").style.display = "block";
@@ -83,6 +93,11 @@ function updatePanicButtonActionDesc(aEvent)
 {
   let selectElt = aEvent.target;
   let panicButtonAction = selectElt.options[selectElt.selectedIndex].value;
+  let actionDescElt = $("panicbutton-action-desc");
+
+  actionDescElt.removeChild(actionDescElt.firstChild);
+  let actionDescTextNode = document.createTextNode(gActionDescs[panicButtonAction]);
+  actionDescElt.appendChild(actionDescTextNode);
   
   if (panicButtonAction == PANICBUTTON_ACTION_REPLACE) {
     $("panicbutton-action-options-hide-and-replace").style.display = "block";
@@ -105,7 +120,7 @@ function onError(aError)
 }
 
 
-document.addEventListener("DOMContentLoaded", initOptions);
-document.querySelector("form").addEventListener("submit", saveOptions);
-document.querySelector("#panicbutton-action").addEventListener("change", updatePanicButtonActionDesc);
+document.addEventListener("DOMContentLoaded", initOptions, false);
+document.querySelector("form").addEventListener("submit", saveOptions, false);
+document.querySelector("#panicbutton-action").addEventListener("change", updatePanicButtonActionDesc, false);
 

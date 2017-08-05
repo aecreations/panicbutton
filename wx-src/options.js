@@ -30,7 +30,6 @@ const PANICBUTTON_ACTION_QUIT = 2;
 const DEFAULT_TOOLBAR_BTN_LABEL = "Panic Button";
 const REPLACE_WEB_PAGE_DEFAULT_URL = "http://aecreations.sourceforge.net/";
 
-
 var gActionDescs = [
   "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session.",
   "Minimizes all browser windows.",
@@ -63,10 +62,10 @@ function initOptions(aEvent)
 
     $("toolbar-button-caption").value = aResult.toolbarBtnLabel;
 
-      let toolbarBtnIcons = ["default", "exclamation-in-ball", "quit", "exit-door", "window-minimize", "window-with-exclamation", "window-with-exclamation-ball", "window-with-cross", "window-with-check", "plain-window", "dotted-window", "window-with-globe", "web-page", "web-page-with-globe", "web-document", "smiley", "picture", "desktop", "computer", "letter-a"];
+    let toolbarBtnIcons = ["default", "exclamation-in-ball", "quit", "exit-door", "window-minimize", "window-with-exclamation", "window-with-exclamation-ball", "window-with-cross", "window-with-check", "plain-window", "dotted-window", "window-with-globe", "web-page", "web-page-with-globe", "web-document", "smiley", "picture", "desktop", "computer", "letter-a"];
 
-      let toolbarBtnIconID = toolbarBtnIcons[aResult.toolbarBtnIcon];
-      $(toolbarBtnIconID).checked = true;
+    let toolbarBtnIconID = toolbarBtnIcons[aResult.toolbarBtnIcon];
+    $(toolbarBtnIconID).checked = true;
   }, onError);
 }
 
@@ -85,6 +84,11 @@ function saveOptions(aEvent)
   let setPrefs = browser.storage.local.set(aePanicButtonPrefs);
   setPrefs.then(() => {
     console.log("Panic Button/wx: Preferences saved.");
+    $("save-prefs-confirm").style.visibility = "visible";
+
+    window.setTimeout(() => {
+      $("save-prefs-confirm").style.visibility = "hidden";
+    }, 3000);
   }, onError);
 }
 
@@ -123,7 +127,7 @@ function resetCustomizations(aEvent)
 
 function onError(aError)
 {
-  console.error("Panic Button/wx: " + aError);
+  console.error("Panic Button/wx: %s", aError);
 }
 
 

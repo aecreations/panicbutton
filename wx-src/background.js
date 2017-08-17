@@ -44,6 +44,14 @@ function init()
       console.log("Panic Button/wx: Extension installed - initializing prefs");
       setDefaultPrefs();
     }
+    else if (aDetails.reason == "upgrade") {
+      console.log("Panic Button/wx: Upgrading from version " + aDetails.previousVersion);
+
+      if (parseInt(aDetails.previousVersion) < 4) {
+        console.log("Detected upgrade from legacy XUL version. Setting default preferences.");
+        setDefaultPrefs();
+      }
+    }
   });
 
   browser.storage.onChanged.addListener((aChanges, aAreaName) => {
@@ -144,9 +152,9 @@ function setToolbarButtonIcon(aIconIndex)
   let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
   browser.browserAction.setIcon({
     path: {
-      16: "icons/" + toolbarBtnIconName + "16.png",
-      32: "icons/" + toolbarBtnIconName + "32.png",
-      64: "icons/" + toolbarBtnIconName + "64.png"
+      16: "img/" + toolbarBtnIconName + "16.png",
+      32: "img/" + toolbarBtnIconName + "32.png",
+      64: "img/" + toolbarBtnIconName + "64.png"
     }
   });
 }

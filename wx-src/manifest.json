@@ -11,7 +11,7 @@
     },
     
     "icons": {
-        "48": "icons/panicbutton-wx.png"
+        "48": "img/panicbutton-wx.png"
     },
 
     "permissions": ["storage", "sessions"],
@@ -22,9 +22,9 @@
 
     "browser_action": {
 	"default_icon": {
-	    "16": "icons/default16.png",
-	    "32": "icons/default32.png",
-	    "64": "icons/default64.png"
+	    "16": "img/default16.png",
+	    "32": "img/default32.png",
+	    "64": "img/default64.png"
 	},
 	"default_title": "Panic Button/wx"
     },

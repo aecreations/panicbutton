@@ -1,4 +1,4 @@
-/* -*- mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
+/* -*- mode: javascript; tab-width: 8; indent-tabs-mode: nil; js-indent-level: 2 -*- */
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
@@ -30,7 +30,9 @@ const PANICBUTTON_ACTION_QUIT = 2;
 const DEFAULT_TOOLBAR_BTN_LABEL = "Panic Button";
 const REPLACE_WEB_PAGE_DEFAULT_URL = "http://aecreations.sourceforge.net/";
 
-var gActionDescs = [
+const CUSTOM_ICON_INDEX = 20;
+
+let gActionDescs = [
   "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session.",
   "Minimizes all browser windows.",
   "Closes all browser windows."
@@ -62,25 +64,66 @@ function initOptions(aEvent)
 
     $("toolbar-button-caption").value = aResult.toolbarBtnLabel;
 
-    let toolbarBtnIcons = ["default", "exclamation-in-ball", "quit", "exit-door", "window-minimize", "window-with-exclamation", "window-with-exclamation-ball", "window-with-cross", "window-with-check", "plain-window", "dotted-window", "window-with-globe", "web-page", "web-page-with-globe", "web-document", "smiley", "picture", "desktop", "computer", "letter-a"];
+    let toolbarBtnIcons = [
+      "default",
+      "exclamation-in-ball",
+      "quit",
+      "exit-door",
+      "window-minimize",
+      "window-with-exclamation",
+      "window-with-exclamation-ball",
+      "window-with-cross",
+      "window-with-check",
+      "plain-window",
+      "dotted-window",
+      "window-with-globe",
+      "web-page",
+      "web-page-with-globe",
+      "web-document",
+      "smiley",
+      "picture",
+      "desktop",
+      "computer",
+      "letter-a"
+    ];
 
     let toolbarBtnIconID = toolbarBtnIcons[aResult.toolbarBtnIcon];
-    $(toolbarBtnIconID).checked = true;
+
+    if (aResult.toolbarBtnIcon == CUSTOM_ICON_INDEX) {
+      let customIconRadio = $("custom-icon");
+      customIconRadio.style.visibility = "visible";
+      customIconRadio.checked = true;
+      $("custom-icon-label").style.visibility = "visible";
+      $("custom-icon-img").src = aResult.toolbarBtnData;
+    }
+    else {
+      $(toolbarBtnIconID).checked = true;
+    }
   }, onError);
 }
 
 
 function saveOptions(aEvent)
 {
+  let toolbarIconIdx = 0;
+  toolbarIconIdx = document.querySelector("input[name='toolbar-button-icon']:checked").value;
+
   let actionSelect = $("panicbutton-action");
   let aePanicButtonPrefs = {
     action: actionSelect.options[actionSelect.selectedIndex].value,
     shortcutKey: $("shortcut-key").checked,
     replacementWebPgURL: $("webpg-url").value,
-    toolbarBtnIcon: document.querySelector("input[name='toolbar-button-icon']:checked").value,
+    toolbarBtnIcon: toolbarIconIdx,
     toolbarBtnLabel: $("toolbar-button-caption").value
   };
-    
+
+  if (toolbarIconIdx == CUSTOM_ICON_INDEX) {
+    aePanicButtonPrefs.toolbarBtnData = $("custom-icon-img").src;
+  }
+  else {
+    aePanicButtonPrefs.toolbarBtnData = "";
+  }
+  
   let setPrefs = browser.storage.local.set(aePanicButtonPrefs);
   setPrefs.then(() => {
     console.log("Panic Button/wx: Preferences saved.");
@@ -112,6 +155,32 @@ function updatePanicButtonActionDesc(aEvent)
 }
 
 
+function setCustomTBIcon(aEvent)
+{
+  let fileList = aEvent.target.files;
+
+  if (fileList.length == 0) {
+    return;
+  }
+
+  let imgFile = fileList[0];
+  console.log("Selected custom toolbar button icon file: %s (size: %s)", imgFile.name, imgFile.size);
+
+  let fileReader = new FileReader();
+  fileReader.addEventListener("load", aEvent => {
+    let imgData = aEvent.target.result;
+
+    $("custom-icon-label").style.visibility = "visible";
+    let customIconRadio = $("custom-icon");
+    customIconRadio.style.visibility = "visible";
+    customIconRadio.checked = true;
+    $("custom-icon-img").setAttribute("src", imgData);
+  });
+
+  fileReader.readAsDataURL(imgFile);
+}
+
+
 function resetWebPageURL(aEvent)
 {
   $("webpg-url").value = REPLACE_WEB_PAGE_DEFAULT_URL;
@@ -132,8 +201,8 @@ function onError(aError)
 
 
 document.addEventListener("DOMContentLoaded", initOptions, false);
-document.querySelector("#reset-url").addEventListener("click", resetWebPageURL, false);
-document.querySelector("#save-prefs").addEventListener("click", saveOptions, false);
-document.querySelector("#reset-customizations").addEventListener("click", resetCustomizations, false);
-document.querySelector("#panicbutton-action").addEventListener("change", updatePanicButtonActionDesc, false);
-
+$("reset-url").addEventListener("click", resetWebPageURL, false);
+$("save-prefs").addEventListener("click", saveOptions, false);
+$("reset-customizations").addEventListener("click", resetCustomizations, false);
+$("panicbutton-action").addEventListener("change", updatePanicButtonActionDesc, false);
+$("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);

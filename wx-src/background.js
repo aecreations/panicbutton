@@ -1,4 +1,4 @@
-/* -*- mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
+/* -*- mode: javascript; tab-width: 8; indent-tabs-mode: nil; js-indent-level: 2 -*- */
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
@@ -29,6 +29,7 @@ const PANICBUTTON_ACTION_QUIT = 2;
 
 const REPLACE_WEB_PAGE_DEFAULT_URL = "http://aecreations.sourceforge.net/";
 
+const CUSTOM_ICON_IDX = 20;
 
 var gHideAll = false;
 var gRestoreSessionWndID = null;
@@ -147,7 +148,33 @@ function setPanicButtonCustomization(aPrefName, aPrefValue)
 
 function setToolbarButtonIcon(aIconIndex)
 {
-  let toolbarBtnIcons = ["default", "exclamation-in-ball", "quit", "exit-door", "window-minimize", "window-with-exclamation", "window-with-exclamation-ball", "window-with-cross", "window-with-check", "plain-window", "dotted-window", "window-with-globe", "web-page", "web-page-with-globe", "web-document", "smiley", "picture", "desktop", "computer", "letter-a"];
+  if (aIconIndex == CUSTOM_ICON_IDX) {
+    setCustomToolbarButtonIcon();
+    return;
+  }
+  
+  let toolbarBtnIcons = [
+    "default",
+    "exclamation-in-ball",
+    "quit",
+    "exit-door",
+    "window-minimize",
+    "window-with-exclamation",
+    "window-with-exclamation-ball",
+    "window-with-cross",
+    "window-with-check",
+    "plain-window",
+    "dotted-window",
+    "window-with-globe",
+    "web-page",
+    "web-page-with-globe",
+    "web-document",
+    "smiley",
+    "picture",
+    "desktop",
+    "computer",
+    "letter-a"
+  ];
 
   let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
   browser.browserAction.setIcon({
@@ -156,6 +183,23 @@ function setToolbarButtonIcon(aIconIndex)
       32: "img/" + toolbarBtnIconName + "32.png",
       64: "img/" + toolbarBtnIconName + "64.png"
     }
+  });      
+}
+
+
+function setCustomToolbarButtonIcon()
+{
+  let getPrefs = browser.storage.local.get();
+  getPrefs.then(aResult => {
+    let iconDataURL = aResult.toolbarBtnData;
+
+    browser.browserAction.setIcon({
+      path: {
+        16: iconDataURL,
+        32: iconDataURL,
+        64: iconDataURL
+      }
+    });
   });
 }
 

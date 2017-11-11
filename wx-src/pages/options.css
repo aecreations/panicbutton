@@ -111,7 +111,8 @@ fieldset button {
 
 #toolbar-button-icon label > img {
     padding: 4px;
-    margin: 2px;
+    width: 36px;
+    height: 36px;
 }
 
 #toolbar-button-icon input[type="radio"]:checked + label img {
@@ -123,8 +124,8 @@ fieldset button {
 }
 
 #custom-icon-label img {
-    max-width: 32px;
-    max-height: 32px;
+    max-width: 36px;
+    max-height: 36px;
 }
 
 input[type="file"] {

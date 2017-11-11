@@ -4,15 +4,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
-const PANICBUTTON_ACTION_REPLACE = 0;
-const PANICBUTTON_ACTION_MINIMIZE = 1;
-const PANICBUTTON_ACTION_QUIT = 2;
-
-const DEFAULT_TOOLBAR_BTN_LABEL = "Panic Button";
-const REPLACE_WEB_PAGE_DEFAULT_URL = "http://aecreations.sourceforge.net/";
-
-const CUSTOM_ICON_INDEX = 20;
-
 let gActionDescs = [
   "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session.",
   "Minimizes all browser windows.",
@@ -39,7 +30,7 @@ function initOptions(aEvent)
     let actionDescTextNode = document.createTextNode(gActionDescs[aResult.action]);
     $("panicbutton-action-desc").appendChild(actionDescTextNode);
 
-    if (aResult.action == PANICBUTTON_ACTION_REPLACE) {
+    if (aResult.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
       $("panicbutton-action-options-hide-and-replace").style.display = "block";
     }
 
@@ -70,7 +61,7 @@ function initOptions(aEvent)
 
     let toolbarBtnIconID = toolbarBtnIcons[aResult.toolbarBtnIcon];
 
-    if (aResult.toolbarBtnIcon == CUSTOM_ICON_INDEX) {
+    if (aResult.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
       let customIconRadio = $("custom-icon");
       customIconRadio.style.visibility = "visible";
       customIconRadio.checked = true;
@@ -98,7 +89,7 @@ function saveOptions(aEvent)
     toolbarBtnLabel: $("toolbar-button-caption").value
   };
 
-  if (toolbarIconIdx == CUSTOM_ICON_INDEX) {
+  if (toolbarIconIdx == aeConst.CUSTOM_ICON_IDX) {
     aePanicButtonPrefs.toolbarBtnData = $("custom-icon-img").src;
   }
   else {
@@ -127,7 +118,7 @@ function updatePanicButtonActionDesc(aEvent)
   let actionDescTextNode = document.createTextNode(gActionDescs[panicButtonAction]);
   actionDescElt.appendChild(actionDescTextNode);
   
-  if (panicButtonAction == PANICBUTTON_ACTION_REPLACE) {
+  if (panicButtonAction == aeConst.PANICBUTTON_ACTION_REPLACE) {
     $("panicbutton-action-options-hide-and-replace").style.display = "block";
   }
   else {
@@ -164,13 +155,13 @@ function setCustomTBIcon(aEvent)
 
 function resetWebPageURL(aEvent)
 {
-  $("webpg-url").value = REPLACE_WEB_PAGE_DEFAULT_URL;
+  $("webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
 }
 
 
 function resetCustomizations(aEvent)
 {
-  $("toolbar-button-caption").value = DEFAULT_TOOLBAR_BTN_LABEL;
+  $("toolbar-button-caption").value = aeConst.DEFAULT_TOOLBAR_BTN_LABEL;
   $("default").checked = true;
 }
 

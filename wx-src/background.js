@@ -4,19 +4,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
-const PANICBUTTON_ACTION_REPLACE = 0;
-const PANICBUTTON_ACTION_MINIMIZE = 1;
-const PANICBUTTON_ACTION_QUIT = 2;
-
-const REPLACE_WEB_PAGE_DEFAULT_URL = "http://aecreations.sourceforge.net/";
-
-const CUSTOM_ICON_IDX = 20;
-
-var gHideAll = false;
-var gRestoreSessionWndID = null;
-var gReplaceSession = false;
-var gReplacemtWndID = null;
-var gNumClosedWnds = 0;
+let gHideAll = false;
+let gRestoreSessionWndID = null;
+let gReplaceSession = false;
+let gReplacemtWndID = null;
+let gNumClosedWnds = 0;
 
 
 function init()
@@ -98,11 +90,11 @@ function init()
 function setDefaultPrefs()
 {
   let aePanicButtonPrefs = {
-    action: PANICBUTTON_ACTION_REPLACE,
+    action: aeConst.PANICBUTTON_ACTION_REPLACE,
     toolbarBtnIcon: 0,
     toolbarBtnLabel: "Panic Button",
     shortcutKey: true,
-    replacementWebPgURL: REPLACE_WEB_PAGE_DEFAULT_URL
+    replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL
   };
     
   let initPrefs = browser.storage.local.set(aePanicButtonPrefs);
@@ -129,7 +121,7 @@ function setPanicButtonCustomization(aPrefName, aPrefValue)
 
 function setToolbarButtonIcon(aIconIndex)
 {
-  if (aIconIndex == CUSTOM_ICON_IDX) {
+  if (aIconIndex == aeConst.CUSTOM_ICON_IDX) {
     setCustomToolbarButtonIcon();
     return;
   }
@@ -198,14 +190,14 @@ function panic()
   getPrefs.then(aResult => {
     let action = aResult.action;
     
-    if (action == PANICBUTTON_ACTION_REPLACE) {
+    if (action == aeConst.PANICBUTTON_ACTION_REPLACE) {
       let replacementURL = aResult.replacementWebPgURL;
       closeAll(true, replacementURL);
     }
-    else if (action == PANICBUTTON_ACTION_MINIMIZE) {
+    else if (action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
       minimizeAll();
     }
-    else if (action == PANICBUTTON_ACTION_QUIT) {
+    else if (action == aeConst.PANICBUTTON_ACTION_QUIT) {
       closeAll(false);
     }
   }, onError);

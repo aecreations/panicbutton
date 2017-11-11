@@ -17,7 +17,7 @@
     "permissions": ["storage", "sessions"],
       
     "background": {
-        "scripts": ["background.js"]
+        "scripts": ["modules/aeConst.js", "background.js"]
     },
 
     "browser_action": {

@@ -38,6 +38,7 @@
     
     "options_ui": {
 	"page": "pages/options.html",
+        "open_in_tab": true,
 	"browser_style": true
     }
 }

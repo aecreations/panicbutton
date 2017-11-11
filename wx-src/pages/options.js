@@ -4,6 +4,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
+let gPanicButton;
+
 let gActionDescs = [
   "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session.",
   "Minimizes all browser windows.",
@@ -19,8 +21,13 @@ function $(aID)
 
 function initOptions(aEvent)
 {
-  let getPrefs = browser.storage.local.get();
-  getPrefs.then(aResult => {
+  browser.runtime.getBackgroundPage().then(aBgPgWnd => {
+    gPanicButton = aBgPgWnd;
+
+    browser.history.deleteUrl({ url: window.location.href });
+
+    return browser.storage.local.get();
+  }).then(aResult => {
     console.log("Panic Button/wx: Extension preferences:");
     console.log(aResult);
     $("panicbutton-action").selectedIndex = aResult.action;
@@ -36,29 +43,7 @@ function initOptions(aEvent)
 
     $("toolbar-button-caption").value = aResult.toolbarBtnLabel;
 
-    let toolbarBtnIcons = [
-      "default",
-      "exclamation-in-ball",
-      "quit",
-      "exit-door",
-      "window-minimize",
-      "window-with-exclamation",
-      "window-with-exclamation-ball",
-      "window-with-cross",
-      "window-with-check",
-      "plain-window",
-      "dotted-window",
-      "window-with-globe",
-      "web-page",
-      "web-page-with-globe",
-      "web-document",
-      "smiley",
-      "picture",
-      "desktop",
-      "computer",
-      "letter-a"
-    ];
-
+    let toolbarBtnIcons = gPanicButton.getToolbarButtonIconLookup();
     let toolbarBtnIconID = toolbarBtnIcons[aResult.toolbarBtnIcon];
 
     if (aResult.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {

@@ -14,7 +14,7 @@
         "48": "img/panicbutton-wx.png"
     },
 
-    "permissions": ["storage", "sessions"],
+    "permissions": ["history", "storage", "sessions"],
       
     "background": {
         "scripts": ["modules/aeConst.js", "background.js"]

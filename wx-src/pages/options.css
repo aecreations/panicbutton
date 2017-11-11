@@ -2,26 +2,66 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-label {
-    font-size: 13px;
+
+body {
+    background-image: url("../img/bkgrd.png");
+}
+
+main {
+    width: 640px;
+    margin: 24px auto 24px auto;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    box-shadow: 0 0 8px 2px #e0e0e0;
+    background-color: #fefefe;
+}
+
+h2 {
+    margin-top: 0;
     margin-right: 6px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+label {
+    margin-right: 4px;
+    font-size: 13px;
+}
+
+button.browser-style {
+    height: 28px;
+    margin-bottom: 0;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 2px;
+    font-size: 13px;
+}
+
+input[type="text"].browser-style,
+select.browser-style {
+    font-size: 13px;
+}
+
+fieldset {
+    border-top: 1px solid silver;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
 }
 
 legend {
-    font-size: 15px;
-    font-weight: 600;
-}
-
-button {
+    margin-left: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
     font-size: 13px;
-    height: 32px;
-    padding-left: 24px;
-    padding-right: 24px;
 }
 
-fieldset button {
-    font-size: 12px;
-    height: 24px;
+fieldset button.browser-style {
+    font-size: 13px;
+    height: 26px;
     padding-left: 18px;
     padding-right: 18px;
 }
@@ -70,19 +110,20 @@ fieldset button {
     border: 1px solid #0996f8;
 }
 
-#prefs-general {
-    margin-bottom: 16px;
-}
-
 #panicbutton-action-options {
     margin-left: 1.5em;
 }
 
+#panicbutton-action-detail {
+    height: 72px;
+}
+
 #panicbutton-action-desc {
-    font-size: 12px;
-    margin-top: 0.2em;
-    margin-bottom: 0.8em;
-    margin-left: 1.5em;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    margin-left: 16px;
+    width: 500px;
+    font-size: 11px;
 }
 
 #panicbutton-action-options-hide-and-replace {
@@ -90,7 +131,7 @@ fieldset button {
 }
 
 #webpg-url {
-    width: 28em;
+    width: 300px;
     margin-right: 8px;
 }
 
@@ -135,13 +176,13 @@ input[type="file"] {
 
 #custom-icon-upload-btn {
     padding: 3px 16px 3px 16px;
-    height: 32px;
-    background-color: #fbfbfb;
     border: 1px solid #b1b1b1;
+    border-radius: 2px;
     box-shadow: 0 0 0 0 transparent;
+    background-color: #fbfbfb;
+
     transition-duration: 250ms;
     transition-property: box-shadow, border;
-    font-size: 12px;
 }
 
 #custom-icon-upload-btn:hover {

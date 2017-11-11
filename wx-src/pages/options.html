@@ -7,12 +7,16 @@
   <head>
     <meta charset="utf-8">
 
+    <title>Panic Button Options</title>
+
     <link rel="stylesheet" href="chrome://browser/content/extension.css"/>
     <link rel="stylesheet" href="options.css"/>
   </head>
 
   <body>
-    <div id="ae-panicbutton-preferences">
+    <main id="ae-panicbutton-preferences">
+      <h2>Panic Button Options</h2>
+
       <fieldset id="prefs-general">
         <legend>Options</legend>
 
@@ -26,17 +30,18 @@
 	    <option value="2">Close all windows</option>
           </select>
 
-	  <div id="panicbutton-action-desc"></div>
-	  
-	  <div id="panicbutton-action-options">
-  	    <div id="panicbutton-action-options-hide-and-replace" class="browser-style">
-	      <label for="webpg-url">Web location (URL):</label>
-	      <input type="text" id="webpg-url" class="browser-style">
-	      <button id="reset-url" class="browser-style" onclick="resetWebPgURL()">Reset</button>
+	  <div id="panicbutton-action-detail">
+ 	    <div id="panicbutton-action-desc"></div>
+	    <div id="panicbutton-action-options">
+	      <div id="panicbutton-action-options-hide-and-replace" class="browser-style">
+		<label for="webpg-url">Web location (URL):</label>
+		<input type="text" id="webpg-url" class="browser-style">
+		<button id="reset-url" class="browser-style" onclick="resetWebPgURL()">Reset</button>
+	      </div>
 	    </div>
 	  </div>
 
-	  <div class="row browser-style" style="margin-top:20px">
+	  <div class="row browser-style" style="margin-top:8px">
 	    <input type="checkbox" id="shortcut-key">
             <label for="shortcut-key">Enable F9 key to invoke Panic Button action</label>
 	  </div>
@@ -109,11 +114,11 @@
 	</div>
       </fieldset>
 
-      <div class="row" style="margin-top:14px;margin-left:2px">
+      <div class="row page-btns" style="margin-top:14px;margin-left:2px">
         <button id="save-prefs" class="browser-style" onclick="saveOptions(event)">Save</button>
 	<div id="save-prefs-confirm"><img src="../img/success.png">Saved changes.</div>
       </div>
-    </div>
+    </main>
 
     <script src="../modules/aeConst.js"></script>
     <script src="options.js"></script>

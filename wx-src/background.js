@@ -4,11 +4,35 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
+let gOS;
 let gHideAll = false;
 let gRestoreSessionWndID = null;
 let gReplaceSession = false;
 let gReplacemtWndID = null;
 let gNumClosedWnds = 0;
+
+let gToolbarBtnIcons = [
+  "default",
+  "exclamation-in-ball",
+  "quit",
+  "exit-door",
+  "window-minimize",
+  "window-with-exclamation",
+  "window-with-exclamation-ball",
+  "window-with-cross",
+  "window-with-check",
+  "plain-window",
+  "dotted-window",
+  "window-with-globe",
+  "web-page",
+  "web-page-with-globe",
+  "web-document",
+  "smiley",
+  "picture",
+  "desktop",
+  "computer",
+  "letter-a"
+];
 
 
 function init()
@@ -52,7 +76,10 @@ function init()
   brwsInfo.then(aInfo => { console.log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
 
   let sysInfo = browser.runtime.getPlatformInfo();
-  sysInfo.then(aInfo => { console.log("Panic Button/wx: OS: " + aInfo.os); });
+  sysInfo.then(aInfo => {
+    gOS = aInfo.os;
+    console.log("Panic Button/wx: OS: " + gOS);
+  });
 
   browser.browserAction.onClicked.addListener(aTab => { panic() });
 
@@ -126,30 +153,7 @@ function setToolbarButtonIcon(aIconIndex)
     return;
   }
   
-  let toolbarBtnIcons = [
-    "default",
-    "exclamation-in-ball",
-    "quit",
-    "exit-door",
-    "window-minimize",
-    "window-with-exclamation",
-    "window-with-exclamation-ball",
-    "window-with-cross",
-    "window-with-check",
-    "plain-window",
-    "dotted-window",
-    "window-with-globe",
-    "web-page",
-    "web-page-with-globe",
-    "web-document",
-    "smiley",
-    "picture",
-    "desktop",
-    "computer",
-    "letter-a"
-  ];
-
-  let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
+  let toolbarBtnIconName = gToolbarBtnIcons[aIconIndex];
   browser.browserAction.setIcon({
     path: {
       16: "img/" + toolbarBtnIconName + "16.svg",
@@ -174,6 +178,12 @@ function setCustomToolbarButtonIcon()
       }
     });
   });
+}
+
+
+function getToolbarButtonIconLookup()
+{
+  return gToolbarBtnIcons;
 }
 
 
@@ -304,6 +314,11 @@ function closeAll(aSaveSession, aReplacementURL)
   }, onError);
 }
 
+
+function getOS()
+{
+  return gOS;
+}
 
 function onError(aError)
 {

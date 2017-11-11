@@ -152,9 +152,9 @@ function setToolbarButtonIcon(aIconIndex)
   let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
   browser.browserAction.setIcon({
     path: {
-      16: "img/" + toolbarBtnIconName + "16.png",
-      32: "img/" + toolbarBtnIconName + "32.png",
-      64: "img/" + toolbarBtnIconName + "64.png"
+      16: "img/" + toolbarBtnIconName + "16.svg",
+      32: "img/" + toolbarBtnIconName + "32.svg",
+      64: "img/" + toolbarBtnIconName + "32.svg"
     }
   });      
 }

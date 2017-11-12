@@ -24,33 +24,46 @@ function init(aEvent)
   browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {
     gPanicButton = aBkgrdPgWnd;
     return browser.history.deleteUrl({ url: window.location.href });
+
   }).then(() => {
     $("reset-url").addEventListener("click", resetWebPageURL, false);
     $("reset-customizations").addEventListener("click", resetCustomizations, false);
-    $("panicbutton-action").addEventListener("change", updatePanicButtonActionDesc, false);
     $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
 
-    // TEMPORARY
-    $("save-prefs").addEventListener("click", saveOptions, false);
-    // END TEMPORARY
-    
     $("panicbutton-action").addEventListener("change", aEvent => {
+      updatePanicButtonActionDesc();
       setPref({ action: aEvent.target.value });
     });
 
-    // TO DO: Save changes for replacement webpage URL.
-
+    $("webpg-url").addEventListener("blur", aEvent => {
+      setPref({ replacementWebPgURL: aEvent.target.value });
+    });
+    
     $("shortcut-key").addEventListener("click", aEvent => {
       setPref({ shortcutKey: aEvent.target.checked});
     });
 
-    // TO DO: Save changes for toolbar button caption and icon.
+    $("toolbar-button-caption").addEventListener("blur", aEvent => {
+      console.log("Setting pref: " + aEvent.target.id);
+      setPref({ toolbarBtnLabel: aEvent.target.value });
+    });
 
     $("rev-contrast-icon").addEventListener("click", aEvent => {
       setPref({ toolbarBtnRevContrastIco: aEvent.target.checked });
     });
 
+    // Catch-all click event listener
+    document.addEventListener("click", aEvent => {
+      if (aEvent.target.tagName == "INPUT"
+          && aEvent.target.getAttribute("type") == "radio"
+          && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
+        console.log("Saving toolbar button icon selection");
+        setPref({ toolbarBtnIcon: aEvent.target.value });
+      }
+    }, false);
+
     return browser.storage.local.get();
+
   }).then(aResult => {
     console.log("Panic Button/wx: Extension preferences:");
     console.log(aResult);
@@ -82,6 +95,12 @@ function init(aEvent)
     }
 
     $("rev-contrast-icon").checked = aResult.toolbarBtnRevContrastIco;
+
+    let prefsPgBtns = $("prefs-pg-btns");
+    if (aResult.prefsPgSaveBtn) {
+      prefsPgBtns.style.display = "block";
+      prefsPgBtns.addEventListener("click", saveOptions, false);
+    }
   }, onError);
 }
 
@@ -119,9 +138,9 @@ function saveOptions(aEvent)
 }
 
 
-function updatePanicButtonActionDesc(aEvent)
+function updatePanicButtonActionDesc()
 {
-  let selectElt = aEvent.target;
+  let selectElt = $("panicbutton-action");
   let panicButtonAction = selectElt.options[selectElt.selectedIndex].value;
   let actionDescElt = $("panicbutton-action-desc");
 
@@ -158,6 +177,11 @@ function setCustomTBIcon(aEvent)
     customIconRadio.style.visibility = "visible";
     customIconRadio.checked = true;
     $("custom-icon-img").setAttribute("src", imgData);
+
+    setPref({
+      toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,
+      toolbarBtnData: imgData,
+    });
   });
 
   fileReader.readAsDataURL(imgFile);
@@ -173,6 +197,7 @@ function setPref(aPref)
 function resetWebPageURL(aEvent)
 {
   $("webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
+  setPref({ replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });
 }
 
 
@@ -180,6 +205,13 @@ function resetCustomizations(aEvent)
 {
   $("toolbar-button-caption").value = aeConst.DEFAULT_TOOLBAR_BTN_LABEL;
   $("default").checked = true;
+  $("rev-contrast-icon").checked = false;
+
+  setPref({
+    toolbarBtnLabel: aeConst.DEFAULT_TOOLBAR_BTN_LABEL,
+    toolbarBtnIcon: 0,
+    toolbarBtnRevContrastIco: false,
+  });
 }
 
 

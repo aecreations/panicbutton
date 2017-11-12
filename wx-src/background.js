@@ -4,7 +4,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
+let gIsInitialized = false;
 let gOS;
+let gPrefs;
 let gHideAll = false;
 let gRestoreSessionWndID = null;
 let gReplaceSession = false;
@@ -35,34 +37,76 @@ let gToolbarBtnIcons = [
 ];
 
 
+//
+// First-run initialization
+//
+
+browser.runtime.onInstalled.addListener(aDetails => {
+  if (aDetails.reason == "install") {
+    console.log("Panic Button/wx: Extension installed");
+  }
+  else if (aDetails.reason == "upgrade") {
+    console.log("Panic Button/wx: Upgrading from version " + aDetails.previousVersion);
+
+    if (parseInt(aDetails.previousVersion) < 4) {
+      console.log("Detected upgrade from legacy XUL version.");
+    }
+  }
+});
+
+
+//
+// Initializing integration with host application
+//
+
+async function setDefaultPrefs()
+{
+  let aePanicButtonPrefs = {
+    action: aeConst.PANICBUTTON_ACTION_REPLACE,
+    toolbarBtnIcon: 0,
+    toolbarBtnLabel: "Panic Button",
+    toolbarBtnRevContrastIco: false,
+    shortcutKey: true,
+    replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL
+  };
+
+  gPrefs = aePanicButtonPrefs;
+  await browser.storage.local.set(aePanicButtonPrefs);
+}
+
+
 function init()
 {
-  browser.runtime.onInstalled.addListener(aDetails => {
-    if (aDetails.reason == "install") {
-      console.log("Panic Button/wx: Extension installed - initializing prefs");
-      setDefaultPrefs();
-    }
-    else if (aDetails.reason == "upgrade") {
-      console.log("Panic Button/wx: Upgrading from version " + aDetails.previousVersion);
+  if (gIsInitialized) {
+    return;
+  }
 
-      if (parseInt(aDetails.previousVersion) < 4) {
-        console.log("Detected upgrade from legacy XUL version. Setting default preferences.");
-        setDefaultPrefs();
-      }
-    }
+  browser.runtime.getBrowserInfo().then(aInfo => { console.log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
+
+  browser.runtime.getPlatformInfo().then(aInfo => {
+    gOS = aInfo.os;
+    console.log("Panic Button/wx: OS: " + gOS);
   });
 
-  browser.storage.onChanged.addListener((aChanges, aAreaName) => {
-    console.log("Panic Button/wx: Detected change to local storage");
-
-    let changedPrefs = Object.keys(aChanges);
-
-    for (let pref of changedPrefs) {
-      console.log("Setting pref [" + pref + " = " + aChanges[pref].newValue + "]");
-      setPanicButtonCustomization(pref, aChanges[pref].newValue);
+  browser.storage.local.get().then(aPrefs => {
+    if (aPrefs.action === undefined) {
+      console.log("Panic Button/wx: No user preferences were previously set.  Setting default user preferences.");
+      setDefaultPrefs().then(() => {
+        initHelper();
+      });
+    }
+    else {
+      gPrefs = aPrefs;
+      initHelper();
     }
   });
-  
+}
+
+
+function initHelper()
+{
+  console.log("Panic Button/wx: Initializing browser integration...");
+
   browser.windows.onCreated.addListener(aWnd => {
     console.log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
   });
@@ -72,33 +116,7 @@ function init()
     console.log("Closing window ID: " + aWndID);
   });
 
-  let brwsInfo = browser.runtime.getBrowserInfo();
-  brwsInfo.then(aInfo => { console.log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
-
-  let sysInfo = browser.runtime.getPlatformInfo();
-  sysInfo.then(aInfo => {
-    gOS = aInfo.os;
-    console.log("Panic Button/wx: OS: " + gOS);
-  });
-
   browser.browserAction.onClicked.addListener(aTab => { panic() });
-
-  let getPrefs = browser.storage.local.get();
-  getPrefs.then(aResult => {
-    console.log("Setting preferences for Panic Button/wx");
-
-    // Handle the case where the prefs aren't initialized yet, because the
-    // above onInstalled event handler has not yet finished.
-    let toolbarBtnIconIdx = aResult.toolbarBtnIcon;
-    if (aResult.toolbarBtnIcon !== undefined) {
-      setToolbarButtonIcon(toolbarBtnIconIdx);
-    }
-    
-    let toolbarButtonLabel = aResult.toolbarBtnLabel;
-    if (aResult.toolbarBtnLabel !== undefined) {
-      browser.browserAction.setTitle({ title: toolbarButtonLabel });
-    }
-  });
 
   browser.commands.onCommand.addListener(aCmd => {
     if (aCmd == "ae-panicbutton") {
@@ -111,42 +129,32 @@ function init()
       });
     }
   });
+
+  browser.storage.onChanged.addListener((aChanges, aAreaName) => {
+    console.log("Panic Button/wx: Detected change to local storage");
+
+    let changedPrefs = Object.keys(aChanges);
+
+    for (let pref of changedPrefs) {
+      gPrefs[pref] = aChanges[pref].newValue;
+    }
+
+    setPanicButtonCustomizations();
+  });
+  
+  gIsInitialized = true;
+  console.log("Panic Button/wx: Initialization complete.");
 }
 
 
-function setDefaultPrefs()
+function setPanicButtonCustomizations()
 {
-  let aePanicButtonPrefs = {
-    action: aeConst.PANICBUTTON_ACTION_REPLACE,
-    toolbarBtnIcon: 0,
-    toolbarBtnLabel: "Panic Button",
-    shortcutKey: true,
-    replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL
-  };
-    
-  let initPrefs = browser.storage.local.set(aePanicButtonPrefs);
-  initPrefs.catch(onError);
+  setToolbarButtonIcon(gPrefs.toolbarBtnIcon, gPrefs.toolbarBtnRevContrastIco);
+  browser.browserAction.setTitle({ title: gPrefs.toolbarBtnLabel });
 }
 
 
-function setPanicButtonCustomization(aPrefName, aPrefValue)
-{
-  switch (aPrefName) {
-  case "toolbarBtnIcon":
-    setToolbarButtonIcon(aPrefValue);
-    break;
-
-  case "toolbarBtnLabel":
-    browser.browserAction.setTitle({ title: aPrefValue });
-    break;
-
-  default:
-    break;
-  }
-}
-
-
-function setToolbarButtonIcon(aIconIndex)
+function setToolbarButtonIcon(aIconIndex, isReverseContrast)
 {
   if (aIconIndex == aeConst.CUSTOM_ICON_IDX) {
     setCustomToolbarButtonIcon();
@@ -154,11 +162,12 @@ function setToolbarButtonIcon(aIconIndex)
   }
   
   let toolbarBtnIconName = gToolbarBtnIcons[aIconIndex];
+  let revCntrst = isReverseContrast ? "_reverse" : "";
+  
   browser.browserAction.setIcon({
     path: {
-      16: "img/" + toolbarBtnIconName + "16.svg",
-      32: "img/" + toolbarBtnIconName + "32.svg",
-      64: "img/" + toolbarBtnIconName + "32.svg"
+      16: "img/" + toolbarBtnIconName + "16" + revCntrst + ".svg",
+      32: "img/" + toolbarBtnIconName + "32" + revCntrst + ".svg",
     }
   });      
 }

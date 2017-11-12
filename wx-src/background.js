@@ -67,7 +67,8 @@ async function setDefaultPrefs()
     toolbarBtnLabel: "Panic Button",
     toolbarBtnRevContrastIco: false,
     shortcutKey: true,
-    replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL
+    replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
+    prefsPgSaveBtn: true, /* aeConst.DEBUG, */
   };
 
   gPrefs = aePanicButtonPrefs;
@@ -165,13 +166,13 @@ function setToolbarButtonIcon(aIconIndex, isReverseContrast)
   
   let toolbarBtnIconName = gToolbarBtnIcons[aIconIndex];
   let revCntrst = isReverseContrast ? "_reverse" : "";
-  
+
   browser.browserAction.setIcon({
     path: {
       16: "img/" + toolbarBtnIconName + "16" + revCntrst + ".svg",
       32: "img/" + toolbarBtnIconName + "32" + revCntrst + ".svg",
     }
-  });      
+  }).catch(onError);
 }
 
 

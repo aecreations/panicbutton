@@ -68,7 +68,7 @@ async function setDefaultPrefs()
     toolbarBtnRevContrastIco: false,
     shortcutKey: true,
     replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-    prefsPgSaveBtn: true, /* aeConst.DEBUG, */
+    prefsPgSaveBtn: aeConst.DEBUG,
   };
 
   gPrefs = aePanicButtonPrefs;

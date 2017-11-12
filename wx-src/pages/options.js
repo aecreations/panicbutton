@@ -19,12 +19,36 @@ function $(aID)
 }
 
 
-function initOptions(aEvent)
+function init(aEvent)
 {
   browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {
     gPanicButton = aBkgrdPgWnd;
+    return browser.history.deleteUrl({ url: window.location.href });
+  }).then(() => {
+    $("reset-url").addEventListener("click", resetWebPageURL, false);
+    $("reset-customizations").addEventListener("click", resetCustomizations, false);
+    $("panicbutton-action").addEventListener("change", updatePanicButtonActionDesc, false);
+    $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
 
-    browser.history.deleteUrl({ url: window.location.href });
+    // TEMPORARY
+    $("save-prefs").addEventListener("click", saveOptions, false);
+    // END TEMPORARY
+    
+    $("panicbutton-action").addEventListener("change", aEvent => {
+      setPref({ action: aEvent.target.value });
+    });
+
+    // TO DO: Save changes for replacement webpage URL.
+
+    $("shortcut-key").addEventListener("click", aEvent => {
+      setPref({ shortcutKey: aEvent.target.checked});
+    });
+
+    // TO DO: Save changes for toolbar button caption and icon.
+
+    $("rev-contrast-icon").addEventListener("click", aEvent => {
+      setPref({ toolbarBtnRevContrastIco: aEvent.target.checked });
+    });
 
     return browser.storage.local.get();
   }).then(aResult => {
@@ -140,6 +164,12 @@ function setCustomTBIcon(aEvent)
 }
 
 
+function setPref(aPref)
+{
+  browser.storage.local.set(aPref);
+}
+
+
 function resetWebPageURL(aEvent)
 {
   $("webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
@@ -159,9 +189,4 @@ function onError(aError)
 }
 
 
-document.addEventListener("DOMContentLoaded", initOptions, false);
-$("reset-url").addEventListener("click", resetWebPageURL, false);
-$("save-prefs").addEventListener("click", saveOptions, false);
-$("reset-customizations").addEventListener("click", resetCustomizations, false);
-$("panicbutton-action").addEventListener("change", updatePanicButtonActionDesc, false);
-$("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
+document.addEventListener("DOMContentLoaded", init, false);

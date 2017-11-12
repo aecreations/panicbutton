@@ -204,6 +204,13 @@ input[type="file"] {
     border: 1px solid #858585;
 }
 
+#prefs-pg-btns {
+    display: none;
+    
+    margin-left: 2px;
+    margin-top: 14px;
+}
+
 #save-prefs-confirm {
     display: inline;
     margin-left: 12px;

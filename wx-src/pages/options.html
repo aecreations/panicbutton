@@ -23,8 +23,7 @@
 	<div class="fieldset-content">
           <label for="panicbutton-action">Panic Button action:</label>
           <select id="panicbutton-action" class="browser-style"
-           name="panicbutton-action"
-  	   onchange="updatePanicButtonActionDesc(this.options[this.selectedIndex].value)">
+           name="panicbutton-action">
       	    <option value="0">Hide and replace</option>
 	    <option value="1">Minimize all windows</option>
 	    <option value="2">Close all windows</option>
@@ -36,7 +35,7 @@
 	      <div id="panicbutton-action-options-hide-and-replace" class="browser-style">
 		<label for="webpg-url">Web location (URL):</label>
 		<input type="text" id="webpg-url" class="browser-style">
-		<button id="reset-url" class="browser-style" onclick="resetWebPgURL()">Reset</button>
+		<button id="reset-url" class="browser-style">Reset</button>
 	      </div>
 	    </div>
 	  </div>
@@ -122,9 +121,11 @@
 	</div>
       </fieldset>
 
-      <div class="row page-btns" style="margin-top:14px;margin-left:2px">
-        <button id="save-prefs" class="browser-style" onclick="saveOptions(event)">Save</button>
+      <div class="row page-btns browser-style" style="margin-top:14px;margin-left:2px">
+	<!-- TEMPORARY -->
+	<button id="save-prefs" class="browser-style">Apply</button>
 	<div id="save-prefs-confirm"><img src="../img/success.png">Saved changes.</div>
+	<!-- END TEMPORARY -->
       </div>
     </main>
 

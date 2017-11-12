@@ -103,12 +103,20 @@
 
 	      <input type="radio" name="toolbar-button-icon" id="custom-icon" value="20"/>
 	      <label id="custom-icon-label" for="custom-icon"><img id="custom-icon-img" src=""/></label>
-	    </div> <!-- sxs-left -->
-	    <div class="sxs-right" style="margin-top:3px">
-	      <label id="custom-icon-upload-btn" for="custom-icon-upload">Custom Icon...</label>
-	      <input type="file" id="custom-icon-upload" accept=".jpg, .jpeg, .png"/>
+	    </div> <!-- .sxs-left -->
+
+	    <div id="icon-options" class="sxs-right">
+	      <div id="custom-icon-upload-cntr" class="sxs-right-cntr">
+		<label id="custom-icon-upload-btn" for="custom-icon-upload">Custom Icon...</label>
+		<input type="file" id="custom-icon-upload" accept=".jpg, .jpeg, .png"/>
+	      </div>
+	      <div class="sxs-right-cntr">
+		<div class="sxs-right-cntr browser-style">
+		  <input type="checkbox" id="rev-contrast-icon"/>
+		  <label for="rev-contrast-icon">Reverse contrast toolbar icon</label></div>
+	      </div>
 	    </div>
-	  </div>  <!-- flex-row -->
+	  </div>  <!-- .flex-row -->
 
 	  <button id="reset-customizations" class="browser-style">Reset</button>
 	</div>

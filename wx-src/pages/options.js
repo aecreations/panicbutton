@@ -21,8 +21,8 @@ function $(aID)
 
 function initOptions(aEvent)
 {
-  browser.runtime.getBackgroundPage().then(aBgPgWnd => {
-    gPanicButton = aBgPgWnd;
+  browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {
+    gPanicButton = aBkgrdPgWnd;
 
     browser.history.deleteUrl({ url: window.location.href });
 
@@ -56,6 +56,8 @@ function initOptions(aEvent)
     else {
       $(toolbarBtnIconID).checked = true;
     }
+
+    $("rev-contrast-icon").checked = aResult.toolbarBtnRevContrastIco;
   }, onError);
 }
 
@@ -71,7 +73,8 @@ function saveOptions(aEvent)
     shortcutKey: $("shortcut-key").checked,
     replacementWebPgURL: $("webpg-url").value,
     toolbarBtnIcon: toolbarIconIdx,
-    toolbarBtnLabel: $("toolbar-button-caption").value
+    toolbarBtnLabel: $("toolbar-button-caption").value,
+    toolbarBtnRevContrastIco: $("rev-contrast-icon").checked
   };
 
   if (toolbarIconIdx == aeConst.CUSTOM_ICON_IDX) {
@@ -81,8 +84,7 @@ function saveOptions(aEvent)
     aePanicButtonPrefs.toolbarBtnData = "";
   }
   
-  let setPrefs = browser.storage.local.set(aePanicButtonPrefs);
-  setPrefs.then(() => {
+  browser.storage.local.set(aePanicButtonPrefs).then(() => {
     console.log("Panic Button/wx: Preferences saved.");
     $("save-prefs-confirm").style.visibility = "visible";
 

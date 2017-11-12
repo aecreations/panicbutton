@@ -116,12 +116,13 @@ function initHelper()
     console.log("Closing window ID: " + aWndID);
   });
 
-  browser.browserAction.onClicked.addListener(aTab => { panic() });
+  browser.browserAction.onClicked.addListener(aTab => {
+    panic();
+  });
 
   browser.commands.onCommand.addListener(aCmd => {
     if (aCmd == "ae-panicbutton") {
-      let getPrefs = browser.storage.local.get();
-      getPrefs.then(aResult => {
+      browser.storage.local.get().then(aResult => {
         console.log("Panic Button/wx: Shortcut key enabled: " + aResult.shortcutKey);
         if (aResult.shortcutKey) {
           panic();
@@ -134,7 +135,8 @@ function initHelper()
     console.log("Panic Button/wx: Detected change to local storage");
 
     let changedPrefs = Object.keys(aChanges);
-
+    console.log("Changed prefs: " + changedPrefs.toString());
+    
     for (let pref of changedPrefs) {
       gPrefs[pref] = aChanges[pref].newValue;
     }
@@ -204,9 +206,7 @@ function panic()
     return;
   }
   
-  let getPrefs = browser.storage.local.get();
-
-  getPrefs.then(aResult => {
+  browser.storage.local.get().then(aResult => {
     let action = aResult.action;
     
     if (action == aeConst.PANICBUTTON_ACTION_REPLACE) {
@@ -225,10 +225,9 @@ function panic()
 
 function restoreBrowserSession()
 {
-  let getSessions = browser.sessions.getRecentlyClosed();
-  getSessions.then(aSessions => {
+  browser.sessions.getRecentlyClosed().then(aSessions => {
     if (aSessions.length == 0) {
-      console.log("No sessions found");
+      console.warn("No sessions found");
       return;
     }
 
@@ -331,7 +330,7 @@ function getOS()
 
 function onError(aError)
 {
-  console.log("!! Panic Button/wx: " + aError);
+  console.error("Panic Button/wx: " + aError);
 }
 
 

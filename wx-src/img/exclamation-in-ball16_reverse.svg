@@ -92,7 +92,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="22"
-     inkscape:cx="-0.43181818"
+     inkscape:cx="0.20454545"
      inkscape:cy="7.9877488"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -100,9 +100,9 @@
      inkscape:grid-bbox="true"
      inkscape:snap-global="false"
      inkscape:window-width="1280"
-     inkscape:window-height="671"
+     inkscape:window-height="674"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -131,7 +131,7 @@
      transform="translate(0,-48)">
     <path
        sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:4.74093485000000037;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f9f9fa;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:4.74093485000000037;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path3004"
        sodipodi:cx="35"
        sodipodi:cy="44"

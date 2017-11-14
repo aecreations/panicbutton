@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="15.696216"
-     inkscape:cx="3.9859146"
+     inkscape:cx="4.789101"
      inkscape:cy="8.362564"
      inkscape:current-layer="layer2"
      showgrid="true"
@@ -34,9 +34,9 @@
      inkscape:document-units="px"
      inkscape:snap-global="false"
      inkscape:window-width="1280"
-     inkscape:window-height="671"
+     inkscape:window-height="674"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1"
      borderlayer="true"
      showguides="true"
@@ -81,7 +81,7 @@
      inkscape:label="Landscape"
      style="display:inline">
     <path
-       style="fill:#ffffff;stroke:#222a33;stroke-width:1.48423374000000008;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1;opacity:1"
+       style="fill:#f9f9fa;stroke:#222a33;stroke-width:1.48423374000000008;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1;opacity:1"
        d="m 0.74211686,0.67529553 16.54400514,0 0,16.58258747 -16.54400514,0 z"
        id="path3804"
        inkscape:connector-curvature="0" />

@@ -25,7 +25,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="22.197802"
-     inkscape:cx="0.4428215"
+     inkscape:cx="0.48787101"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -33,9 +33,9 @@
      inkscape:document-units="px"
      inkscape:snap-global="false"
      inkscape:window-width="1280"
-     inkscape:window-height="667"
+     inkscape:window-height="674"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -53,7 +53,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -63,13 +63,13 @@
      inkscape:groupmode="layer">
     <path
        id="path3002"
-       style="fill:#ffffff;fill-opacity:1;stroke:#222a33;stroke-width:1.20244145000000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#f9f9fa;fill-opacity:1;stroke:#222a33;stroke-width:1.20244145000000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 10.397197,0.61047722 0.03816,4.33742498 4.211028,0 M 3.5715732,0.63281383 10.632167,0.67367877 c 1.830559,1.88041843 2.274821,2.28584613 3.953789,4.02910663 l 0,9.7391096 -11.0143828,0 z"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccc" />
     <path
        sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:0.94117647000000004;fill-rule:nonzero;stroke:#222a33;stroke-width:3.45018767000000004;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f9f9fa;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:3.45018767000000004;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path4417-1"
        sodipodi:cx="16.5"
        sodipodi:cy="16.5"

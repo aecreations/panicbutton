@@ -33,9 +33,9 @@
      inkscape:document-units="px"
      inkscape:snap-global="false"
      inkscape:window-width="1280"
-     inkscape:window-height="667"
+     inkscape:window-height="674"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -53,7 +53,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -67,12 +67,12 @@
        transform="matrix(0.85229965,0,0,0.85229965,-0.76021452,4.3908191)" />
     <path
        id="path3002"
-       style="fill:#ffffff;fill-opacity:0.94117647000000004;stroke:#222a33;stroke-width:1.40799903999999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#f9f9fa;fill-opacity:1;stroke:#222a33;stroke-width:1.40799903999999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 9.4971054,16.794798 0,3.430434 3.6537686,0 m -12.38087451,-3.407036 8.75209021,0 3.6038013,3.37512 0,11.089685 -12.35589151,0 z"
        inkscape:connector-curvature="0" />
     <path
        sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:0.94117647000000004;fill-rule:nonzero;stroke:#222a33;stroke-width:2.86095572000000020;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f9f9fa;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:2.86095572000000020;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path4417"
        sodipodi:cx="16.5"
        sodipodi:cy="16.5"

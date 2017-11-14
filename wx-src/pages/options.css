@@ -17,13 +17,19 @@ main {
     background-color: #fefefe;
 }
 
+#addon-icon {
+    vertical-align: -14px;
+    margin-right: 8px;
+}
+
 h2 {
+    display: inline-block;
     margin-top: 0;
     margin-right: 6px;
     margin-bottom: 20px;
     font-size: 22px;
     font-weight: 600;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.2px;
 }
 
 label {

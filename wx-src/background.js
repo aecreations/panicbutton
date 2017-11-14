@@ -43,13 +43,13 @@ let gToolbarBtnIcons = [
 
 browser.runtime.onInstalled.addListener(aDetails => {
   if (aDetails.reason == "install") {
-    console.log("Panic Button/wx: Extension installed");
+    log("Panic Button/wx: Extension installed");
   }
   else if (aDetails.reason == "upgrade") {
-    console.log("Panic Button/wx: Upgrading from version " + aDetails.previousVersion);
+    log("Panic Button/wx: Upgrading from version " + aDetails.previousVersion);
 
     if (parseInt(aDetails.previousVersion) < 4) {
-      console.log("Detected upgrade from legacy XUL version.");
+      log("Detected upgrade from legacy XUL version.");
     }
   }
 });
@@ -82,16 +82,16 @@ function init()
     return;
   }
 
-  browser.runtime.getBrowserInfo().then(aInfo => { console.log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
+  browser.runtime.getBrowserInfo().then(aInfo => { log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
 
   browser.runtime.getPlatformInfo().then(aInfo => {
     gOS = aInfo.os;
-    console.log("Panic Button/wx: OS: " + gOS);
+    log("Panic Button/wx: OS: " + gOS);
   });
 
   browser.storage.local.get().then(aPrefs => {
     if (aPrefs.action === undefined) {
-      console.log("Panic Button/wx: No user preferences were previously set.  Setting default user preferences.");
+      log("Panic Button/wx: No user preferences were previously set.  Setting default user preferences.");
       setDefaultPrefs().then(() => {
         initHelper();
       });
@@ -106,15 +106,15 @@ function init()
 
 function initHelper()
 {
-  console.log("Panic Button/wx: Initializing browser integration...");
+  log("Panic Button/wx: Initializing browser integration...");
 
   browser.windows.onCreated.addListener(aWnd => {
-    console.log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
+    log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
   });
 
   browser.windows.onRemoved.addListener(aWndID => {
-    console.log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-    console.log("Closing window ID: " + aWndID);
+    log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
+    log("Closing window ID: " + aWndID);
   });
 
   browser.browserAction.onClicked.addListener(aTab => {
@@ -124,7 +124,6 @@ function initHelper()
   browser.commands.onCommand.addListener(aCmd => {
     if (aCmd == "ae-panicbutton") {
       browser.storage.local.get().then(aResult => {
-        console.log("Panic Button/wx: Shortcut key enabled: " + aResult.shortcutKey);
         if (aResult.shortcutKey) {
           panic();
         }
@@ -133,10 +132,8 @@ function initHelper()
   });
 
   browser.storage.onChanged.addListener((aChanges, aAreaName) => {
-    console.log("Panic Button/wx: Detected change to local storage");
 
     let changedPrefs = Object.keys(aChanges);
-    console.log("Changed prefs: " + changedPrefs.toString());
     
     for (let pref of changedPrefs) {
       gPrefs[pref] = aChanges[pref].newValue;
@@ -144,9 +141,11 @@ function initHelper()
 
     setPanicButtonCustomizations();
   });
+
+  setPanicButtonCustomizations();
   
   gIsInitialized = true;
-  console.log("Panic Button/wx: Initialization complete.");
+  log("Panic Button/wx: Initialization complete.");
 }
 
 
@@ -228,19 +227,19 @@ function restoreBrowserSession()
 {
   browser.sessions.getRecentlyClosed().then(aSessions => {
     if (aSessions.length == 0) {
-      console.warn("No sessions found");
+      warn("No sessions found");
       return;
     }
 
-    console.log(`Number of sessions available: ${aSessions.length}`);
-    console.log(`Number of windows to restore: ${gNumClosedWnds}`);
-    console.log("Restoring browser session...");
+    log(`Number of sessions available: ${aSessions.length}`);
+    log(`Number of windows to restore: ${gNumClosedWnds}`);
+    log("Restoring browser session...");
       
     for (let i = 0; i < gNumClosedWnds; i++) {
       let sess = aSessions[i];
       
       if (! sess) {
-        console.log("The 'sess' object is not defined, continuing loop...");
+        log("The 'sess' object is not defined, continuing loop...");
         continue;
       }
         
@@ -254,14 +253,14 @@ function restoreBrowserSession()
       
       let restoreSession = browser.sessions.restore(sessID);
       restoreSession.then(aRestoredSession => {
-        console.log("Restored session: " + sessID);
+        log("Restored session: " + sessID);
       }, onError);
     }
             
     gNumClosedWnds = 0;
     
     if (gReplaceSession) {
-      console.log("Panic Button/wx: Closing replacement browser window");
+      log("Panic Button/wx: Closing replacement browser window");
       let replacemtWnd = browser.windows.get(gReplacemtWndID);
       replacemtWnd.then(aWnd => {
         browser.windows.remove(aWnd.id);
@@ -275,14 +274,14 @@ function restoreBrowserSession()
 
 function minimizeAll()
 {
-  console.log("Panic Button/wx: Invoked function minimizeAll()");
+  log("Panic Button/wx: Invoked function minimizeAll()");
 
   let getAllWnd = browser.windows.getAll();
   getAllWnd.then(aWnds => {
     for (let wnd of aWnds) {
       let updateWnd = browser.windows.update(wnd.id, { state: "minimized" });
       updateWnd.then(() => {
-        console.log("Minimized window: " + wnd.id);
+        log("Minimized window: " + wnd.id);
       }, onError);
     }
   }, onError);
@@ -291,8 +290,8 @@ function minimizeAll()
 
 function closeAll(aSaveSession, aReplacementURL)
 {
-  console.log("Panic Button/wx: Invoked function closeAll()");
-  console.log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
+  log("Panic Button/wx: Invoked function closeAll()");
+  log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
 
   if (aSaveSession && aReplacementURL) {
     gReplaceSession = true;
@@ -313,7 +312,7 @@ function closeAll(aSaveSession, aReplacementURL)
         continue;
       }
       
-      console.log("Closing window " + wnd.id);
+      log("Closing window " + wnd.id);
       browser.windows.remove(wnd.id);
 
       if (aSaveSession) {
@@ -329,11 +328,32 @@ function getOS()
   return gOS;
 }
 
+init();
+
+
+//
+// Error reporting and debugging output
+//
+
 function onError(aError)
 {
   console.error("Panic Button/wx: " + aError);
 }
 
 
-init();
+function log(aMessage)
+{
+  if (aeConst.DEBUG) { console.log(aMessage); }
+}
 
+
+function info(aMessage)
+{
+  if (aeConst.DEBUG) { console.info(aMessage); }
+}
+
+
+function warn(aMessage)
+{
+  if (aeConst.DEBUG) { console.warn(aMessage); }
+}

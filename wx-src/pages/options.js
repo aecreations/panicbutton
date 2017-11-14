@@ -44,7 +44,6 @@ function init(aEvent)
     });
 
     $("toolbar-button-caption").addEventListener("blur", aEvent => {
-      console.log("Setting pref: " + aEvent.target.id);
       setPref({ toolbarBtnLabel: aEvent.target.value });
     });
 
@@ -57,7 +56,6 @@ function init(aEvent)
       if (aEvent.target.tagName == "INPUT"
           && aEvent.target.getAttribute("type") == "radio"
           && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
-        console.log("Saving toolbar button icon selection");
         setPref({ toolbarBtnIcon: aEvent.target.value });
       }
     }, false);
@@ -65,8 +63,6 @@ function init(aEvent)
     return browser.storage.local.get();
 
   }).then(aResult => {
-    console.log("Panic Button/wx: Extension preferences:");
-    console.log(aResult);
     $("panicbutton-action").selectedIndex = aResult.action;
     $("shortcut-key").checked = aResult.shortcutKey;
     $("webpg-url").value = aResult.replacementWebPgURL;
@@ -128,7 +124,6 @@ function saveOptions(aEvent)
   }
   
   browser.storage.local.set(aePanicButtonPrefs).then(() => {
-    console.log("Panic Button/wx: Preferences saved.");
     $("save-prefs-confirm").style.visibility = "visible";
 
     window.setTimeout(() => {
@@ -166,7 +161,6 @@ function setCustomTBIcon(aEvent)
   }
 
   let imgFile = fileList[0];
-  console.log("Selected custom toolbar button icon file: %s (size: %s)", imgFile.name, imgFile.size);
 
   let fileReader = new FileReader();
   fileReader.addEventListener("load", aEvent => {
@@ -222,3 +216,9 @@ function onError(aError)
 
 
 document.addEventListener("DOMContentLoaded", init, false);
+
+document.addEventListener("contextmenu", aEvent => {
+  if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
+    aEvent.preventDefault();
+  }
+}, false);

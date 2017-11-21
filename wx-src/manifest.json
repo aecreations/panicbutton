@@ -1,9 +1,11 @@
 {
     "manifest_version": 2,
-    "name": "Panic Button",
-    "description": "Quickly hide all browser windows with a click of a button.",
-    "version": "4.0",
+    "name": "__MSG_extensionName__",
+    "description": "__MSG_extensionDescription__",
+    "version": "4.0+",
     "homepage_url": "http://aecreations.sourceforge.net/panicbutton/index.php",
+    "author": "AE Creations",
+
     "applications": {
 	"gecko": {
 	    "strict_min_version": "52.0"
@@ -27,13 +29,13 @@
 	    "32": "img/default32.svg",
 	    "64": "img/default32.svg"
 	},
-	"default_title": "Panic Button"
+	"default_title": "__MSG_defaultBtnLabel__"
     },
 
     "commands": {
 	"ae-panicbutton": {
 	    "suggested_key": { "default": "F9" },
-	    "description": "Panic Button"
+	    "description": "__MSG_cmdDesc__"
 	}
     },
     
@@ -41,5 +43,7 @@
 	"page": "pages/options.html",
         "open_in_tab": true,
 	"browser_style": true
-    }
+    },
+
+    "default_locale": "en"
 }

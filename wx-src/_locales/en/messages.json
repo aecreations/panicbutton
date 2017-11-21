@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "Panic Button"
+  },
+
+  "extensionDescription": {
+    "message": "Quickly hide all browser windows with a click of a button."
+  },
+
+  "defaultBtnLabel": {
+    "message": "Panic Button"
+  },
+
+  "cmdDesc": {
+    "message": "Panic Button"
+  }
+}

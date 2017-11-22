@@ -1,9 +1,9 @@
 {
-  "extensionName": {
+  "extName": {
     "message": "Panic Button"
   },
 
-  "extensionDescription": {
+  "extDesc": {
     "message": "Quickly hide all browser windows with a click of a button."
   },
 

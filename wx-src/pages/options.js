@@ -78,6 +78,8 @@ function init(aEvent)
 
     if (aResult.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
       $("panicbutton-action-options-hide-and-replace").style.display = "block";
+      $("private-browsing-warning").innerText = "Does not work in Private Browsing mode.";
+      $("private-browsing-warning-icon").style.display = "inline-block";
     }
 
     $("toolbar-button-caption").value = aResult.toolbarBtnLabel;
@@ -151,9 +153,13 @@ function updatePanicButtonActionDesc()
   
   if (panicButtonAction == aeConst.PANICBUTTON_ACTION_REPLACE) {
     $("panicbutton-action-options-hide-and-replace").style.display = "block";
+    $("private-browsing-warning").innerText = "Does not work in Private Browsing mode.";
+    $("private-browsing-warning-icon").style.display = "inline-block";
   }
   else {
     $("panicbutton-action-options-hide-and-replace").style.display = "none";
+    $("private-browsing-warning").innerText = "";
+    $("private-browsing-warning-icon").style.display = "none";
   }
 }
 

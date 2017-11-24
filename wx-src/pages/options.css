@@ -136,6 +136,17 @@ fieldset button.browser-style {
     display: none;
 }
 
+#private-browsing-warning {
+    font-size: 11px;
+    color: orangered;
+}
+
+#private-browsing-warning-icon {
+    display: none;
+    margin-left: 8px;
+    vertical-align: text-top;
+}
+
 #webpg-url {
     width: 300px;
     margin-right: 8px;

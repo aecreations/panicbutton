@@ -13,5 +13,21 @@
 
   "cmdDesc": {
     "message": "Panic Button"
+  },
+
+  "actionHideAndReplace": {
+    "message": "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session."
+  },
+
+  "actionMinimizeAll": {
+    "message": "Minimizes all browser windows."
+  },
+
+  "actionQuit": {
+    "message": "Closes all browser windows."
+  },
+
+  "notPrivBrws": {
+    "message": "Does not work in Private Browsing mode."
   }
 }

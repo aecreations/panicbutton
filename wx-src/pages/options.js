@@ -5,12 +5,7 @@
 
 
 let gPanicButton;
-
-let gActionDescs = [
-  "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session.",
-  "Minimizes all browser windows.",
-  "Closes all browser windows."
-];
+let gActionDescs = [];
 
 
 function $(aID)
@@ -21,6 +16,12 @@ function $(aID)
 
 function init(aEvent)
 {
+  gActionDescs = [
+    browser.i18n.getMessage("actionHideAndReplace"),
+    browser.i18n.getMessage("actionMinimizeAll"),
+    browser.i18n.getMessage("actionQuit")
+  ];
+  
   browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {
     gPanicButton = aBkgrdPgWnd;
     return browser.history.deleteUrl({ url: window.location.href });
@@ -78,7 +79,7 @@ function init(aEvent)
 
     if (aResult.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
       $("panicbutton-action-options-hide-and-replace").style.display = "block";
-      $("private-browsing-warning").innerText = "Does not work in Private Browsing mode.";
+      $("private-browsing-warning").innerText = browser.i18n.getMessage("notPrivBrws");
       $("private-browsing-warning-icon").style.display = "inline-block";
     }
 
@@ -153,7 +154,7 @@ function updatePanicButtonActionDesc()
   
   if (panicButtonAction == aeConst.PANICBUTTON_ACTION_REPLACE) {
     $("panicbutton-action-options-hide-and-replace").style.display = "block";
-    $("private-browsing-warning").innerText = "Does not work in Private Browsing mode.";
+    $("private-browsing-warning").innerText = browser.i18n.getMessage("notPrivBrws");
     $("private-browsing-warning-icon").style.display = "inline-block";
   }
   else {

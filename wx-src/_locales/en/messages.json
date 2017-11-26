@@ -15,19 +15,80 @@
     "message": "Panic Button"
   },
 
-  "actionHideAndReplace": {
+  // Extension preferences page
+  "prefsPgTitle": {
+    "message": "Preferences"
+  },
+
+  "prefsPgHdg": {
+    "message": "Preferences"
+  },
+
+  "prefsGeneral": {
+    "message": "Options"
+  },
+
+  "prefsCustomize": {
+    "message": "Customize"
+  },
+
+  "labelPanicBtnAction": {
+    "message": "Panic Button action:"
+  },
+  
+  "actHideAndReplace": {
+    "message": "Hide and Replace"
+  },
+
+  "actDescHideAndReplace": {
     "message": "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session."
   },
 
-  "actionMinimizeAll": {
+  "actMinimizeAll": {
+    "message": "Minimize All Windows"
+  },
+
+  "actDescMinimizeAll": {
     "message": "Minimizes all browser windows."
   },
 
-  "actionQuit": {
+  "actCloseAll": {
+    "message": "Close All Windows"
+  },
+
+  "actDescCloseAll": {
     "message": "Closes all browser windows."
   },
 
   "notPrivBrws": {
     "message": "Does not work in Private Browsing mode."
+  },
+
+  "labelWebPgURL": {
+    "message": "Web location (URL):"
+  },
+
+  "labelShortcutKey": {
+    "message": "Enable F9 key to invoke Panic Button action"
+  },
+
+  "labelToolbarBtnCaption": {
+    "message": "Toolbar button caption:"
+  },
+
+  "labelCustomIcon": {
+    "message": "Icon:"
+  },
+
+  "btnCustomIcon": {
+    "message": "Custom Icon..."
+  },
+  
+  "labelRevContrastTbIcon": {
+    "message": "Reverse contrast toolbar icon"
+  },
+
+  "btnReset": {
+    "message": "Reset"
   }
 }

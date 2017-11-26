@@ -17,9 +17,9 @@ function $(aID)
 function init(aEvent)
 {
   gActionDescs = [
-    browser.i18n.getMessage("actionHideAndReplace"),
-    browser.i18n.getMessage("actionMinimizeAll"),
-    browser.i18n.getMessage("actionQuit")
+    browser.i18n.getMessage("actDescHideAndReplace"),
+    browser.i18n.getMessage("actDescMinimizeAll"),
+    browser.i18n.getMessage("actDescCloseAll")
   ];
   
   browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {

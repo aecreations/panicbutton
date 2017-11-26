@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Preferences</title>
+    <title data-i18n="prefsPgTitle"></title>
 
     <link rel="stylesheet" href="chrome://browser/content/extension.css"/>
     <link rel="stylesheet" href="options.css"/>
@@ -16,18 +16,18 @@
   <body>
     <main id="ae-panicbutton-preferences">
       <img id="addon-icon" src="../img/icon.svg"/>
-      <h2>Preferences</h2>
+      <h2 data-i18n="prefsPgHdg"></h2>
 
       <fieldset id="prefs-general">
-        <legend>Options</legend>
+        <legend data-i18n="prefsGeneral"></legend>
 
 	<div class="fieldset-content">
-          <label for="panicbutton-action">Panic Button action:</label>
+          <label for="panicbutton-action" data-i18n="labelPanicBtnAction"></label>
           <select id="panicbutton-action" class="browser-style"
            name="panicbutton-action">
-      	    <option value="0">Hide and replace</option>
-	    <option value="1">Minimize all windows</option>
-	    <option value="2">Close all windows</option>
+      	    <option value="0" data-i18n="actHideAndReplace"></option>
+	    <option value="1" data-i18n="actMinimizeAll"></option>
+	    <option value="2" data-i18n="actCloseAll"></option>
           </select>
 
 	  <img id="private-browsing-warning-icon" src="chrome://global/skin/icons/warning.svg"/>
@@ -37,30 +37,30 @@
  	    <div id="panicbutton-action-desc"></div>
 	    <div id="panicbutton-action-options">
 	      <div id="panicbutton-action-options-hide-and-replace" class="browser-style">
-		<label for="webpg-url">Web location (URL):</label>
+		<label for="webpg-url" data-i18n="labelWebPgURL"></label>
 		<input type="text" id="webpg-url" class="browser-style">
-		<button id="reset-url" class="browser-style">Reset</button>
+		<button id="reset-url" class="browser-style" data-i18n="btnReset"></button>
 	      </div>
 	    </div>
 	  </div>
 
 	  <div class="row browser-style" style="margin-top:8px">
 	    <input type="checkbox" id="shortcut-key">
-            <label for="shortcut-key">Enable F9 key to invoke Panic Button action</label>
+            <label for="shortcut-key" data-i18n="labelShortcutKey"></label>
 	  </div>
         </div>
       </fieldset>
 
       <fieldset id="prefs-customize">
-        <legend>Customize</legend>
+        <legend data-i18n="prefsCustomize"></legend>
 	
 	<div class="fieldset-content">
 	  <div class="row browser-style" style="margin-bottom:4px">
-  	    <label for="toolbar-button-caption">Toolbar button caption:</label>
+  	    <label for="toolbar-button-caption" data-i18n="labelToolbarBtnCaption"></label>
 	    <input type="text" id="toolbar-button-caption" class="browser-style">
 	  </div>
 	  
-	  <label>Icon:</label>
+	  <label data-i18n="labelCustomIcon"></label>
 	  <div class="flex-row">
 	    <div id="toolbar-button-icon" class="sxs-left" style="margin-top:2px">
 	      <input type="radio" name="toolbar-button-icon" id="default" value="0">
@@ -110,18 +110,19 @@
 
 	    <div id="icon-options" class="sxs-right">
 	      <div id="custom-icon-upload-cntr" class="sxs-right-cntr">
-		<label id="custom-icon-upload-btn" for="custom-icon-upload">Custom Icon...</label>
+		<label id="custom-icon-upload-btn" for="custom-icon-upload"
+		 data-i18n="btnCustomIcon"></label>
 		<input type="file" id="custom-icon-upload" accept=".jpg, .jpeg, .png"/>
 	      </div>
 	      <div class="sxs-right-cntr">
 		<div class="sxs-right-cntr browser-style">
 		  <input type="checkbox" id="rev-contrast-icon"/>
-		  <label for="rev-contrast-icon">Reverse contrast toolbar icon</label></div>
+		  <label for="rev-contrast-icon" data-i18n="labelRevContrastTbIcon"></label></div>
 	      </div>
 	    </div>
 	  </div>  <!-- .flex-row -->
 
-	  <button id="reset-customizations" class="browser-style">Reset</button>
+	  <button id="reset-customizations" class="browser-style" data-i18n="btnReset"></button>
 	</div>
       </fieldset>
 
@@ -131,6 +132,7 @@
       </div>
     </main>
 
+    <script src="../lib/i18n.js"></script>
     <script src="../modules/aeConst.js"></script>
     <script src="options.js"></script>
   </body>

@@ -3,6 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
+@import url("chrome://browser/content/extension.css");
+
 body {
     background-image: url("../img/bkgrd.png");
 }
@@ -114,6 +116,11 @@ fieldset button.browser-style {
 .browser-style > input[type="text"]:focus,
 .browser-style > input[type="text"]:focus:hover {
     border: 1px solid #0996f8;
+}
+
+.browser-style > input[type="checkbox"]:disabled,
+.browser-style > input[type="checkbox"]:disabled + label {
+    opacity: 0.5;
 }
 
 #panicbutton-action-options {

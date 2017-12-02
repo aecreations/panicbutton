@@ -64,6 +64,15 @@ function init(aEvent)
           && aEvent.target.getAttribute("type") == "radio"
           && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
         setPref({ toolbarBtnIcon: aEvent.target.value });
+
+        let revContrCheckbox = $("rev-contrast-icon");
+        
+        if (aEvent.target.id == "custom-icon") {
+          revContrCheckbox.setAttribute("disabled", "true");
+        }
+        else {
+          revContrCheckbox.removeAttribute("disabled");
+        }
       }
     }, false);
 
@@ -94,6 +103,7 @@ function init(aEvent)
       customIconRadio.checked = true;
       $("custom-icon-label").style.visibility = "visible";
       $("custom-icon-img").src = aResult.toolbarBtnData;
+      $("rev-contrast-icon").setAttribute("disabled", "true");
     }
     else {
       $(toolbarBtnIconID).checked = true;
@@ -184,6 +194,7 @@ function setCustomTBIcon(aEvent)
     customIconRadio.style.visibility = "visible";
     customIconRadio.checked = true;
     $("custom-icon-img").setAttribute("src", imgData);
+    $("rev-contrast-icon").setAttribute("disabled", "true");
 
     setPref({
       toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,

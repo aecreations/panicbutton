@@ -25,7 +25,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="31.392433"
-     inkscape:cx="6.2935885"
+     inkscape:cx="4.1759245"
      inkscape:cy="7.0004517"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -33,9 +33,9 @@
      inkscape:document-units="px"
      inkscape:snap-global="false"
      inkscape:window-width="1280"
-     inkscape:window-height="667"
+     inkscape:window-height="674"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -62,7 +62,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <rect
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect4422"
        width="13"
        height="11"
@@ -70,7 +70,7 @@
        y="2.5" />
     <path
        sodipodi:type="star"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1.29168367;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1.29168367000000006;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path4424"
        sodipodi:sides="3"
        sodipodi:cx="4.9103961"
@@ -112,11 +112,11 @@
        sodipodi:cx="4.9103961"
        sodipodi:sides="3"
        id="path4352"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1.29168367;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1.29168367000000006;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        sodipodi:type="star" />
     <path
        sodipodi:type="star"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1.29168367000000006;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1.29168367000000006;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path4354"
        sodipodi:sides="3"
        sodipodi:cx="4.9103961"
@@ -148,7 +148,7 @@
        sodipodi:cx="4.9103961"
        sodipodi:sides="3"
        id="path4356"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1.29168367000000006;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1.29168367000000006;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        sodipodi:type="star" />
   </g>
 </svg>

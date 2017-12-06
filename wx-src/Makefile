@@ -2,14 +2,12 @@
 
 EXT_VER=`./getver.pl`
 DIST_FILE=panicbutton-$(EXT_VER).zip
-DIST_DEST=/cygdrive/e/
+DIST_DEST=../dist/
 EXCLUDE=*~ *\.pl \.devel *\.release Makefile
 
 
 $(DIST_FILE):
 	zip -r $(DIST_FILE) * -x $(EXCLUDE)
-
-copy:
 	cp -v $(DIST_FILE) $(DIST_DEST)
 
 clean:

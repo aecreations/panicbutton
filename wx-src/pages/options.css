@@ -164,7 +164,7 @@ fieldset button.browser-style {
 }
 
 #toolbar-button-icon {
-    width: 348px;
+    width: 354px;
     padding: 4px;
     margin-bottom: 12px;
     border: 1px solid #b1b1b1;
@@ -185,8 +185,9 @@ fieldset button.browser-style {
 }
 
 #icon-options {
-    margin-top: 3px;
     align-self: stretch;
+    margin-top: 3px;
+    max-width: 236px;
 }
 
 #custom-icon-upload-cntr {

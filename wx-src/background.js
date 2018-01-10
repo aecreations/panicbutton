@@ -169,7 +169,7 @@ function setToolbarButtonIcon(aIconIndex, isReverseContrast)
   browser.browserAction.setIcon({
     path: {
       16: "img/" + toolbarBtnIconName + "16" + revCntrst + ".svg",
-      32: "img/" + toolbarBtnIconName + "32" + revCntrst + ".svg",
+      32: "img/" + toolbarBtnIconName + "16" + revCntrst + ".svg",
     }
   }).catch(onError);
 }

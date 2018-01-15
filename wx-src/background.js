@@ -64,7 +64,7 @@ async function setDefaultPrefs()
   let aePanicButtonPrefs = {
     action: aeConst.PANICBUTTON_ACTION_REPLACE,
     toolbarBtnIcon: 0,
-    toolbarBtnLabel: "Panic Button",
+    toolbarBtnLabel: browser.i18n.getMessage("defaultBtnLabel"),
     toolbarBtnRevContrastIco: false,
     shortcutKey: true,
     replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,

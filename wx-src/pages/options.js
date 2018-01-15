@@ -221,12 +221,12 @@ function resetWebPageURL(aEvent)
 
 function resetCustomizations(aEvent)
 {
-  $("toolbar-button-caption").value = aeConst.DEFAULT_TOOLBAR_BTN_LABEL;
+  $("toolbar-button-caption").value = browser.i18n.getMessage("defaultBtnLabel");
   $("default").checked = true;
   $("rev-contrast-icon").checked = false;
 
   setPref({
-    toolbarBtnLabel: aeConst.DEFAULT_TOOLBAR_BTN_LABEL,
+    toolbarBtnLabel: browser.i18n.getMessage("defaultBtnLabel"),
     toolbarBtnIcon: 0,
     toolbarBtnRevContrastIco: false,
   });

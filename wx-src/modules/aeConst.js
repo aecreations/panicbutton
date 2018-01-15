@@ -17,7 +17,7 @@ let aeConst = {
   PANICBUTTON_ACTION_QUIT: 2,
 
   DEFAULT_TOOLBAR_BTN_LABEL: "Panic Button",
-  REPLACE_WEB_PAGE_DEFAULT_URL: "https://www.mozilla.org/en-US/firefox/",
+  REPLACE_WEB_PAGE_DEFAULT_URL: "https://www.mozilla.org/firefox/",
 
   CUSTOM_ICON_IDX: 20,
 };

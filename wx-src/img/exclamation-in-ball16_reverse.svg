@@ -14,7 +14,7 @@
    height="16"
    id="svg2994"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="exclamation-in-ball16_reverse.svg"
    inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/Export/exclamation-in-ball16.png"
    inkscape:export-xdpi="80"
@@ -91,16 +91,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22"
-     inkscape:cx="0.20454545"
-     inkscape:cy="7.9877488"
+     inkscape:zoom="31.112698"
+     inkscape:cx="9.0926055"
+     inkscape:cy="9.2733975"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
      inkscape:snap-global="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="674"
+     inkscape:window-width="2048"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
      inkscape:window-y="1"
      inkscape:window-maximized="1">
@@ -137,24 +137,20 @@
        sodipodi:cy="44"
        sodipodi:rx="30"
        sodipodi:ry="30"
-       d="M 65,44 C 65,60.568542 51.568542,74 35,74 18.431458,74 5,60.568542 5,44 5,27.431458 18.431458,14 35,14 51.568542,14 65,27.431458 65,44 z"
+       d="M 65,44 A 30,30 0 0 1 35,74 30,30 0 0 1 5,44 30,30 0 0 1 35,14 30,30 0 0 1 65,44 Z"
        transform="matrix(0.24331515,0,0,0.24331515,-0.51603039,45.294134)" />
-    <g
-       id="g4100"
-       transform="translate(16.386363,1.6695661)">
-      <path
-         style="fill:#222a33;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:2.02037144;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:9.6900021"
-         d="m -7.8789534,58.181563 c 0,0.110155 -0.056794,0.290234 -0.1486169,0.362422 -0.091823,0.07219 -0.2186755,0.116837 -0.3587927,0.116837 -0.1401173,0 -0.2669697,-0.04465 -0.3587927,-0.116837 -0.091823,-0.07219 -0.1486169,-0.252267 -0.1486169,-0.362422 0,-0.110155 0.040724,-0.242022 0.1325462,-0.31421 0.091823,-0.07219 0.2186755,-0.132907 0.3587928,-0.132907 0.1401173,0 0.250899,0.108931 0.3427221,0.181119 0.091823,0.07219 0.1807581,0.155843 0.1807581,0.265998 z"
-         id="path2998-9"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="sssssssss" />
-      <path
-         style="fill:#222a33;fill-opacity:1;stroke:#222a33;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-         d="m -8.3836056,55.284643 -0.6292321,-0.374943 -0.6168686,-4.933156 0.478327,-0.434914 0.7677736,-0.05177 0.7082392,0.07234 0.5323468,0.414352 -0.6261214,4.940163 z"
-         id="path3000-1"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccccccccc" />
-    </g>
+    <path
+       sodipodi:nodetypes="sssssssss"
+       inkscape:connector-curvature="0"
+       id="path2998-9"
+       d="M 9,59.533433 C 9,59.755593 8.8880707,60.118775 8.7071066,60.264364 8.5261424,60.409956 8.2761422,60.5 8,60.5 7.7238576,60.5 7.4738576,60.40995 7.2928934,60.264364 7.1119291,60.118771 7,59.755593 7,59.533433 c 0,-0.22216 0.080259,-0.488109 0.2612213,-0.633698 0.1809643,-0.145592 0.4309645,-0.268046 0.7071069,-0.268046 0.2761423,0 0.4944703,0.219692 0.6754347,0.36528 C 8.8247272,59.142562 9,59.311273 9,59.533433 Z"
+       style="fill:#222a33;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.69000244;stroke-opacity:1" />
+    <path
+       sodipodi:nodetypes="ccccccccccc"
+       inkscape:connector-curvature="0"
+       id="path3000-1"
+       d="M 8.0027574,56.954209 7.3735253,56.579266 6.9865393,54.062857 6.7887979,51.774675 7.2349837,51.339761 8.0027573,51.127285 8.7109965,51.360331 9.1790609,51.774683 9.0387935,54.020829 8.6172219,56.586281 Z"
+       style="fill:#222a33;fill-opacity:1;stroke:#222a33;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
   </g>
   <g
      inkscape:groupmode="layer"

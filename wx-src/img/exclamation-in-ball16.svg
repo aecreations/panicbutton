@@ -14,7 +14,7 @@
    height="16"
    id="svg2994"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="exclamation-in-ball16.svg"
    inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/Export/exclamation-in-ball16.png"
    inkscape:export-xdpi="80"
@@ -69,18 +69,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22"
-     inkscape:cx="0.20454545"
+     inkscape:zoom="31.112698"
+     inkscape:cx="-2.6171914"
      inkscape:cy="7.7671664"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
      inkscape:snap-global="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="667"
+     inkscape:window-width="2048"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -115,7 +115,7 @@
        sodipodi:cy="44"
        sodipodi:rx="30"
        sodipodi:ry="30"
-       d="M 65,44 C 65,60.568542 51.568542,74 35,74 18.431458,74 5,60.568542 5,44 5,27.431458 18.431458,14 35,14 51.568542,14 65,27.431458 65,44 z"
+       d="M 65,44 A 30,30 0 0 1 35,74 30,30 0 0 1 5,44 30,30 0 0 1 35,14 30,30 0 0 1 65,44 Z"
        transform="matrix(0.24331515,0,0,0.24331515,-0.51603039,45.294134)" />
   </g>
   <g
@@ -133,10 +133,10 @@
          d="m 8.5074096,11.89692 c 0,0.110155 -0.056794,0.290234 -0.1486169,0.362422 C 8.2669697,12.331531 8.1401172,12.376179 8,12.376179 c -0.1401173,0 -0.2669697,-0.04465 -0.3587927,-0.116837 -0.091823,-0.07219 -0.1486169,-0.252267 -0.1486169,-0.362422 0,-0.110155 0.040724,-0.242022 0.1325462,-0.31421 0.091823,-0.07219 0.2186755,-0.132907 0.3587928,-0.132907 0.1401173,0 0.250899,0.108931 0.3427221,0.181119 0.091823,0.07219 0.1807581,0.155843 0.1807581,0.265998 z"
          style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.02037144;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:9.6900021" />
       <path
-         sodipodi:nodetypes="ccccccccc"
+         sodipodi:nodetypes="ccccccccccc"
          inkscape:connector-curvature="0"
          id="path3000"
-         d="M 8.0027574,9 7.3735253,8.6250573 6.7566567,3.6919011 7.2349837,3.2569867 8.0027573,3.2052145 8.7109965,3.2775485 9.2433433,3.6919011 8.6172219,8.632064 z"
+         d="M 8.0027574,9 7.3735253,8.6250573 6.9845367,6.1249621 6.7566567,3.6919011 7.2349837,3.2569867 8.0027573,3.0445084 8.7109965,3.2775485 9.2433433,3.6919011 9.0672978,6.102373 8.6172219,8.632064 Z"
          style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
     </g>
   </g>

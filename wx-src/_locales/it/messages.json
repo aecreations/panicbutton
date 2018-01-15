@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Pulsante di panico"
+  },
+  "extDesc": {
+    "message": "Rapidamente nascondere tutte le finestre del browser con un clic di un pulsante."
+  },
+  "defaultBtnLabel": {
+    "message": "Pulsante di panico"
+  },
+  "cmdDesc": {
+    "message": "Pulsante di panico"
+  },
+  "prefsPgTitle": {
+    "message": "Preferenze"
+  },
+  "prefsPgHdg": {
+    "message": "Preferenze"
+  },
+  "prefsGeneral": {
+    "message": "Opzioni"
+  },
+  "prefsCustomize": {
+    "message": "Perzonalizza"
+  },
+  "labelPanicBtnAction": {
+    "message": "Azione del pulsante di panico:"
+  },
+  "actHideAndReplace": {
+    "message": "Nascondi e sostituisci"
+  },
+  "actDescHideAndReplace": {
+    "message": "Sostituisce la sessione del browser con un'unica finestra che mostra una pagina web nella posizione qui sotto. Fare clic sul pulsante di panico per ripristinare la sessione del browser."
+  },
+  "actMinimizeAll": {
+    "message": "Minimizza le finestre"
+  },
+  "actDescMinimizeAll": {
+    "message": "Minimizza tutte le finestre del browser."
+  },
+  "actCloseAll": {
+    "message": "Chiudi tutte le finestre"
+  },
+  "actDescCloseAll": {
+    "message": "Chiude tutte le finestre del browser."
+  },
+  "notPrivBrws": {
+    "message": "Non funziona in modalità di navigazione privata."
+  },
+  "labelWebPgURL": {
+    "message": "Posizione web (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "Attivare il tasto F9 per invocare azione pulsante di panico"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Didascalia del pulsante di barra degli strumenti:"
+  },
+  "labelCustomIcon": {
+    "message": "Icona:"
+  },
+  "btnCustomIcon": {
+    "message": "Icona personalizzata..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Icona della barra degli strumenti di contrasto inverso"
+  },
+  "btnReset": {
+    "message": "Azzera"
+  }
+}

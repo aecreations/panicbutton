@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "紧急按钮"
+  },
+  "extDesc": {
+    "message": "点击一个按钮，\n快速隐藏所有的浏览器窗口。"
+  },
+  "defaultBtnLabel": {
+    "message": "紧急按钮"
+  },
+  "cmdDesc": {
+    "message": "紧急按钮"
+  },
+  "prefsPgTitle": {
+    "message": "优先"
+  },
+  "prefsPgHdg": {
+    "message": "优先"
+  },
+  "prefsGeneral": {
+    "message": "选项"
+  },
+  "prefsCustomize": {
+    "message": "定制"
+  },
+  "labelPanicBtnAction": {
+    "message": "恐慌按钮操作："
+  },
+  "actHideAndReplace": {
+    "message": "隐藏和替换"
+  },
+  "actDescHideAndReplace": {
+    "message": "用下面位置显示网页的单个窗口替换浏览器会话。\n再次点击紧急按钮来恢复浏览器会话。"
+  },
+  "actMinimizeAll": {
+    "message": "最小化所有Windows"
+  },
+  "actDescMinimizeAll": {
+    "message": "最小化所有浏览器 Windows"
+  },
+  "actCloseAll": {
+    "message": "关闭所有的Windows"
+  },
+  "actDescCloseAll": {
+    "message": "关闭所有浏览器 Windows."
+  },
+  "notPrivBrws": {
+    "message": "在隐私浏览模式下不起作用。"
+  },
+  "labelWebPgURL": {
+    "message": "网站位置 (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "启用F9键来调用紧急按钮操作"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "工具栏按钮标题："
+  },
+  "labelCustomIcon": {
+    "message": "图标："
+  },
+  "btnCustomIcon": {
+    "message": "自定义图标"
+  },
+  "labelRevContrastTbIcon": {
+    "message": "反差工具栏图标"
+  },
+  "btnReset": {
+    "message": "重置"
+  }
+}

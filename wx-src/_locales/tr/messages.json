@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Panik butonu"
+  },
+  "extDesc": {
+    "message": "Hızlıca bütün tarayıcı pencerelerini butona tıklayarak kapat."
+  },
+  "defaultBtnLabel": {
+    "message": "Panik butonu"
+  },
+  "cmdDesc": {
+    "message": "Panik butonu"
+  },
+  "prefsPgTitle": {
+    "message": "Tercihler"
+  },
+  "prefsPgHdg": {
+    "message": "Tercihler"
+  },
+  "prefsGeneral": {
+    "message": "Seçenekler"
+  },
+  "prefsCustomize": {
+    "message": "Özelleştir"
+  },
+  "labelPanicBtnAction": {
+    "message": "Panik butonu eylemleri:"
+  },
+  "actHideAndReplace": {
+    "message": "Sakla ve değiştir"
+  },
+  "actDescHideAndReplace": {
+    "message": "Tarayıcı oturumunu, aşağıda ki konumda bir web sayfası görüntüleyen tek bir pencere ile değiştirir. Tarayıcı oturumunuzu geri yüklemek için panik butonuna tekrar tıklayın."
+  },
+  "actMinimizeAll": {
+    "message": "Bütün pencereleri simge durumuna küçült"
+  },
+  "actDescMinimizeAll": {
+    "message": "Bütün tarayıcı pencerelerini simge durumuna küçültür."
+  },
+  "actCloseAll": {
+    "message": "Bütün pencereleri kapat"
+  },
+  "actDescCloseAll": {
+    "message": "Bütün tarayıcı pencerelerini kapatır."
+  },
+  "notPrivBrws": {
+    "message": "Özel taraıyıcı modunda çalışmadı."
+  },
+  "labelWebPgURL": {
+    "message": "Web konumu (Adres):"
+  },
+  "labelShortcutKey": {
+    "message": "F9 tuşuna basarak panik butonu eylemini etkinleştirebilirsiniz"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Araç çubuğu butonu başlığı:"
+  },
+  "labelCustomIcon": {
+    "message": "Simge:"
+  },
+  "btnCustomIcon": {
+    "message": "Özel simge..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Zıt kontrast araç çubuğu simgesi"
+  },
+  "btnReset": {
+    "message": "Sıfırla"
+  }
+}

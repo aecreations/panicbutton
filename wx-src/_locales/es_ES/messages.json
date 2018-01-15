@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Botón de pánico"
+  },
+  "extDesc": {
+    "message": "Ocultar rápidamente todas las ventanas de navegador con un clic de un botón."
+  },
+  "defaultBtnLabel": {
+    "message": "Botón de pánico"
+  },
+  "cmdDesc": {
+    "message": "Botón de pánico"
+  },
+  "prefsPgTitle": {
+    "message": "Preferencias"
+  },
+  "prefsPgHdg": {
+    "message": "Preferencias"
+  },
+  "prefsGeneral": {
+    "message": "Opciones"
+  },
+  "prefsCustomize": {
+    "message": "Personalizar"
+  },
+  "labelPanicBtnAction": {
+    "message": "Acción de botón de pánico:"
+  },
+  "actHideAndReplace": {
+    "message": "Ocultar y reemplazar"
+  },
+  "actDescHideAndReplace": {
+    "message": "Sustituye a la sesión del explorador mostrando una página web en la ubicación siguiente. Haga clic en el botón de pánico otra vez para restaurar la sesión de navegador."
+  },
+  "actMinimizeAll": {
+    "message": "Minimizar todas las ventanas"
+  },
+  "actDescMinimizeAll": {
+    "message": "Minimiza todas las ventanas de navegador."
+  },
+  "actCloseAll": {
+    "message": "Cerrar todas las ventanas"
+  },
+  "actDescCloseAll": {
+    "message": "Cerrar todas las ventanas de navegador."
+  },
+  "notPrivBrws": {
+    "message": "No funciona en el modo de navegación privada."
+  },
+  "labelWebPgURL": {
+    "message": "Ubicación de Web (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "Activar la tecla F9 para accionar el botón de pánico"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Botón de barra de herramientas:"
+  },
+  "labelCustomIcon": {
+    "message": "Icono:"
+  },
+  "btnCustomIcon": {
+    "message": "Icono personalizado..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Icono de la barra de herramientas con contraste inverso"
+  },
+  "btnReset": {
+    "message": "Reiniciar"
+  }
+}

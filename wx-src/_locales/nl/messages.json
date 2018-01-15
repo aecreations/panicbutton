@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Paniek Knop"
+  },
+  "extDesc": {
+    "message": "Met een klik op een knop verberg snel alle browservensters."
+  },
+  "defaultBtnLabel": {
+    "message": "Paniek Knop"
+  },
+  "cmdDesc": {
+    "message": "Paniek Knop"
+  },
+  "prefsPgTitle": {
+    "message": "Voorkeuren"
+  },
+  "prefsPgHdg": {
+    "message": "Voorkeuren"
+  },
+  "prefsGeneral": {
+    "message": "Opties"
+  },
+  "prefsCustomize": {
+    "message": "Personaliseer"
+  },
+  "labelPanicBtnAction": {
+    "message": "Paniek knopactie:"
+  },
+  "actHideAndReplace": {
+    "message": "Verberg en Vervang"
+  },
+  "actDescHideAndReplace": {
+    "message": "Vervangt de browsersessie door een enkel venster met een webpagina op de onderstaande locatie. Klik opnieuw op de paniekknop om uw browsersessie te herstellen."
+  },
+  "actMinimizeAll": {
+    "message": "Alle vensters minimaliseren"
+  },
+  "actDescMinimizeAll": {
+    "message": "Hiermee minimaliseert u alle browservensters."
+  },
+  "actCloseAll": {
+    "message": "Sluit alle vensters"
+  },
+  "actDescCloseAll": {
+    "message": "Hiermee sluit u alle browservensters."
+  },
+  "notPrivBrws": {
+    "message": "Het werkt niet in de privé-browsingmodus."
+  },
+  "labelWebPgURL": {
+    "message": "Weblocatie (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "F9-toets inschakelen om paniek knopactie op te roepen"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Werkbalkknop:"
+  },
+  "labelCustomIcon": {
+    "message": "Pictogram:"
+  },
+  "btnCustomIcon": {
+    "message": "Aangepast pictogram..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Werkbalkpictogram met omgekeerd contrast"
+  },
+  "btnReset": {
+    "message": "Reset"
+  }
+}

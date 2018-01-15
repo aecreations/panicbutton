@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Tombol Panik"
+  },
+  "extDesc": {
+    "message": "Cepat menyembunyikan semua jendela browser dengan klik tombol."
+  },
+  "defaultBtnLabel": {
+    "message": "Tombol Panik"
+  },
+  "cmdDesc": {
+    "message": "Tombol Panik"
+  },
+  "prefsPgTitle": {
+    "message": "Preferensi"
+  },
+  "prefsPgHdg": {
+    "message": "Preferensi"
+  },
+  "prefsGeneral": {
+    "message": "Pilihan"
+  },
+  "prefsCustomize": {
+    "message": "Sesuaikan"
+  },
+  "labelPanicBtnAction": {
+    "message": "Aksi Tombol Panik:"
+  },
+  "actHideAndReplace": {
+    "message": "Sembunyikan dan Ganti"
+  },
+  "actDescHideAndReplace": {
+    "message": "Menggantikan sesi browser dengan satu jendela menampilkan halaman web di lokasi di bawah ini. Klik tombol panik lagi untuk mengembalikan sesi browser Anda."
+  },
+  "actMinimizeAll": {
+    "message": "Minimalkan Semua Jendela"
+  },
+  "actDescMinimizeAll": {
+    "message": "Minimalkan semua jendela browser."
+  },
+  "actCloseAll": {
+    "message": "Tutup Semua Jendela"
+  },
+  "actDescCloseAll": {
+    "message": "Tutup semua jendela browser."
+  },
+  "notPrivBrws": {
+    "message": "Tidak berfungsi dalam mode Penjelajahan Pribadi."
+  },
+  "labelWebPgURL": {
+    "message": "Lokasi Web (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "Mengaktifkan tombol F9 untuk memohon tindakan tombol panik"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Keterangan tombol toolbar:"
+  },
+  "labelCustomIcon": {
+    "message": "Ikon:"
+  },
+  "btnCustomIcon": {
+    "message": "Sesuaikan Ikon..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Ikon toolbar kontras terbalik"
+  },
+  "btnReset": {
+    "message": "Atur ulang"
+  }
+}

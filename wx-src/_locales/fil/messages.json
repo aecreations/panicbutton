@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Panic Button"
+  },
+  "extDesc": {
+    "message": "Mabilis na itinatago ang lahat ng mga window ng browser sa isang klik lamang sa pindutan."
+  },
+  "defaultBtnLabel": {
+    "message": "Panic Button"
+  },
+  "cmdDesc": {
+    "message": "Panic Button"
+  },
+  "prefsPgTitle": {
+    "message": "Mga preperensiya"
+  },
+  "prefsPgHdg": {
+    "message": "Mga preperensiya"
+  },
+  "prefsGeneral": {
+    "message": "Mga opsyon"
+  },
+  "prefsCustomize": {
+    "message": "I-customize"
+  },
+  "labelPanicBtnAction": {
+    "message": "Aksyon ng Panic Button:"
+  },
+  "actHideAndReplace": {
+    "message": "Itago at Palitan"
+  },
+  "actDescHideAndReplace": {
+    "message": "Pinapalitan ang sesyon ng browser sa isang solong window na nagpapakita ng mga web page sa ibabang lokasyon. I-klik muli ang Panic Button para ibalik ang sesyon ng iyong browser."
+  },
+  "actMinimizeAll": {
+    "message": "Paliitin ang lahat ng mga window"
+  },
+  "actDescMinimizeAll": {
+    "message": "Paliitin ang lahat ng mga window ng browser."
+  },
+  "actCloseAll": {
+    "message": "Isara ang lahat ng mga window"
+  },
+  "actDescCloseAll": {
+    "message": "Isara ang lahat ng mga window ng browser."
+  },
+  "notPrivBrws": {
+    "message": "Hindi gumagana sa pamamagitan ng Pribadong pagbo-browse."
+  },
+  "labelWebPgURL": {
+    "message": "Lokasyon ng Web (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "Paganahin ang F9 na key upang tawagin ang aksyon ng Panic Button"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Toolbar ng nilalaman ng pindutan:"
+  },
+  "labelCustomIcon": {
+    "message": "Icon:"
+  },
+  "btnCustomIcon": {
+    "message": "Pasadya na Icon..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Baligtarin ang pagkakaiba ng icon na toolbar"
+  },
+  "btnReset": {
+    "message": "I-reset"
+  }
+}

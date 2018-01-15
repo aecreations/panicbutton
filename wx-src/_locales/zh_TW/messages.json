@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "緊急按鈕"
+  },
+  "extDesc": {
+    "message": "點擊一個按鈕，\n快速隱藏所有的瀏覽器窗口。"
+  },
+  "defaultBtnLabel": {
+    "message": "緊急按鈕"
+  },
+  "cmdDesc": {
+    "message": "緊急按鈕"
+  },
+  "prefsPgTitle": {
+    "message": "優先"
+  },
+  "prefsPgHdg": {
+    "message": "優先"
+  },
+  "prefsGeneral": {
+    "message": "選項"
+  },
+  "prefsCustomize": {
+    "message": "定制"
+  },
+  "labelPanicBtnAction": {
+    "message": "恐慌按鈕操作："
+  },
+  "actHideAndReplace": {
+    "message": "隱藏和替換"
+  },
+  "actDescHideAndReplace": {
+    "message": "用下面位置顯示網頁的單個窗口替換瀏覽器會話。\n再次點擊緊急按鈕來恢復瀏覽器會話。"
+  },
+  "actMinimizeAll": {
+    "message": "最小化所有Windows"
+  },
+  "actDescMinimizeAll": {
+    "message": "最小化所有瀏覽器 Windows."
+  },
+  "actCloseAll": {
+    "message": "關閉所有的Windows."
+  },
+  "actDescCloseAll": {
+    "message": "關閉所有瀏覽器 Windows."
+  },
+  "notPrivBrws": {
+    "message": "在隱私瀏覽模式下不起作用。"
+  },
+  "labelWebPgURL": {
+    "message": "網站位置 (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "啟用F9鍵來調用緊急按鈕操作"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "工具欄按鈕標題："
+  },
+  "labelCustomIcon": {
+    "message": "圖示："
+  },
+  "btnCustomIcon": {
+    "message": "自定義圖標..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "反差工具欄圖標"
+  },
+  "btnReset": {
+    "message": "重設"
+  }
+}

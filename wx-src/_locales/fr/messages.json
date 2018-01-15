@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Bouton de Panique"
+  },
+  "extDesc": {
+    "message": "Cacher rapidement toutes les fenêtres de navigateur en un clic d’un bouton."
+  },
+  "defaultBtnLabel": {
+    "message": "Bouton de Panique"
+  },
+  "cmdDesc": {
+    "message": "Bouton de Panique"
+  },
+  "prefsPgTitle": {
+    "message": "Préférences"
+  },
+  "prefsPgHdg": {
+    "message": "Préférences"
+  },
+  "prefsGeneral": {
+    "message": "Options"
+  },
+  "prefsCustomize": {
+    "message": "Personnaliser"
+  },
+  "labelPanicBtnAction": {
+    "message": "Action du Bouton de Panique:"
+  },
+  "actHideAndReplace": {
+    "message": "Ajouter et remplacer"
+  },
+  "actDescHideAndReplace": {
+    "message": "Remplace la session du navigateur avec une seule fenêtre, affichage d'une page web à l'emplacement ci-dessous. Cliquez sur le Bouton de Panique à nouveau pour restaurer votre session de navigation."
+  },
+  "actMinimizeAll": {
+    "message": "Minimise toutes les fenêtres"
+  },
+  "actDescMinimizeAll": {
+    "message": "Minimise toutes les fenêtres de navigateur."
+  },
+  "actCloseAll": {
+    "message": "Fermez toutes les fenêtres"
+  },
+  "actDescCloseAll": {
+    "message": "Fermez toutes les fenêtres de navigateur."
+  },
+  "notPrivBrws": {
+    "message": "Ne fonctionne pas en mode de Navigation Privée."
+  },
+  "labelWebPgURL": {
+    "message": "Localisation de Web (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "Activer le touche F9 pour appeler la action de Bouton de Panique"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Légende de bouton de barre d'outils:"
+  },
+  "labelCustomIcon": {
+    "message": "Icône:"
+  },
+  "btnCustomIcon": {
+    "message": "Icône personnalisée..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Icône de barre d'outils de contraste inverse"
+  },
+  "btnReset": {
+    "message": "Restaurer"
+  }
+}

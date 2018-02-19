@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Тревожная кнопка"
+  },
+  "extDesc": {
+    "message": "Быстрое скрытие всех вкладок в браузере при нажатии на кнопку."
+  },
+  "defaultBtnLabel": {
+    "message": "Тревожная кнопка"
+  },
+  "cmdDesc": {
+    "message": "Тревожная кнопка"
+  },
+  "prefsPgTitle": {
+    "message": "Настройки"
+  },
+  "prefsPgHdg": {
+    "message": "Настройки"
+  },
+  "prefsGeneral": {
+    "message": "Параметры"
+  },
+  "prefsCustomize": {
+    "message": "Настройка"
+  },
+  "labelPanicBtnAction": {
+    "message": "Действие при нажатии тревожной кнопки:"
+  },
+  "actHideAndReplace": {
+    "message": "Скрытие и замена"
+  },
+  "actDescHideAndReplace": {
+    "message": "Заменяет сеанс браузера одним окном, отображающим указанную ниже веб-страницу. Нажмите тревожную кнопку еще раз, чтобы восстановить сеанс браузера."
+  },
+  "actMinimizeAll": {
+    "message": "Свернуть все окна"
+  },
+  "actDescMinimizeAll": {
+    "message": "Свернуть все окна браузера."
+  },
+  "actCloseAll": {
+    "message": "Закрыть все окна"
+  },
+  "actDescCloseAll": {
+    "message": "Закрывает все окна браузера."
+  },
+  "notPrivBrws": {
+    "message": "Не работает в режиме инкогнито."
+  },
+  "labelWebPgURL": {
+    "message": "Расположение в Интернете (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "Использование клавиши F9 вместо нажатия на тревожную кнопку"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Заголовок кнопки в панели инструментов:"
+  },
+  "labelCustomIcon": {
+    "message": "Иконка:"
+  },
+  "btnCustomIcon": {
+    "message": "Пользовательская иконка..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Обратить контраст иконки в панели инструментов"
+  },
+  "btnReset": {
+    "message": "Сброс"
+  }
+}

@@ -39,6 +39,10 @@ label {
     font-size: 13px;
 }
 
+input[type="checkbox"] + label {
+    vertical-align: middle;
+}
+
 button.browser-style {
     height: 28px;
     margin-bottom: 0;
@@ -74,7 +78,7 @@ fieldset button.browser-style {
 }
 
 .fieldset-content {
-    padding: 8px;
+    padding: 8px 0 8px 8px;
 }
 
 .flex-row {

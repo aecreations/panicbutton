@@ -44,13 +44,37 @@ let gToolbarBtnIcons = [
 browser.runtime.onInstalled.addListener(aDetails => {
   if (aDetails.reason == "install") {
     log("Panic Button/wx: Extension installed");
+
+    setDefaultPrefs().then(() => {
+      init();
+    })
   }
-  else if (aDetails.reason == "upgrade") {
+  else if (aDetails.reason == "update") {
     log("Panic Button/wx: Upgrading from version " + aDetails.previousVersion);
 
-    if (parseInt(aDetails.previousVersion) < 4) {
-      log("Detected upgrade from legacy XUL version.");
-    }
+    let oldVer = aDetails.previousVersion;
+
+    browser.storage.local.get().then(aPrefs => {
+      gPrefs = aPrefs;
+
+      if (versionCompare(oldVer, "4.1") < 0) {
+        let newPrefs = {
+          panicButtonKey: "F9",
+          panicButtonKeyMod: "",
+        };
+
+        for (let pref in newPrefs) {
+          gPrefs[pref] = newPrefs[pref];
+        }
+
+        browser.storage.local.set(newPrefs).then(() => {
+          init();
+        });
+      }
+      else {
+        init();
+      }
+    });
   }
 });
 
@@ -58,6 +82,24 @@ browser.runtime.onInstalled.addListener(aDetails => {
 //
 // Initializing integration with host application
 //
+
+browser.runtime.onStartup.addListener(() => {
+  log("Panic Button/wx: Initializing Panic Button during browser startup.");
+
+  browser.storage.local.get().then(aPrefs => {
+    if ("action" in aPrefs) {
+      gPrefs = aPrefs;
+      init();
+    }
+    else {
+      log("Panic Button/wx: No user preferences were previously set.  Setting default user preferences.");
+      setDefaultPrefs().then(() => {
+        init();
+      });
+    }
+  });
+});
+
 
 async function setDefaultPrefs()
 {
@@ -67,6 +109,8 @@ async function setDefaultPrefs()
     toolbarBtnLabel: browser.i18n.getMessage("defaultBtnLabel"),
     toolbarBtnRevContrastIco: false,
     shortcutKey: true,
+    panicButtonKey: "F9",
+    panicButtonKeyMod: "",
     replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
     prefsPgSaveBtn: aeConst.DEBUG,
   };
@@ -82,32 +126,15 @@ function init()
     return;
   }
 
-  browser.runtime.getBrowserInfo().then(aInfo => { log(`Panic Button/wx: Host app: ${aInfo.name}, version ${aInfo.version}`); });
+  browser.runtime.getBrowserInfo().then(aBrws => {
+    log(`Panic Button/wx: Host app: ${aBrws.name} ${aBrws.version}`);
+  });
 
-  browser.runtime.getPlatformInfo().then(aInfo => {
-    gOS = aInfo.os;
+  browser.runtime.getPlatformInfo().then(aPlatform => {
+    gOS = aPlatform.os;
     log("Panic Button/wx: OS: " + gOS);
   });
-
-  browser.storage.local.get().then(aPrefs => {
-    if (aPrefs.action === undefined) {
-      log("Panic Button/wx: No user preferences were previously set.  Setting default user preferences.");
-      setDefaultPrefs().then(() => {
-        initHelper();
-      });
-    }
-    else {
-      gPrefs = aPrefs;
-      initHelper();
-    }
-  });
-}
-
-
-function initHelper()
-{
-  log("Panic Button/wx: Initializing browser integration...");
-
+  
   browser.windows.onCreated.addListener(aWnd => {
     log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
   });
@@ -122,17 +149,12 @@ function initHelper()
   });
 
   browser.commands.onCommand.addListener(aCmd => {
-    if (aCmd == "ae-panicbutton") {
-      browser.storage.local.get().then(aResult => {
-        if (aResult.shortcutKey) {
-          panic();
-        }
-      });
+    if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
+      panic();
     }
   });
 
   browser.storage.onChanged.addListener((aChanges, aAreaName) => {
-
     let changedPrefs = Object.keys(aChanges);
     
     for (let pref of changedPrefs) {
@@ -140,12 +162,15 @@ function initHelper()
     }
 
     setPanicButtonCustomizations();
+    setPanicButtonKeys();
   });
 
   setPanicButtonCustomizations();
-  
-  gIsInitialized = true;
-  log("Panic Button/wx: Initialization complete.");
+
+  setPanicButtonKeys().then(() => {
+    gIsInitialized = true;
+    log("Panic Button/wx: Initialization complete.");
+  });
 }
 
 
@@ -195,6 +220,22 @@ function setCustomToolbarButtonIcon()
 function getToolbarButtonIconLookup()
 {
   return gToolbarBtnIcons;
+}
+
+
+async function setPanicButtonKeys()
+{
+  let shortcutKeyMod = gPrefs.panicButtonKeyMod;
+  if (shortcutKeyMod) {
+    shortcutKeyMod += "+";
+  }
+
+  let shortcut = `${shortcutKeyMod}${gPrefs.panicButtonKey}`;
+  
+  await browser.commands.update({
+    name: "ae-panicbutton",
+    shortcut,
+  });
 }
 
 
@@ -328,7 +369,105 @@ function getOS()
   return gOS;
 }
 
-init();
+
+// Adapted from <https://github.com/hirak/phpjs>
+function versionCompare(v1, v2, operator) {
+  var i = 0,
+    x = 0,
+    compare = 0,
+    // vm maps textual PHP versions to negatives so they're less than 0.
+    // PHP currently defines these as CASE-SENSITIVE. It is important to
+    // leave these as negatives so that they can come before numerical versions
+    // and as if no letters were there to begin with.
+    // (1alpha is < 1 and < 1.1 but > 1dev1)
+    // If a non-numerical value can't be mapped to this table, it receives
+    // -7 as its value.
+    vm = {
+      'dev'   : -6,
+      'alpha' : -5,
+      'a'     : -5,
+      'beta'  : -4,
+      'b'     : -4,
+      'RC'    : -3,
+      'rc'    : -3,
+      '#'     : -2,
+      'p'     : 1,
+      'pl'    : 1
+    },
+    // This function will be called to prepare each version argument.
+    // It replaces every _, -, and + with a dot.
+    // It surrounds any nonsequence of numbers/dots with dots.
+    // It replaces sequences of dots with a single dot.
+    //    version_compare('4..0', '4.0') == 0
+    // Important: A string of 0 length needs to be converted into a value
+    // even less than an unexisting value in vm (-7), hence [-8].
+    // It's also important to not strip spaces because of this.
+    //   version_compare('', ' ') == 1
+    prepVersion = function(v) {
+      v = ('' + v)
+        .replace(/[_\-+]/g, '.');
+      v = v.replace(/([^.\d]+)/g, '.$1.')
+        .replace(/\.{2,}/g, '.');
+      return (!v.length ? [-8] : v.split('.'));
+    };
+  // This converts a version component to a number.
+  // Empty component becomes 0.
+  // Non-numerical component becomes a negative number.
+  // Numerical component becomes itself as an integer.
+  numVersion = function(v) {
+    return !v ? 0 : (isNaN(v) ? vm[v] || -7 : parseInt(v, 10));
+  };
+  v1 = prepVersion(v1);
+  v2 = prepVersion(v2);
+  x = Math.max(v1.length, v2.length);
+  for (i = 0; i < x; i++) {
+    if (v1[i] == v2[i]) {
+      continue;
+    }
+    v1[i] = numVersion(v1[i]);
+    v2[i] = numVersion(v2[i]);
+    if (v1[i] < v2[i]) {
+      compare = -1;
+      break;
+    } else if (v1[i] > v2[i]) {
+      compare = 1;
+      break;
+    }
+  }
+  if (!operator) {
+    return compare;
+  }
+
+  // Important: operator is CASE-SENSITIVE.
+  // "No operator" seems to be treated as "<."
+  // Any other values seem to make the function return null.
+  switch (operator) {
+  case '>':
+  case 'gt':
+    return (compare > 0);
+  case '>=':
+  case 'ge':
+    return (compare >= 0);
+  case '<=':
+  case 'le':
+    return (compare <= 0);
+  case '==':
+  case '=':
+  case 'eq':
+    return (compare === 0);
+  case '<>':
+  case '!=':
+  case 'ne':
+    return (compare !== 0);
+  case '':
+  case '<':
+  case 'lt':
+    return (compare < 0);
+  default:
+    return null;
+  }
+}
+
 
 
 //

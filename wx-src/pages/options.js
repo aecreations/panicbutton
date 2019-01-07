@@ -6,6 +6,7 @@
 
 let gPanicButton;
 let gActionDescs = [];
+let gShctKeyModSelected = false;
 
 
 function $(aID)
@@ -27,6 +28,22 @@ function init(aEvent)
     return browser.history.deleteUrl({ url: window.location.href });
 
   }).then(() => {
+    let os = gPanicButton.getOS();
+    let keyModAccelShift, keyModAltShift;
+
+    if (os == "mac") {
+      keyModAccelShift = "keyModAccelShiftMac";
+      keyModAltShift = "keyModAltShiftMac";
+      $("panicbutton-key-del").innerText = chrome.i18n.getMessage("keyMacDel");
+    }
+    else {
+      keyModAccelShift = "keyModAccelShift";
+      keyModAltShift = "keyModAltShift";
+    }
+
+    $("key-modifiers-accelshift").innerText = chrome.i18n.getMessage(keyModAccelShift);
+    $("key-modifiers-altshift").innerText = chrome.i18n.getMessage(keyModAltShift);
+    
     $("reset-url").addEventListener("click", resetWebPageURL, false);
     $("reset-customizations").addEventListener("click", resetCustomizations, false);
     $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
@@ -48,6 +65,38 @@ function init(aEvent)
     
     $("shortcut-key").addEventListener("click", aEvent => {
       setPref({ shortcutKey: aEvent.target.checked});
+    });
+
+    $("panicbutton-key").addEventListener("change", aEvent => {
+      let keyModSelectElt = $("panicbutton-key-modifiers");
+      let keyModNoneOptElt = $("key-modifiers-none");
+      let selectedIdx = aEvent.target.selectedIndex;
+      
+      if (selectedIdx < 12) {  // F1 - F12 keys.
+        keyModNoneOptElt.style.display = "block";
+      }
+      else {
+        if (! gShctKeyModSelected) {
+          keyModSelectElt.selectedIndex = 1;
+          gShctKeyModSelected = true;
+        }
+        
+        keyModNoneOptElt.style.display = "none";
+      }
+
+      if (gShctKeyModSelected) {
+        browser.storage.local.set({ panicButtonKeyMod: keyModSelectElt.value }).then(() => {
+          browser.storage.local.set({ panicButtonKey: aEvent.target.value });
+        });
+      }
+      else {
+        browser.storage.local.set({ panicButtonKey: aEvent.target.value });
+      }
+    });
+
+    $("panicbutton-key-modifiers").addEventListener("change", aEvent => {
+      gShctKeyModSelected = aEvent.target.value != "";
+      setPref({ panicButtonKeyMod: aEvent.target.value })
     });
 
     $("toolbar-button-caption").addEventListener("blur", aEvent => {
@@ -78,44 +127,68 @@ function init(aEvent)
 
     return browser.storage.local.get();
 
-  }).then(aResult => {
-    $("panicbutton-action").selectedIndex = aResult.action;
-    $("shortcut-key").checked = aResult.shortcutKey;
-    $("webpg-url").value = aResult.replacementWebPgURL;
+  }).then(aPrefs => {
+    $("panicbutton-action").selectedIndex = aPrefs.action;
+    $("shortcut-key").checked = aPrefs.shortcutKey;
+    $("webpg-url").value = aPrefs.replacementWebPgURL;
 
-    let actionDescTextNode = document.createTextNode(gActionDescs[aResult.action]);
+    let actionDescTextNode = document.createTextNode(gActionDescs[aPrefs.action]);
     $("panicbutton-action-desc").appendChild(actionDescTextNode);
 
-    if (aResult.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
+    if (aPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
       $("panicbutton-action-options-hide-and-replace").style.display = "block";
       $("private-browsing-warning").innerText = browser.i18n.getMessage("notPrivBrws");
       $("private-browsing-warning-icon").style.display = "inline-block";
     }
 
-    $("toolbar-button-caption").value = aResult.toolbarBtnLabel;
+    let keySelectElt = $("panicbutton-key");
+    let keyModSelectElt = $("panicbutton-key-modifiers");
+    let keyModNoneOptElt = $("key-modifiers-none");
+    let allKeys = keySelectElt.options;
+    let allModifiers = keyModSelectElt.options;
+
+    for (let i = 0; i < allKeys.length; i++) {
+      if (allKeys[i].value == aPrefs.panicButtonKey) {
+        keySelectElt.selectedIndex = i;
+        break;
+      }
+    }
+
+    for (let i = 0; i < allModifiers.length; i++) {
+      if (allModifiers[i].value == aPrefs.panicButtonKeyMod) {
+        keyModSelectElt.selectedIndex = i;
+        break;
+      }
+    }
+
+    if (aPrefs.panicButtonKeyMod) {
+      gShctKeyModSelected = true;
+    }
+
+    if (keySelectElt.selectedIndex >= 12) {
+      // Don't allow selection of a non-function key without a modifier.
+      keyModNoneOptElt.style.display = "none";
+    }
+
+    $("toolbar-button-caption").value = aPrefs.toolbarBtnLabel;
 
     let toolbarBtnIcons = gPanicButton.getToolbarButtonIconLookup();
-    let toolbarBtnIconID = toolbarBtnIcons[aResult.toolbarBtnIcon];
+    let toolbarBtnIconID = toolbarBtnIcons[aPrefs.toolbarBtnIcon];
 
-    if (aResult.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
+    if (aPrefs.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
       let customIconRadio = $("custom-icon");
       customIconRadio.style.visibility = "visible";
       customIconRadio.checked = true;
       $("custom-icon-label").style.visibility = "visible";
-      $("custom-icon-img").src = aResult.toolbarBtnData;
+      $("custom-icon-img").src = aPrefs.toolbarBtnData;
       $("rev-contrast-icon").setAttribute("disabled", "true");
     }
     else {
       $(toolbarBtnIconID).checked = true;
     }
 
-    $("rev-contrast-icon").checked = aResult.toolbarBtnRevContrastIco;
+    $("rev-contrast-icon").checked = aPrefs.toolbarBtnRevContrastIco;
 
-    let prefsPgBtns = $("prefs-pg-btns");
-    if (aResult.prefsPgSaveBtn) {
-      prefsPgBtns.style.display = "block";
-      prefsPgBtns.addEventListener("click", saveOptions, false);
-    }
   }, onError);
 }
 

@@ -68,7 +68,7 @@
   },
 
   "labelShortcutKey": {
-    "message": "Enable F9 key to invoke Panic Button action"
+    "message": "Press these keys to invoke the Panic Button action:"
   },
 
   "labelToolbarBtnCaption": {
@@ -89,5 +89,69 @@
 
   "btnReset": {
     "message": "Reset"
+  },
+
+  "prefsShortcutKeyNote": {
+    "message": "Some of the available keyboard shortcuts may already be assigned to Firefox commands or other add-ons."
+  },
+
+  "keyModAccelShift": {
+    "message": "Ctrl + Shift +"
+  },
+
+  "keyModAccelShiftMac": {
+    "message": "\u21E7 + \u2318 +"
+  },
+
+  "keyModAltShift": {
+    "message": "Alt + Shift +"
+  },
+
+  "keyModAltShiftMac": {
+    "message": "\u21E7 + \u2325 +"
+  },
+
+  "keyPgUp": {
+    "message": "Page Up"
+  },
+
+  "keyPgDown": {
+    "message": "Page Down"
+  },
+
+  "keyHome": {
+    "message": "Home"
+  },
+
+  "keyEnd": {
+    "message": "End"
+  },
+
+  "keyLeft": {
+    "message": "Left"
+  },
+
+  "keyRight": {
+    "message": "Right"
+  },
+
+  "keyUp": {
+    "message": "Up"
+  },
+
+  "keyDown": {
+    "message": "Down"
+  },
+
+  "keyIns": {
+    "message": "Insert"
+  },
+
+  "keyDel": {
+    "message": "Delete"
+  },
+
+  "keyMacDel": {
+    "message": "Delete \u2326"
   }
 }

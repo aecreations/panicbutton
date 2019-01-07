@@ -30,7 +30,7 @@
           </select>
 
 	  <div id="panicbutton-action-detail">
- 	    <div id="panicbutton-action-desc"></div>
+ 	    <div id="panicbutton-action-desc" class="description"></div>
   	    <img id="private-browsing-warning-icon" src="chrome://global/skin/icons/warning.svg"/>
 	    <label id="private-browsing-warning"></label>
 
@@ -46,6 +46,38 @@
 	  <div class="row browser-style" style="margin-top:8px">
 	    <input type="checkbox" id="shortcut-key"><label for="shortcut-key" data-i18n="labelShortcutKey"></label>
 	  </div>
+	  <div class="row indent browser-style">
+	    <select id="panicbutton-key-modifiers" class="browser-style">
+	      <option id="key-modifiers-none" value=""></option>
+	      <option id="key-modifiers-accelshift" value="Ctrl+Shift"></option>
+	      <option id="key-modifiers-altshift" value="Alt+Shift"></option>
+	    </select>
+	    <select id="panicbutton-key" class="browser-style">
+	      <option value="F1">F1</option>
+	      <option value="F2">F2</option>
+	      <option value="F3">F3</option>
+	      <option value="F4">F4</option>
+	      <option value="F5">F5</option>
+	      <option value="F6">F6</option>
+	      <option value="F7">F7</option>
+	      <option value="F8">F8</option>
+	      <option value="F9" selected>F9</option>
+	      <option value="F10">F10</option>
+	      <option value="F11">F11</option>
+	      <option value="F12">F12</option>
+	      <option value="PageUp" data-i18n="keyPgUp"></option>
+	      <option value="PageDown" data-i18n="keyPgDown"></option>
+	      <option value="Home" data-i18n="keyHome"></option>
+	      <option value="End" data-i18n="keyEnd"></option>
+	      <option value="Left" data-i18n="keyLeft"></option>
+	      <option value="Right" data-i18n="keyRight"></option>
+	      <option value="Up" data-i18n="keyUp"></option>
+	      <option value="Down" data-i18n="keyDown"></option>
+	      <option value="Insert" data-i18n="keyIns"></option>
+	      <option id="panicbutton-key-del" value="Delete" data-i18n="keyDel"></option>
+	    </select>
+	  </div>
+	  <div class="description indent" data-i18n="prefsShortcutKeyNote"></div>
         </div>
       </fieldset>
 
@@ -123,11 +155,6 @@
 	  <button id="reset-customizations" class="browser-style" data-i18n="btnReset"></button>
 	</div>
       </fieldset>
-
-      <div id="prefs-pg-btns" class="row page-btns browser-style">
-	<button id="save-prefs" class="browser-style">Apply</button>
-	<div id="save-prefs-confirm"><img src="../img/success.png">Saved changes.</div>
-      </div>
     </main>
 
     <script src="../lib/i18n.js"></script>

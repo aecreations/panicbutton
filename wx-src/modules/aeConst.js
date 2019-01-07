@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 let aeConst = {
-  DEBUG: false,
+  DEBUG: true,
   
   // Extension GUID
   EXTENSION_ID: "{24cea704-946d-11da-a72b-0800200c9a66}",

@@ -1,0 +1,74 @@
+{
+  "extName": {
+    "message": "Panic Button"
+  },
+  "extDesc": {
+    "message": "Versteckt mit nur einem Klick sämtliche Browser-Fenster."
+  },
+  "defaultBtnLabel": {
+    "message": "Panic Button"
+  },
+  "cmdDesc": {
+    "message": "Panic Button"
+  },
+  "prefsPgTitle": {
+    "message": "Einstellungen"
+  },
+  "prefsPgHdg": {
+    "message": "Einstellungen"
+  },
+  "prefsGeneral": {
+    "message": "Optionen"
+  },
+  "prefsCustomize": {
+    "message": "Anpassen"
+  },
+  "labelPanicBtnAction": {
+    "message": "Panic Button-Aktion:"
+  },
+  "actHideAndReplace": {
+    "message": "Verstecken und Ersetzen"
+  },
+  "actDescHideAndReplace": {
+    "message": "Ersetzte alle Fenster der Browser-Sitzung mit einem neuen Fenster mit der unten angegebenen Internet-Adresse.  Nochmaliges drücken des \"Panic Button\" stellt die Browser-Sitzung wieder her."
+  },
+  "actMinimizeAll": {
+    "message": "Alle Fenster minimieren"
+  },
+  "actDescMinimizeAll": {
+    "message": "Minimiert sämtliche Browserfenster."
+  },
+  "actCloseAll": {
+    "message": "Alle Fenster schließen"
+  },
+  "actDescCloseAll": {
+    "message": "Schließt alle Browserfenster."
+  },
+  "notPrivBrws": {
+    "message": "Funktioniert nicht im Privat-\/Inkognito-Modus."
+  },
+  "labelWebPgURL": {
+    "message": "Internetadresse (URL):"
+  },
+  "labelShortcutKey": {
+    "message": "Drücke diese Tasten um den Panic Button auszulösen:"
+  },
+  "prefsShortcutKeyNote": {
+    "message": "Einige der verfügbaren Tastenkürzel können bereits Firefox-Befehlen oder anderen Add-ons zugeordnet sein."
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Beschriftung für Symbolleiste:"
+  },
+  "labelCustomIcon": {
+    "message": "Icon:"
+  },
+  "btnCustomIcon": {
+    "message": "Benutzerdefiniertes Icon..."
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Icon in Symbolleiste invertieren"
+  },
+  "btnReset": {
+    "message": "Standardeinstellungen"
+  }
+}

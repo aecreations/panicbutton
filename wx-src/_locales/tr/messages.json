@@ -51,7 +51,7 @@
     "message": "Web konumu (Adres):"
   },
   "labelShortcutKey": {
-    "message": "F9 tuşuna basarak panik butonu eylemini etkinleştirebilirsiniz"
+    "message": "Panic Button eylemini çalıştırmak için bu tuşlara basın:"
   },
   "labelToolbarBtnCaption": {
     "message": "Araç çubuğu butonu başlığı:"

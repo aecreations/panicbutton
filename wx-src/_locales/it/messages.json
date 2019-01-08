@@ -51,7 +51,7 @@
     "message": "Posizione web (URL):"
   },
   "labelShortcutKey": {
-    "message": "Attivare il tasto F9 per invocare azione pulsante di panico"
+    "message": "Esegui l'azione selezionata tramite la seguente scorciatoia da tastiera:"
   },
   "labelToolbarBtnCaption": {
     "message": "Didascalia del pulsante di barra degli strumenti:"

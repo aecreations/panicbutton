@@ -51,7 +51,10 @@
     "message": "Localisation de Web (URL):"
   },
   "labelShortcutKey": {
-    "message": "Activer le touche F9 pour appeler la action de Bouton de Panique"
+    "message": "Appuyer sur ces touches pour lancer l'action de Panic Button:"
+  },
+  "prefsShortcutKeyNote": {
+    "message": "Certaines des touches de raccourci disponibles peuvent déjà être confiées au Firefox commandes ou autres Add\u2011ons."
   },
   "labelToolbarBtnCaption": {
     "message": "Légende de bouton de barre d'outils:"

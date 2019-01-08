@@ -51,7 +51,7 @@
     "message": "Ubicación de Web (URL):"
   },
   "labelShortcutKey": {
-    "message": "Activar la tecla F9 para accionar el botón de pánico"
+    "message": "Pulse estas teclas para realizar la acción del Panic Button:"
   },
   "labelToolbarBtnCaption": {
     "message": "Botón de barra de herramientas:"

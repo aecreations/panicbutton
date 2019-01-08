@@ -51,7 +51,7 @@
     "message": "网站位置 (URL):"
   },
   "labelShortcutKey": {
-    "message": "启用F9键来调用紧急按钮操作"
+    "message": "以下按键将调用 Panic Button 动作："
   },
   "labelToolbarBtnCaption": {
     "message": "工具栏按钮标题："

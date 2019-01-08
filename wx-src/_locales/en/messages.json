@@ -92,7 +92,7 @@
   },
 
   "prefsShortcutKeyNote": {
-    "message": "Some of the available keyboard shortcuts may already be assigned to Firefox commands or other add-ons."
+    "message": "Some of the available keyboard shortcuts may already be assigned to Firefox commands or other add\u2011ons."
   },
 
   "keyModAccelShift": {

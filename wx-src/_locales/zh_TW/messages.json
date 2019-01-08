@@ -51,7 +51,7 @@
     "message": "網站位置 (URL):"
   },
   "labelShortcutKey": {
-    "message": "啟用F9鍵來調用緊急按鈕操作"
+    "message": "按這些鍵叫用 Panic Button 動作:"
   },
   "labelToolbarBtnCaption": {
     "message": "工具欄按鈕標題："

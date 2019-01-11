@@ -5,6 +5,9 @@
   "extDesc": {
     "message": "Versteckt mit nur einem Klick sämtliche Browser-Fenster."
   },
+  "btnOK": {
+    "message": "OK"
+  },
   "defaultBtnLabel": {
     "message": "Panic Button"
   },
@@ -70,5 +73,24 @@
   },
   "btnReset": {
     "message": "Standardeinstellungen"
+  },
+  "aboutBtn": {
+    "message": "Über..."
+  },
+  "aboutExtVer": {
+    "message": "Version $1",
+    "description": "Extension version number"
+  },
+  "aboutAuthor": {
+    "message": "Entwickelt von AE Creations."
+  },
+  "aboutHomePgLink": {
+    "message": "Startseite besuchen"
+  },
+  "aboutLicLink": {
+    "message": "Lizenzinformationen"
+  },
+  "aboutTrans": {
+    "message": "Übersetzungen von Crowdin-Übersetzern."
   }
 }

@@ -7,6 +7,8 @@
 let gPanicButton;
 let gActionDescs = [];
 let gShctKeyModSelected = false;
+let gDialogs = {};
+let gExtInfo = null;
 
 
 function $(aID)
@@ -28,6 +30,8 @@ function init(aEvent)
     return browser.history.deleteUrl({ url: window.location.href });
 
   }).then(() => {
+    initDialogs();
+
     let os = gPanicButton.getOS();
     let keyModAccelShift, keyModAltShift;
 
@@ -105,6 +109,20 @@ function init(aEvent)
 
     $("rev-contrast-icon").addEventListener("click", aEvent => {
       setPref({ toolbarBtnRevContrastIco: aEvent.target.checked });
+    });
+
+    $("about-btn").addEventListener("click", aEvent => {
+      gDialogs.about.showModal();
+    });
+
+    $("aboutHomePgLink").addEventListener("click", aEvent => {
+      aEvent.preventDefault();
+      gotoURL(aEvent.target.href);
+    });
+
+    $("aboutLicLink").addEventListener("click", aEvent => {
+      aEvent.preventDefault();
+      gotoURL(aEvent.target.href);
     });
 
     // Catch-all click event listener
@@ -193,35 +211,23 @@ function init(aEvent)
 }
 
 
-function saveOptions(aEvent)
+function initDialogs()
 {
-  let toolbarIconIdx = 0;
-  toolbarIconIdx = document.querySelector("input[name='toolbar-button-icon']:checked").value;
+  gDialogs.about = new aeDialog("#about-dlg");
+  gDialogs.about.onInit = () => {
+    if (! gExtInfo) {
+      let extManifest = chrome.runtime.getManifest();
+      gExtInfo = {
+        name: extManifest.name,
+        version: extManifest.version,
+        description: extManifest.description,
+      };
+    }
 
-  let actionSelect = $("panicbutton-action");
-  let aePanicButtonPrefs = {
-    action: actionSelect.options[actionSelect.selectedIndex].value,
-    shortcutKey: $("shortcut-key").checked,
-    replacementWebPgURL: $("webpg-url").value,
-    toolbarBtnIcon: toolbarIconIdx,
-    toolbarBtnLabel: $("toolbar-button-caption").value,
-    toolbarBtnRevContrastIco: $("rev-contrast-icon").checked
-  };
-
-  if (toolbarIconIdx == aeConst.CUSTOM_ICON_IDX) {
-    aePanicButtonPrefs.toolbarBtnData = $("custom-icon-img").src;
-  }
-  else {
-    aePanicButtonPrefs.toolbarBtnData = "";
-  }
-  
-  browser.storage.local.set(aePanicButtonPrefs).then(() => {
-    $("save-prefs-confirm").style.visibility = "visible";
-
-    window.setTimeout(() => {
-      $("save-prefs-confirm").style.visibility = "hidden";
-    }, 3000);
-  }, onError);
+    document.getElementById("ext-name").innerText = gExtInfo.name;
+    document.getElementById("ext-ver").innerText = chrome.i18n.getMessage("aboutExtVer", gExtInfo.version);
+    document.getElementById("ext-desc").innerText = gExtInfo.description;
+  };  
 }
 
 
@@ -303,6 +309,12 @@ function resetCustomizations(aEvent)
     toolbarBtnIcon: 0,
     toolbarBtnRevContrastIco: false,
   });
+}
+
+
+function gotoURL(aURL)
+{
+  browser.tabs.create({ url: aURL });
 }
 
 

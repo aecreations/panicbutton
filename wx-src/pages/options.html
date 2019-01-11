@@ -9,13 +9,17 @@
 
     <title data-i18n="prefsPgTitle"></title>
 
+    <link rel="stylesheet" href="../style/lightbox.css"/>
     <link rel="stylesheet" href="options.css"/>
   </head>
 
   <body>
     <main id="ae-panicbutton-preferences">
-      <img id="addon-icon" src="../img/icon.svg"/>
-      <h2 data-i18n="prefsPgHdg"></h2>
+      <div id="pref-pg-hdr">
+        <img id="addon-icon" src="../img/icon.svg"/>
+        <h2 data-i18n="prefsPgHdg"></h2>
+	<button id="about-btn" data-i18n="aboutBtn"></button>
+      </div>
 
       <fieldset id="prefs-general">
         <legend data-i18n="prefsGeneral"></legend>
@@ -157,8 +161,33 @@
       </fieldset>
     </main>
 
+    <!-- Dialog boxes -->
+    <div id="about-dlg" class="lightbox">
+      <div class="dlg-content">
+        <div id="ext-icon"></div>
+	<div id="ext-info">
+          <label id="ext-name" class="about-content-row"></label>
+	  <label id="ext-ver" class="about-content-row"></label>
+	</div>
+	<label id="ext-desc" class="about-content-row"></label>
+	<hr/>
+	<div id="credits">
+	  <label id="ext-author" data-i18n="aboutAuthor"></label>
+	  <a
+    href="http://aecreations.sourceforge.net/panicbutton/index.php" id="aboutHomePgLink" class="hyperlink" data-i18n="aboutHomePgLink"></a>
+	  <label id="translations-ack" class="about-content-row" data-i18n="aboutTrans"></label>
+	  <a href="../LICENSE.txt" id="aboutLicLink" class="hyperlink" data-i18n="aboutLicLink"></a>
+	</div>
+      </div>
+      <div class="dlg-btns">
+	<button class="dlg-accept default" data-i18n="btnOK"></button>
+      </div>
+    </div>
+    <div id="lightbox-bkgrd-ovl" class="lightbox-bkgrd"></div>
+    
     <script src="../lib/i18n.js"></script>
     <script src="../modules/aeConst.js"></script>
+    <script src="../modules/aeDialog.js"></script>
     <script src="options.js"></script>
   </body>
 </html>

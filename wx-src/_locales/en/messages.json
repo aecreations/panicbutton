@@ -7,6 +7,10 @@
     "message": "Quickly hide all browser windows with a click of a button."
   },
 
+  "btnOK": {
+    "message": "OK"
+  },
+
   "defaultBtnLabel": {
     "message": "Panic Button"
   },
@@ -153,5 +157,30 @@
 
   "keyMacDel": {
     "message": "Delete \u2326"
+  },
+
+  "aboutBtn": {
+    "message": "About..."
+  },
+
+  "aboutExtVer": {
+    "message": "version $1",
+    "description": "Extension version number"
+  },
+
+  "aboutAuthor": {
+    "message": "Created by AE Creations."
+  },
+  
+  "aboutHomePgLink": {
+    "message": "Visit home page"
+  },
+
+  "aboutLicLink": {
+    "message": "License information"
+  },
+
+  "aboutTrans": {
+    "message": "Localizations contributed by Crowdin translators."
   }
 }

@@ -5,6 +5,9 @@
   "extDesc": {
     "message": "Cacher rapidement toutes les fenêtres de navigateur en un clic d’un bouton."
   },
+  "btnOK": {
+    "message": "Ok"
+  },
   "defaultBtnLabel": {
     "message": "Bouton de Panique"
   },
@@ -70,5 +73,24 @@
   },
   "btnReset": {
     "message": "Restaurer"
+  },
+  "aboutBtn": {
+    "message": "A propos ..."
+  },
+  "aboutExtVer": {
+    "message": "version $1",
+    "description": "Extension version number"
+  },
+  "aboutAuthor": {
+    "message": "Créé par AE Creations."
+  },
+  "aboutHomePgLink": {
+    "message": "Vers notre page"
+  },
+  "aboutLicLink": {
+    "message": "Informations de licence"
+  },
+  "aboutTrans": {
+    "message": "Localisations des contributions des les traducteurs Crowdin."
   }
 }

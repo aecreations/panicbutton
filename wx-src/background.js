@@ -61,6 +61,8 @@ browser.runtime.onInstalled.addListener(aDetails => {
         let newPrefs = {
           panicButtonKey: "F9",
           panicButtonKeyMod: "",
+          restoreSessPswdEnabled: false,
+          restoreSessPswd: "",
         };
 
         for (let pref in newPrefs) {
@@ -112,7 +114,8 @@ async function setDefaultPrefs()
     panicButtonKey: "F9",
     panicButtonKeyMod: "",
     replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-    prefsPgSaveBtn: aeConst.DEBUG,
+    restoreSessPswdEnabled: false,
+    restoreSessPswd: "",
   };
 
   gPrefs = aePanicButtonPrefs;
@@ -243,7 +246,14 @@ function panic()
 {
   
   if (gReplaceSession) {
-    restoreBrowserSession();
+    //if (gPrefs.restoreSessPswdEnabled) {
+      browser.tabs.update({ url: "pages/restoreSession.html" });
+/***
+    }
+    else {
+      restoreBrowserSession();
+    }
+***/
     return;
   }
   

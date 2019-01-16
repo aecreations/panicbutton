@@ -159,6 +159,30 @@ function init(aEvent)
       $("private-browsing-warning-icon").style.display = "inline-block";
     }
 
+    let setPswd = $("hide-and-replc-set-pswd");
+    let rmPswd = $("hide-and-replc-rm-pswd");   
+    if (aPrefs.restoreSessPswd) {
+      setPswd.innerText = browser.i18n.getMessage("chgPswd");
+      rmPswd.style.visibility = "visible";
+    }
+    else {
+      setPswd.innerText = browser.i18n.getMessage("setPswd");
+      rmPswd.style.visibility = "hidden";
+    }
+
+    setPswd.addEventListener("click", aEvent => {
+      if (aPrefs.restoreSessPswd) {
+        gDialogs.changeRestoreSessPswd.showModal();
+      }
+      else {
+        gDialogs.setRestoreSessPswd.showModal();
+      }
+    });
+
+    rmPswd.addEventListener("click", aEvent => {
+      gDialogs.removeRestoreSessPswd.showModal();
+    });
+
     let keySelectElt = $("panicbutton-key");
     let keyModSelectElt = $("panicbutton-key-modifiers");
     let keyModNoneOptElt = $("key-modifiers-none");
@@ -213,6 +237,45 @@ function init(aEvent)
 
 function initDialogs()
 {
+  gDialogs.setRestoreSessPswd = new aeDialog("#set-password-dlg");
+  gDialogs.setRestoreSessPswd.onInit = () => {
+    $("set-pswd-error").innerText = "";
+    $("enter-password").value = "";
+    $("confirm-password").value = "";
+  };
+  gDialogs.setRestoreSessPswd.onShow = () => {
+    $("enter-password").focus();
+  };
+  gDialogs.setRestoreSessPswd.onAccept = () => {
+    let that = gDialogs.setRestoreSessPswd;
+    
+    let passwd = $("enter-password").value;
+    let confirmPasswd = $("confirm-password").value;
+
+    if (passwd != confirmPasswd) {
+      $("set-pswd-error").innerText = browser.i18n.getMessage("pswdMismatch");
+      return;
+    }
+
+    if (passwd == "" && confirmPasswd == "") {
+      $("enter-password").focus();
+      return;
+    }
+
+    let pswdPrefs = {
+      restoreSessPswdEnabled: true,
+      restoreSessPswd: passwd,
+    };
+    
+    browser.storage.local.set(pswdPrefs).then(() => {
+      that.close();
+    });
+  };
+
+  gDialogs.changeRestoreSessPswd = new aeDialog("#change-password-dlg");
+
+  gDialogs.removeRestoreSessPswd = new aeDialog("#remove-password-dlg");
+  
   gDialogs.about = new aeDialog("#about-dlg");
   gDialogs.about.onInit = () => {
     if (! gExtInfo) {

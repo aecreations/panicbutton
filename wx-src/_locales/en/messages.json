@@ -11,6 +11,10 @@
     "message": "OK"
   },
 
+  "btnCancel": {
+    "message": "Cancel"
+  },
+
   "defaultBtnLabel": {
     "message": "Panic Button"
   },
@@ -71,6 +75,66 @@
     "message": "Web location (URL):"
   },
 
+  "setPswd": {
+    "message": "Set Password…"
+  },
+
+  "setPswdHdr": {
+    "message": "Set Password",
+    "description": "Dialog heading"
+  },
+
+  "setPswdDesc": {
+    "message": "You can set a password to restore the browser session when the Panic Button action is Hide and Replace."
+  },
+
+  "oldPswd": {
+    "message": "Old password:"
+  },
+  
+  "newPswd": {
+    "message": "Enter new password:"
+  },
+
+  "confPswd": {
+    "message": "Confirm password:"
+  },
+
+  "chgPswd": {
+    "message": "Change Password…"
+  },
+
+  "removePswd": {
+    "message": "Remove Password…"
+  },
+
+  "chgPswdHdr": {
+    "message": "Change Password",
+    "description": "Dialog heading"
+  },
+
+  "pswdPrmptHdr": {
+    "message": "Password Required",
+    "description": "Password dialog header."
+  },
+
+  "pswdPrmpt": {
+    "message": "Enter password:",
+    "description": "Password dialog prompt when restoring browser session or removing password in extension preferences."
+  },
+
+  "pswdWrong": {
+    "message": "Incorrect password."
+  },
+  
+  "pswdMismatch": {
+    "message": "Passwords do not match."
+  },
+
+  "pswdToRemove": {
+    "message": "Incorrect password. You must enter the correct password to remove it."
+  },
+
   "labelShortcutKey": {
     "message": "Press these keys to invoke the Panic Button action:"
   },
@@ -84,7 +148,7 @@
   },
 
   "btnCustomIcon": {
-    "message": "Custom Icon..."
+    "message": "Custom Icon…"
   },
   
   "labelRevContrastTbIcon": {
@@ -160,7 +224,7 @@
   },
 
   "aboutBtn": {
-    "message": "About..."
+    "message": "About…"
   },
 
   "aboutExtVer": {

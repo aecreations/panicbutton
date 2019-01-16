@@ -43,6 +43,10 @@
 		<label for="webpg-url" data-i18n="labelWebPgURL"></label>
 		<input type="text" id="webpg-url" class="browser-style">
 		<button id="reset-url" class="browser-style" data-i18n="btnReset"></button>
+		<div id="hide-and-replace-pswd">
+                  <button id="hide-and-replc-set-pswd" class="browser-style" data-i18n="setPswd"></button>&nbsp;
+		  <button id="hide-and-replc-rm-pswd" class="browser-style" data-i18n="removePswd"></button>
+		</div>
 	      </div>
 	    </div>
 	  </div>
@@ -162,6 +166,38 @@
     </main>
 
     <!-- Dialog boxes -->
+    <div id="set-password-dlg" class="lightbox">
+      <p class="title" data-i18n="setPswdHdr"></p>
+      <p class="body" data-i18n="setPswdDesc"></p>
+
+      <div class="row browser-style">
+        <label for="enter-password" data-i18n="newPswd"></label><input type="password" id="enter-password"/>
+      </div>
+      <div class="row browser-style">
+        <label for="confirm-password" data-i18n="confPswd"></label><input type="password" id="confirm-password"/>
+      </div>
+      <div id="set-pswd-error" class="error"></div>
+      <div class="dlg-btns">
+	<button class="dlg-accept default" data-i18n="btnOK"></button>
+	<button class="dlg-cancel" data-i18n="btnCancel"></button>
+      </div>
+    </div>
+    <div id="change-password-dlg" class="lightbox">
+      <p class="title" data-i18n="chgPswdHdr"></p>
+
+      <div class="dlg-btns">
+	<button class="dlg-accept default" data-i18n="btnOK"></button>
+        <button class="dlg-cancel" data-i18n="btnCancel"></button>
+      </div>
+    </div>
+    <div id="remove-password-dlg" class="lightbox">
+      <p>Remove Password</p>
+
+      <div class="dlg-btns">
+	<button class="dlg-accept default" data-i18n="btnOK"></button>
+        <button class="dlg-cancel" data-i18n="btnCancel"></button>
+      </div>
+    </div>
     <div id="about-dlg" class="lightbox">
       <div class="dlg-content">
         <div id="ext-icon"></div>

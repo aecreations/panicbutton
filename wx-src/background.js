@@ -246,17 +246,16 @@ function panic()
 {
   
   if (gReplaceSession) {
-    //if (gPrefs.restoreSessPswdEnabled) {
+    if (gPrefs.restoreSessPswdEnabled) {
       browser.tabs.update({ url: "pages/restoreSession.html" });
-/***
     }
     else {
       restoreBrowserSession();
     }
-***/
     return;
   }
   
+  // TO DO: Get the setting directly from `gPrefs`. No need to do this.
   browser.storage.local.get().then(aResult => {
     let action = aResult.action;
     
@@ -377,6 +376,12 @@ function closeAll(aSaveSession, aReplacementURL)
 function getOS()
 {
   return gOS;
+}
+
+
+function getPrefs()
+{
+  return gPrefs;
 }
 
 

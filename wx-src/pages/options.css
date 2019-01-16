@@ -43,12 +43,14 @@ input[type="checkbox"] + label {
     vertical-align: middle;
 }
 
-button.browser-style {
+button {
     height: 28px;
     margin-bottom: 0;
     padding-left: 24px;
     padding-right: 24px;
+    border: 1px solid rgba(12, 12, 13, 0.1);
     border-radius: 2px;
+    background-color: rgba(12, 12, 13, 0.1);
     font-size: 13px;
 }
 
@@ -86,6 +88,28 @@ button.default:active {
 input[type="text"].browser-style,
 select.browser-style {
     font-size: 13px;
+}
+
+input[type="password"] {
+    display: block;
+    width: 100%;
+    height: 28px;
+    margin-bottom: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid rgba(12, 12, 13, 0.2);
+    font-size: 15px;
+}
+
+input[type="password"]:hover {
+    border-color: rgba(12, 12, 13, 0.3);
+}
+
+input[type="password"]:focus {
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px #61b5ffbf;
+    transition-duration: 250ms;
+    transition-property: box-shadow;
 }
 
 fieldset {
@@ -277,10 +301,11 @@ input[type="file"] {
 
 #about-btn {
     float: right;
-    font-size: 11px;
+    height: unset;
     border: 1px solid #ededf0;
     padding: 2px 8px;
     border-radius: 3px;
+    font-size: 11px;
     font-weight: 400;
     background-color: #f9f9fa;
 }
@@ -305,8 +330,25 @@ input[type="file"] {
     font-size: 15px;
 }
 
-.lightbox > .label {
+.lightbox .title {
+    margin-top: 8px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.lightbox label {
     font-size: 15px;
+}
+
+.lightbox .body {
+    padding-top: 2px;
+    padding-bottom: 8px;
+    font-size: 13px;
+}
+
+.lightbox .error {
+    font-size: 13px;
+    color: red;
 }
 
 .lightbox > .dlg-btns {
@@ -322,6 +364,25 @@ input[type="file"] {
     outline: unset;
     font: caption;
     font-size: 15px !important;
+}
+
+#set-password-dlg {
+    --width: 400px;
+    --height: 328px;
+}
+
+#set-password-dlg label,
+#change-password-dlg label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+#set-password-dlg .row,
+#change-password-dlg .row {
+    white-space: nowrap;
+    margin-top: 0.2em;
+    margin-bottom: 0.3em;
+    margin-right: 0.5em;
 }
 
 #about-dlg {

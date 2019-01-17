@@ -62,7 +62,7 @@ browser.runtime.onInstalled.addListener(aDetails => {
           panicButtonKey: "F9",
           panicButtonKeyMod: "",
           restoreSessPswdEnabled: false,
-          restoreSessPswd: "",
+          restoreSessPswd: null,
         };
 
         for (let pref in newPrefs) {
@@ -115,7 +115,7 @@ async function setDefaultPrefs()
     panicButtonKeyMod: "",
     replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
     restoreSessPswdEnabled: false,
-    restoreSessPswd: "",
+    restoreSessPswd: null,
   };
 
   gPrefs = aePanicButtonPrefs;

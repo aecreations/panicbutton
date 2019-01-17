@@ -171,7 +171,8 @@ function init(aEvent)
     }
 
     setPswd.addEventListener("click", aEvent => {
-      if (aPrefs.restoreSessPswd) {
+      let prefs = gPanicButton.getPrefs();
+      if (prefs.restoreSessPswdEnabled) {
         gDialogs.changeRestoreSessPswd.showModal();
       }
       else {
@@ -266,8 +267,13 @@ function initDialogs()
       restoreSessPswdEnabled: true,
       restoreSessPswd: passwd,
     };
-    
     browser.storage.local.set(pswdPrefs).then(() => {
+      // Add a short delay so that user can see resulting prefs UI changes.
+      window.setTimeout(() => {
+        $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("chgPswd");
+        $("hide-and-replc-rm-pswd").style.visibility = "visible";
+      }, 400);
+      
       that.close();
     });
   };
@@ -275,6 +281,19 @@ function initDialogs()
   gDialogs.changeRestoreSessPswd = new aeDialog("#change-password-dlg");
 
   gDialogs.removeRestoreSessPswd = new aeDialog("#remove-password-dlg");
+  gDialogs.removeRestoreSessPswd.onAccept = () => {
+    let that = gDialogs.removeRestoreSessPswd;
+    
+    let pswdPrefs = {
+      restoreSessPswdEnabled: false,
+      restoreSessPswd: null,
+    };
+    browser.storage.local.set(pswdPrefs).then(() => {
+      $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("setPswd");
+      $("hide-and-replc-rm-pswd").style.visibility = "hidden";
+      that.close();
+    });
+  };
   
   gDialogs.about = new aeDialog("#about-dlg");
   gDialogs.about.onInit = () => {

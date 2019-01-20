@@ -20,18 +20,47 @@ function init(aEvent)
 
   }).then(() => {
     $("btn-ok").addEventListener("click", aEvent => {
-      // TEMPORARY - PoC
-      if ($("restore-sess-pswd").value != "asdf") {
-        window.alert("Incorrect password.");
+      let prefs = gPanicButton.getPrefs();
+      let passwd = $("restore-sess-pswd");
+      
+      if (passwd.value != prefs.restoreSessPswd) {
+        $("err-msg").innerText = browser.i18n.getMessage("pswdWrong");
+        passwd.select();
+        passwd.focus();
         return;
       }
-      // END TEMPORARY
       gPanicButton.restoreBrowserSession();
     });
 
     $("btn-cancel").addEventListener("click", aEvent => {
       window.history.back();
     });
+
+    let fuckOff = new aeDialog("#hlp-dlg");
+
+    window.addEventListener("keydown", aEvent => {
+      if (aEvent.key == "Enter") {
+        if (aeDialog.isOpen()) {
+          aeDialog.acceptDlgs();
+        }
+        else {
+          $("btn-ok").click();
+        }
+      }
+      else if (aEvent.key == "Escape") {
+        if (aeDialog.isOpen()) {
+          aeDialog.cancelDlgs();
+        }
+        else {
+          $("btn-cancel").click();
+        }
+      }
+      else if (aEvent.key == "F1") {
+        fuckOff.showModal();
+      }
+    });
+
+    $("restore-sess-pswd").focus();
   });
 }
 

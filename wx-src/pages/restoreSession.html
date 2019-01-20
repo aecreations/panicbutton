@@ -6,21 +6,40 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Password Required</title>
-    <link rel="stylesheet" href="chrome://browser/content/extension.css">
+    <title data-i18n="pswdPrmptHdr"></title>
+    <link rel="stylesheet" href="restoreSession.css"/>
   </head>
 
   <body>
     <main id="ae-panicbutton-restore-session-pswd">
-      <label for="restore-sess-pswd">Enter password:</label>
-      <input type="password" id="restore-sess-pswd"/>
-
-      <button id="btn-ok" class="browser-style default">OK</button>
-      <button id="btn-cancel" class="browser-style">Cancel</button>
+      <div id="dlg-hdr">
+        <img id="prmpt-icon" src="../img/icon.svg"/>
+        <h1 data-i18n="pswdPrmptHdr"></h1>
+      </div>
+      <div id="dlg-content">
+        <label for="restore-sess-pswd" data-i18n="pswdPrmpt"></label>
+        <input type="password" id="restore-sess-pswd"/>
+	<div id="err-msg"></div>
+      </div>
+      <div id="dlg-btns">
+        <button id="btn-ok" class="default" data-i18n="btnOK"></button>
+        <button id="btn-cancel" data-i18n="btnCancel"></button>
+      </div>
     </main>
+
+    <div id="hlp-dlg" class="lightbox">
+      <div class="dlg-content">
+	<p class="label" data-i18n="msgUnknown"></p>
+      </div>
+      <div class="dlg-btns">
+	<button class="dlg-accept default" data-i18n="btnOK"></button>
+      </div>
+    </div>
+    <div id="lightbox-bkgrd-ovl" class="lightbox-bkgrd"></div>
 
     <script src="../lib/i18n.js"></script>
     <script src="../modules/aeConst.js"></script>
+    <script src="../modules/aeDialog.js"></script>
     <script src="restoreSession.js"></script>
   </body>
 </html>

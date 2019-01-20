@@ -1,0 +1,132 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+@import url("chrome://browser/content/extension.css");
+@import url("../style/lightbox.css");
+
+
+body {
+    background-color: #f9f9fa;
+}
+
+h1 {
+    display: inline-block;
+    font-size: 36px;
+    font-weight: 200;
+    letter-spacing: -0.25px;
+}
+
+#prmpt-icon {
+    vertical-align: -14px;
+    margin-right: 18px;
+    width: 64px;
+    height: 64px;
+}
+
+
+main {
+    width: 640px;
+    margin: 24px auto 24px auto;
+    padding: 24px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    box-shadow: 0 0 8px 2px #e0e0e0;
+    background-color: #fefefe;
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+button {
+    min-width: 132px;
+    height: 32px;
+    margin-bottom: 0;
+    margin-left: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid rgba(12, 12, 13, 0.1);
+    border-radius: 2px;
+    background-color: rgba(12, 12, 13, 0.1);
+    font-size: 15px;
+    text-align: center;
+}
+
+button.default {
+    background-color: #0060df;
+    border: 1px solid #0060df;
+    border-radius: 2px;
+    color: #fff;
+}
+
+button:hover {
+    background-color: rgba(12, 12, 13, 0.2);
+    border: 1px solid rgba(12, 12, 13, 0.2) !important;
+}
+
+button.default:hover {
+    background-color: #003eaa;
+    border: 1px solid #003eaa;
+}
+
+button:active {
+    background-color: rgba(12, 12, 13, 0.3);
+    border: 1px solid rgba(12, 12, 13, 0.3) !important;
+}
+
+button.default:active {
+    background-color: #002275;
+    border: 1px solid #002275;
+}
+
+input[type="password"] {
+    display: block;
+    width: 100%;
+    height: 28px;
+    margin-bottom: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid rgba(12, 12, 13, 0.2);
+    font-size: 15px;
+}
+
+input[type="password"]:hover {
+    border-color: rgba(12, 12, 13, 0.3);
+}
+
+input[type="password"]:focus {
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px #61b5ffbf;
+    transition-duration: 250ms;
+    transition-property: box-shadow;
+}
+
+#dlg-content {
+    margin-left: 88px;
+}
+
+#err-msg {
+    height: 36px;
+    font-size: 13px;
+    color: red;
+}
+
+#dlg-btns {
+    text-align: right;
+    margin-bottom: 8px;
+}
+
+.lightbox > .dlg-btns > button {
+    font-size: 15px !important;
+}
+
+#hlp-dlg {
+    --width: 360px;
+    top: 88px;
+    margin-left: 18px;
+    font-size: 15px;
+}

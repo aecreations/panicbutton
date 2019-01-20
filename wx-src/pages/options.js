@@ -336,8 +336,26 @@ function initDialogs()
   };
 
   gDialogs.removeRestoreSessPswd = new aeDialog("#remove-password-dlg");
+  gDialogs.removeRestoreSessPswd.onInit = () => {
+    $("pswd-for-removal").value = "";
+    $("rm-pswd-error").innerText = "";
+  }
+  gDialogs.removeRestoreSessPswd.onShow = () => {
+    $("pswd-for-removal").focus();
+  };
   gDialogs.removeRestoreSessPswd.onAccept = () => {
     let that = gDialogs.removeRestoreSessPswd;
+
+    let enteredPswdElt = $("pswd-for-removal");
+    let enteredPswd = enteredPswdElt.value;
+    let currPswd = gPanicButton.getPrefs().restoreSessPswd;
+
+    if (enteredPswd != currPswd) {
+      $("rm-pswd-error").innerText = browser.i18n.getMessage("pswdWrong");
+      enteredPswdElt.select();
+      enteredPswdElt.focus();
+      return;
+    }
     
     let pswdPrefs = {
       restoreSessPswdEnabled: false,

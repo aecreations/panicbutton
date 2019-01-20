@@ -203,8 +203,13 @@
       </div>
     </div>
     <div id="remove-password-dlg" class="lightbox">
-      <p>Remove Password</p>
-
+      <div class="msgbox-icon"></div>
+      <div class="dlg-content">
+        <p class="title" data-i18n="pswdPrmptHdr"></p>
+	<label for="pswd-for-removal" data-i18n="pswdPrmpt"></label>
+	<input type="password" id="pswd-for-removal"/>
+        <div id="rm-pswd-error" class="error"></div>
+      </div>
       <div class="dlg-btns">
 	<button class="dlg-accept default" data-i18n="btnOK"></button>
         <button class="dlg-cancel" data-i18n="btnCancel"></button>

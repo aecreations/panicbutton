@@ -389,6 +389,33 @@ input[type="file"] {
     margin-right: 0.5em;
 }
 
+#remove-password-dlg {
+    --height: 216px;
+    --width: 400px;
+}
+
+#remove-password-dlg .msgbox-icon {
+    width: 52px;
+    height: 52px;
+    float: left;
+    margin-top: 8px;
+    background-image: url("chrome://global/skin/icons/question-64.png");
+    background-size: contain;
+}
+
+#remove-password-dlg .dlg-content {
+    margin-left: 64px;
+}
+
+#remove-password-dlg label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#remove-password-dlg #pswd-for-removal {
+    width: 278px;
+}
+
 #about-dlg {
     top: 72px;
     --width: 410px;

@@ -105,7 +105,8 @@ class aeDialog
 
     if (openDlgElts.length > 0) {
       // Normally there should just be 1 dialog open at a time.
-      document.querySelectorAll(".lightbox-show .dlg-accept:not(:disabled)").click();
+      let acceptBtns = document.querySelectorAll(".lightbox-show .dlg-accept:not(:disabled)");
+      acceptBtns.forEach(aBtn => { aBtn.click() });
     }
   }
 
@@ -114,7 +115,8 @@ class aeDialog
     let openDlgElts = document.querySelectorAll(".lightbox-show");
 
     if (openDlgElts.length > 0) {
-      document.querySelectorAll(".lightbox-show .dlg-cancel:not(:disabled)").click();
+      let cancelBtns = document.querySelectorAll(".lightbox-show .dlg-cancel:not(:disabled)");
+      cancelBtns.forEach(aBtn => { aBtn.click() });
     }
   }
 }

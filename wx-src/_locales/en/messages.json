@@ -131,10 +131,6 @@
     "message": "Passwords do not match."
   },
 
-  "pswdToRemove": {
-    "message": "Incorrect password. You must enter the correct password to remove it."
-  },
-
   "labelShortcutKey": {
     "message": "Press these keys to invoke the Panic Button action:"
   },

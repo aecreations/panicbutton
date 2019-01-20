@@ -238,6 +238,12 @@ function init(aEvent)
 
 function initDialogs()
 {
+  // Helper function
+  function removePassword()
+  {
+
+  }
+  
   gDialogs.setRestoreSessPswd = new aeDialog("#set-password-dlg");
   gDialogs.setRestoreSessPswd.onInit = () => {
     $("set-pswd-error").innerText = "";
@@ -279,6 +285,55 @@ function initDialogs()
   };
 
   gDialogs.changeRestoreSessPswd = new aeDialog("#change-password-dlg");
+  gDialogs.changeRestoreSessPswd.onInit = () => {
+    $("chg-pswd-error").innerText = "";
+    $("old-pswd").value = "";
+    $("new-pswd").value = "";
+    $("confirm-new-pswd").value = "";
+  };
+  gDialogs.changeRestoreSessPswd.onShow = () => {
+    $("old-pswd").focus();
+  };
+  gDialogs.changeRestoreSessPswd.onAccept = () => {
+    let that = gDialogs.changeRestoreSessPswd;
+
+    let oldPswdElt = $("old-pswd");
+    let newPswdElt =  $("new-pswd");
+    let passwd = $("new-pswd").value;
+    let confirmPasswd = $("confirm-new-pswd").value;
+
+    if (passwd != confirmPasswd) {
+      $("chg-pswd-error").innerText = browser.i18n.getMessage("pswdMismatch");
+      newPswdElt.select();
+      newPswdElt.focus();
+      return;
+    }
+
+    let enteredOldPswd = oldPswdElt.value;
+    let currentPswd = gPanicButton.getPrefs().restoreSessPswd;
+    
+    if (enteredOldPswd != currentPswd) {
+      $("chg-pswd-error").innerText = browser.i18n.getMessage("pswdWrong");
+      oldPswdElt.select();
+      oldPswdElt.focus();
+      return;
+    }
+
+    if (passwd == "" && confirmPasswd == "") {
+      // If both password fields are empty, clear the password as if the user
+      // had clicked "Remove Password"
+      removePassword();
+      return;
+    }
+
+    let pswdPrefs = {
+      restoreSessPswdEnabled: true,
+      restoreSessPswd: passwd,
+    };
+    browser.storage.local.set(pswdPrefs).then(() => {
+      that.close();
+    });
+  };
 
   gDialogs.removeRestoreSessPswd = new aeDialog("#remove-password-dlg");
   gDialogs.removeRestoreSessPswd.onAccept = () => {

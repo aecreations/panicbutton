@@ -183,16 +183,23 @@
       </div>
     </div>
     <div id="change-password-dlg" class="lightbox">
-      <!--
       <p class="title" data-i18n="chgPswdHdr"></p>
-      -->
-      <p>The selected action is not available right now.</p>
-      
+      <div class="row browser-style">
+	<label for="old-pswd" data-i18n="oldPswd"></label>
+	<input type="password" id="old-pswd"/>
+      </div>
+      <div class="row browser-style">
+	<label for="new-pswd" data-i18n="newPswd"></label>
+	<input type="password" id="new-pswd"/>
+      </div>
+      <div class="row browser-style">
+	<label for="confirm-new-pswd" data-i18n="confPswd"></label>
+	<input type="password" id="confirm-new-pswd"/>
+      </div>
+      <div id="chg-pswd-error" class="error"></div>
       <div class="dlg-btns">
 	<button class="dlg-accept default" data-i18n="btnOK"></button>
-	<!--
         <button class="dlg-cancel" data-i18n="btnCancel"></button>
-        -->
       </div>
     </div>
     <div id="remove-password-dlg" class="lightbox">

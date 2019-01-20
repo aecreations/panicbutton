@@ -371,6 +371,10 @@ input[type="file"] {
     --height: 328px;
 }
 
+#change-password-dlg {
+    --height: 330px;
+}
+
 #set-password-dlg label,
 #change-password-dlg label {
     display: block;

@@ -246,5 +246,9 @@
 
   "aboutTrans": {
     "message": "Localizations contributed by Crowdin translators."
+  },
+
+  "msgUnknown": {
+    "message": "No help is available (so leave me alone)."
   }
 }

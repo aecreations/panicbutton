@@ -8,6 +8,9 @@
   "btnOK": {
     "message": "Ok"
   },
+  "btnCancel": {
+    "message": "Annuler"
+  },
   "defaultBtnLabel": {
     "message": "Bouton de Panique"
   },
@@ -53,6 +56,48 @@
   "labelWebPgURL": {
     "message": "Localisation de Web (URL):"
   },
+
+  "setPswd": {
+    "message": "Saisir un mot de passe…"
+  },
+
+  "setPswdHdr": {
+    "message": "Saisir un mot de passe",
+    "description": "Dialog heading"
+  },
+
+  "setPswdDesc": {
+    "message": "Vous pouvez saisir un mot de passe pour restaurer la session du navigateur quand le bouton anti-panique est paramétré pour «Masquer et remplacer»."
+  },
+
+  "oldPswd": {
+    "message": "Ancien mot de passe:"
+  },
+  
+  "newPswd": {
+    "message": "Nouveau mot de passe:"
+  },
+
+  "confPswd": {
+    "message": "Confirmez le nouveau mot de passe:"
+  },
+
+  "removePswd": {
+    "message": "Supprimer le mot de passe…"
+  },
+
+  "pswdPrmpt": {
+    "message": "Saisir le mot de passe:"
+  },
+
+  "pswdWrong": {
+    "message": "Mot de passe invalide."
+  },
+  
+  "pswdMismatch": {
+    "message": "Les mots de passe sont différents."
+  },
+
   "labelShortcutKey": {
     "message": "Appuyer sur ces touches pour lancer l'action de Panic Button:"
   },

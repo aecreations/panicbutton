@@ -8,6 +8,9 @@
   "btnOK": {
     "message": "OK"
   },
+  "btnCancel": {
+    "message": "Abbrechen"
+  },
   "defaultBtnLabel": {
     "message": "Panic Button"
   },

@@ -50,6 +50,36 @@
   "labelWebPgURL": {
     "message": "Weblocatie (URL):"
   },
+
+  "setPswd": {
+    "message": "Wachtwoord instellen…"
+  },
+
+  "setPswdHdr": {
+    "message": "Wachtwoord instellen",
+    "description": "Dialog heading"
+  },
+
+  "oldPswd": {
+    "message": "Oud wachtwoord:"
+  },
+  
+  "confPswd": {
+    "message": "Wachtwoord bevestigen:"
+  },
+
+  "removePswd": {
+    "message": "Wachtwoord verwijderen…"
+  },
+
+  "pswdPrmpt": {
+    "message": "Voer wachtwoord in:"
+  },
+
+  "pswdMismatch": {
+    "message": "Wachtwoorden komen niet overeen."
+  },
+ 
   "labelShortcutKey": {
     "message": "Druk deze toetsen om de Paniekknopactie te starten:"
   },

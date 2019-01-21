@@ -238,10 +238,10 @@ function init(aEvent)
 
 function initDialogs()
 {
-  // Helper function
-  function removePassword()
+  function resetPasswdPrefs()
   {
-
+    $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("setPswd");
+    $("hide-and-replc-rm-pswd").style.visibility = "hidden";
   }
   
   gDialogs.setRestoreSessPswd = new aeDialog("#set-password-dlg");
@@ -269,16 +269,12 @@ function initDialogs()
       return;
     }
 
-    let pswdPrefs = {
-      restoreSessPswdEnabled: true,
-      restoreSessPswd: passwd,
-    };
-    browser.storage.local.set(pswdPrefs).then(() => {
+    gPanicButton.setRestoreSessPasswd(passwd).then(() => {
       // Add a short delay so that user can see resulting prefs UI changes.
       window.setTimeout(() => {
         $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("chgPswd");
         $("hide-and-replc-rm-pswd").style.visibility = "visible";
-      }, 400);
+      }, 500);
       
       that.close();
     });
@@ -310,7 +306,7 @@ function initDialogs()
     }
 
     let enteredOldPswd = oldPswdElt.value;
-    let currentPswd = gPanicButton.getPrefs().restoreSessPswd;
+    let currentPswd = gPanicButton.getRestoreSessPasswd();
     
     if (enteredOldPswd != currentPswd) {
       $("chg-pswd-error").innerText = browser.i18n.getMessage("pswdWrong");
@@ -322,15 +318,14 @@ function initDialogs()
     if (passwd == "" && confirmPasswd == "") {
       // If both password fields are empty, clear the password as if the user
       // had clicked "Remove Password"
-      removePassword();
+      gPanicButton.removeRestoreSessPasswd().then(() => {
+        resetPasswdPrefs();
+        that.close();
+      });
       return;
     }
 
-    let pswdPrefs = {
-      restoreSessPswdEnabled: true,
-      restoreSessPswd: passwd,
-    };
-    browser.storage.local.set(pswdPrefs).then(() => {
+    gPanicButton.setRestoreSessPasswd(passwd).then(() => {
       that.close();
     });
   };
@@ -348,7 +343,7 @@ function initDialogs()
 
     let enteredPswdElt = $("pswd-for-removal");
     let enteredPswd = enteredPswdElt.value;
-    let currPswd = gPanicButton.getPrefs().restoreSessPswd;
+    let currPswd = gPanicButton.getRestoreSessPasswd();
 
     if (enteredPswd != currPswd) {
       $("rm-pswd-error").innerText = browser.i18n.getMessage("pswdWrong");
@@ -357,13 +352,8 @@ function initDialogs()
       return;
     }
     
-    let pswdPrefs = {
-      restoreSessPswdEnabled: false,
-      restoreSessPswd: null,
-    };
-    browser.storage.local.set(pswdPrefs).then(() => {
-      $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("setPswd");
-      $("hide-and-replc-rm-pswd").style.visibility = "hidden";
+    gPanicButton.removeRestoreSessPasswd().then(() => {
+      resetPasswdPrefs();
       that.close();
     });
   };

@@ -373,6 +373,60 @@ function closeAll(aSaveSession, aReplacementURL)
 }
 
 
+async function setRestoreSessPasswd(aPswd)
+{
+  // The password for restoring the browser session for "Hide and Replace" is
+  // simply obfuscated, not encrypted, since we're not trying to protect
+  // sensitive user data.  Anyone who is very motivated would find other ways
+  // to access the user's browsing session without having to crack the
+  // restore session password.  This is unlikely to be the case for a nosy
+  // bystander trying to see if the user is browsing forbidden websites.
+  // The following helper function is adapted from:
+  // <https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem>
+  function b64EncodeUnicode(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+    }));
+  }
+
+  let encPwd = b64EncodeUnicode(aPswd);
+  await browser.storage.local.set({
+    restoreSessPswdEnabled: true,
+    restoreSessPswd: encPwd,
+  });
+}
+
+
+function getRestoreSessPasswd()
+{
+  // The following helper function is adapted from:
+  // <https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem>
+  function b64DecodeUnicode(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  }
+
+  let rv = "";
+  let encPwd = gPrefs.restoreSessPswd;
+  rv = b64DecodeUnicode(encPwd);
+
+  return rv;
+}
+
+
+async function removeRestoreSessPasswd()
+{
+  let pswdPrefs = {
+    restoreSessPswdEnabled: false,
+    restoreSessPswd: null,
+  };
+  
+  await browser.storage.local.set(pswdPrefs);
+}
+
+
 function getOS()
 {
   return gOS;

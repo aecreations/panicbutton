@@ -20,10 +20,10 @@ function init(aEvent)
 
   }).then(() => {
     $("btn-ok").addEventListener("click", aEvent => {
-      let prefs = gPanicButton.getPrefs();
+      let usrPswd = gPanicButton.getRestoreSessPasswd();
       let passwd = $("restore-sess-pswd");
       
-      if (passwd.value != prefs.restoreSessPswd) {
+      if (passwd.value != usrPswd) {
         $("err-msg").innerText = browser.i18n.getMessage("pswdWrong");
         passwd.select();
         passwd.focus();

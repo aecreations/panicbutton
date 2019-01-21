@@ -93,7 +93,7 @@
   },
   
   "newPswd": {
-    "message": "Enter new password:"
+    "message": "New password:"
   },
 
   "confPswd": {
@@ -119,8 +119,7 @@
   },
 
   "pswdPrmpt": {
-    "message": "Enter password:",
-    "description": "Password dialog prompt when restoring browser session or removing password in extension preferences."
+    "message": "Enter password:"
   },
 
   "pswdWrong": {

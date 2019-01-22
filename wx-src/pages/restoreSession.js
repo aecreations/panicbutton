@@ -36,7 +36,7 @@ function init(aEvent)
       window.history.back();
     });
 
-    let fuckOff = new aeDialog("#hlp-dlg");
+    let helpDlg = new aeDialog("#hlp-dlg");
 
     window.addEventListener("keydown", aEvent => {
       if (aEvent.key == "Enter") {
@@ -56,7 +56,7 @@ function init(aEvent)
         }
       }
       else if (aEvent.key == "F1") {
-        fuckOff.showModal();
+        helpDlg.showModal();
       }
     });
 

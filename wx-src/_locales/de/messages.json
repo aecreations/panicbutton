@@ -95,5 +95,8 @@
   },
   "aboutTrans": {
     "message": "Übersetzungen von Crowdin-Übersetzern."
+  },
+  "msgUnknown": {
+    "message": "Keine Hilfe verfügbar (lass mich also in Ruhe)."
   }
 }

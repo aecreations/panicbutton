@@ -137,5 +137,8 @@
   },
   "aboutTrans": {
     "message": "Localisations des contributions des les traducteurs Crowdin."
+  },
+  "msgUnknown": {
+    "message": "Aucune aide n’est disponible (donc laissez-moi tranquille)."
   }
 }

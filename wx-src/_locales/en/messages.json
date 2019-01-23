@@ -243,6 +243,16 @@
     "message": "Localizations contributed by Crowdin translators."
   },
 
+  "restrSessCancel": {
+    "message": "Go Back",
+    "description": "Cancel button in the Restore Session Password page"
+  },
+
+  "restrSessAccept": {
+    "message": "Restore Session",
+    "description": "Accept button in the Restore Session Password page"
+  },
+
   "msgUnknown": {
     "message": "No help is available (so leave me alone)."
   }

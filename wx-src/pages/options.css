@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
-@import url("chrome://browser/content/extension.css");
+@import url("../style/laf.css");
 
 body {
     background-image: url("../img/bkgrd.png");
@@ -43,73 +43,9 @@ input[type="checkbox"] + label {
     vertical-align: middle;
 }
 
-button {
-    height: 28px;
-    margin-bottom: 0;
-    padding-left: 24px;
-    padding-right: 24px;
-    border: 1px solid rgba(12, 12, 13, 0.1);
-    border-radius: 2px;
-    background-color: rgba(12, 12, 13, 0.1);
-    font-size: 13px;
-}
-
-button[disabled] {
-    opacity: 0.4;
-}
-
-button.default {
-    background-color: #0060df;
-    border: 1px solid #0060df;
-    border-radius: 2px;
-    color: #fff;
-}
-
-button:hover {
-    background-color: rgba(12, 12, 13, 0.2);
-    border: 1px solid rgba(12, 12, 13, 0.2) !important;
-}
-
-button.default:hover {
-    background-color: #003eaa;
-    border: 1px solid #003eaa;
-}
-
-button:active {
-    background-color: rgba(12, 12, 13, 0.3);
-    border: 1px solid rgba(12, 12, 13, 0.3) !important;
-}
-
-button.default:active {
-    background-color: #002275;
-    border: 1px solid #002275;
-}
-
 input[type="text"].browser-style,
 select.browser-style {
     font-size: 13px;
-}
-
-input[type="password"] {
-    display: block;
-    width: 100%;
-    height: 28px;
-    margin-bottom: 10px;
-    padding-left: 8px;
-    padding-right: 8px;
-    border: 1px solid rgba(12, 12, 13, 0.2);
-    font-size: 15px;
-}
-
-input[type="password"]:hover {
-    border-color: rgba(12, 12, 13, 0.3);
-}
-
-input[type="password"]:focus {
-    border-color: #0a84ff;
-    box-shadow: 0 0 0 2px #61b5ffbf;
-    transition-duration: 250ms;
-    transition-property: box-shadow;
 }
 
 fieldset {
@@ -125,7 +61,7 @@ legend {
     font-size: 15px;
 }
 
-fieldset button.browser-style {
+fieldset button {
     font-size: 13px;
     height: 26px;
     padding-left: 18px;
@@ -156,24 +92,12 @@ fieldset button.browser-style {
 
 .browser-style > input[type="text"] {
     background-color: white;
-    border-top: 1px solid white;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
+    border: 1px solid rgba(12, 12, 13, 0.2);
 }
 
-.browser-style > input[type="text"]:not(disabled):hover {
-    border-top: 1px solid white;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-}
-
-.browser-style > input[type="text"]:active {
-    border: 1px solid #0996f8;
-}
-
-.browser-style > input[type="text"]:focus,
-.browser-style > input[type="text"]:focus:hover {
-    border: 1px solid #0996f8;
+.browser-style > input[type="text"]:hover,
+.browser-style > input[type="text"]:hover:focus {
+    border-color: #0a84ff;
 }
 
 .browser-style > input[type="checkbox"]:disabled,
@@ -225,6 +149,17 @@ fieldset button.browser-style {
     margin-right: 8px;
 }
 
+#hide-and-replace-pswd {
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+#hide-and-replace-pswd button {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 8px;
+}
+
 #toolbar-button-caption {
     width: 14em;
 }
@@ -258,6 +193,7 @@ fieldset button.browser-style {
 
 #custom-icon-upload-cntr {
     height: calc(100% - 30px);
+    padding-top: 4px;
 }
 
 #custom-icon, #custom-icon-label {
@@ -275,24 +211,24 @@ input[type="file"] {
 }
 
 #custom-icon-upload-btn {
-    padding: 3px 16px 3px 16px;
-    border: 1px solid #b1b1b1;
+    padding: 4px 16px 4px 16px;
+    border: 1px solid rgba(12, 12, 13, 0.1);
     border-radius: 2px;
     box-shadow: 0 0 0 0 transparent;
-    background-color: #fbfbfb;
+    background-color: rgba(12, 12, 13, 0.1);
 
     transition-duration: 250ms;
     transition-property: box-shadow, border;
 }
 
 #custom-icon-upload-btn:hover {
-    background-color: #ebebeb;
+    background-color: rgba(12, 12, 13, 0.2);
     border: 1px solid #b1b1b1;
 }
 
 #custom-icon-upload-btn:active {
-    background-color: #d4d4d4;
-    border: 1px solid #858585;
+    background-color: rgba(12, 12, 13, 0.3);
+    border: 1px solid rgba(12, 12, 13, 0.3);
 }
 
 #rev-contrast-icon {
@@ -346,9 +282,15 @@ input[type="file"] {
     font-size: 13px;
 }
 
+.lightbox input[type="password"] {
+    width: 100%;
+    height: 28px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
 .lightbox .error {
     font-size: 13px;
-    color: red;
 }
 
 .lightbox > .dlg-btns {
@@ -359,6 +301,7 @@ input[type="file"] {
 .lightbox > .dlg-btns > button {
     min-width: 96px;
     height: 32px;
+    margin-bottom: 0;
     padding: 0 24px 0;
     border-radius: 2px;
     outline: unset;
@@ -372,7 +315,8 @@ input[type="file"] {
 }
 
 #change-password-dlg {
-    --height: 330px;
+    --width: 400px;
+    --height: 338px;
 }
 
 #set-password-dlg label,
@@ -398,6 +342,7 @@ input[type="file"] {
     width: 52px;
     height: 52px;
     float: left;
+    margin-left: -6px;
     margin-top: 8px;
     background-image: url("chrome://global/skin/icons/question-64.png");
     background-size: contain;

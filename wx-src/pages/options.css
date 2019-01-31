@@ -43,8 +43,12 @@ input[type="checkbox"] + label {
     vertical-align: middle;
 }
 
-input[type="text"].browser-style,
-select.browser-style {
+input[type="text"] {
+    height: 26px;
+}
+
+input[type="text"],
+select {
     font-size: 13px;
 }
 
@@ -88,16 +92,6 @@ fieldset button {
     order: 2;
     flex: 0 1 auto;
     margin-left: 12px;
-}
-
-.browser-style > input[type="text"] {
-    background-color: white;
-    border: 1px solid rgba(12, 12, 13, 0.2);
-}
-
-.browser-style > input[type="text"]:hover,
-.browser-style > input[type="text"]:hover:focus {
-    border-color: #0a84ff;
 }
 
 .browser-style > input[type="checkbox"]:disabled,
@@ -150,8 +144,8 @@ fieldset button {
 }
 
 #hide-and-replace-pswd {
-    margin-top: 8px;
-    margin-bottom: 16px;
+    margin-top: 12px;
+    margin-bottom: 18px;
 }
 
 #hide-and-replace-pswd button {

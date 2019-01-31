@@ -143,6 +143,16 @@ function init(aEvent)
       }
     }, false);
 
+    // Handle key events when a dialog is open.
+    window.addEventListener("keydown", aEvent => {
+      if (aEvent.key == "Enter" && aeDialog.isOpen()) {
+        aeDialog.acceptDlgs();
+      }
+      else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
+        aeDialog.cancelDlgs();
+      }
+    });
+
     return browser.storage.local.get();
 
   }).then(aPrefs => {

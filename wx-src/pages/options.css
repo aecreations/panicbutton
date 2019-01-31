@@ -231,8 +231,13 @@ input[type="file"] {
     border: 1px solid rgba(12, 12, 13, 0.3);
 }
 
+#rev-contrast-icon-cntr {
+    margin-left: 24px;
+    margin-right: -12px;
+}
+
 #rev-contrast-icon {
-    margin-left: 0;
+    margin-left: -22px;
 }
 
 #about-btn {

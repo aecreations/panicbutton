@@ -17,13 +17,14 @@ h1 {
     font-size: 36px;
     font-weight: 200;
     letter-spacing: -0.25px;
+    vertical-align: top;
 }
 
 #prmpt-icon {
     vertical-align: -14px;
     margin-right: 18px;
-    width: 64px;
-    height: 64px;
+    width: 128px;
+    height: 128px;
 }
 
 
@@ -61,7 +62,7 @@ input[type="password"] {
 }
 
 #dlg-content {
-    margin-left: 88px;
+    margin-left: 150px;
 }
 
 #err-msg {
@@ -90,5 +91,5 @@ input[type="password"] {
 #hlp-dlg {
     --width: 350px;
     --height: 136px;
-    top: 120px;
+    top: 150px;
 }

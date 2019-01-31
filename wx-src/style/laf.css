@@ -77,6 +77,17 @@ input[type="password"]:focus {
     transition-property: box-shadow;
 }
 
+input[type="text"]::selection,
+input[type="password"]::selection {
+    background-color: rgba(10, 132, 255, 0.3);
+}
+
+/* Prior to Firefox 62 */
+input[type="text"]::-moz-selection,
+input[type="password"]::-moz-selection {
+    background-color: rgba(10, 132, 255, 0.3);
+}
+
 .error {
     color: #d70022;
 }

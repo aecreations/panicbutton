@@ -62,6 +62,7 @@ input[type="password"] {
     padding-left: 8px;
     padding-right: 8px;
     border: 1px solid rgba(12, 12, 13, 0.2);
+    font: caption;
 }
 
 input[type="text"]:hover,
@@ -79,12 +80,6 @@ input[type="password"]:focus {
 
 input[type="text"]::selection,
 input[type="password"]::selection {
-    background-color: rgba(10, 132, 255, 0.3);
-}
-
-/* Prior to Firefox 62 */
-input[type="text"]::-moz-selection,
-input[type="password"]::-moz-selection {
     background-color: rgba(10, 132, 255, 0.3);
 }
 

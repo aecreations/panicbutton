@@ -310,12 +310,12 @@ input[type="file"] {
 
 #set-password-dlg {
     --width: 400px;
-    --height: 328px;
+    --height: 336px;
 }
 
 #change-password-dlg {
     --width: 400px;
-    --height: 338px;
+    --height: 346px;
 }
 
 #set-password-dlg label,
@@ -333,8 +333,8 @@ input[type="file"] {
 }
 
 #remove-password-dlg {
-    --height: 216px;
     --width: 400px;
+    --height: 216px;
 }
 
 #remove-password-dlg .msgbox-icon {

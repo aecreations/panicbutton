@@ -363,7 +363,7 @@ input[type="file"] {
 #about-dlg {
     top: 72px;
     --width: 410px;
-    --height: 260px;
+    --height: 248px;
 }
 
 #about-dlg #ext-icon {
@@ -386,8 +386,8 @@ input[type="file"] {
 }
 
 #about-dlg hr {
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     border-top: 1px solid #b1b1b3;
     color: #b1b1b3;
 }
@@ -412,6 +412,6 @@ input[type="file"] {
     font-size: 13px;
 }
 
-#about-dlg #credits .about-content-row {
-    line-height: 24px;
+#about-dlg #credits label {
+    line-height: 18px;
 }

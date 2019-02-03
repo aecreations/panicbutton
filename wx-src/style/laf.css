@@ -41,7 +41,11 @@ button.default {
     color: #fff;
 }
 
-button:hover,
+button:hover {
+    border: 1px solid rgba(12, 12, 13, 0.2) !important;
+    background-color: rgba(12, 12, 13, 0.2);
+}
+
 select.browser-style:hover {
     border: 1px solid rgba(12, 12, 13, 0.2) !important;
     background-color: rgba(12, 12, 13, 0.2) !important;
@@ -52,7 +56,11 @@ button.default:hover {
     background-color: #003eaa;
 }
 
-button:active,
+button:active {
+    border: 1px solid rgba(12, 12, 13, 0.3) !important;
+    background-color: rgba(12, 12, 13, 0.3);
+}
+
 select.browser-style:active {
     border: 1px solid rgba(12, 12, 13, 0.3) !important;
     background-color: rgba(12, 12, 13, 0.3) !important;

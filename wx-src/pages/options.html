@@ -24,144 +24,140 @@
       <fieldset id="prefs-general">
         <legend data-i18n="prefsGeneral"></legend>
 
-	<div class="fieldset-content">
-          <label for="panicbutton-action" data-i18n="labelPanicBtnAction"></label>
-          <select id="panicbutton-action" class="browser-style"
-           name="panicbutton-action">
-      	    <option value="0" data-i18n="actHideAndReplace"></option>
-	    <option value="1" data-i18n="actMinimizeAll"></option>
-	    <option value="2" data-i18n="actCloseAll"></option>
-          </select>
+	<label for="panicbutton-action" data-i18n="labelPanicBtnAction"></label>
+	<select id="panicbutton-action" class="browser-style"
+	 name="panicbutton-action">
+	  <option value="0" data-i18n="actHideAndReplace"></option>
+	  <option value="1" data-i18n="actMinimizeAll"></option>
+	  <option value="2" data-i18n="actCloseAll"></option>
+	</select>
 
-	  <div id="panicbutton-action-detail">
- 	    <div id="panicbutton-action-desc" class="description"></div>
-  	    <img id="private-browsing-warning-icon" src="chrome://global/skin/icons/warning.svg"/>
-	    <label id="private-browsing-warning"></label>
+	<div id="panicbutton-action-detail">
+	  <div id="panicbutton-action-desc" class="description"></div>
+	  <img id="private-browsing-warning-icon" src="chrome://global/skin/icons/warning.svg"/>
+	  <label id="private-browsing-warning"></label>
 
-	    <div id="panicbutton-action-options">
-	      <div id="panicbutton-action-options-hide-and-replace">
-		<label for="webpg-url" data-i18n="labelWebPgURL"></label>
-		<input type="text" id="webpg-url">
-		<button id="reset-url" data-i18n="btnReset"></button>
-		<div id="hide-and-replace-pswd">
-                  <button id="hide-and-replc-set-pswd" data-i18n="setPswd"></button>
-		  <button id="hide-and-replc-rm-pswd" data-i18n="removePswd"></button>
-		</div>
+	  <div id="panicbutton-action-options">
+	    <div id="panicbutton-action-options-hide-and-replace">
+	      <label for="webpg-url" data-i18n="labelWebPgURL"></label>
+	      <input type="text" id="webpg-url">
+	      <button id="reset-url" data-i18n="btnReset"></button>
+	      <div id="hide-and-replace-pswd">
+		<button id="hide-and-replc-set-pswd" data-i18n="setPswd"></button>
+		<button id="hide-and-replc-rm-pswd" data-i18n="removePswd"></button>
 	      </div>
 	    </div>
 	  </div>
+	</div>
 
-	  <div class="row browser-style" style="margin-top:8px">
-	    <input type="checkbox" id="shortcut-key"><label for="shortcut-key" data-i18n="labelShortcutKey"></label>
-	  </div>
-	  <div class="row indent browser-style">
-	    <select id="panicbutton-key-modifiers" class="browser-style">
-	      <option id="key-modifiers-none" value=""></option>
-	      <option id="key-modifiers-accelshift" value="Ctrl+Shift"></option>
-	      <option id="key-modifiers-altshift" value="Alt+Shift"></option>
-	    </select>
-	    <select id="panicbutton-key" class="browser-style">
-	      <option value="F1">F1</option>
-	      <option value="F2">F2</option>
-	      <option value="F3">F3</option>
-	      <option value="F4">F4</option>
-	      <option value="F5">F5</option>
-	      <option value="F6">F6</option>
-	      <option value="F7">F7</option>
-	      <option value="F8">F8</option>
-	      <option value="F9" selected>F9</option>
-	      <option value="F10">F10</option>
-	      <option value="F11">F11</option>
-	      <option value="F12">F12</option>
-	      <option value="PageUp" data-i18n="keyPgUp"></option>
-	      <option value="PageDown" data-i18n="keyPgDown"></option>
-	      <option value="Home" data-i18n="keyHome"></option>
-	      <option value="End" data-i18n="keyEnd"></option>
-	      <option value="Left" data-i18n="keyLeft"></option>
-	      <option value="Right" data-i18n="keyRight"></option>
-	      <option value="Up" data-i18n="keyUp"></option>
-	      <option value="Down" data-i18n="keyDown"></option>
-	      <option value="Insert" data-i18n="keyIns"></option>
-	      <option id="panicbutton-key-del" value="Delete" data-i18n="keyDel"></option>
-	    </select>
-	  </div>
-	  <div class="description indent" data-i18n="prefsShortcutKeyNote"></div>
-        </div>
+	<div class="row browser-style" style="margin-top:8px">
+	  <input type="checkbox" id="shortcut-key"><label for="shortcut-key" data-i18n="labelShortcutKey"></label>
+	</div>
+	<div class="row indent browser-style">
+	  <select id="panicbutton-key-modifiers" class="browser-style">
+	    <option id="key-modifiers-none" value=""></option>
+	    <option id="key-modifiers-accelshift" value="Ctrl+Shift"></option>
+	    <option id="key-modifiers-altshift" value="Alt+Shift"></option>
+	  </select>
+	  <select id="panicbutton-key" class="browser-style">
+	    <option value="F1">F1</option>
+	    <option value="F2">F2</option>
+	    <option value="F3">F3</option>
+	    <option value="F4">F4</option>
+	    <option value="F5">F5</option>
+	    <option value="F6">F6</option>
+	    <option value="F7">F7</option>
+	    <option value="F8">F8</option>
+	    <option value="F9" selected>F9</option>
+	    <option value="F10">F10</option>
+	    <option value="F11">F11</option>
+	    <option value="F12">F12</option>
+	    <option value="PageUp" data-i18n="keyPgUp"></option>
+	    <option value="PageDown" data-i18n="keyPgDown"></option>
+	    <option value="Home" data-i18n="keyHome"></option>
+	    <option value="End" data-i18n="keyEnd"></option>
+	    <option value="Left" data-i18n="keyLeft"></option>
+	    <option value="Right" data-i18n="keyRight"></option>
+	    <option value="Up" data-i18n="keyUp"></option>
+	    <option value="Down" data-i18n="keyDown"></option>
+	    <option value="Insert" data-i18n="keyIns"></option>
+	    <option id="panicbutton-key-del" value="Delete" data-i18n="keyDel"></option>
+	  </select>
+	</div>
+	<div class="description indent" data-i18n="prefsShortcutKeyNote"></div>
       </fieldset>
 
       <fieldset id="prefs-customize">
         <legend data-i18n="prefsCustomize"></legend>
 	
-	<div class="fieldset-content">
-	  <div class="row" style="margin-bottom:4px">
-  	    <label for="toolbar-button-caption" data-i18n="labelToolbarBtnCaption"></label>
-	    <input type="text" id="toolbar-button-caption">
-	  </div>
-	  
-	  <label data-i18n="labelCustomIcon"></label>
-	  <div class="flex-row">
-	    <div id="toolbar-button-icon" class="sxs-left" style="margin-top:2px">
-	      <input type="radio" name="toolbar-button-icon" id="default" value="0">
-	      <label for="default"><img src="../img/default32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="exclamation-in-ball" value="1">
-	      <label for="exclamation-in-ball"><img src="../img/exclamation-in-ball32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="quit" value="2">
-	      <label for="quit"><img src="../img/quit32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="exit-door" value="3">
-	      <label for="exit-door"><img src="../img/exit-door32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="window-minimize" value="4">
-	      <label for="window-minimize"><img src="../img/window-minimize32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="window-with-exclamation" value="5">
-	      <label for="window-with-exclamation"><img src="../img/window-with-exclamation32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="window-with-exclamation-ball" value="6">
-	      <label for="window-with-exclamation-ball"><img src="../img/window-with-exclamation-ball32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="window-with-cross" value="7">
-	      <label for="window-with-cross"><img src="../img/window-with-cross32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="window-with-check" value="8">
-	      <label for="window-with-check"><img src="../img/window-with-check32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="plain-window" value="9">
-	      <label for="plain-window"><img src="../img/plain-window32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="dotted-window" value="10">
-	      <label for="dotted-window"><img src="../img/dotted-window32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="window-with-globe" value="11">
-	      <label for="window-with-globe"><img src="../img/window-with-globe32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="web-page" value="12">
-	      <label for="web-page"><img src="../img/web-page32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="web-page-with-globe" value="13">
-	      <label for="web-page-with-globe"><img src="../img/web-page-with-globe32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="web-document" value="14">
-	      <label for="web-document"><img src="../img/web-document32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="smiley" value="15">
-	      <label for="smiley"><img src="../img/smiley32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="picture" value="16">	  
-	      <label for="picture"><img src="../img/picture32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="desktop" value="17">
-	      <label for="desktop"><img src="../img/desktop32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="computer" value="18">
-	      <label for="computer"><img src="../img/computer32.svg"></label>
-	      <input type="radio" name="toolbar-button-icon" id="letter-a" value="19">
-	      <label for="letter-a"><img src="../img/letter-a32.svg"></label>
+	<div class="row" style="margin-bottom:4px">
+	  <label for="toolbar-button-caption" data-i18n="labelToolbarBtnCaption"></label>
+	  <input type="text" id="toolbar-button-caption">
+	</div>
 
-	      <input type="radio" name="toolbar-button-icon" id="custom-icon" value="20"/>
-	      <label id="custom-icon-label" for="custom-icon"><img id="custom-icon-img" src=""/></label>
-	    </div> <!-- .sxs-left -->
+	<label data-i18n="labelCustomIcon"></label>
+	<div class="flex-row">
+	  <div id="toolbar-button-icon" class="sxs-left" style="margin-top:2px">
+	    <input type="radio" name="toolbar-button-icon" id="default" value="0">
+	    <label for="default"><img src="../img/default32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="exclamation-in-ball" value="1">
+	    <label for="exclamation-in-ball"><img src="../img/exclamation-in-ball32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="quit" value="2">
+	    <label for="quit"><img src="../img/quit32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="exit-door" value="3">
+	    <label for="exit-door"><img src="../img/exit-door32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="window-minimize" value="4">
+	    <label for="window-minimize"><img src="../img/window-minimize32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="window-with-exclamation" value="5">
+	    <label for="window-with-exclamation"><img src="../img/window-with-exclamation32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="window-with-exclamation-ball" value="6">
+	    <label for="window-with-exclamation-ball"><img src="../img/window-with-exclamation-ball32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="window-with-cross" value="7">
+	    <label for="window-with-cross"><img src="../img/window-with-cross32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="window-with-check" value="8">
+	    <label for="window-with-check"><img src="../img/window-with-check32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="plain-window" value="9">
+	    <label for="plain-window"><img src="../img/plain-window32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="dotted-window" value="10">
+	    <label for="dotted-window"><img src="../img/dotted-window32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="window-with-globe" value="11">
+	    <label for="window-with-globe"><img src="../img/window-with-globe32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="web-page" value="12">
+	    <label for="web-page"><img src="../img/web-page32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="web-page-with-globe" value="13">
+	    <label for="web-page-with-globe"><img src="../img/web-page-with-globe32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="web-document" value="14">
+	    <label for="web-document"><img src="../img/web-document32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="smiley" value="15">
+	    <label for="smiley"><img src="../img/smiley32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="picture" value="16">	  
+	    <label for="picture"><img src="../img/picture32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="desktop" value="17">
+	    <label for="desktop"><img src="../img/desktop32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="computer" value="18">
+	    <label for="computer"><img src="../img/computer32.svg"></label>
+	    <input type="radio" name="toolbar-button-icon" id="letter-a" value="19">
+	    <label for="letter-a"><img src="../img/letter-a32.svg"></label>
 
-	    <div id="icon-options" class="sxs-right">
-	      <div id="custom-icon-upload-cntr" class="sxs-right-cntr">
-		<label id="custom-icon-upload-btn" for="custom-icon-upload"
-		 data-i18n="btnCustomIcon"></label>
-		<input type="file" id="custom-icon-upload" accept=".jpg, .jpeg, .png"/>
-	      </div>
-	      <div class="sxs-right-cntr">
-		<div id="rev-contrast-icon-cntr" class="sxs-right-cntr browser-style">
-		  <input type="checkbox" id="rev-contrast-icon"/><label for="rev-contrast-icon" data-i18n="labelRevContrastTbIcon"></label>
-		</div>
+	    <input type="radio" name="toolbar-button-icon" id="custom-icon" value="20"/>
+	    <label id="custom-icon-label" for="custom-icon"><img id="custom-icon-img" src=""/></label>
+	  </div> <!-- .sxs-left -->
+
+	  <div id="icon-options" class="sxs-right">
+	    <div id="custom-icon-upload-cntr" class="sxs-right-cntr">
+	      <label id="custom-icon-upload-btn" for="custom-icon-upload"
+	       data-i18n="btnCustomIcon"></label>
+	      <input type="file" id="custom-icon-upload" accept=".jpg, .jpeg, .png"/>
+	    </div>
+	    <div class="sxs-right-cntr">
+	      <div id="rev-contrast-icon-cntr" class="sxs-right-cntr browser-style">
+		<input type="checkbox" id="rev-contrast-icon"/><label for="rev-contrast-icon" data-i18n="labelRevContrastTbIcon"></label>
 	      </div>
 	    </div>
-	  </div>  <!-- .flex-row -->
+	  </div>
+	</div>  <!-- .flex-row -->
 
-	  <button id="reset-customizations" data-i18n="btnReset"></button>
-	</div>
+	<button id="reset-customizations" data-i18n="btnReset"></button>
       </fieldset>
     </main>
 

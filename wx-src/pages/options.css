@@ -53,6 +53,8 @@ select {
 }
 
 fieldset {
+    padding-top: 4px;
+    padding-bottom: 12px;
     border-top: 1px solid #d7d7db;
     border-right: 0;
     border-bottom: 0;
@@ -74,10 +76,6 @@ fieldset button {
 
 fieldset select.browser-style {
     font-size: 13px;
-}
-
-.fieldset-content {
-    padding: 8px 0 8px 8px;
 }
 
 .flex-row {
@@ -108,7 +106,7 @@ fieldset select.browser-style {
 }
 
 .indent {
-    margin-left: 36px;
+    margin-left: 28px;
 }
 
 #panicbutton-action-options {
@@ -313,12 +311,12 @@ input[type="file"] {
 }
 
 #set-password-dlg {
-    --width: 400px;
+    --width: 406px;
     --height: 336px;
 }
 
 #change-password-dlg {
-    --width: 400px;
+    --width: 406px;
     --height: 346px;
 }
 

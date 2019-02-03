@@ -372,3 +372,14 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
 
+
+				     * * *
+
+
+OTHER NOTICES
+=============
+
+The key icon in the background image of the Restore Session Password page is
+derived from <https://www.svgrepo.com/svg/34735/key>, creator unknown.
+Licensed under the Creative Commons Attribution 4.0 license:
+<https://creativecommons.org/licenses/by/4.0/>.

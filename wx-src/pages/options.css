@@ -72,6 +72,10 @@ fieldset button {
     padding-right: 18px;
 }
 
+fieldset select.browser-style {
+    font-size: 13px;
+}
+
 .fieldset-content {
     padding: 8px 0 8px 8px;
 }

@@ -19,11 +19,15 @@ a:active {
     text-decoration: underline;
 }
 
-button {
+button,
+select.browser-style {
     border: 1px solid rgba(12, 12, 13, 0.1);
-    border-radius: 2px;
     background-color: rgba(12, 12, 13, 0.1);
     font: caption;
+}
+
+button {
+    border-radius: 2px;
     text-align: center;
 }
 
@@ -37,9 +41,10 @@ button.default {
     color: #fff;
 }
 
-button:hover {
+button:hover,
+select.browser-style:hover {
     border: 1px solid rgba(12, 12, 13, 0.2) !important;
-    background-color: rgba(12, 12, 13, 0.2);
+    background-color: rgba(12, 12, 13, 0.2) !important;
 }
 
 button.default:hover {
@@ -47,7 +52,8 @@ button.default:hover {
     background-color: #003eaa;
 }
 
-button:active {
+button:active,
+select.browser-style:active {
     border: 1px solid rgba(12, 12, 13, 0.3) !important;
     background-color: rgba(12, 12, 13, 0.3);
 }

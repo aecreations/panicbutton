@@ -85,7 +85,7 @@
   },
 
   "setPswdDesc": {
-    "message": "You can set a password to restore the browser session when the Panic Button action is Hide and Replace."
+    "message": "You can set a password for restoring the browser session when the Panic Button action is Hide and Replace."
   },
 
   "oldPswd": {

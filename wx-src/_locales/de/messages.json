@@ -3,7 +3,7 @@
     "message": "Panic Button"
   },
   "extDesc": {
-    "message": "Versteckt mit nur einem Klick sämtliche Browser-Fenster."
+    "message": "Auf Knopfdruck alle Browser-Fenster verstecken."
   },
   "btnOK": {
     "message": "OK"
@@ -30,7 +30,7 @@
     "message": "Anpassen"
   },
   "labelPanicBtnAction": {
-    "message": "Panic Button-Aktion:"
+    "message": "Panic Button Aktion:"
   },
   "actHideAndReplace": {
     "message": "Verstecken und Ersetzen"
@@ -56,11 +56,50 @@
   "labelWebPgURL": {
     "message": "Internetadresse (URL):"
   },
-  "labelShortcutKey": {
-    "message": "Drücke diese Tasten um den Panic Button auszulösen:"
+  "setPswd": {
+    "message": "Passwort festlegen…"
   },
-  "prefsShortcutKeyNote": {
-    "message": "Einige der verfügbaren Tastenkürzel können bereits Firefox-Befehlen oder anderen Add-ons zugeordnet sein."
+  "setPswdHdr": {
+    "message": "Passwort festlegen",
+    "description": "Dialog heading"
+  },
+  "setPswdDesc": {
+    "message": "Sie können ein Passwort für die Wiederherstellung der Browser-Sitzung setzen, wenn die Panic Button Aktion Hide and Replace ist."
+  },
+  "oldPswd": {
+    "message": "Altes Passwort:"
+  },
+  "newPswd": {
+    "message": "Neues Passwort:"
+  },
+  "confPswd": {
+    "message": "Passwort bestätigen:"
+  },
+  "chgPswd": {
+    "message": "Passwort ändern…"
+  },
+  "removePswd": {
+    "message": "Passwort löschen…"
+  },
+  "chgPswdHdr": {
+    "message": "Passwort ändern",
+    "description": "Dialog heading"
+  },
+  "pswdPrmptHdr": {
+    "message": "Passwort erforderlich",
+    "description": "Password dialog header."
+  },
+  "pswdPrmpt": {
+    "message": "Passwort eingeben:"
+  },
+  "pswdWrong": {
+    "message": "Falsches Passwort."
+  },
+  "pswdMismatch": {
+    "message": "Passwörter stimmen nicht überein."
+  },
+  "labelShortcutKey": {
+    "message": "Diese Tastenkombination drücken, um die Panic Button Aktion auszulösen:"
   },
   "labelToolbarBtnCaption": {
     "message": "Beschriftung für Symbolleiste:"
@@ -69,7 +108,7 @@
     "message": "Icon:"
   },
   "btnCustomIcon": {
-    "message": "Benutzerdefiniertes Icon..."
+    "message": "Benutzerdefiniertes Symbol…"
   },
   "labelRevContrastTbIcon": {
     "message": "Icon in Symbolleiste invertieren"
@@ -77,8 +116,56 @@
   "btnReset": {
     "message": "Standardeinstellungen"
   },
+  "prefsShortcutKeyNote": {
+    "message": "Einige der verfügbaren Tastenkombinationen könnten bereits für andere Firefox Befehle oder Add‑ons in Verwendung sein."
+  },
+  "keyModAccelShift": {
+    "message": "Strg + Umschalt +"
+  },
+  "keyModAccelShiftMac": {
+    "message": "⇧ + ⌘ +"
+  },
+  "keyModAltShift": {
+    "message": "Alt + Umschalt +"
+  },
+  "keyModAltShiftMac": {
+    "message": "⇧ + ⌥ +"
+  },
+  "keyPgUp": {
+    "message": "Bild hoch"
+  },
+  "keyPgDown": {
+    "message": "Bild runter"
+  },
+  "keyHome": {
+    "message": "Pos1"
+  },
+  "keyEnd": {
+    "message": "Ende"
+  },
+  "keyLeft": {
+    "message": "←Links"
+  },
+  "keyRight": {
+    "message": "Rechts→"
+  },
+  "keyUp": {
+    "message": "↑Hoch"
+  },
+  "keyDown": {
+    "message": "↓Runter"
+  },
+  "keyIns": {
+    "message": "Einfg"
+  },
+  "keyDel": {
+    "message": "Entf"
+  },
+  "keyMacDel": {
+    "message": "Löschen ⌦"
+  },
   "aboutBtn": {
-    "message": "Über..."
+    "message": "Über…"
   },
   "aboutExtVer": {
     "message": "Version $1",
@@ -88,13 +175,21 @@
     "message": "Entwickelt von AE Creations."
   },
   "aboutHomePgLink": {
-    "message": "Startseite besuchen"
+    "message": "Homepage besuchen"
   },
   "aboutLicLink": {
     "message": "Lizenzinformationen"
   },
   "aboutTrans": {
-    "message": "Übersetzungen von Crowdin-Übersetzern."
+    "message": "Die Übersetzungen wurden von Crowdin-Übersetzern erstellt."
+  },
+  "restrSessCancel": {
+    "message": "Zurück",
+    "description": "Cancel button in the Restore Session Password page"
+  },
+  "restrSessAccept": {
+    "message": "Sitzung wiederherstellen",
+    "description": "Accept button in the Restore Session Password page"
   },
   "msgUnknown": {
     "message": "Keine Hilfe verfügbar (lass mich also in Ruhe)."

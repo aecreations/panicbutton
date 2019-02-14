@@ -66,3 +66,9 @@ function init(aEvent)
 
 
 document.addEventListener("DOMContentLoaded", init, false);
+
+document.addEventListener("contextmenu", aEvent => {
+  if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
+    aEvent.preventDefault();
+  }
+}, false);

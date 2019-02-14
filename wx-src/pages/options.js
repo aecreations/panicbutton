@@ -47,6 +47,12 @@ function init(aEvent)
 
     $("key-modifiers-accelshift").innerText = chrome.i18n.getMessage(keyModAccelShift);
     $("key-modifiers-altshift").innerText = chrome.i18n.getMessage(keyModAltShift);
+
+    let locale = browser.i18n.getUILanguage();
+    let buttons = document.querySelectorAll("button");
+    buttons.forEach(aBtn => { aBtn.setAttribute("locale", locale) });
+    $("webpg-url").setAttribute("locale", locale);
+    $("custom-icon-upload-btn").setAttribute("locale", locale);
     
     $("reset-url").addEventListener("click", resetWebPageURL, false);
     $("reset-customizations").addEventListener("click", resetCustomizations, false);

@@ -74,6 +74,11 @@ fieldset button {
     padding-right: 18px;
 }
 
+fieldset button[locale="de"] {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
 fieldset select.browser-style {
     font-size: 13px;
 }
@@ -143,6 +148,10 @@ fieldset select.browser-style {
 #webpg-url {
     width: 300px;
     margin-right: 8px;
+}
+
+#webpg-url[locale="de"] {
+    width: 256px;
 }
 
 #hide-and-replace-pswd {
@@ -215,6 +224,11 @@ input[type="file"] {
 
     transition-duration: 250ms;
     transition-property: box-shadow, border;
+}
+
+#custom-icon-upload-btn[locale="de"] {
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 #custom-icon-upload-btn:hover {

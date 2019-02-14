@@ -434,11 +434,15 @@ function setCustomTBIcon(aEvent)
     customIconRadio.style.visibility = "visible";
     customIconRadio.checked = true;
     $("custom-icon-img").setAttribute("src", imgData);
-    $("rev-contrast-icon").setAttribute("disabled", "true");
+
+    let reverseContrChbx = $("rev-contrast-icon");
+    reverseContrChbx.setAttribute("disabled", "true");
+    reverseContrChbx.checked = false;
 
     setPref({
       toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,
       toolbarBtnData: imgData,
+      toolbarBtnRevContrastIco: false,
     });
   });
 

@@ -329,6 +329,10 @@ input[type="file"] {
     --height: 336px;
 }
 
+#set-password-dlg[locale="de"] {
+    --height: 354px;
+}
+
 #change-password-dlg {
     --width: 406px;
     --height: 346px;

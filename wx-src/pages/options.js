@@ -53,6 +53,7 @@ function init(aEvent)
     buttons.forEach(aBtn => { aBtn.setAttribute("locale", locale) });
     $("webpg-url").setAttribute("locale", locale);
     $("custom-icon-upload-btn").setAttribute("locale", locale);
+    $("set-password-dlg").setAttribute("locale", locale);
     
     $("reset-url").addEventListener("click", resetWebPageURL, false);
     $("reset-customizations").addEventListener("click", resetCustomizations, false);
@@ -138,13 +139,13 @@ function init(aEvent)
           && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
         setPref({ toolbarBtnIcon: aEvent.target.value });
 
-        let revContrCheckbox = $("rev-contrast-icon");
+        let revContrastChbox = $("rev-contrast-icon");
         
         if (aEvent.target.id == "custom-icon") {
-          revContrCheckbox.setAttribute("disabled", "true");
+          revContrastChbox.setAttribute("disabled", "true");
         }
         else {
-          revContrCheckbox.removeAttribute("disabled");
+          revContrastChbox.removeAttribute("disabled");
         }
       }
     }, false);
@@ -233,20 +234,21 @@ function init(aEvent)
 
     let toolbarBtnIcons = gPanicButton.getToolbarButtonIconLookup();
     let toolbarBtnIconID = toolbarBtnIcons[aPrefs.toolbarBtnIcon];
-
+    let revContrastChbox = $("rev-contrast-icon");
+    
     if (aPrefs.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
       let customIconRadio = $("custom-icon");
       customIconRadio.style.visibility = "visible";
       customIconRadio.checked = true;
       $("custom-icon-label").style.visibility = "visible";
       $("custom-icon-img").src = aPrefs.toolbarBtnData;
-      $("rev-contrast-icon").setAttribute("disabled", "true");
+      revContrastChbox.setAttribute("disabled", "true");
     }
     else {
       $(toolbarBtnIconID).checked = true;
     }
 
-    $("rev-contrast-icon").checked = aPrefs.toolbarBtnRevContrastIco;
+    revContrastChbox.checked = aPrefs.toolbarBtnRevContrastIco;
 
   }, onError);
 }
@@ -260,10 +262,6 @@ function initDialogs()
     $("hide-and-replc-rm-pswd").style.visibility = "hidden";
   }
 
-  if (gPanicButton.getOS() == "win") {
-    $("set-password-dlg").style.height = "354px";
-  }
-  
   gDialogs.setRestoreSessPswd = new aeDialog("#set-password-dlg");
   gDialogs.setRestoreSessPswd.onInit = () => {
     $("set-pswd-error").innerText = "";
@@ -439,9 +437,9 @@ function setCustomTBIcon(aEvent)
     customIconRadio.checked = true;
     $("custom-icon-img").setAttribute("src", imgData);
 
-    let reverseContrChbx = $("rev-contrast-icon");
-    reverseContrChbx.setAttribute("disabled", "true");
-    reverseContrChbx.checked = false;
+    let revContrastChbox = $("rev-contrast-icon");
+    revContrastChbox.setAttribute("disabled", "true");
+    revContrastChbox.checked = false;
 
     setPref({
       toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,

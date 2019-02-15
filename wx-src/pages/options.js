@@ -259,6 +259,10 @@ function initDialogs()
     $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("setPswd");
     $("hide-and-replc-rm-pswd").style.visibility = "hidden";
   }
+
+  if (gPanicButton.getOS() == "win") {
+    $("set-password-dlg").style.height = "354px";
+  }
   
   gDialogs.setRestoreSessPswd = new aeDialog("#set-password-dlg");
   gDialogs.setRestoreSessPswd.onInit = () => {

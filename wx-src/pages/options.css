@@ -275,8 +275,6 @@ input[type="file"] {
     top: 64px;
     padding-left: 28px;
     padding-right: 28px;
-    border: 1px solid #484848;
-    box-shadow: 0px 2px 8px 1px #303030cc;
     border-radius: 4px;
     font-size: 15px;
 }

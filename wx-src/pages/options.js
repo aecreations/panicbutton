@@ -201,35 +201,6 @@ function init(aEvent)
       gDialogs.removeRestoreSessPswd.showModal();
     });
 
-    let keySelectElt = $("panicbutton-key");
-    let keyModSelectElt = $("panicbutton-key-modifiers");
-    let keyModNoneOptElt = $("key-modifiers-none");
-    let allKeys = keySelectElt.options;
-    let allModifiers = keyModSelectElt.options;
-
-    for (let i = 0; i < allKeys.length; i++) {
-      if (allKeys[i].value == aPrefs.panicButtonKey) {
-        keySelectElt.selectedIndex = i;
-        break;
-      }
-    }
-
-    for (let i = 0; i < allModifiers.length; i++) {
-      if (allModifiers[i].value == aPrefs.panicButtonKeyMod) {
-        keyModSelectElt.selectedIndex = i;
-        break;
-      }
-    }
-
-    if (aPrefs.panicButtonKeyMod) {
-      gShctKeyModSelected = true;
-    }
-
-    if (keySelectElt.selectedIndex >= 12) {
-      // Don't allow selection of a non-function key without a modifier.
-      keyModNoneOptElt.style.display = "none";
-    }
-
     $("toolbar-button-caption").value = aPrefs.toolbarBtnLabel;
 
     let toolbarBtnIcons = gPanicButton.getToolbarButtonIconLookup();
@@ -250,6 +221,65 @@ function init(aEvent)
 
     revContrastChbox.checked = aPrefs.toolbarBtnRevContrastIco;
 
+    return browser.commands.getAll();
+
+  }).then(aCmds => {
+    let keySelectElt = $("panicbutton-key");
+    let keyModSelectElt = $("panicbutton-key-modifiers");
+    let keyModNoneOptElt = $("key-modifiers-none");
+    let allKeys = keySelectElt.options;
+    let allModifiers = keyModSelectElt.options;
+    let panicButtonKey, panicButtonKeyMod = "";
+    let keybShct = aCmds[0].shortcut;
+    let shctArr = keybShct.split("+");
+    let isSupportedKeyMod = false;
+
+    if (shctArr.length > 1) {
+      panicButtonKeyMod = keybShct.substring(0, keybShct.lastIndexOf("+"));
+      // TO DO: If on macOS, s/Command/Ctrl/.
+      // Note that on macOS, the CTRL key is "MacCtrl".
+    }
+    panicButtonKey = shctArr[shctArr.length - 1];
+
+    console.log("Keyboard shortcut for triggering Panic Button action:\nKey: " + panicButtonKey + ", key modifier(s): " + panicButtonKeyMod);
+    
+    for (let i = 0; i < allKeys.length; i++) {
+      if (allKeys[i].value == panicButtonKey) {
+        keySelectElt.selectedIndex = i;
+        break;
+      }
+    }
+
+    for (let i = 0; i < allModifiers.length; i++) {
+      if (allModifiers[i].value == panicButtonKeyMod) {
+        keyModSelectElt.selectedIndex = i;
+        isSupportedKeyMod = true;
+        break;
+      }
+    }
+
+    if (! isSupportedKeyMod) {
+      // When the keyboard shortcut modifier is not any of the combinations
+      // available in the drop-down menu, it may have been set in the Manage
+      // Extension Shortcuts page in Add-ons Manager (Firefox 66+).
+      $("panicbutton-key").style.display = "none";
+      $("panicbutton-key-modifiers").style.display = "none";
+
+      let externKeybShct = $("extern-keyb-shct");
+      externKeybShct.style.display = "inline";
+      externKeybShct.innerText = getFriendlyKeybShct(panicButtonKeyMod, panicButtonKey);
+      
+      $("shct-note").innerText = browser.i18n.getMessage("prefsOutsideShct");
+    }
+    
+    if (panicButtonKeyMod) {
+      gShctKeyModSelected = true;
+    }
+
+    if (keySelectElt.selectedIndex >= 12) {
+      // Don't allow selection of a non-function key without a modifier.
+      keyModNoneOptElt.style.display = "none";
+    }
   }, onError);
 }
 
@@ -449,6 +479,12 @@ function setCustomTBIcon(aEvent)
   });
 
   fileReader.readAsDataURL(imgFile);
+}
+
+
+function getFriendlyKeybShct(aShortcutKeyModifiers, aShortcutKey)
+{
+  return (`${aShortcutKeyModifiers}+${aShortcutKey}`);  // TEMPORARY
 }
 
 

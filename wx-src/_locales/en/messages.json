@@ -20,7 +20,7 @@
   },
 
   "cmdDesc": {
-    "message": "Panic Button"
+    "message": "Trigger Panic Button action"
   },
 
   "prefsPgTitle": {
@@ -131,7 +131,7 @@
   },
 
   "labelShortcutKey": {
-    "message": "Press these keys to invoke the Panic Button action:"
+    "message": "Press these keys to trigger the Panic Button action:"
   },
 
   "labelToolbarBtnCaption": {
@@ -156,6 +156,10 @@
 
   "prefsShortcutKeyNote": {
     "message": "Some of the available keyboard shortcuts may already be assigned to Firefox commands or other add\u2011ons."
+  },
+
+  "prefsOutsideShct": {
+    "message": "To change the keyboard shortcut, go to Manage Extension Shortcuts in Add-ons Manager."
   },
 
   "keyModAccelShift": {

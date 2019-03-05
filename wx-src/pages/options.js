@@ -236,13 +236,13 @@ function init(aEvent)
 
     if (shctArr.length > 1) {
       panicButtonKeyMod = keybShct.substring(0, keybShct.lastIndexOf("+"));
-      // TO DO: If on macOS, s/Command/Ctrl/.
-      // Note that on macOS, the CTRL key is "MacCtrl".
+      // On macOS, the CTRL key is "MacCtrl".
+      if (gPanicButton.getOS() == "mac") {
+        panicButtonKeyMod = panicButtonKeyMod.replace(/Command/, "Ctrl");
+      }
     }
     panicButtonKey = shctArr[shctArr.length - 1];
 
-    console.log("Keyboard shortcut for triggering Panic Button action:\nKey: " + panicButtonKey + ", key modifier(s): " + panicButtonKeyMod);
-    
     for (let i = 0; i < allKeys.length; i++) {
       if (allKeys[i].value == panicButtonKey) {
         keySelectElt.selectedIndex = i;

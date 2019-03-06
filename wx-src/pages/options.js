@@ -267,8 +267,7 @@ function init(aEvent)
 
       let externKeybShct = $("extern-keyb-shct");
       externKeybShct.style.display = "inline";
-      externKeybShct.innerText = getFriendlyKeybShct(panicButtonKeyMod, panicButtonKey);
-      
+      externKeybShct.innerText = getLocalizedKeybShct(panicButtonKeyMod, panicButtonKey);
       $("shct-note").innerText = browser.i18n.getMessage("prefsOutsideShct");
     }
     
@@ -482,9 +481,58 @@ function setCustomTBIcon(aEvent)
 }
 
 
-function getFriendlyKeybShct(aShortcutKeyModifiers, aShortcutKey)
+function getLocalizedKeybShct(aShortcutKeyModifiers, aShortcutKey)
 {
-  return (`${aShortcutKeyModifiers}+${aShortcutKey}`);  // TEMPORARY
+  let rv = "";
+  let isMacOS = gPanicButton.getOS() == "mac";
+  let keys = [
+    "Home", "End", "PageUp", "PageDown", "Space", "Insert", "Delete",
+    "Up", "Down", "Left", "Right"
+  ];
+  let localizedKey = "";
+
+  if (keys.includes(aShortcutKey)) {
+    if (aShortcutKey == "Delete" && isMacOS) {
+      localizedKey = browser.i18n.getMessage("keyMacDel");
+    }
+    else {
+      localizedKey = browser.i18n.getMessage(`key${aShortcutKey}`);
+    }
+  }
+  else {
+    localizedKey = aShortcutKey;
+  }
+
+  let modifiers = aShortcutKeyModifiers.split("+");
+  let localizedMods = "";
+
+  for (let i = 0; i < modifiers.length; i++) {
+    let modifier = modifiers[i];
+    let localzMod;
+    
+    if (isMacOS) {
+      if (modifier == "Alt") {
+        localzMod = browser.i18n.getMessage("keyOption");
+      }
+      else if (modifier == "Ctrl") {
+        localzMod = browser.i18n.getMessage("keyCommand");
+      }
+      else if (modifier == "Shift") {
+        localzMod = browser.i18n.getMessage("keyMacShift");
+      }
+      else {
+        localzMod = browser.i18n.getMessage(`key${modifier}`);
+      }
+    }
+    else {
+      localzMod = browser.i18n.getMessage(`key${modifier}`);
+      localzMod += "+";
+    }
+    localizedMods += localzMod;
+  }
+
+  rv = `${localizedMods}${localizedKey}`;
+  return rv;
 }
 
 

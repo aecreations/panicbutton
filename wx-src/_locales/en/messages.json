@@ -178,11 +178,11 @@
     "message": "\u21E7 + \u2325 +"
   },
 
-  "keyPgUp": {
+  "keyPageUp": {
     "message": "Page Up"
   },
 
-  "keyPgDown": {
+  "keyPageDown": {
     "message": "Page Down"
   },
 
@@ -220,6 +220,34 @@
 
   "keyMacDel": {
     "message": "Delete \u2326"
+  },
+
+  "keyShift": {
+    "message": "SHIFT"
+  },
+
+  "keyMacShift": {
+    "message": "\u21e7"
+  },
+
+  "keyCtrl": {
+    "message": "CTRL"
+  },
+
+  "keyCommand": {
+    "message": "\u2318"
+  },
+
+  "keyMacCtrl": {
+    "message": "\u2303"
+  },
+
+  "keyAlt": {
+    "message": "ALT"
+  },
+
+  "keyOption": {
+    "message": "\u2325"
   },
 
   "aboutBtn": {

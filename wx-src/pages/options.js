@@ -212,7 +212,16 @@ function init(aEvent)
       customIconRadio.style.visibility = "visible";
       customIconRadio.checked = true;
       $("custom-icon-label").style.visibility = "visible";
-      $("custom-icon-img").src = aPrefs.toolbarBtnData;
+
+      let canvas = $("custom-icon-img");
+      let canvasCtx = canvas.getContext("2d");
+      let img = new Image();
+
+      img.onload = function () {
+        canvasCtx.drawImage(this, 0, 0, 36, 36);
+      };
+      img.src = aPrefs.toolbarBtnData;
+      
       revContrastChbox.setAttribute("disabled", "true");
     }
     else {
@@ -458,23 +467,33 @@ function setCustomTBIcon(aEvent)
 
   let fileReader = new FileReader();
   fileReader.addEventListener("load", aEvent => {
-    let imgData = aEvent.target.result;
+    let encImgData = aEvent.target.result;
+    let canvas = $("custom-icon-img");
+    let canvasCtx = canvas.getContext("2d");
+    let img = new Image();
+    
+    img.onload = function () {
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+      canvasCtx.drawImage(this, 0, 0, 36, 36);
+
+      let scaledImgData = canvas.toDataURL("image/png");
+      setPref({
+        toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,
+        toolbarBtnData: scaledImgData,
+        toolbarBtnRevContrastIco: false,
+      });
+    };
+    
+    img.src = encImgData;   
 
     $("custom-icon-label").style.visibility = "visible";
     let customIconRadio = $("custom-icon");
     customIconRadio.style.visibility = "visible";
     customIconRadio.checked = true;
-    $("custom-icon-img").setAttribute("src", imgData);
 
     let revContrastChbox = $("rev-contrast-icon");
     revContrastChbox.setAttribute("disabled", "true");
     revContrastChbox.checked = false;
-
-    setPref({
-      toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,
-      toolbarBtnData: imgData,
-      toolbarBtnRevContrastIco: false,
-    });
   });
 
   fileReader.readAsDataURL(imgFile);

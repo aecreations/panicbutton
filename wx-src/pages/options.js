@@ -19,6 +19,8 @@ function $(aID)
 
 function init(aEvent)
 {
+  $("spinner").style.display = "block";
+  
   gActionDescs = [
     browser.i18n.getMessage("actDescHideAndReplace"),
     browser.i18n.getMessage("actDescMinimizeAll"),
@@ -288,6 +290,8 @@ function init(aEvent)
       // Don't allow selection of a non-function key without a modifier.
       keyModNoneOptElt.style.display = "none";
     }
+
+    $("spinner").style.display = "none";
   }, onError);
 }
 

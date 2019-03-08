@@ -114,6 +114,11 @@ fieldset select.browser-style {
     margin-left: 28px;
 }
 
+#spinner {
+    display: none;
+    margin-left: 28px;
+}
+
 #panicbutton-action-options {
     margin-left: 1.5em;
     margin-top: 8px;

@@ -243,6 +243,7 @@ function init(aEvent)
     let panicButtonKey, panicButtonKeyMod = "";
     let keybShct = aCmds[0].shortcut;
     let shctArr = keybShct.split("+");
+    let isSupportedKey = false;
     let isSupportedKeyMod = false;
 
     if (shctArr.length > 1) {
@@ -257,6 +258,7 @@ function init(aEvent)
     for (let i = 0; i < allKeys.length; i++) {
       if (allKeys[i].value == panicButtonKey) {
         keySelectElt.selectedIndex = i;
+        isSupportedKey = true;
         break;
       }
     }
@@ -269,8 +271,8 @@ function init(aEvent)
       }
     }
 
-    if (! isSupportedKeyMod) {
-      // When the keyboard shortcut modifier is not any of the combinations
+    if (!isSupportedKey || !isSupportedKeyMod) {
+      // When the keyboard shortcut or modifier are not any of the combinations
       // available in the drop-down menu, it may have been set in the Manage
       // Extension Shortcuts page in Add-ons Manager (Firefox 66+).
       $("panicbutton-key").style.display = "none";
@@ -523,7 +525,15 @@ function getLocalizedKeybShct(aShortcutKeyModifiers, aShortcutKey)
     }
   }
   else {
-    localizedKey = aShortcutKey;
+    if (aShortcutKey == "Period") {
+      localizedKey = ".";
+    }
+    else if (aShortcutKey == "Comma") {
+      localizedKey = ",";
+    }
+    else {
+      localizedKey = aShortcutKey;
+    }
   }
 
   let modifiers = aShortcutKeyModifiers.split("+");

@@ -20,7 +20,8 @@
   },
 
   "cmdDesc": {
-    "message": "Trigger Panic Button action"
+    "message": "Trigger Panic Button action",
+    "description": "Keyboard shortcut description in Manage Extension Shortcuts"
   },
 
   "prefsPgTitle": {
@@ -176,6 +177,10 @@
 
   "keyModAltShiftMac": {
     "message": "\u21E7 + \u2325 +"
+  },
+
+  "keySpace": {
+    "message": "Space"
   },
 
   "keyPageUp": {

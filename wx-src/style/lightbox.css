@@ -34,7 +34,7 @@
     top: calc(calc(100% - var(--height, var(--default-height))) / 2);
     
     padding: 16px;
-    background-color: white;
+    background-color: #fefefe;
     z-index: 1002;
 
     border: 1px solid #484848;

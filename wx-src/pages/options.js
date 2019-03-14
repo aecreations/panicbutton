@@ -30,7 +30,7 @@ function init(aEvent)
     return browser.history.deleteUrl({ url: window.location.href });
 
   }).then(() => {
-    $("action-detail-load-progress").value = 5;
+    window.setTimeout(function (aEvent) { $("action-detail-load-progress").value = 5 }, 10);
 
     initDialogs();
 
@@ -72,7 +72,11 @@ function init(aEvent)
 
     $("webpg-url").addEventListener("blur", aEvent => {
       let url = aEvent.target.value;
-      if (url.search(/^http/) == -1 && url != "") {
+      if (url == "") {
+        resetWebPageURL(aEvent);
+        return;
+      }
+      else if (url.search(/^http/) == -1 && url != "") {
         aEvent.target.value = "http://" + url;
         aEvent.target.select();
         aEvent.target.focus();

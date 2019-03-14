@@ -116,8 +116,8 @@ fieldset select.browser-style {
 
 #action-detail-load-progress {
     display: none;
-    width: 100%;
-    margin-left: 28px;
+    margin-left: 16px;
+    width: calc(100% - 32px);
 }
 
 #panicbutton-action-options {

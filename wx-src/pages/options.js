@@ -76,7 +76,7 @@ function init(aEvent)
         resetWebPageURL(aEvent);
         return;
       }
-      else if (url.search(/^http/) == -1 && url != "") {
+      if (url.search(/^http/) == -1) {
         aEvent.target.value = "http://" + url;
         aEvent.target.select();
         aEvent.target.focus();

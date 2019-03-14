@@ -15,7 +15,8 @@
     "message": "Panic Button"
   },
   "cmdDesc": {
-    "message": "Panic Button"
+    "message": "Panic Button Aktion",
+    "description": "Keyboard shortcut description in Manage Extension Shortcuts"
   },
   "prefsPgTitle": {
     "message": "Einstellungen"
@@ -119,6 +120,9 @@
   "prefsShortcutKeyNote": {
     "message": "Einige der verfügbaren Tastenkombinationen könnten bereits für andere Firefox Befehle oder Add‑ons in Verwendung sein."
   },
+  "prefsOutsideShct": {
+    "message": "Gehen Sie zu „Tastenkombinationen für Erweiterungen verwalten“ im Add-ons-Manager, um die Tastenkombination zu ändern."
+  },
   "keyModAccelShift": {
     "message": "Strg + Umschalt +"
   },
@@ -131,10 +135,13 @@
   "keyModAltShiftMac": {
     "message": "⇧ + ⌥ +"
   },
-  "keyPgUp": {
+  "keySpace": {
+    "message": "Leertaste"
+  },
+  "keyPageUp": {
     "message": "Bild hoch"
   },
-  "keyPgDown": {
+  "keyPageDown": {
     "message": "Bild runter"
   },
   "keyHome": {
@@ -163,6 +170,27 @@
   },
   "keyMacDel": {
     "message": "Löschen ⌦"
+  },
+  "keyShift": {
+    "message": "Umsch"
+  },
+  "keyMacShift": {
+    "message": "⇧"
+  },
+  "keyCtrl": {
+    "message": "Strg"
+  },
+  "keyCommand": {
+    "message": "⌘"
+  },
+  "keyMacCtrl": {
+    "message": "⌃"
+  },
+  "keyAlt": {
+    "message": "Alt"
+  },
+  "keyOption": {
+    "message": "⌥"
   },
   "aboutBtn": {
     "message": "Über…"

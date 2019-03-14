@@ -2,7 +2,6 @@
 
 EXT_VER=`./getver.pl`
 DIST_FILE=panicbutton-$(EXT_VER).zip
-DIST_DEST=../dist/
 EXCLUDE=*~ *\.pl \.devel *\.release Makefile
 
 

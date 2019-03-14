@@ -6,6 +6,7 @@
 
 let gIsInitialized = false;
 let gOS;
+let gHostAppVer;
 let gPrefs;
 let gHideAll = false;
 let gRestoreSessionWndID = null;
@@ -47,7 +48,7 @@ browser.runtime.onInstalled.addListener(aDetails => {
 
     setDefaultPrefs().then(() => {
       init();
-    })
+    });
   }
   else if (aDetails.reason == "update") {
     log("Panic Button/wx: Upgrading from version " + aDetails.previousVersion);
@@ -129,50 +130,61 @@ function init()
     return;
   }
 
-  browser.runtime.getBrowserInfo().then(aBrws => {
-    log(`Panic Button/wx: Host app: ${aBrws.name} ${aBrws.version}`);
-  });
+  let getBrwsInfo = browser.runtime.getBrowserInfo();
+  let getPlatInfo = browser.runtime.getPlatformInfo();
 
-  browser.runtime.getPlatformInfo().then(aPlatform => {
-    gOS = aPlatform.os;
-    log("Panic Button/wx: OS: " + gOS);
-  });
-  
-  browser.windows.onCreated.addListener(aWnd => {
-    log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-  });
-
-  browser.windows.onRemoved.addListener(aWndID => {
-    log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-    log("Closing window ID: " + aWndID);
-  });
-
-  browser.browserAction.onClicked.addListener(aTab => {
-    panic();
-  });
-
-  browser.commands.onCommand.addListener(aCmd => {
-    if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
-      panic();
-    }
-  });
-
-  browser.storage.onChanged.addListener((aChanges, aAreaName) => {
-    let changedPrefs = Object.keys(aChanges);
+  Promise.all([getBrwsInfo, getPlatInfo]).then(aResults => {
+    let brws = aResults[0];
+    let platform = aResults[1];
     
-    for (let pref of changedPrefs) {
-      gPrefs[pref] = aChanges[pref].newValue;
-    }
+    gHostAppVer = brws.version;
+    log(`Panic Button/wx: Host app: ${brws.name} ${gHostAppVer}`);
+
+    gOS = platform.os;
+    log("Panic Button/wx: OS: " + gOS);
+
+    browser.windows.onCreated.addListener(aWnd => {
+      log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
+    });
+
+    browser.windows.onRemoved.addListener(aWndID => {
+      log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
+      log("Closing window ID: " + aWndID);
+    });
+
+    browser.browserAction.onClicked.addListener(aTab => {
+      panic();
+    });
+
+    browser.commands.onCommand.addListener(aCmd => {
+      if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
+        panic();
+      }
+    });
+
+    browser.storage.onChanged.addListener((aChanges, aAreaName) => {
+      let changedPrefs = Object.keys(aChanges);
+      
+      for (let pref of changedPrefs) {
+        gPrefs[pref] = aChanges[pref].newValue;
+      }
+
+      setPanicButtonCustomizations();
+      setPanicButtonKeys();
+    });
 
     setPanicButtonCustomizations();
-    setPanicButtonKeys();
-  });
 
-  setPanicButtonCustomizations();
-
-  setPanicButtonKeys().then(() => {
-    gIsInitialized = true;
-    log("Panic Button/wx: Initialization complete.");
+    if (versionCompare(gHostAppVer, "66.0") < 0) {
+      setPanicButtonKeys().then(() => {
+        gIsInitialized = true;
+        log("Panic Button/wx: Initialized keyboard shortcut from user prefs.\nInitialization complete.");
+      });
+    }
+    else {
+      gIsInitialized = true;
+      log("Panic Button/wx: Initialization of keyboard shortcut is automatically handled in Firefox 66 and newer.\nInitialization complete.");
+    }
   });
 }
 

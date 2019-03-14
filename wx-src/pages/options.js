@@ -19,8 +19,6 @@ function $(aID)
 
 function init(aEvent)
 {
-  $("spinner").style.display = "block";
-  
   gActionDescs = [
     browser.i18n.getMessage("actDescHideAndReplace"),
     browser.i18n.getMessage("actDescMinimizeAll"),
@@ -32,7 +30,11 @@ function init(aEvent)
     return browser.history.deleteUrl({ url: window.location.href });
 
   }).then(() => {
+    $("action-detail-load-progress").value = 5;
+
     initDialogs();
+
+    $("action-detail-load-progress").value = 10;
 
     let os = gPanicButton.getOS();
     let keyModAccelShift, keyModAltShift;
@@ -56,6 +58,8 @@ function init(aEvent)
     $("webpg-url").setAttribute("locale", locale);
     $("custom-icon-upload-btn").setAttribute("locale", locale);
     $("set-password-dlg").setAttribute("locale", locale);
+
+    $("action-detail-load-progress").value = 20;
     
     $("reset-url").addEventListener("click", resetWebPageURL, false);
     $("reset-customizations").addEventListener("click", resetCustomizations, false);
@@ -135,6 +139,8 @@ function init(aEvent)
       gotoURL(aEvent.target.href);
     });
 
+    $("action-detail-load-progress").value = 40;
+
     // Catch-all click event listener
     document.addEventListener("click", aEvent => {
       if (aEvent.target.tagName == "INPUT"
@@ -166,6 +172,8 @@ function init(aEvent)
     return browser.storage.local.get();
 
   }).then(aPrefs => {
+    $("action-detail-load-progress").value = 50;
+
     $("panicbutton-action").selectedIndex = aPrefs.action;
     $("shortcut-key").checked = aPrefs.shortcutKey;
     $("webpg-url").value = aPrefs.replacementWebPgURL;
@@ -236,6 +244,8 @@ function init(aEvent)
     return browser.commands.getAll();
 
   }).then(aCmds => {
+    $("action-detail-load-progress").value = 75;
+
     let keySelectElt = $("panicbutton-key");
     let keyModSelectElt = $("panicbutton-key-modifiers");
     let keyModNoneOptElt = $("key-modifiers-none");
@@ -272,19 +282,25 @@ function init(aEvent)
       }
     }
 
+    $("action-detail-load-progress").value = 90;
+
     if (!isSupportedKey || !isSupportedKeyMod) {
       // When the keyboard shortcut or modifier are not any of the combinations
       // available in the drop-down menu, it may have been set in the Manage
       // Extension Shortcuts page in Add-ons Manager (Firefox 66+).
-      $("panicbutton-key").style.display = "none";
-      $("panicbutton-key-modifiers").style.display = "none";
-
       let externKeybShct = $("extern-keyb-shct");
       externKeybShct.style.display = "inline";
       externKeybShct.innerText = getLocalizedKeybShct(panicButtonKeyMod, panicButtonKey);
       $("shct-note").innerText = browser.i18n.getMessage("prefsOutsideShct");
     }
+    else {
+      $("panicbutton-key").style.display = "inline-block";
+      $("panicbutton-key-modifiers").style.display = "inline-block";
+      $("shct-note").innerText = browser.i18n.getMessage("prefsShortcutKeyNote");
+    }
     
+    $("action-detail-load-progress").value = 100;
+
     if (panicButtonKeyMod) {
       gShctKeyModSelected = true;
     }
@@ -294,7 +310,8 @@ function init(aEvent)
       keyModNoneOptElt.style.display = "none";
     }
 
-    $("spinner").style.display = "none";
+    $("action-detail-load-progress").style.display = "none";
+
   }, onError);
 }
 

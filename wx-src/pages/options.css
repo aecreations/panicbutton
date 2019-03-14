@@ -114,8 +114,9 @@ fieldset select.browser-style {
     margin-left: 28px;
 }
 
-#spinner {
+#action-detail-load-progress {
     display: none;
+    width: 100%;
     margin-left: 28px;
 }
 
@@ -168,6 +169,10 @@ fieldset select.browser-style {
     padding-left: 8px;
     padding-right: 8px;
     margin-right: 8px;
+}
+
+#panicbutton-key, #panicbutton-key-modifiers {
+    display: none;
 }
 
 #extern-keyb-shct {

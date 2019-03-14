@@ -98,8 +98,9 @@ function init(aEvent)
       }
 
       if (gShctKeyModSelected) {
-        browser.storage.local.set({ panicButtonKeyMod: keyModSelectElt.value }).then(() => {
-          browser.storage.local.set({ panicButtonKey: aEvent.target.value });
+        browser.storage.local.set({
+          panicButtonKeyMod: keyModSelectElt.value,
+          panicButtonKey: aEvent.target.value
         });
       }
       else {
@@ -537,6 +538,13 @@ function getLocalizedKeybShct(aShortcutKeyModifiers, aShortcutKey)
   }
 
   let modifiers = aShortcutKeyModifiers.split("+");
+
+  // On macOS, always put the primary modifier key (e.g. Command) at the end.
+  if (isMacOS && modifiers.length > 1 && modifiers[1] == "Shift") {
+    let modPrimary = modifiers.shift();
+    modifiers.push(modPrimary);
+  }
+
   let localizedMods = "";
 
   for (let i = 0; i < modifiers.length; i++) {

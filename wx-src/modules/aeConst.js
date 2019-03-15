@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 let aeConst = {
-  DEBUG: false,
+  DEBUG: true,
   
   // Extension GUID
   EXTENSION_ID: "{24cea704-946d-11da-a72b-0800200c9a66}",
@@ -15,6 +15,8 @@ let aeConst = {
   PANICBUTTON_ACTION_REPLACE: 0,
   PANICBUTTON_ACTION_MINIMIZE: 1,
   PANICBUTTON_ACTION_QUIT: 2,
+
+  CMD_PANIC_BUTTON_ACTION: "ae-panicbutton",
 
   DEFAULT_TOOLBAR_BTN_LABEL: "Panic Button",
   REPLACE_WEB_PAGE_DEFAULT_URL: "https://www.mozilla.org/firefox/",

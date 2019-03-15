@@ -170,7 +170,11 @@ function init()
       }
 
       setPanicButtonCustomizations();
-      setPanicButtonKeys();
+
+      if (versionCompare(gHostAppVer, "66.0") < 0) {
+        log("Panic Button/wx: User prefs changed; updating keyboard shortcut.");
+        setPanicButtonKeys();
+      }
     });
 
     setPanicButtonCustomizations();
@@ -248,7 +252,7 @@ async function setPanicButtonKeys()
   let shortcut = `${shortcutKeyMod}${gPrefs.panicButtonKey}`;
   
   await browser.commands.update({
-    name: "ae-panicbutton",
+    name: aeConst.CMD_PANIC_BUTTON_ACTION,
     shortcut,
   });
 }
@@ -436,6 +440,12 @@ async function removeRestoreSessPasswd()
   };
   
   await browser.storage.local.set(pswdPrefs);
+}
+
+
+function isDirectSetKeyboardShortcut()
+{
+  return (versionCompare(gHostAppVer, "66.0") >= 0);
 }
 
 

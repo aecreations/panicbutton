@@ -105,20 +105,58 @@ function init(aEvent)
         keyModNoneOptElt.style.display = "none";
       }
 
+      let key = aEvent.target.value;
+      let modifiers = keyModSelectElt.value;
+
       if (gShctKeyModSelected) {
+        if (gPanicButton.isDirectSetKeyboardShortcut()) {
+          let keybShct = `${modifiers}+${key}`;
+          log("Panic Button/wx::options.js: Keyboard shortcut changed. Updating command with new keyboard shortcut: " + keybShct);
+
+          browser.commands.update({
+            name: aeConst.CMD_PANIC_BUTTON_ACTION,
+            shortcut: keybShct
+          });
+          return;
+        }
+        // Firefox 65.0 and older.
         browser.storage.local.set({
-          panicButtonKeyMod: keyModSelectElt.value,
-          panicButtonKey: aEvent.target.value
+          panicButtonKeyMod: modifiers,
+          panicButtonKey: key
         });
       }
       else {
-        browser.storage.local.set({ panicButtonKey: aEvent.target.value });
+        if (gPanicButton.isDirectSetKeyboardShortcut()) {
+          log("Panic Button/wx::options.js: Keyboard shortcut changed. Updating command with new keyboard shortcut (no modifier keys): " + key);
+          browser.commands.update({
+            name: aeConst.CMD_PANIC_BUTTON_ACTION,
+            shortcut: key
+          });
+          return;
+        }
+        // Firefox 65.0 and older.
+        browser.storage.local.set({ panicButtonKey: key });
       }
     });
 
     $("panicbutton-key-modifiers").addEventListener("change", aEvent => {
-      gShctKeyModSelected = aEvent.target.value != "";
-      setPref({ panicButtonKeyMod: aEvent.target.value })
+      let modifiers = aEvent.target.value;
+      gShctKeyModSelected = modifiers != "";
+
+      if (gPanicButton.isDirectSetKeyboardShortcut()) {
+        let key = $("panicbutton-key").value;
+        let keybShct = modifiers ? `${modifiers}+${key}` : key;
+        
+        log("Panic Button/wx::options.js: Keyboard shortcut modifiers changed. Updating command with new keyboard shortcut: " + keybShct);
+
+        browser.commands.update({
+          name: aeConst.CMD_PANIC_BUTTON_ACTION,
+          shortcut: keybShct
+        });
+        return;
+      }
+      // Firefox 65.0 and older.
+      setPref({ panicButtonKeyMod: modifiers });
     });
 
     $("toolbar-button-caption").addEventListener("blur", aEvent => {
@@ -634,6 +672,12 @@ function gotoURL(aURL)
 function onError(aError)
 {
   console.error("Panic Button/wx: %s", aError);
+}
+
+
+function log(aMessage)
+{
+  if (aeConst.DEBUG) { console.log(aMessage); }
 }
 
 

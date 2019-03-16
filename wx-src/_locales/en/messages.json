@@ -228,7 +228,7 @@
   },
 
   "keyShift": {
-    "message": "SHIFT"
+    "message": "Shift"
   },
 
   "keyMacShift": {
@@ -236,7 +236,7 @@
   },
 
   "keyCtrl": {
-    "message": "CTRL"
+    "message": "Ctrl"
   },
 
   "keyCommand": {
@@ -248,7 +248,7 @@
   },
 
   "keyAlt": {
-    "message": "ALT"
+    "message": "Alt"
   },
 
   "keyOption": {

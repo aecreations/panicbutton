@@ -5,11 +5,18 @@
   "extDesc": {
     "message": "Cepat menyembunyikan semua jendela browser dengan klik tombol."
   },
+  "btnOK": {
+    "message": "Iya"
+  },
+  "btnCancel": {
+    "message": "Tidak"
+  },
   "defaultBtnLabel": {
     "message": "Tombol Panik"
   },
   "cmdDesc": {
-    "message": "Tombol Panik"
+    "message": "Mengaktifkan Tombol Panik",
+    "description": "Keyboard shortcut description in Manage Extension Shortcuts"
   },
   "prefsPgTitle": {
     "message": "Preferensi"
@@ -50,8 +57,50 @@
   "labelWebPgURL": {
     "message": "Lokasi Web (URL):"
   },
+  "setPswd": {
+    "message": "Atur kata sandi…"
+  },
+  "setPswdHdr": {
+    "message": "Atur kata sandi",
+    "description": "Dialog heading"
+  },
+  "setPswdDesc": {
+    "message": "Anda dapat mengatur kata sandi untuk memulihkan sesi browser ketika tombol panik sedang disembunyikan dan ganti."
+  },
+  "oldPswd": {
+    "message": "Kata sandi lama:"
+  },
+  "newPswd": {
+    "message": "Kata sandi baru:"
+  },
+  "confPswd": {
+    "message": "Konfirmasi kata sandi:"
+  },
+  "chgPswd": {
+    "message": "Ubah kata sandi…"
+  },
+  "removePswd": {
+    "message": "Hapus kata sandi…"
+  },
+  "chgPswdHdr": {
+    "message": "Ubah kata sandi",
+    "description": "Dialog heading"
+  },
+  "pswdPrmptHdr": {
+    "message": "Kata sandi diperlukan",
+    "description": "Password dialog header."
+  },
+  "pswdPrmpt": {
+    "message": "Masukkan kata sandi:"
+  },
+  "pswdWrong": {
+    "message": "Kata sandi salah."
+  },
+  "pswdMismatch": {
+    "message": "Kata sandi tidak cocok."
+  },
   "labelShortcutKey": {
-    "message": "Mengaktifkan tombol F9 untuk memohon tindakan tombol panik"
+    "message": "Tekan tombol ini untuk mengaktifkan tombol panik:"
   },
   "labelToolbarBtnCaption": {
     "message": "Keterangan tombol toolbar:"
@@ -60,12 +109,117 @@
     "message": "Ikon:"
   },
   "btnCustomIcon": {
-    "message": "Sesuaikan Ikon..."
+    "message": "Sesuaikan Ikon…"
   },
   "labelRevContrastTbIcon": {
     "message": "Ikon toolbar kontras terbalik"
   },
   "btnReset": {
     "message": "Atur ulang"
+  },
+  "prefsShortcutKeyNote": {
+    "message": "Beberapa pintasan keyboard yang tersedia mungkin sudah ditetapkan untuk perintah Firefox atau add-on lainnya."
+  },
+  "prefsOutsideShct": {
+    "message": "Untuk mengubah pintasan keyboard, pergi ke Kelola Pintasan Ekstensi di Pengelola Pengaya."
+  },
+  "keyModAccelShift": {
+    "message": "Ctrl + Shift +"
+  },
+  "keyModAccelShiftMac": {
+    "message": "⇧ + ⌘ +"
+  },
+  "keyModAltShift": {
+    "message": "Alt + Shift +"
+  },
+  "keyModAltShiftMac": {
+    "message": "⇧ + ⌥ +"
+  },
+  "keySpace": {
+    "message": "Spasi"
+  },
+  "keyPageUp": {
+    "message": "Page Up"
+  },
+  "keyPageDown": {
+    "message": "Page Down"
+  },
+  "keyHome": {
+    "message": "Home"
+  },
+  "keyEnd": {
+    "message": "End"
+  },
+  "keyLeft": {
+    "message": "Kiri"
+  },
+  "keyRight": {
+    "message": "Kanan"
+  },
+  "keyUp": {
+    "message": "Atas"
+  },
+  "keyDown": {
+    "message": "Bawah"
+  },
+  "keyIns": {
+    "message": "Insert"
+  },
+  "keyDel": {
+    "message": "Delete"
+  },
+  "keyMacDel": {
+    "message": "Delete ⌦"
+  },
+  "keyShift": {
+    "message": "SHIFT"
+  },
+  "keyMacShift": {
+    "message": "⇧"
+  },
+  "keyCtrl": {
+    "message": "CTRL"
+  },
+  "keyCommand": {
+    "message": "⌘"
+  },
+  "keyMacCtrl": {
+    "message": "⌃"
+  },
+  "keyAlt": {
+    "message": "ALT"
+  },
+  "keyOption": {
+    "message": "⌥"
+  },
+  "aboutBtn": {
+    "message": "Tentang…"
+  },
+  "aboutExtVer": {
+    "message": "versi $1",
+    "description": "Extension version number"
+  },
+  "aboutAuthor": {
+    "message": "Dibuat oleh AE Creations."
+  },
+  "aboutHomePgLink": {
+    "message": "Kunjungi halaman"
+  },
+  "aboutLicLink": {
+    "message": "Informasi lisensi"
+  },
+  "aboutTrans": {
+    "message": "Lokalisasi dibantu oleh para penerjemah Crowdin."
+  },
+  "restrSessCancel": {
+    "message": "Kembali",
+    "description": "Cancel button in the Restore Session Password page"
+  },
+  "restrSessAccept": {
+    "message": "Kembalikan Sesi Terakhir",
+    "description": "Accept button in the Restore Session Password page"
+  },
+  "msgUnknown": {
+    "message": "Tidak ada bantuan (jadi biarkan aku sendiri)."
   }
 }

@@ -2,11 +2,50 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-
 @import url("../style/laf.css");
 
+
+:root {
+    --url-bkgd-img: url("../img/bkgrd.png");
+    --color-bkgd: none;
+    --color-text-default: black;
+    --color-main-border: #ddd;
+    --color-main-bkgd: #fefefe;
+    --color-main-border-shadow: #e0e0e0;
+    --color-fieldset-border: #d7d7db;
+    --color-dlg-fieldset-border: #d7d7db;
+    --color-about-btn-bkgd: #f9f9fa;
+    --color-about-btn-bkgd-hover: #ededf0;
+    --color-about-btn-bkgd-active: #d7d7db;
+    --color-about-btn-border: #ededf0;
+    --color-about-btn-border-hover: #ededf0;
+    --color-about-btn: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+	--url-bkgd-img: none;
+	--color-bkgd: #1a1a1e;
+	--color-text-default: #f9f9fa;
+	--color-main-border: #0c0c0d;
+	--color-main-bkgd: #2a2a2e;
+	--color-main-border-shadow: #0c0c0d;
+	--color-fieldset-border: #4a4a4f;
+	--color-dlg-fieldset-border: #d7d7db;
+	--color-about-btn-bkgd: #2a2a2e;
+	--color-about-btn-bkgd-hover: #38383d;
+	--color-about-btn-bkgd-active: #4a4a4f;
+	--color-about-btn-border: #4a4a4f;
+	--color-about-btn-border-hover: #b1b1b3;
+	--color-about-btn: #f9f9fa;
+    }
+}
+
+
 body {
-    background-image: url("../img/bkgrd.png");
+    background-color: var(--color-bkgd);
+    background-image: var(--url-bkgd-img);
+    color: var(--color-text-default);
 }
 
 main {
@@ -15,8 +54,8 @@ main {
     padding: 16px;
     border: 1px solid #ddd;
     border-radius: 2px;
-    box-shadow: 0 0 8px 2px #e0e0e0;
-    background-color: #fefefe;
+    box-shadow: 0 0 8px 2px var(--color-main-border-shadow);
+    background-color: var(--color-main-bkgd);
 }
 
 #addon-icon {
@@ -55,7 +94,7 @@ select {
 fieldset {
     padding-top: 4px;
     padding-bottom: 12px;
-    border-top: 1px solid #d7d7db;
+    border-top: 1px solid var(--color-fieldset-border);
     border-right: 0;
     border-bottom: 0;
     border-left: 0;
@@ -234,10 +273,10 @@ input[type="file"] {
 
 #custom-icon-upload-btn {
     padding: 4px 16px 4px 16px;
-    border: 1px solid rgba(12, 12, 13, 0.1);
+    border: 1px solid var(--color-btn-border);
     border-radius: 2px;
     box-shadow: 0 0 0 0 transparent;
-    background-color: rgba(12, 12, 13, 0.1);
+    background-color: var(--color-btn-bkgd);
 
     transition-duration: 250ms;
     transition-property: box-shadow, border;
@@ -249,12 +288,12 @@ input[type="file"] {
 }
 
 #custom-icon-upload-btn:hover {
-    background-color: rgba(12, 12, 13, 0.2);
-    border: 1px solid #b1b1b1;
+    background-color: var(--color-btn-hover-bkgd);
+    border: 1px solid var(--color-btn-hover-border);
 }
 
 #custom-icon-upload-btn:active {
-    background-color: rgba(12, 12, 13, 0.3);
+    background-color: var(--color-btn-active-bkgd);
     border: 1px solid rgba(12, 12, 13, 0.3);
 }
 
@@ -270,22 +309,23 @@ input[type="file"] {
 #about-btn {
     float: right;
     height: unset;
-    border: 1px solid #ededf0;
+    border: 1px solid var(--color-about-btn-border);
     padding: 2px 8px;
     border-radius: 3px;
     font-size: 11px;
     font-weight: 400;
-    background-color: #f9f9fa;
+    background-color: var(--color-about-btn-bkgd);
+    color: var(--color-about-btn);
 }
 
 #about-btn:hover {
-    border: 1px solid #b1b1b1;
-    background-color: #ededf0;
+    border: 1px solid var(--color-about-btn-border-hover);
+    background-color: var(--color-about-btn-bkgd-hover);
 }
 
 #about-btn:active {   
     border: 1px solid #b1b1b3;
-    background-color: #d7d7db;
+    background-color: var(--color-about-btn-bkgd-active);
 }
 
 .lightbox {
@@ -423,7 +463,7 @@ input[type="file"] {
 #about-dlg hr {
     margin-top: 10px;
     margin-bottom: 10px;
-    border-top: 1px solid #b1b1b3;
+    border-top: 1px solid var(--color-dlg-fieldset-border);
     color: #b1b1b3;
 }
 

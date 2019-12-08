@@ -51,57 +51,70 @@ browser.runtime.onInstalled.addListener(aDetails => {
     });
   }
   else if (aDetails.reason == "update") {
-    log("Panic Button/wx: Upgrading from version " + aDetails.previousVersion);
-
     let oldVer = aDetails.previousVersion;
+    let currVer = browser.runtime.getManifest().version;
+    
+    log(`Panic Button/wx: Upgrading from version ${oldVer} to ${currVer}`);
 
     browser.storage.local.get().then(aPrefs => {
       gPrefs = aPrefs;
 
-      if (versionCompare(oldVer, "4.1") < 0) {
-        let newPrefs = {
-          panicButtonKey: "F9",
-          panicButtonKeyMod: "",
-          restoreSessPswdEnabled: false,
-          restoreSessPswd: null,
-        };
-
-        for (let pref in newPrefs) {
-          gPrefs[pref] = newPrefs[pref];
-        }
-
-        browser.storage.local.set(newPrefs).then(() => {
-          init();
-        });
+      if (! hasSantaCruzPrefs()) {
+        log("Initializing 4.1 user preferences");
+        return setSantaCruzPrefs();
       }
-      else {
-        init();
+      return null;
+
+    }).then(() => {
+      if (! hasSantaRosaPrefs()) {
+        log("Initializing 4.2 user preferences.");
+        return setSantaRosaPrefs();
       }
+      return null;
+
+    }).then(() => {
+      init();
     });
   }
 });
 
 
-//
-// Initializing integration with host application
-//
+function hasSantaCruzPrefs()
+{
+  // Version 4.1
+  return gPrefs.hasOwnProperty("restoreSessPswdEnabled");
+}
 
-browser.runtime.onStartup.addListener(() => {
-  log("Panic Button/wx: Initializing Panic Button during browser startup.");
 
-  browser.storage.local.get().then(aPrefs => {
-    if ("action" in aPrefs) {
-      gPrefs = aPrefs;
-      init();
-    }
-    else {
-      log("Panic Button/wx: No user preferences were previously set.  Setting default user preferences.");
-      setDefaultPrefs().then(() => {
-        init();
-      });
-    }
-  });
-});
+async function setSantaCruzPrefs()
+{
+  let newPrefs = {
+    panicButtonKey: "F9",
+    panicButtonKeyMod: "",
+    restoreSessPswdEnabled: false,
+    restoreSessPswd: null,
+  };
+
+  for (let pref in newPrefs) {
+    gPrefs[pref] = newPrefs[pref];
+  }
+
+  await browser.storage.local.set(newPrefs);
+}
+
+
+function hasSantaRosaPrefs()
+{
+  // Version 4.2
+  return false;
+}
+
+
+async function setSantaRosaPrefs()
+{
+  // TEMPORARY
+  return null;
+}
 
 
 async function setDefaultPrefs()
@@ -122,6 +135,21 @@ async function setDefaultPrefs()
   gPrefs = aePanicButtonPrefs;
   await browser.storage.local.set(aePanicButtonPrefs);
 }
+
+
+
+//
+// Initializing integration with host application
+//
+
+browser.runtime.onStartup.addListener(() => {
+  log("Panic Button/wx: Initializing Panic Button during browser startup.");
+
+  browser.storage.local.get().then(aPrefs => {
+    gPrefs = aPrefs;
+    init();
+  });
+});
 
 
 function init()

@@ -30,11 +30,7 @@ function init(aEvent)
     return browser.history.deleteUrl({ url: window.location.href });
 
   }).then(() => {
-    window.setTimeout(function (aEvent) { $("action-detail-load-progress").value = 5 }, 10);
-
     initDialogs();
-
-    $("action-detail-load-progress").value = 10;
 
     let os = gPanicButton.getOS();
     let keyModAccelShift, keyModAltShift;
@@ -59,14 +55,27 @@ function init(aEvent)
     $("custom-icon-upload-btn").setAttribute("locale", locale);
     $("set-password-dlg").setAttribute("locale", locale);
 
-    $("action-detail-load-progress").value = 20;
-    
     $("reset-url").addEventListener("click", resetWebPageURL, false);
     $("reset-customizations").addEventListener("click", resetCustomizations, false);
     $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
 
-    $("panicbutton-action").addEventListener("change", aEvent => {
-      updatePanicButtonActionDesc();
+    $("panic-action-hide-and-replace").addEventListener("click", aEvent => {
+      document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "none";
+      document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "block";
+      setPref({ action: aEvent.target.value });
+    });
+
+    $("panic-action-minimize-all").addEventListener("click", aEvent => {
+      document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "none";
+      document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "block";
+      setPref({ action: aEvent.target.value });
+    });
+
+    $("panic-action-close-all").addEventListener("click", aEvent => {
+      let allActionOpts = document.querySelectorAll(".panic-action-options");
+      allActionOpts.forEach(aActionOpt => {
+        aActionOpt.style.display = "none";
+      });
       setPref({ action: aEvent.target.value });
     });
 
@@ -181,8 +190,6 @@ function init(aEvent)
       gotoURL(aEvent.target.href);
     });
 
-    $("action-detail-load-progress").value = 40;
-
     // Catch-all click event listener
     document.addEventListener("click", aEvent => {
       if (aEvent.target.tagName == "INPUT"
@@ -214,20 +221,15 @@ function init(aEvent)
     return browser.storage.local.get();
 
   }).then(aPrefs => {
-    $("action-detail-load-progress").value = 50;
+    let panicActions = document.getElementsByName("panic-action");
+    let panicActionRadio = panicActions[aPrefs.action];
+    panicActionRadio.checked = true;
+    if (aPrefs.action != aeConst.PANICBUTTON_ACTION_QUIT) {
+      panicActionRadio.parentNode.getElementsByClassName("panic-action-options")[0].style.display = "block";
+    }
 
-    $("panicbutton-action").selectedIndex = aPrefs.action;
     $("shortcut-key").checked = aPrefs.shortcutKey;
     $("webpg-url").value = aPrefs.replacementWebPgURL;
-
-    let actionDescTextNode = document.createTextNode(gActionDescs[aPrefs.action]);
-    $("panicbutton-action-desc").appendChild(actionDescTextNode);
-
-    if (aPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
-      $("panicbutton-action-options-hide-and-replace").style.display = "block";
-      $("private-browsing-warning").innerText = browser.i18n.getMessage("notPrivBrws");
-      $("private-browsing-warning-icon").style.display = "inline-block";
-    }
 
     let setPswd = $("hide-and-replc-set-pswd");
     let rmPswd = $("hide-and-replc-rm-pswd");   
@@ -286,8 +288,6 @@ function init(aEvent)
     return browser.commands.getAll();
 
   }).then(aCmds => {
-    $("action-detail-load-progress").value = 75;
-
     let keySelectElt = $("panicbutton-key");
     let keyModSelectElt = $("panicbutton-key-modifiers");
     let keyModNoneOptElt = $("key-modifiers-none");
@@ -324,8 +324,6 @@ function init(aEvent)
       }
     }
 
-    $("action-detail-load-progress").value = 90;
-
     if (!isSupportedKey || !isSupportedKeyMod) {
       // When the keyboard shortcut or modifier are not any of the combinations
       // available in the drop-down menu, it may have been set in the Manage
@@ -341,8 +339,6 @@ function init(aEvent)
       $("shct-note").innerText = browser.i18n.getMessage("prefsShortcutKeyNote");
     }
     
-    $("action-detail-load-progress").value = 100;
-
     if (panicButtonKeyMod) {
       gShctKeyModSelected = true;
     }
@@ -351,10 +347,7 @@ function init(aEvent)
       // Don't allow selection of a non-function key without a modifier.
       keyModNoneOptElt.style.display = "none";
     }
-
-    $("action-detail-load-progress").style.display = "none";
-
-  }, onError);
+  });
 }
 
 

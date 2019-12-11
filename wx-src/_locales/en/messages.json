@@ -32,8 +32,12 @@
     "message": "Preferences"
   },
 
-  "prefsGeneral": {
-    "message": "Options"
+  "prefsAction": {
+    "message": "Panic Button Action"
+  },
+
+  "prefsKeybd": {
+    "message": "Keyboard Shortcut"
   },
 
   "prefsCustomize": {
@@ -49,7 +53,7 @@
   },
 
   "actDescHideAndReplace": {
-    "message": "Replaces the browser session with a single window displaying a web page at the location below.  Click the Panic Button again to restore your browser session."
+    "message": "Replaces the browser session with a single window displaying a web page at a set location.  Click the Panic Button again to restore your browser session."
   },
 
   "actMinimizeAll": {
@@ -57,7 +61,7 @@
   },
 
   "actDescMinimizeAll": {
-    "message": "Minimizes all browser windows."
+    "message": "Minimizes all browser windows.  Optionally opens a single window displaying a web page at a set location."
   },
 
   "actCloseAll": {

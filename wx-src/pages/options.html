@@ -21,35 +21,45 @@
 	<button id="about-btn" data-i18n="aboutBtn"></button>
       </div>
 
-      <fieldset id="prefs-general">
-        <legend data-i18n="prefsGeneral"></legend>
+      <fieldset id="prefs-action">
+        <legend data-i18n="prefsAction"></legend>
 
-	<label for="panicbutton-action" data-i18n="labelPanicBtnAction"></label>
-	<select id="panicbutton-action" class="browser-style"
-	 name="panicbutton-action">
-	  <option value="0" data-i18n="actHideAndReplace"></option>
-	  <option value="1" data-i18n="actMinimizeAll"></option>
-	  <option value="2" data-i18n="actCloseAll"></option>
-	</select>
-
-	<div id="panicbutton-action-detail">
-	  <progress id="action-detail-load-progress" value="0" max="100"></progress>
-	  <div id="panicbutton-action-desc" class="description"></div>
-	  <img id="private-browsing-warning-icon" src="chrome://global/skin/icons/warning.svg"/>
-	  <label id="private-browsing-warning"></label>
-
-	  <div id="panicbutton-action-options">
-	    <div id="panicbutton-action-options-hide-and-replace">
-	      <label for="webpg-url" data-i18n="labelWebPgURL"></label>
-	      <input type="text" id="webpg-url">
-	      <button id="reset-url" data-i18n="btnReset"></button>
-	      <div id="hide-and-replace-pswd">
-		<button id="hide-and-replc-set-pswd" data-i18n="setPswd"></button>
-		<button id="hide-and-replc-rm-pswd" data-i18n="removePswd"></button>
-	      </div>
+        <div class="action-radio-opt browser-style">
+	  <input type="radio" id="panic-action-hide-and-replace" name="panic-action" value="0"/>
+	  <label for="panic-action-hide-and-replace" data-i18n="actHideAndReplace"></label>
+	  <div class="panic-action-desc" data-i18n="actDescHideAndReplace"></div>
+	  <div id="panic-action-hide-and-replace-warning">
+	    <img id="private-browsing-warning-icon" src="chrome://global/skin/icons/warning.svg"/>
+	    <label id="private-browsing-warning" data-i18n="notPrivBrws"></label>
+	  </div>
+	  <div class="panic-action-options indent">
+	    <label for="webpg-url" data-i18n="labelWebPgURL"></label>
+	    <input type="text" id="webpg-url">
+	    <button id="reset-url" data-i18n="btnReset"></button>
+	    <div id="hide-and-replace-pswd">
+	      <button id="hide-and-replc-set-pswd" data-i18n="setPswd"></button>
+	      <button id="hide-and-replc-rm-pswd" data-i18n="removePswd"></button>
 	    </div>
 	  </div>
 	</div>
+        <div class="action-radio-opt browser-style">
+	  <input type="radio" id="panic-action-minimize-all" name="panic-action" value="1">
+	  <label for="panic-action-minimize-all" data-i18n="actMinimizeAll"></label>
+	  <div class="panic-action-desc" data-i18n="actDescMinimizeAll"></div>
+	  <div class="panic-action-options">
+	    <!-- TO DO: Options for Minimize All Windows -->
+	  </div>
+	</div>
+        <div class="action-radio-opt browser-style">
+	  <input type="radio" id="panic-action-close-all" name="panic-action" value="2">
+	  <label for="panic-action-close-all" data-i18n="actCloseAll"></label>
+	  <div class="panic-action-desc" data-i18n="actDescCloseAll"></div>
+	</div>
+
+      </fieldset>
+
+      <fieldset id="prefs-keyboard-shct">
+        <legend data-i18n="prefsKeybd"></legend>
 
 	<div class="row browser-style" style="margin-top:8px">
 	  <input type="checkbox" id="shortcut-key"><label for="shortcut-key" data-i18n="labelShortcutKey"></label><span id="extern-keyb-shct"></span>

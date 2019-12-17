@@ -299,21 +299,16 @@ function panic()
     return;
   }
   
-  // TO DO: Get the setting directly from `gPrefs`. No need to do this.
-  browser.storage.local.get().then(aResult => {
-    let action = aResult.action;
-    
-    if (action == aeConst.PANICBUTTON_ACTION_REPLACE) {
-      let replacementURL = aResult.replacementWebPgURL;
-      closeAll(true, replacementURL);
-    }
-    else if (action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
-      minimizeAll();
-    }
-    else if (action == aeConst.PANICBUTTON_ACTION_QUIT) {
-      closeAll(false);
-    }
-  }, onError);
+  if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
+    let replacementURL = gPrefs.replacementWebPgURL;
+    closeAll(true, replacementURL);
+  }
+  else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
+    minimizeAll();
+  }
+  else if (gPrefs.ction == aeConst.PANICBUTTON_ACTION_QUIT) {
+    closeAll(false);
+  }
 }
 
 
@@ -321,15 +316,19 @@ function restoreBrowserSession()
 {
   browser.sessions.getRecentlyClosed().then(aSessions => {
     if (aSessions.length == 0) {
-      warn("No sessions found");
+      warn("Panic Button/wx: restoreBrowserSession(): No sessions found");
       return;
     }
 
-    log(`Number of sessions available: ${aSessions.length}`);
+    log(`Panic Button/wx: restoreBrowserSession(): Number of sessions available: ${aSessions.length}`);
     log(`Number of windows to restore: ${gNumClosedWnds}`);
+    log("Session data:");
+    log(aSessions);
     log("Restoring browser session...");
+
+    let restoredSessions = [];
       
-    for (let i = 0; i < gNumClosedWnds; i++) {
+    for (let i = 0; i < aSessions.length; i++) {
       let sess = aSessions[i];
       
       if (! sess) {
@@ -344,25 +343,33 @@ function restoreBrowserSession()
       else {
         sessID = sess.window.sessionId;
       }
+      log("Panic Button/wx: restoreBrowserSession(): Restoring session ID: " + sessID);
+
+      restoredSessions.push(browser.sessions.restore(sessID));
+    }
+
+    Promise.all(restoredSessions).then(aResults => {
+      // TO DO: This doesn't get executed
+
+      log("Panic Button/wx: Finished restoring browser sessions. Result:");
+      log(aResults);
+
+      gNumClosedWnds = 0;
       
-      let restoreSession = browser.sessions.restore(sessID);
-      restoreSession.then(aRestoredSession => {
-        log("Restored session: " + sessID);
-      }, onError);
-    }
-            
-    gNumClosedWnds = 0;
-    
-    if (gReplaceSession) {
-      log("Panic Button/wx: Closing replacement browser window");
-      let replacemtWnd = browser.windows.get(gReplacemtWndID);
-      replacemtWnd.then(aWnd => {
-        browser.windows.remove(aWnd.id);
-        gReplacemtWndID = null;
-        gReplaceSession = false;
-      }, onError);
-    }
-  }, onError);
+      if (gReplaceSession) {
+        log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
+        let replacemtWnd = browser.windows.get(gReplacemtWndID);
+        replacemtWnd.then(aWnd => {
+          browser.windows.remove(aWnd.id);
+          gReplacemtWndID = null;
+          gReplaceSession = false;
+        });
+      }
+    }).catch(aErr => {
+      // TO DO: This doesn't get executed, either.
+      console.error("Panic Button/wx: Error restoring session " + sessID + ":\n" + aErr);
+    });            
+  });
 }
 
 
@@ -393,7 +400,10 @@ function closeAll(aSaveSession, aReplacementURL)
     let openWnd = browser.windows.create({
       url: aReplacementURL
     });
-    openWnd.then(aWnd => { gReplacemtWndID = aWnd.id; }, onError);
+    openWnd.then(aWnd => {
+      gReplacemtWndID = aWnd.id;
+      log("Window ID of temporary replacement window: " + gReplacemtWndID);
+    });
   }
   
   let getAllWnd = browser.windows.getAll();
@@ -406,7 +416,6 @@ function closeAll(aSaveSession, aReplacementURL)
         continue;
       }
       
-      log("Closing window " + wnd.id);
       browser.windows.remove(wnd.id);
 
       if (aSaveSession) {

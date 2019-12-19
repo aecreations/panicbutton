@@ -13,6 +13,9 @@ let gRestoreSessionWndID = null;
 let gReplaceSession = false;
 let gReplacemtWndID = null;
 let gNumClosedWnds = 0;
+let gShowCamouflageWnd = false;
+let gCamouflageWndID = null;
+let gMinimizedWndStates = [];
 
 let gToolbarBtnIcons = [
   "default",
@@ -106,14 +109,22 @@ async function setSantaCruzPrefs()
 function hasSantaRosaPrefs()
 {
   // Version 4.2
-  return false;
+  return gPrefs.hasOwnProperty("showCamouflageWebPg");
 }
 
 
 async function setSantaRosaPrefs()
 {
-  // TEMPORARY
-  return null;
+  let newPrefs = {
+    showCamouflageWebPg: false,
+    camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
+  };
+
+  for (let pref in newPrefs) {
+    gPrefs[pref] = newPrefs[pref];
+  }
+
+  await browser.storage.local.set(newPrefs);
 }
 
 
@@ -130,6 +141,8 @@ async function setDefaultPrefs()
     replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
     restoreSessPswdEnabled: false,
     restoreSessPswd: null,
+    showCamouflageWebPg: false,
+    camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
   };
 
   gPrefs = aePanicButtonPrefs;
@@ -288,7 +301,6 @@ async function setPanicButtonKeys()
 
 function panic()
 {
-  
   if (gReplaceSession) {
     if (gPrefs.restoreSessPswdEnabled) {
       browser.tabs.update({ url: "pages/restoreSession.html" });
@@ -296,21 +308,44 @@ function panic()
     else {
       restoreBrowserSession();
     }
-    return;
   }
-  
-  if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
-    let replacementURL = gPrefs.replacementWebPgURL;
-    closeAll(true, replacementURL);
+  else if (gShowCamouflageWnd) {
+    restoreBrowserWindowState();
+    gShowCamouflageWnd = false;
   }
-  else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
-    minimizeAll();
-  }
-  else if (gPrefs.ction == aeConst.PANICBUTTON_ACTION_QUIT) {
-    closeAll(false);
+  else {
+    if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
+      let replacementURL = gPrefs.replacementWebPgURL;
+      closeAll(true, replacementURL);
+    }
+    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
+      minimizeAll();
+    }
+    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
+      closeAll(false);
+    }
   }
 }
 
+
+function restoreBrowserWindowState()
+{
+  if (gShowCamouflageWnd) {
+    browser.windows.remove(gCamouflageWndID);
+    gCamouflageWndID = null;
+  }
+  
+  while (gMinimizedWndStates.length > 0) {
+    let minzWnd = gMinimizedWndStates.pop();
+
+    browser.windows.get(minzWnd.id).then(aWnd => {
+      // Confirm that the minimized window still exists.
+      browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
+    }).catch(aErr => {
+      warn("Panic Button/wx: Window ID no longer valid (was it just closed?): " + minzWnd.id);
+    });
+  }
+}
 
 function restoreBrowserSession()
 {
@@ -349,7 +384,7 @@ function restoreBrowserSession()
     }
 
     Promise.all(restoredSessions).then(aResults => {
-      // TO DO: This doesn't get executed
+      // !! BUG (Firefox 71+): This doesn't get executed
 
       log("Panic Button/wx: Finished restoring browser sessions. Result:");
       log(aResults);
@@ -366,7 +401,7 @@ function restoreBrowserSession()
         });
       }
     }).catch(aErr => {
-      // TO DO: This doesn't get executed, either.
+      // !! BUG (Firefox 71+): This doesn't get executed either.
       console.error("Panic Button/wx: Error restoring session " + sessID + ":\n" + aErr);
     });            
   });
@@ -377,15 +412,25 @@ function minimizeAll()
 {
   log("Panic Button/wx: Invoked function minimizeAll()");
 
-  let getAllWnd = browser.windows.getAll();
-  getAllWnd.then(aWnds => {
+  browser.windows.getAll().then(aWnds => {
     for (let wnd of aWnds) {
-      let updateWnd = browser.windows.update(wnd.id, { state: "minimized" });
-      updateWnd.then(() => {
+      gMinimizedWndStates.push({
+        id: wnd.id,
+        wndState: wnd.state,
+      });
+      browser.windows.update(wnd.id, { state: "minimized" }).then(() => {
         log("Minimized window: " + wnd.id);
-      }, onError);
+      });
     }
-  }, onError);
+  });
+
+  if (gPrefs.showCamouflageWebPg) {
+    browser.windows.create({ url: gPrefs.camouflageWebPgURL }).then(aWnd => {
+      info("Panic Button/wx: Camouflage window: ID: " + aWnd.id);
+      gCamouflageWndID = aWnd.id;
+      gShowCamouflageWnd = true;
+    });
+  }
 }
 
 
@@ -397,17 +442,13 @@ function closeAll(aSaveSession, aReplacementURL)
   if (aSaveSession && aReplacementURL) {
     gReplaceSession = true;
 
-    let openWnd = browser.windows.create({
-      url: aReplacementURL
-    });
-    openWnd.then(aWnd => {
+    browser.windows.create({ url: aReplacementURL }).then(aWnd => {
       gReplacemtWndID = aWnd.id;
-      log("Window ID of temporary replacement window: " + gReplacemtWndID);
+      info("Window ID of temporary replacement window: " + gReplacemtWndID);
     });
   }
   
-  let getAllWnd = browser.windows.getAll();
-  getAllWnd.then(aWnds => {
+  browser.windows.getAll().then(aWnds => {
     for (let wnd of aWnds) {
       if (gReplaceSession && wnd.id == gReplacemtWndID) {
         continue;
@@ -422,7 +463,7 @@ function closeAll(aSaveSession, aReplacementURL)
         gNumClosedWnds++;
       }
     }
-  }, onError);
+  });
 }
 
 

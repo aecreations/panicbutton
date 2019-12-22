@@ -196,9 +196,12 @@ fieldset select.browser-style {
     vertical-align: text-top;
 }
 
+#webpg-url, #minz-all-camouflage-webpg-url {
+    margin-right: 8px;
+}
+
 #webpg-url {
     width: 300px;
-    margin-right: 8px;
 }
 
 #webpg-url[locale="de"] {
@@ -214,6 +217,18 @@ fieldset select.browser-style {
     padding-left: 8px;
     padding-right: 8px;
     margin-right: 8px;
+}
+
+#minz-all-camouflage-webpg {
+    margin-top: 4px;
+}
+
+#minz-all-camouflage-webpg-url {
+    width: 270px;
+}
+
+#minz-all-restore-from-camo-instr {
+    margin-top: 6px;
 }
 
 #panicbutton-key, #panicbutton-key-modifiers {

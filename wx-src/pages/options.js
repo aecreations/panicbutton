@@ -27,9 +27,8 @@ function init(aEvent)
   
   browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {
     gPanicButton = aBkgrdPgWnd;
-    return browser.history.deleteUrl({ url: window.location.href });
+    browser.history.deleteUrl({ url: window.location.href });
 
-  }).then(() => {
     initDialogs();
 
     let os = gPanicButton.getOS();
@@ -55,7 +54,8 @@ function init(aEvent)
     $("custom-icon-upload-btn").setAttribute("locale", locale);
     $("set-password-dlg").setAttribute("locale", locale);
 
-    $("reset-url").addEventListener("click", resetWebPageURL, false);
+    $("reset-url").addEventListener("click", resetReplacemtWebPageURL, false);
+    $("minz-all-camouflage-reset-url").addEventListener("click", resetMinzAllCamouflageWebPageURL, false);
     $("reset-customizations").addEventListener("click", resetCustomizations, false);
     $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
 
@@ -65,10 +65,37 @@ function init(aEvent)
       setPref({ action: aEvent.target.value });
     });
 
+    $("webpg-url").addEventListener("blur", aEvent => {
+      let url = aEvent.target.value;
+      if (url == "") {
+        resetReplacemtWebPageURL(aEvent);
+        return;
+      }
+      validateURLTextbox(aEvent.target);
+      setPref({ replacementWebPgURL: aEvent.target.value });
+    });
+    
     $("panic-action-minimize-all").addEventListener("click", aEvent => {
       document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "none";
       document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "block";
       setPref({ action: aEvent.target.value });
+    });
+
+    $("minz-all-camouflage").addEventListener("click", aEvent => {
+      let isMinzAllCamo = aEvent.target.checked;
+      if (isMinzAllCamo) {
+        $("minz-all-camouflage-webpg-url").removeAttribute("disabled");
+        $("minz-all-camouflage-webpg-url-label").removeAttribute("disabled");
+        $("minz-all-camouflage-reset-url").removeAttribute("disabled");
+      }
+      else {
+        $("minz-all-camouflage-webpg-url").setAttribute("disabled", "true");
+        $("minz-all-camouflage-webpg-url-label").setAttribute("disabled", "true");
+        $("minz-all-camouflage-reset-url").setAttribute("disabled", "true");
+      }
+      $("minz-all-restore-from-camo-instr").style.display = isMinzAllCamo ? "block" : "none";
+
+      setPref({ showCamouflageWebPg: isMinzAllCamo });
     });
 
     $("panic-action-close-all").addEventListener("click", aEvent => {
@@ -79,20 +106,16 @@ function init(aEvent)
       setPref({ action: aEvent.target.value });
     });
 
-    $("webpg-url").addEventListener("blur", aEvent => {
+    $("minz-all-camouflage-webpg-url").addEventListener("blur", aEvent => {
       let url = aEvent.target.value;
       if (url == "") {
-        resetWebPageURL(aEvent);
+        resetMinzAllCamouflageWebPageURL(aEvent);
         return;
       }
-      if (url.search(/^http/) == -1) {
-        aEvent.target.value = "http://" + url;
-        aEvent.target.select();
-        aEvent.target.focus();
-      }
-      setPref({ replacementWebPgURL: aEvent.target.value });
+      validateURLTextbox(aEvent.target);
+      setPref({ camouflageWebPgURL: aEvent.target.value });
     });
-    
+
     $("shortcut-key").addEventListener("click", aEvent => {
       setPref({ shortcutKey: aEvent.target.checked});
     });
@@ -255,6 +278,19 @@ function init(aEvent)
     rmPswd.addEventListener("click", aEvent => {
       gDialogs.removeRestoreSessPswd.showModal();
     });
+
+    $("minz-all-camouflage").checked = aPrefs.showCamouflageWebPg;
+    $("minz-all-camouflage-webpg-url").value = aPrefs.camouflageWebPgURL;
+
+    if (aPrefs.showCamouflageWebPg) {
+      $("minz-all-restore-from-camo-instr").style.display = "block";
+    }
+    else {
+      $("minz-all-camouflage-webpg-url").setAttribute("disabled", "true");
+      $("minz-all-camouflage-webpg-url-label").setAttribute("disabled", "true");
+      $("minz-all-camouflage-reset-url").setAttribute("disabled", "true");
+      $("minz-all-restore-from-camo-instr").style.display = "none";
+    }
 
     $("toolbar-button-caption").value = aPrefs.toolbarBtnLabel;
 
@@ -635,10 +671,28 @@ function setPref(aPref)
 }
 
 
-function resetWebPageURL(aEvent)
+function resetReplacemtWebPageURL(aEvent)
 {
   $("webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
-  setPref({ replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });
+  setPref({ replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });  
+}
+
+
+function resetMinzAllCamouflageWebPageURL(aEvent)
+{
+  $("minz-all-camouflage-webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
+  setPref({ camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });
+}
+
+
+function validateURLTextbox(aTextbox)
+{
+  let url = aTextbox.value;
+  if (url.search(/^http/) == -1) {
+    aTextbox.value = "http://" + url;
+    aTextbox.select();
+    aTextbox.focus();
+  }
 }
 
 

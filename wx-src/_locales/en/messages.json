@@ -135,6 +135,14 @@
     "message": "Passwords do not match."
   },
 
+  "labelMinzAllCamoWebPg": {
+    "message": "Open a new window after all browser windows are minimized"
+  },
+
+  "descRestoreFromCamoWnd": {
+    "message": "To restore your browser session, click the Panic Button again."
+  },
+
   "labelShortcutKey": {
     "message": "Press these keys to trigger the Panic Button action:"
   },

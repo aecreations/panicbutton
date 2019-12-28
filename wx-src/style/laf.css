@@ -159,7 +159,9 @@ textarea::selection {
     background-color: var(--color-tb-selection);
 }
 
-input[type="text"][disabled],
+input[type="checkbox"]:disabled,
+input[type="checkbox"]:disabled + label,
+input[type="text"]:disabled,
 label[disabled] {
     opacity: 0.4;
 }

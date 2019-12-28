@@ -32,16 +32,20 @@
     "message": "Preferences"
   },
 
+  "prefTabOptions": {
+    "message": "Options"
+  },
+
+  "prefTabCustomize": {
+    "message": "Customize"
+  },
+
   "prefsAction": {
     "message": "Panic Button Action"
   },
 
   "prefsKeybd": {
     "message": "Keyboard Shortcut"
-  },
-
-  "prefsCustomize": {
-    "message": "Customize"
   },
 
   "labelPanicBtnAction": {

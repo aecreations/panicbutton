@@ -24,6 +24,9 @@ function init(aEvent)
     browser.i18n.getMessage("actDescMinimizeAll"),
     browser.i18n.getMessage("actDescCloseAll")
   ];
+
+  $("preftab-options-btn").addEventListener("click", switchPrefsPanel);
+  $("preftab-customize-btn").addEventListener("click", switchPrefsPanel);
   
   browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {
     gPanicButton = aBkgrdPgWnd;
@@ -384,6 +387,24 @@ function init(aEvent)
       keyModNoneOptElt.style.display = "none";
     }
   });
+}
+
+
+function switchPrefsPanel(aEvent)
+{
+  let id = aEvent.target.id;
+
+  if (id == "preftab-options-btn") {
+    $("preftab-customize-btn").classList.remove("active-tab");
+    $("prefpane-customize").classList.remove("active-tab-panel");
+    $("prefpane-options").classList.add("active-tab-panel");
+  }
+  else if (id == "preftab-customize-btn") {
+    $("preftab-options-btn").classList.remove("active-tab");
+    $("prefpane-options").classList.remove("active-tab-panel");
+    $("prefpane-customize").classList.add("active-tab-panel");
+  }
+  aEvent.target.classList.add("active-tab");
 }
 
 

@@ -30,6 +30,13 @@ function init(aEvent)
   
   browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {
     gPanicButton = aBkgrdPgWnd;
+
+    if (! gPanicButton) {
+      window.alert(browser.i18n.getMessage("errPrefPgFailed"));
+      closePage();
+      return;
+    }
+    
     browser.history.deleteUrl({ url: window.location.href });
 
     initDialogs();
@@ -734,6 +741,16 @@ function resetCustomizations(aEvent)
 function gotoURL(aURL)
 {
   browser.tabs.create({ url: aURL });
+}
+
+
+function closePage()
+{
+  browser.tabs.getCurrent().then(aTab => {
+    return browser.tabs.remove(aTab.id);
+  }).catch(aErr => {
+    console.error("Clippings/wx: options.js: " + aErr);
+  });
 }
 
 

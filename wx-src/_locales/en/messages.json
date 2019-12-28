@@ -296,6 +296,10 @@
     "message": "Localizations contributed by Crowdin translators."
   },
 
+  "errPrefPgFailed": {
+    "message": "Unable to load extension preferences page. Restart Firefox and try again."
+  },
+
   "restrSessCancel": {
     "message": "Go Back",
     "description": "Cancel button in the Restore Session Password page"

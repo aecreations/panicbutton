@@ -77,7 +77,7 @@
   },
 
   "notPrivBrws": {
-    "message": "Does not work in Private Browsing mode."
+    "message": "Does not work when Firefox is set to always use Private Browsing."
   },
 
   "labelWebPgURL": {

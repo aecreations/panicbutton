@@ -19,7 +19,7 @@
     --color-tab-border-inactive-hover: #b1b1b3;
     --color-tab-bkgd-active: #d7d7db;
     --color-tab-border-inactive: #b1b1b3;
-    --color-tab-text-active: #0060df;
+    --color-tab-text-active: #0a84ff;
     --color-tab-border-active: #0a84ff;
     --color-radio-opt-bkgd: #f9f9fa;
     --color-about-btn-bkgd: #f9f9fa;
@@ -232,11 +232,12 @@ fieldset select.browser-style {
 
 .action-radio-opt input[type="radio"] + label {
     font-size: 15px;
+    font-weight: 600;
     vertical-align: middle;
 }
 
 .action-radio-opt input[type="radio"]:checked + label {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .panic-action-desc {

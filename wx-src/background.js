@@ -363,7 +363,7 @@ function restoreBrowserSession()
 
     let restoredSessions = [];
       
-    for (let i = 0; i < aSessions.length; i++) {
+    for (let i = 0; i < gNumClosedWnds; i++) {
       let sess = aSessions[i];
       
       if (! sess) {

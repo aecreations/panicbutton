@@ -22,6 +22,7 @@
     --color-tab-text-active: #0a84ff;
     --color-tab-border-active: #0a84ff;
     --color-radio-opt-bkgd: #f9f9fa;
+    --color-toolbar-btn-icon-palette-bkgd: transparent;
     --color-about-btn-bkgd: #f9f9fa;
     --color-about-btn-bkgd-hover: #ededf0;
     --color-about-btn-bkgd-active: #d7d7db;
@@ -48,6 +49,7 @@
 	--color-tab-text-active: #45a1ff;
 	--color-tab-border-active: #0a84ff;
 	--color-radio-opt-bkgd: #38383d;
+	--color-toolbar-btn-icon-palette-bkgd: #d7d7db;
 	--color-about-btn-bkgd: #2a2a2e;
 	--color-about-btn-bkgd-hover: #38383d;
 	--color-about-btn-bkgd-active: #4a4a4f;
@@ -324,6 +326,7 @@ fieldset select.browser-style {
     padding: 4px;
     margin-bottom: 12px;
     border: 1px solid #b1b1b1;
+    background-color: var(--color-toolbar-btn-icon-palette-bkgd);
 }
 
 #toolbar-button-icon input[type="radio"] {

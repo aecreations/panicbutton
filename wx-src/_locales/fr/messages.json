@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Bouton de Panique"
+    "message": "Panic Button"
   },
   "extDesc": {
-    "message": "Cacher rapidement toutes les fenêtres de navigateur en un clic d’un bouton."
+    "message": "Cachez toutes les fenêtres de votre navigateur en un clic."
   },
   "btnOK": {
-    "message": "Ok"
+    "message": "OK"
   },
   "btnCancel": {
     "message": "Annuler"
@@ -15,7 +15,8 @@
     "message": "Bouton de Panique"
   },
   "cmdDesc": {
-    "message": "Bouton de Panique"
+    "message": "Déclencher Bouton de Panique",
+    "description": "Keyboard shortcut description in Manage Extension Shortcuts"
   },
   "prefsPgTitle": {
     "message": "Préférences"
@@ -23,11 +24,17 @@
   "prefsPgHdg": {
     "message": "Préférences"
   },
-  "prefsGeneral": {
+  "prefTabOptions": {
     "message": "Options"
   },
-  "prefsCustomize": {
+  "prefTabCustomize": {
     "message": "Personnaliser"
+  },
+  "prefsAction": {
+    "message": "Action du Bouton de Panique"
+  },
+  "prefsKeybd": {
+    "message": "Raccourci Clavier"
   },
   "labelPanicBtnAction": {
     "message": "Action du Bouton de Panique:"
@@ -36,13 +43,13 @@
     "message": "Ajouter et remplacer"
   },
   "actDescHideAndReplace": {
-    "message": "Remplace la session du navigateur avec une seule fenêtre, affichage d'une page web à l'emplacement ci-dessous. Cliquez sur le Bouton de Panique à nouveau pour restaurer votre session de navigation."
+    "message": "Remplace la session du navigateur par une seule fenêtre et page Web à une adresse définie. Recliquer sur le Bouton Panique pour revenir à la session du navigateur."
   },
   "actMinimizeAll": {
     "message": "Minimise toutes les fenêtres"
   },
   "actDescMinimizeAll": {
-    "message": "Minimise toutes les fenêtres de navigateur."
+    "message": "Réduit toutes les fenêtres du navigateur. Ouverture possible d'une seule fenêtre d'une page Web à une adresse définie."
   },
   "actCloseAll": {
     "message": "Fermez toutes les fenêtres"
@@ -51,58 +58,61 @@
     "message": "Fermez toutes les fenêtres de navigateur."
   },
   "notPrivBrws": {
-    "message": "Ne fonctionne pas en mode de Navigation Privée."
+    "message": "Ne fonctionne pas si Firefox est configuré pour toujours être en navigation privée."
   },
   "labelWebPgURL": {
     "message": "Localisation de Web (URL):"
   },
-
   "setPswd": {
-    "message": "Saisir un mot de passe…"
+    "message": "Définir le Mot de Passe…"
   },
-
   "setPswdHdr": {
-    "message": "Saisir un mot de passe",
+    "message": "Définir le Mot de Passe",
     "description": "Dialog heading"
   },
-
   "setPswdDesc": {
-    "message": "Vous pouvez saisir un mot de passe pour restaurer la session du navigateur quand le bouton anti-panique est paramétré pour «Masquer et remplacer»."
+    "message": "Vous pouvez créer un mot de passe pour restaurer la session du navigateur quand l'action du Bouton Panique est Masqué et Remplacé."
   },
-
   "oldPswd": {
     "message": "Ancien mot de passe:"
   },
-  
   "newPswd": {
     "message": "Nouveau mot de passe:"
   },
-
   "confPswd": {
-    "message": "Confirmez le nouveau mot de passe:"
+    "message": "Confirmer mot de passe:"
   },
-
+  "chgPswd": {
+    "message": "Changer Mot de Passe…"
+  },
   "removePswd": {
-    "message": "Supprimer le mot de passe…"
+    "message": "Supprimer Mot de Passe…"
   },
-
+  "chgPswdHdr": {
+    "message": "Changer Mot de Passe",
+    "description": "Dialog heading"
+  },
+  "pswdPrmptHdr": {
+    "message": "Mot de Passe Requis",
+    "description": "Password dialog header."
+  },
   "pswdPrmpt": {
-    "message": "Saisir le mot de passe:"
+    "message": "Entrer mot de passe:"
   },
-
   "pswdWrong": {
-    "message": "Mot de passe invalide."
+    "message": "Mot de passe incorrect."
   },
-  
   "pswdMismatch": {
-    "message": "Les mots de passe sont différents."
+    "message": "Les mots de passe ne correspondent pas."
   },
-
+  "labelMinzAllCamoWebPg": {
+    "message": "Ouvrir une nouvelle fenêtre une fois toutes les fenêtres du navigateur réduites"
+  },
+  "descRestoreFromCamoWnd": {
+    "message": "Restaurez la session du navigateur, en recliquant sur le Bouton Panique."
+  },
   "labelShortcutKey": {
-    "message": "Appuyer sur ces touches pour lancer l'action de Panic Button:"
-  },
-  "prefsShortcutKeyNote": {
-    "message": "Certaines des touches de raccourci disponibles peuvent déjà être confiées au Firefox commandes ou autres Add\u2011ons."
+    "message": "Touches à appuyer pour activer le Bouton Panique :"
   },
   "labelToolbarBtnCaption": {
     "message": "Légende de bouton de barre d'outils:"
@@ -111,7 +121,7 @@
     "message": "Icône:"
   },
   "btnCustomIcon": {
-    "message": "Icône personnalisée..."
+    "message": "Icône Personnalisée…"
   },
   "labelRevContrastTbIcon": {
     "message": "Icône de barre d'outils de contraste inverse"
@@ -119,8 +129,83 @@
   "btnReset": {
     "message": "Restaurer"
   },
+  "prefsShortcutKeyNote": {
+    "message": "Certains raccourcis clavier libres peuvent déjà être attribués à des commandes Firefox ou autres add-ons."
+  },
+  "prefsOutsideShct": {
+    "message": "Pour changer le raccourci clavier, accédez à Gérer les Raccourcis d'Extension du Gestionnaire d'Add-ons."
+  },
+  "keyModAccelShift": {
+    "message": "Ctrl + Maj +"
+  },
+  "keyModAccelShiftMac": {
+    "message": "⇧ + ⌘ +"
+  },
+  "keyModAltShift": {
+    "message": "Alt + Maj +"
+  },
+  "keyModAltShiftMac": {
+    "message": "⇧ + ⌥ +"
+  },
+  "keySpace": {
+    "message": "Espace"
+  },
+  "keyPageUp": {
+    "message": "Page Haut"
+  },
+  "keyPageDown": {
+    "message": "Page Bas"
+  },
+  "keyHome": {
+    "message": "Début"
+  },
+  "keyEnd": {
+    "message": "Fin"
+  },
+  "keyLeft": {
+    "message": "Gauche"
+  },
+  "keyRight": {
+    "message": "Droite"
+  },
+  "keyUp": {
+    "message": "Haut"
+  },
+  "keyDown": {
+    "message": "Bas"
+  },
+  "keyIns": {
+    "message": "Insér"
+  },
+  "keyDel": {
+    "message": "Suppr"
+  },
+  "keyMacDel": {
+    "message": "Supprimer ⌦"
+  },
+  "keyShift": {
+    "message": "Maj"
+  },
+  "keyMacShift": {
+    "message": "⇧"
+  },
+  "keyCtrl": {
+    "message": "Ctrl"
+  },
+  "keyCommand": {
+    "message": "⌘"
+  },
+  "keyMacCtrl": {
+    "message": "⌃"
+  },
+  "keyAlt": {
+    "message": "Alt"
+  },
+  "keyOption": {
+    "message": "⌥"
+  },
   "aboutBtn": {
-    "message": "A propos ..."
+    "message": "A propos…"
   },
   "aboutExtVer": {
     "message": "version $1",
@@ -130,15 +215,26 @@
     "message": "Créé par AE Creations."
   },
   "aboutHomePgLink": {
-    "message": "Vers notre page"
+    "message": "Visitez page Web"
   },
   "aboutLicLink": {
     "message": "Informations de licence"
   },
   "aboutTrans": {
-    "message": "Localisations des contributions des les traducteurs Crowdin."
+    "message": "Traductions apportées par les traducteurs Crowdin."
+  },
+  "errPrefPgFailed": {
+    "message": "Impossible de charger la page de préférences d'extension. Redémarrez Firefox et réessayez."
+  },
+  "restrSessCancel": {
+    "message": "Retour",
+    "description": "Cancel button in the Restore Session Password page"
+  },
+  "restrSessAccept": {
+    "message": "Restaurer la dernière session",
+    "description": "Accept button in the Restore Session Password page"
   },
   "msgUnknown": {
-    "message": "Aucune aide n’est disponible (donc laissez-moi tranquille)."
+    "message": "Aucune aide de disponible (me laisser tranquille)."
   }
 }

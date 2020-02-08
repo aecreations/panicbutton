@@ -15,7 +15,7 @@
     "message": "Panic Button"
   },
   "cmdDesc": {
-    "message": "Panic Button Aktion",
+    "message": "Ausführen der Panic Button Aktion",
     "description": "Keyboard shortcut description in Manage Extension Shortcuts"
   },
   "prefsPgTitle": {
@@ -24,11 +24,17 @@
   "prefsPgHdg": {
     "message": "Einstellungen"
   },
-  "prefsGeneral": {
-    "message": "Optionen"
+  "prefTabOptions": {
+    "message": "Einstellungen"
   },
-  "prefsCustomize": {
+  "prefTabCustomize": {
     "message": "Anpassen"
+  },
+  "prefsAction": {
+    "message": "Panic Button Aktion"
+  },
+  "prefsKeybd": {
+    "message": "Tastatenkombination"
   },
   "labelPanicBtnAction": {
     "message": "Panic Button Aktion:"
@@ -37,22 +43,22 @@
     "message": "Verstecken und Ersetzen"
   },
   "actDescHideAndReplace": {
-    "message": "Ersetzte alle Fenster der Browser-Sitzung mit einem neuen Fenster mit der unten angegebenen Internet-Adresse.  Nochmaliges drücken des \"Panic Button\" stellt die Browser-Sitzung wieder her."
+    "message": "Ersetzte alle Fenster der Browser-Sitzung durch ein neues Fenster mit der unten einstellbaren Website.  Nochmaliges drücken des \"Panic Button\" stellt die Browser-Sitzung wieder her."
   },
   "actMinimizeAll": {
     "message": "Alle Fenster minimieren"
   },
   "actDescMinimizeAll": {
-    "message": "Minimiert sämtliche Browserfenster."
+    "message": "Minimiert alle Browser-Fenster. Optional öffnet sich ein einzelnes Fenster, mit einer einstellbaren Webseite."
   },
   "actCloseAll": {
     "message": "Alle Fenster schließen"
   },
   "actDescCloseAll": {
-    "message": "Schließt alle Browserfenster."
+    "message": "Schließt alle Browser-Fenster."
   },
   "notPrivBrws": {
-    "message": "Funktioniert nicht im Privat-\/Inkognito-Modus."
+    "message": "Funktioniert nicht, wenn Firefox eingestellt wurde immer Privates Surfen zu nutzen."
   },
   "labelWebPgURL": {
     "message": "Internetadresse (URL):"
@@ -65,7 +71,7 @@
     "description": "Dialog heading"
   },
   "setPswdDesc": {
-    "message": "Sie können ein Passwort für die Wiederherstellung der Browser-Sitzung setzen, wenn die Panic Button Aktion Hide and Replace ist."
+    "message": "Sie können ein Passwort für das Wiederherstellen der Browser-Sitzung angeben, wenn die Panic Button Aktion \"Verstecken und Ersetzen\" ist."
   },
   "oldPswd": {
     "message": "Altes Passwort:"
@@ -98,6 +104,12 @@
   },
   "pswdMismatch": {
     "message": "Passwörter stimmen nicht überein."
+  },
+  "labelMinzAllCamoWebPg": {
+    "message": "Ein neues Fenster öffnen, nachdem alle Browser-Fenster minimiert wurden"
+  },
+  "descRestoreFromCamoWnd": {
+    "message": "Um die Browser-Sitzung wiederherzustellen den Panic Button erneut klicken."
   },
   "labelShortcutKey": {
     "message": "Diese Tastenkombination drücken, um die Panic Button Aktion auszulösen:"
@@ -210,6 +222,9 @@
   },
   "aboutTrans": {
     "message": "Die Übersetzungen wurden von Crowdin-Übersetzern erstellt."
+  },
+  "errPrefPgFailed": {
+    "message": "Einstellungen des AddOn können nicht geladen werden. Firefox neustarten und nochmal versuchen."
   },
   "restrSessCancel": {
     "message": "Zurück",

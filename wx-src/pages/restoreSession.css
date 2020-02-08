@@ -17,7 +17,7 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-	--url-bkgd-img: url("../img/restoreSessionPgBkg.svg");
+	--url-bkgd-img: url("../img/restoreSessionPgBkg-dk.svg");
 	--color-bkgd: #1a1a1e;
 	--color-text-default: #f9f9fa;
 	--color-main-border: #0c0c0d;

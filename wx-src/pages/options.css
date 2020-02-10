@@ -232,6 +232,11 @@ fieldset select.browser-style {
     background-color: var(--color-radio-opt-bkgd);
 }
 
+.active-radio-opt {
+    border: 1px solid #45A1FF;
+    background-color: rgba(69, 161, 255, 0.2);
+}
+
 .action-radio-opt input[type="radio"] + label {
     font-size: 15px;
     font-weight: 600;

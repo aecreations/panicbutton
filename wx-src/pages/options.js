@@ -70,6 +70,9 @@ function init(aEvent)
     $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
 
     $("panic-action-hide-and-replace").addEventListener("click", aEvent => {
+      $("panic-action-minimize-all-radio-opt").classList.remove("active-radio-opt");
+      $("panic-action-close-all-radio-opt").classList.remove("active-radio-opt");
+      $("panic-action-hide-and-replace-radio-opt").classList.add("active-radio-opt");
       document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "none";
       document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "block";
       setPref({ action: aEvent.target.value });
@@ -86,6 +89,9 @@ function init(aEvent)
     });
     
     $("panic-action-minimize-all").addEventListener("click", aEvent => {
+      $("panic-action-hide-and-replace-radio-opt").classList.remove("active-radio-opt");
+      $("panic-action-close-all-radio-opt").classList.remove("active-radio-opt");
+      $("panic-action-minimize-all-radio-opt").classList.add("active-radio-opt");
       document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "none";
       document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "block";
       setPref({ action: aEvent.target.value });
@@ -109,6 +115,10 @@ function init(aEvent)
     });
 
     $("panic-action-close-all").addEventListener("click", aEvent => {
+      $("panic-action-hide-and-replace-radio-opt").classList.remove("active-radio-opt");
+      $("panic-action-minimize-all-radio-opt").classList.remove("active-radio-opt");
+      $("panic-action-close-all-radio-opt").classList.add("active-radio-opt");
+
       let allActionOpts = document.querySelectorAll(".panic-action-options");
       allActionOpts.forEach(aActionOpt => {
         aActionOpt.style.display = "none";
@@ -257,6 +267,8 @@ function init(aEvent)
     let panicActions = document.getElementsByName("panic-action");
     let panicActionRadio = panicActions[aPrefs.action];
     panicActionRadio.checked = true;
+    panicActionRadio.parentNode.classList.add("active-radio-opt");
+    
     if (aPrefs.action != aeConst.PANICBUTTON_ACTION_QUIT) {
       panicActionRadio.parentNode.getElementsByClassName("panic-action-options")[0].style.display = "block";
     }
@@ -552,29 +564,6 @@ function initDialogs()
     document.getElementById("ext-ver").innerText = chrome.i18n.getMessage("aboutExtVer", gExtInfo.version);
     document.getElementById("ext-desc").innerText = gExtInfo.description;
   };  
-}
-
-
-function updatePanicButtonActionDesc()
-{
-  let selectElt = $("panicbutton-action");
-  let panicButtonAction = selectElt.options[selectElt.selectedIndex].value;
-  let actionDescElt = $("panicbutton-action-desc");
-
-  actionDescElt.removeChild(actionDescElt.firstChild);
-  let actionDescTextNode = document.createTextNode(gActionDescs[panicButtonAction]);
-  actionDescElt.appendChild(actionDescTextNode);
-  
-  if (panicButtonAction == aeConst.PANICBUTTON_ACTION_REPLACE) {
-    $("panicbutton-action-options-hide-and-replace").style.display = "block";
-    $("private-browsing-warning").innerText = browser.i18n.getMessage("notPrivBrws");
-    $("private-browsing-warning-icon").style.display = "inline-block";
-  }
-  else {
-    $("panicbutton-action-options-hide-and-replace").style.display = "none";
-    $("private-browsing-warning").innerText = "";
-    $("private-browsing-warning-icon").style.display = "none";
-  }
 }
 
 

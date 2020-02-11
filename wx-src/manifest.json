@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "__MSG_extName__",
     "description": "__MSG_extDesc__",
-    "version": "4.2b1+",
+    "version": "4.2rc1",
     "homepage_url": "http://aecreations.sourceforge.net/panicbutton/index.php",
     "author": "AE Creations",
 

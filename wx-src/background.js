@@ -12,7 +12,6 @@ let gHideAll = false;
 let gRestoreSessionWndID = null;
 let gReplaceSession = false;
 let gReplacemtWndID = null;
-let gNumClosedWnds = 0;
 let gShowCamouflageWnd = false;
 let gCamouflageWndID = null;
 let gMinimizedWndStates = [];
@@ -356,14 +355,13 @@ function restoreBrowserSession()
     }
 
     log(`Panic Button/wx: restoreBrowserSession(): Number of sessions available: ${aSessions.length}`);
-    log(`Number of windows to restore: ${gNumClosedWnds}`);
     log("Session data:");
     log(aSessions);
     log("Restoring browser session...");
 
     let restoredSessions = [];
       
-    for (let i = 0; i < gNumClosedWnds; i++) {
+    for (let i = 0; i < aSessions.length; i++) {
       let sess = aSessions[i];
       
       if (! sess) {
@@ -373,9 +371,11 @@ function restoreBrowserSession()
         
       let sessID = null;
       if (sess.tab) {
+        log("Restoring session tab");
         sessID = sess.tab.sessionId;
       }
       else {
+        log("Restoring session window");
         sessID = sess.window.sessionId;
       }
       log("Panic Button/wx: restoreBrowserSession(): Restoring session ID: " + sessID);
@@ -384,24 +384,29 @@ function restoreBrowserSession()
     }
 
     Promise.all(restoredSessions).then(aResults => {
-      // !! BUG (Firefox 71+): This doesn't get executed
-
+      // !! BUG !!
+      // This doesn't get executed if there are more than 1 browser windows to restore.
       log("Panic Button/wx: Finished restoring browser sessions. Result:");
       log(aResults);
 
-      gNumClosedWnds = 0;
-      
       if (gReplaceSession) {
         log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
         let replacemtWnd = browser.windows.get(gReplacemtWndID);
         replacemtWnd.then(aWnd => {
-          browser.windows.remove(aWnd.id);
+          return browser.windows.remove(aWnd.id);
+
+        }).then(() => {
           gReplacemtWndID = null;
           gReplaceSession = false;
+
+          browser.sessions.getRecentlyClosed().then(aSessions => {
+            log("Panic Button/wx: Forgetting session for the now-closed replacement window.");
+            let closedSess = aSessions[0];
+            browser.sessions.forgetClosedWindow(closedSess.window.sessionId);
+          });
         });
       }
     }).catch(aErr => {
-      // !! BUG (Firefox 71+): This doesn't get executed either.
       console.error("Panic Button/wx: Error restoring session " + sessID + ":\n" + aErr);
     });            
   });
@@ -449,20 +454,27 @@ function closeAll(aSaveSession, aReplacementURL)
   }
   
   browser.windows.getAll().then(aWnds => {
+    log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
+
+    let closedWnds = [];
+    
     for (let wnd of aWnds) {
       if (gReplaceSession && wnd.id == gReplacemtWndID) {
+        log("Skipping temporary replacement window.");
         continue;
       }
       if (gHideAll && wnd.id == gRestoreSessionWndID) {
         continue;
       }
-      
-      browser.windows.remove(wnd.id);
 
-      if (aSaveSession) {
-        gNumClosedWnds++;
-      }
+      log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
+      let closeWnd = browser.windows.remove(wnd.id);
+      closedWnds.push(closeWnd);
     }
+
+    Promise.all(closedWnds).then(() => {
+      log("Panic Button/wx: Length of array of promises from browser.windows.remove(): " + closedWnds.length);
+    })
   });
 }
 

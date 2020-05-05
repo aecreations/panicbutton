@@ -360,7 +360,7 @@ function restoreBrowserSession()
     log("Restoring browser session...");
 
     let restoredSessions = [];
-      
+
     for (let i = 0; i < aSessions.length; i++) {
       let sess = aSessions[i];
       
@@ -444,15 +444,6 @@ function closeAll(aSaveSession, aReplacementURL)
   log("Panic Button/wx: Invoked function closeAll()");
   log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
 
-  if (aSaveSession && aReplacementURL) {
-    gReplaceSession = true;
-
-    browser.windows.create({ url: aReplacementURL }).then(aWnd => {
-      gReplacemtWndID = aWnd.id;
-      info("Window ID of temporary replacement window: " + gReplacemtWndID);
-    });
-  }
-  
   browser.windows.getAll().then(aWnds => {
     log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
 
@@ -474,7 +465,17 @@ function closeAll(aSaveSession, aReplacementURL)
 
     Promise.all(closedWnds).then(() => {
       log("Panic Button/wx: Length of array of promises from browser.windows.remove(): " + closedWnds.length);
-    })
+
+      if (aSaveSession && aReplacementURL) {
+        gReplaceSession = true;
+
+        log("Panic Button/wx: Opening temporary replacement window.");
+        browser.windows.create({ url: aReplacementURL }).then(aWnd => {
+          gReplacemtWndID = aWnd.id;
+          info("Window ID of temporary replacement window: " + gReplacemtWndID);
+        });
+      }
+    });
   });
 }
 

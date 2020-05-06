@@ -17,7 +17,7 @@
         "96": "img/icon.svg"
     },
 
-    "permissions": ["history", "storage", "sessions"],
+    "permissions": ["history", "storage", "sessions", "tabs"],
       
     "background": {
         "scripts": ["modules/aeConst.js", "background.js"]

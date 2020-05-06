@@ -15,6 +15,7 @@ let gReplacemtWndID = null;
 let gShowCamouflageWnd = false;
 let gCamouflageWndID = null;
 let gMinimizedWndStates = [];
+let gClosedWndStates = [];
 
 let gToolbarBtnIcons = [
   "default",
@@ -346,70 +347,72 @@ function restoreBrowserWindowState()
   }
 }
 
+
 function restoreBrowserSession()
 {
-  browser.sessions.getRecentlyClosed().then(aSessions => {
-    if (aSessions.length == 0) {
-      warn("Panic Button/wx: restoreBrowserSession(): No sessions found");
-      return;
+  function isNonrestrictedURL(aURL)
+  {
+    // The restricted URLs for browser.tabs.create() are described here:
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/create
+    return (!(aURL.startsWith("chrome:")
+              || aURL.startsWith("file:")
+              || aURL.startsWith("javascript:")
+              || aURL.startsWith("data:")
+              || aURL.startsWith("about:")));
+  }
+
+  let restoredWnds = [];
+  
+  while (gClosedWndStates.length > 0) {
+    let closedWnd = gClosedWndStates.pop();
+
+    let wndPpty = {
+      type: "normal",
+      incognito: closedWnd.incognito,
+      state: closedWnd.state,
+    };
+
+    if (closedWnd.state == "normal") {
+      wndPpty.top = closedWnd.top;
+      wndPpty.left = closedWnd.left;
+      wndPpty.width = closedWnd.width;
+      wndPpty.height = closedWnd.height;
     }
 
-    log(`Panic Button/wx: restoreBrowserSession(): Number of sessions available: ${aSessions.length}`);
-    log("Session data:");
-    log(aSessions);
-    log("Restoring browser session...");
+    if (closedWnd.tabs.length == 1) {
+      let brwsTabURL = closedWnd.tabs[0].url;
 
-    let restoredSessions = [];
+      // Default to home page if URL is restricted.
+      wndPpty.url = isNonrestrictedURL(brwsTabURL) ? brwsTabURL : null;
+    }
+    else {
+      let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonrestrictedURL(aTab.url));
+      wndPpty.url = safeBrwsTabs.map(aTab => aTab.url);
+    }
 
-    for (let i = 0; i < aSessions.length; i++) {
-      let sess = aSessions[i];
+    log("Panic Button/wx::restoreBrowserSession(): Info about window being restored: ");
+    log(wndPpty);
+
+    restoredWnds.push(browser.windows.create(wndPpty));
+
+    Promise.all(restoredWnds).then(aResults => {
+      // Make sure that saved browser window data is cleared.
+      gClosedWndStates = [];
       
-      if (! sess) {
-        log("The 'sess' object is not defined, continuing loop...");
-        continue;
-      }
-        
-      let sessID = null;
-      if (sess.tab) {
-        log("Restoring session tab");
-        sessID = sess.tab.sessionId;
-      }
-      else {
-        log("Restoring session window");
-        sessID = sess.window.sessionId;
-      }
-      log("Panic Button/wx: restoreBrowserSession(): Restoring session ID: " + sessID);
-
-      restoredSessions.push(browser.sessions.restore(sessID));
-    }
-
-    Promise.all(restoredSessions).then(aResults => {
-      // !! BUG !!
-      // This doesn't get executed if there are more than 1 browser windows to restore.
-      log("Panic Button/wx: Finished restoring browser sessions. Result:");
-      log(aResults);
-
       if (gReplaceSession) {
         log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
-        let replacemtWnd = browser.windows.get(gReplacemtWndID);
-        replacemtWnd.then(aWnd => {
+        browser.windows.get(gReplacemtWndID).then(aWnd => {
           return browser.windows.remove(aWnd.id);
 
         }).then(() => {
           gReplacemtWndID = null;
           gReplaceSession = false;
-
-          browser.sessions.getRecentlyClosed().then(aSessions => {
-            log("Panic Button/wx: Forgetting session for the now-closed replacement window.");
-            let closedSess = aSessions[0];
-            browser.sessions.forgetClosedWindow(closedSess.window.sessionId);
-          });
         });
       }
-    }).catch(aErr => {
-      console.error("Panic Button/wx: Error restoring session " + sessID + ":\n" + aErr);
-    });            
-  });
+    }).catch (aErr => {
+      warn("Panic Button/wx: Error restoring browser window: " + aErr);
+    });
+  }
 }
 
 
@@ -444,28 +447,19 @@ function closeAll(aSaveSession, aReplacementURL)
   log("Panic Button/wx: Invoked function closeAll()");
   log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
 
-  browser.windows.getAll().then(aWnds => {
+  browser.windows.getAll({populate: true}).then(aWnds => {
     log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
+
+    gClosedWndStates = aWnds;
 
     let closedWnds = [];
     
     for (let wnd of aWnds) {
-      if (gReplaceSession && wnd.id == gReplacemtWndID) {
-        log("Skipping temporary replacement window.");
-        continue;
-      }
-      if (gHideAll && wnd.id == gRestoreSessionWndID) {
-        continue;
-      }
-
       log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
-      let closeWnd = browser.windows.remove(wnd.id);
-      closedWnds.push(closeWnd);
+      closedWnds.push(browser.windows.remove(wnd.id));
     }
 
     Promise.all(closedWnds).then(() => {
-      log("Panic Button/wx: Length of array of promises from browser.windows.remove(): " + closedWnds.length);
-
       if (aSaveSession && aReplacementURL) {
         gReplaceSession = true;
 

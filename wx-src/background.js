@@ -184,15 +184,6 @@ function init()
     gOS = platform.os;
     log("Panic Button/wx: OS: " + gOS);
 
-    browser.windows.onCreated.addListener(aWnd => {
-      log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-    });
-
-    browser.windows.onRemoved.addListener(aWndID => {
-      log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-      log("Closing window ID: " + aWndID);
-    });
-
     browser.browserAction.onClicked.addListener(aTab => {
       panic();
     });
@@ -361,10 +352,23 @@ function restoreBrowserSession()
               || aURL.startsWith("about:")));
   }
 
+  if (gReplaceSession) {
+    log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
+    browser.windows.get(gReplacemtWndID).then(aWnd => {
+      return browser.windows.remove(aWnd.id);
+
+    }).then(() => {
+      gReplacemtWndID = null;
+      gReplaceSession = false;
+    });
+  }
+
+  log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
+
   let restoredWnds = [];
   
-  while (gClosedWndStates.length > 0) {
-    let closedWnd = gClosedWndStates.pop();
+  while (gClosedWndStates.length > 0) {   
+    let closedWnd = gClosedWndStates.shift();
 
     let wndPpty = {
       type: "normal",
@@ -378,7 +382,7 @@ function restoreBrowserSession()
       wndPpty.width = closedWnd.width;
       wndPpty.height = closedWnd.height;
     }
-
+ 
     if (closedWnd.tabs.length == 1) {
       let brwsTabURL = closedWnd.tabs[0].url;
 
@@ -393,26 +397,17 @@ function restoreBrowserSession()
     log("Panic Button/wx::restoreBrowserSession(): Info about window being restored: ");
     log(wndPpty);
 
-    restoredWnds.push(browser.windows.create(wndPpty));
-
-    Promise.all(restoredWnds).then(aResults => {
-      // Make sure that saved browser window data is cleared.
-      gClosedWndStates = [];
-      
-      if (gReplaceSession) {
-        log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
-        browser.windows.get(gReplacemtWndID).then(aWnd => {
-          return browser.windows.remove(aWnd.id);
-
-        }).then(() => {
-          gReplacemtWndID = null;
-          gReplaceSession = false;
+    browser.windows.create(wndPpty).then(aCreatedWnd => {
+      if (closedWnd.focused) {
+        browser.windows.update(aCreatedWnd.id, {focused: true}).then(aUpdWnd => {
+          info(`Restored window (ID = ${aCreatedWnd.id}) - Giving this window the focus.`);
         });
       }
-    }).catch (aErr => {
-      warn("Panic Button/wx: Error restoring browser window: " + aErr);
+      else {
+        log(`Restored window (ID = ${aCreatedWnd.id})`);
+      }
     });
-  }
+  }  
 }
 
 
@@ -449,21 +444,21 @@ function closeAll(aSaveSession, aReplacementURL)
 
   browser.windows.getAll({populate: true}).then(aWnds => {
     log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
-
+    
     gClosedWndStates = aWnds;
 
-    let closedWnds = [];
-    
+    let closeWnds = [];
+
     for (let wnd of aWnds) {
       log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
-      closedWnds.push(browser.windows.remove(wnd.id));
+      closeWnds.push(browser.windows.remove(wnd.id));
     }
 
-    Promise.all(closedWnds).then(() => {
+    Promise.all(closeWnds).then(() => {
       if (aSaveSession && aReplacementURL) {
         gReplaceSession = true;
 
-        log("Panic Button/wx: Opening temporary replacement window.");
+        log("Opening temporary replacement window.");
         browser.windows.create({ url: aReplacementURL }).then(aWnd => {
           gReplacemtWndID = aWnd.id;
           info("Window ID of temporary replacement window: " + gReplacemtWndID);

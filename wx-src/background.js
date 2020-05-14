@@ -9,13 +9,13 @@ let gOS;
 let gHostAppVer;
 let gPrefs;
 let gHideAll = false;
-let gRestoreSessionWndID = null;
 let gReplaceSession = false;
 let gReplacemtWndID = null;
 let gShowCamouflageWnd = false;
 let gCamouflageWndID = null;
 let gMinimizedWndStates = [];
 let gClosedWndStates = [];
+let gClosedWndActiveTabIndexes = [];
 
 let gToolbarBtnIcons = [
   "default",
@@ -352,6 +352,8 @@ function restoreBrowserSession()
               || aURL.startsWith("about:")));
   }
 
+  let activeTabIndexes = [];
+
   if (gReplaceSession) {
     log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
     browser.windows.get(gReplacemtWndID).then(aWnd => {
@@ -360,54 +362,70 @@ function restoreBrowserSession()
     }).then(() => {
       gReplacemtWndID = null;
       gReplaceSession = false;
-    });
-  }
 
-  log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
+      log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
 
-  let restoredWnds = [];
-  
-  while (gClosedWndStates.length > 0) {   
-    let closedWnd = gClosedWndStates.shift();
+      let restoredWnds = [];
+      
+      while (gClosedWndStates.length > 0) {   
+        let closedWnd = gClosedWndStates.shift();
 
-    let wndPpty = {
-      type: "normal",
-      incognito: closedWnd.incognito,
-      state: closedWnd.state,
-    };
+        let wndPpty = {
+          type: "normal",
+          incognito: closedWnd.incognito,
+          state: closedWnd.state,
+        };
 
-    if (closedWnd.state == "normal") {
-      wndPpty.top = closedWnd.top;
-      wndPpty.left = closedWnd.left;
-      wndPpty.width = closedWnd.width;
-      wndPpty.height = closedWnd.height;
-    }
- 
-    if (closedWnd.tabs.length == 1) {
-      let brwsTabURL = closedWnd.tabs[0].url;
+        if (closedWnd.state == "normal") {
+          wndPpty.top = closedWnd.top;
+          wndPpty.left = closedWnd.left;
+          wndPpty.width = closedWnd.width;
+          wndPpty.height = closedWnd.height;
+        }
+        
+        if (closedWnd.tabs.length == 1) {
+          let brwsTabURL = closedWnd.tabs[0].url;
 
-      // Default to home page if URL is restricted.
-      wndPpty.url = isNonrestrictedURL(brwsTabURL) ? brwsTabURL : null;
-    }
-    else {
-      let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonrestrictedURL(aTab.url));
-      wndPpty.url = safeBrwsTabs.map(aTab => aTab.url);
-    }
+          // Default to home page if URL is restricted.
+          wndPpty.url = isNonrestrictedURL(brwsTabURL) ? brwsTabURL : null;
+        }
+        else {
+          let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonrestrictedURL(aTab.url));
+          wndPpty.url = safeBrwsTabs.map(aTab => aTab.url);
+        }
 
-    log("Panic Button/wx::restoreBrowserSession(): Info about window being restored: ");
-    log(wndPpty);
+        log("Panic Button/wx::restoreBrowserSession(): Info about window being restored: ");
+        log(wndPpty);
 
-    browser.windows.create(wndPpty).then(aCreatedWnd => {
-      if (closedWnd.focused) {
-        browser.windows.update(aCreatedWnd.id, {focused: true}).then(aUpdWnd => {
-          info(`Restored window (ID = ${aCreatedWnd.id}) - Giving this window the focus.`);
+        browser.windows.create(wndPpty).then(aCreatedWnd => {
+          let activeTabIdx = gClosedWndActiveTabIndexes.shift();
+          let activeTabID = 0;
+
+          if (activeTabIdx >= aCreatedWnd.tabs.length) {
+            // Some tabs may not be restored (e.g. "about:" pages), which would
+            // mess up the saved index of the active tab.
+            log(`Setting last tab for window (id = ${aCreatedWnd.id}) to be active.`);
+            activeTabIdx = aCreatedWnd.tabs.length - 1;
+            activeTabID = aCreatedWnd.tabs[activeTabIdx].id;
+          }
+          else {
+            log(`Setting tab[${activeTabIdx}] for window (id = ${aCreatedWnd.id}) to be active.`);
+            activeTabID = aCreatedWnd.tabs[activeTabIdx].id;
+          }
+          browser.tabs.update(activeTabID, {active: true});
+          
+          if (closedWnd.focused) {
+            browser.windows.update(aCreatedWnd.id, {focused: true}).then(aUpdWnd => {
+              info(Finished restoring window (ID = ${aCreatedWnd.id}) - giving this window the focus.`);
+            });
+          }
+          else {
+            log(`Finished restoring window (ID = ${aCreatedWnd.id})`);
+          }
         });
       }
-      else {
-        log(`Restored window (ID = ${aCreatedWnd.id})`);
-      }
     });
-  }  
+  }
 }
 
 
@@ -444,12 +462,18 @@ function closeAll(aSaveSession, aReplacementURL)
 
   browser.windows.getAll({populate: true}).then(aWnds => {
     log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
-    
-    gClosedWndStates = aWnds;
+
+    if (aSaveSession) {
+      gClosedWndStates = aWnds;
+    }
 
     let closeWnds = [];
 
     for (let wnd of aWnds) {
+      if (aSaveSession) {
+        gClosedWndActiveTabIndexes.push(wnd.tabs.findIndex(aTab => aTab.active));
+      }
+      
       log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
       closeWnds.push(browser.windows.remove(wnd.id));
     }

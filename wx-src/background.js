@@ -416,7 +416,7 @@ function restoreBrowserSession()
           
           if (closedWnd.focused) {
             browser.windows.update(aCreatedWnd.id, {focused: true}).then(aUpdWnd => {
-              info(Finished restoring window (ID = ${aCreatedWnd.id}) - giving this window the focus.`);
+              log(`Finished restoring window (ID = ${aCreatedWnd.id}) - giving this window the focus.`);
             });
           }
           else {

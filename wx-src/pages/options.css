@@ -477,7 +477,6 @@ input[type="file"] {
     margin-bottom: 0;
     padding: 0 24px 0;
     border-radius: 2px;
-    outline: unset;
     font: caption;
     font-size: 15px !important;
 }

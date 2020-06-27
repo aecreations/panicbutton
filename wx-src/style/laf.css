@@ -8,7 +8,7 @@
 :root {
     --color-bkgd: white;
     --color-default-text: black;
-
+    --color-disabled-text: rgba(0, 0, 0, 0.40);
     --color-btn-bkgd: rgba(12, 12, 13, 0.1);
     --color-btn-hover-bkgd: rgba(12, 12, 13, 0.2);
     --color-btn-hover-border: rgba(12, 12, 13, 0.1);
@@ -36,7 +36,7 @@
     :root {
 	--color-bkgd: #2a2a2e;
 	--color-default-text: #f9f9fa;
-
+	--color-disabled-text: rgba(249, 249, 250, 0.4);
 	--color-btn-bkgd: #4a4a4f;
 	--color-btn-hover-bkgd: #606060;
 	--color-btn-hover-border: #606060;
@@ -213,6 +213,10 @@ textarea::selection {
 .browser-style > input[type="checkbox"]:hover:active,
 .browser-style.pressed > input[type="checkbox"]:not(:active) {
     background-color: var(--color-cb-active-bkgd);
+}
+
+.browser-style > input[type="checkbox"][disabled] + label {
+    color: var(--color-disabled-text);
 }
 
 .error {

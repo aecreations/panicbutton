@@ -9,7 +9,6 @@
 :root {
     --url-bkgd-img: url("../img/restoreSessionPgBkg.svg");
     --color-bkgd: none;
-    --color-text-default: black;
     --color-main-border: #ddd;
     --color-main-bkgd: #fefefe;
     --color-main-border-shadow: #e0e0e0;
@@ -19,7 +18,6 @@
     :root {
 	--url-bkgd-img: url("../img/restoreSessionPgBkg-dk.svg");
 	--color-bkgd: #1a1a1e;
-	--color-text-default: #f9f9fa;
 	--color-main-border: #0c0c0d;
 	--color-main-bkgd: #2a2a2e;
 	--color-main-border-shadow: #0c0c0d;
@@ -31,7 +29,7 @@ body {
     background-image: var(--url-bkgd-img);
     background-repeat: repeat;
     background-color: var(--color-bkgd);
-    color: var(--color-text-default);
+    color: var(--color-default-text);
 }
 
 h1 {

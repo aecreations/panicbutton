@@ -2,14 +2,13 @@
     "manifest_version": 2,
     "name": "__MSG_extName__",
     "description": "__MSG_extDesc__",
-    "version": "4.3a0+",
+    "version": "4.3b1",
     "homepage_url": "http://aecreations.sourceforge.net/panicbutton/index.php",
     "author": "AE Creations",
 
     "browser_specific_settings": {
 	"gecko": {
-	    "id": "{24cea704-946d-11da-a72b-0800200c9a66}",
-	    "strict_min_version": "68.0"
+	    "strict_min_version": "78.0"
 	}
     },
     

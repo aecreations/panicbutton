@@ -75,7 +75,13 @@ browser.runtime.onInstalled.addListener(aDetails => {
 
     }).then(() => {
       if (! hasSanMiguelPrefs()) {
-        browser.tabs.create("pages/update-4.3.html");
+        browser.commands.getAll().then(aCmds => {
+          // Show the post-update page only if the shortcut for triggering the
+          // Panic Button action was previously F9.
+          if (aCmds[0].shortcut == "F9") {
+            browser.tabs.create("pages/update-4.3.html");
+          }
+        });
 
         log("Initializing 4.3 user preferences.");
         return setSanMiguelPrefs();
@@ -340,7 +346,7 @@ async function migratePanicButtonKeys()
 {
   let cmds = await browser.commands.getAll();
 
-  if (cmds[0].shortcut == "F9") {  // Command name "ae-panicbutton"
+  if (cmds[0].shortcut == "F9") {
     await browser.commands.update({
       name: aeConst.CMD_PANIC_BUTTON_ACTION,
       shortcut: aeConst.KEY_PANIC_BUTTON_ACTION,

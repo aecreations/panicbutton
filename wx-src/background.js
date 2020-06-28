@@ -591,6 +591,31 @@ async function removeRestoreSessPasswd()
 }
 
 
+function getPanicActionUIStringKey()
+{
+  let rv = "";
+  
+  switch (gPrefs.action) {
+  case aeConst.PANICBUTTON_ACTION_REPLACE:
+    rv = "actHideAndReplace";
+    break;
+
+  case aeConst.PANICBUTTON_ACTION_MINIMIZE:
+    rv = "actMinimizeAll";
+    break;
+
+  case aeConst.PANICBUTTON_ACTION_QUIT:
+    rv = "actCloseAll";
+    break;
+
+  default:
+    break;
+  }
+
+  return rv;
+}
+
+
 function isDirectSetKeyboardShortcut()
 {
   return (versionCompare(gHostAppVer, "66.0") >= 0);

@@ -18,6 +18,25 @@ async function init()
 
   browser.history.deleteUrl({ url: window.location.href });
 
+
+  let keybShctChg = $("keyb-shct-change");
+  keybShctChg.appendChild(createTextNode("keybShctChg1"));
+  keybShctChg.appendChild(createEltWithID("span", "panic-button-action", gPanicButton.getPanicActionUIStringKey()));
+  keybShctChg.appendChild(createTextNode("keybShctChg2"));
+
+  let newKeybShctKey = "newKeybShct";
+  if (gPanicButton.getOS() == "mac") {
+    newKeybShctKey = "newKeybShctMac";
+  }
+  keybShctChg.appendChild(createEltWithClass("span", "keyb", newKeybShctKey));
+  keybShctChg.appendChild(createTextNode("keybShctChg3"));
+
+  let keybShctExpl = $("explanation");
+  keybShctExpl.appendChild(createTextNodeWithSpc());
+  keybShctExpl.appendChild(createTextNode("keybShctExpl1"));
+  keybShctExpl.appendChild(createEltWithClass("span", "keyb", "oldKeybShct"));
+  keybShctExpl.appendChild(createTextNode("keybShctExpl2"));
+
   $("btn-close").addEventListener("click", async (aEvent) => { closePage() });
   
   document.addEventListener("contextmenu", aEvent => {
@@ -28,11 +47,45 @@ async function init()
 }
 
 
+function createTextNode(aStringKey)
+{
+  let rv = document.createTextNode(browser.i18n.getMessage(aStringKey));
+  return rv;
+}
+
+
+function createTextNodeWithSpc()
+{
+  let rv = document.createTextNode("\u00a0");
+  return rv;
+}
+
+
+function createEltWithID(aNodeName, aNodeID, aStringKey)
+{
+  let rv = document.createElement(aNodeName);
+  rv.id = aNodeID;
+  let text = document.createTextNode(browser.i18n.getMessage(aStringKey));
+  rv.appendChild(text);
+  return rv;
+}
+
+
+function createEltWithClass(aNodeName, aNodeClass, aStringKey)
+{
+  let rv = document.createElement(aNodeName);
+  rv.className = aNodeClass;
+  let text = document.createTextNode(browser.i18n.getMessage(aStringKey));
+  rv.appendChild(text);
+  return rv;
+}
+
+
 async function closePage()
 {
   let tab = await browser.tabs.getCurrent();
   browser.tabs.remove(tab.id);
 }
 
-document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
 
+document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });

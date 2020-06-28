@@ -312,5 +312,67 @@
 
   "msgUnknown": {
     "message": "No help is available (so leave me alone)."
+  },
+
+  "titleUpdatePg": {
+    "message": "Panic Button Updated",
+    "description": "Title of the post-update page that appears after Panic Button is upgraded"
+  },
+
+  "hdgUpdatePg": {
+    "message": "Psst… New Version Installed!"
+  },
+
+  "subhdgSanMiguel": {
+    "message": "Panic Button has been upgraded to version 4.3",
+    "description": "Subheading for version 4.3, code name San Miguel"
+  },
+
+  "whatsNew": {
+    "message": "What’s New"
+  },
+
+  "keybShctChg1": {
+    "message": "The default keyboard shortcut for triggering the "
+  },
+
+  "keybShctChg2": {
+    "message": " action has changed.  It is now "
+  },
+
+  "keybShctChg3": {
+    "message": "."
+  },
+
+  "keybShctWhy": {
+    "message": "Why did it change?"
+  },
+
+  "keybShctExpl1": {
+    "message": "Because "
+  },
+
+  "keybShctExpl2": {
+    "message": " turns on Reader Mode in Firefox 78 and newer, so that key can’t be used anymore."
+  },
+
+  "changeShct": {
+    "message": "The keyboard shortcut can be changed by going to Manage Extension Shortcuts in Add-ons Manager."
+  },
+
+  "btnClosePg": {
+    "message": "Close This Page"
+  },
+  
+  "oldKeybShct": {
+    "message": "F9"
+  },
+
+  "newKeybShct": {
+    "message": "ALT+F9"
+  },
+
+  "newKeybShctMac": {
+    "message": "\u2325F9"
   }
 }

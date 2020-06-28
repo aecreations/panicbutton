@@ -74,6 +74,15 @@ browser.runtime.onInstalled.addListener(aDetails => {
       return null;
 
     }).then(() => {
+      if (! hasSanMiguelPrefs()) {
+        browser.tabs.create("pages/update-4.3.html");
+
+        log("Initializing 4.3 user preferences.");
+        return setSanMiguelPrefs();
+      }
+      return null;
+
+    }).then(() => {
       init();
     });
   }
@@ -126,6 +135,27 @@ async function setSantaRosaPrefs()
 }
 
 
+function hasSanMiguelPrefs()
+{
+  // Version 4.3
+  return gPrefs.hasOwnProperty("migratedKeybShct");
+}
+
+
+async function setSanMiguelPrefs()
+{
+  let newPrefs = {
+    migratedKeybShct: false,
+  };
+
+  for (let pref in newPrefs) {
+    gPrefs[pref] = newPrefs[pref];
+  }
+
+  await browser.storage.local.set(newPrefs);
+}
+
+
 async function setDefaultPrefs()
 {
   let aePanicButtonPrefs = {
@@ -141,6 +171,7 @@ async function setDefaultPrefs()
     restoreSessPswd: null,
     showCamouflageWebPg: false,
     camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
+    migratedKeybShct: false,
   };
 
   gPrefs = aePanicButtonPrefs;
@@ -225,8 +256,16 @@ function init()
       });
     }
     else {
-      gIsInitialized = true;
-      log("Panic Button/wx: Initialization of keyboard shortcut is automatically handled in Firefox 66 and newer.\nInitialization complete.");
+      if (! gPrefs.migratedKeybShct) {
+        migratePanicButtonKeys().then(() => {
+          gIsInitialized = true;
+          log("Panic Button/wx: Migrated keyboard shortcut for Panic Button action (default key now ALT+F9).\nInitialization complete.");
+        });
+      }
+      else {
+        gIsInitialized = true;
+        log("Panic Button/wx: Initialization complete.");
+      }
     }
   });
 }
@@ -294,6 +333,20 @@ async function setPanicButtonKeys()
     name: aeConst.CMD_PANIC_BUTTON_ACTION,
     shortcut,
   });
+}
+
+
+async function migratePanicButtonKeys()
+{
+  let cmds = await browser.commands.getAll();
+
+  if (cmds[0].shortcut == "F9") {  // Command name "ae-panicbutton"
+    await browser.commands.update({
+      name: aeConst.CMD_PANIC_BUTTON_ACTION,
+      shortcut: aeConst.KEY_PANIC_BUTTON_ACTION,
+    });
+  }
+  await browser.storage.local.set({ migratedKeybShct: true});
 }
 
 

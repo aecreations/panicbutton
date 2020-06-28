@@ -75,7 +75,7 @@ function init(aEvent)
       $("panic-action-hide-and-replace-radio-opt").classList.add("active-radio-opt");
       document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "none";
       document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "block";
-      setPref({ action: aEvent.target.value });
+      setPref({ action: Number(aEvent.target.value) });
     });
 
     $("webpg-url").addEventListener("blur", aEvent => {
@@ -94,7 +94,7 @@ function init(aEvent)
       $("panic-action-minimize-all-radio-opt").classList.add("active-radio-opt");
       document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "none";
       document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "block";
-      setPref({ action: aEvent.target.value });
+      setPref({ action: Number(aEvent.target.value) });
     });
 
     $("minz-all-camouflage").addEventListener("click", aEvent => {
@@ -123,7 +123,7 @@ function init(aEvent)
       allActionOpts.forEach(aActionOpt => {
         aActionOpt.style.display = "none";
       });
-      setPref({ action: aEvent.target.value });
+      setPref({ action: Number(aEvent.target.value) });
     });
 
     $("minz-all-camouflage-webpg-url").addEventListener("blur", aEvent => {

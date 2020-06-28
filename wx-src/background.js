@@ -8,7 +8,6 @@ let gIsInitialized = false;
 let gOS;
 let gHostAppVer;
 let gPrefs;
-let gHideAll = false;
 let gRestoreSessionWndID = null;
 let gReplaceSession = false;
 let gReplacemtWndID = null;
@@ -444,38 +443,37 @@ function closeAll(aSaveSession, aReplacementURL)
   log("Panic Button/wx: Invoked function closeAll()");
   log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
 
+  if (aSaveSession && aReplacementURL) {
+    gReplaceSession = true;
+
+    log("Panic Button/wx: Opening replacement window first, before closing all browser windows.");
+    browser.windows.create({ url: aReplacementURL }).then(aWnd => {
+      gReplacemtWndID = aWnd.id;
+      info("Window ID of temporary replacement window: " + gReplacemtWndID);
+
+      closeAllHelper();
+    });
+  }
+  else {
+    closeAllHelper();
+  }
+}
+
+
+function closeAllHelper()
+{
   browser.windows.getAll().then(aWnds => {
     log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
 
-    let closedWnds = [];
-    
     for (let wnd of aWnds) {
       if (gReplaceSession && wnd.id == gReplacemtWndID) {
-        log("Skipping temporary replacement window.");
-        continue;
-      }
-      if (gHideAll && wnd.id == gRestoreSessionWndID) {
+        log(`Skipping temporary replacement window (ID = ${gReplacemtWndID}).`);
         continue;
       }
 
-      log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
-      let closeWnd = browser.windows.remove(wnd.id);
-      closedWnds.push(closeWnd);
+      log("Panic Button/wx::closeAllHelper(): Closing window " + wnd.id);
+      browser.windows.remove(wnd.id);
     }
-
-    Promise.all(closedWnds).then(() => {
-      log("Panic Button/wx: Length of array of promises from browser.windows.remove(): " + closedWnds.length);
-
-      if (aSaveSession && aReplacementURL) {
-        gReplaceSession = true;
-
-        log("Panic Button/wx: Opening temporary replacement window.");
-        browser.windows.create({ url: aReplacementURL }).then(aWnd => {
-          gReplacemtWndID = aWnd.id;
-          info("Window ID of temporary replacement window: " + gReplacemtWndID);
-        });
-      }
-    });
   });
 }
 

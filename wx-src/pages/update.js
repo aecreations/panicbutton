@@ -3,6 +3,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+let gPanicButton;
+
 
 function $(aID)
 {
@@ -10,26 +12,27 @@ function $(aID)
 }
 
 
-function init()
+async function init()
 {
+  gPanicButton = await browser.runtime.getBackgroundPage();
+
   browser.history.deleteUrl({ url: window.location.href });
 
-  $("btn-close").addEventListener("click", aEvent => { closePage() });
+  $("btn-close").addEventListener("click", async (aEvent) => { closePage() });
   
   document.addEventListener("contextmenu", aEvent => {
     if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
       aEvent.preventDefault();
     }
-  }, false);  
+  }, false);   
 }
 
 
-function closePage()
+async function closePage()
 {
-  browser.tabs.getCurrent().then(aTab => {
-    return browser.tabs.remove(aTab.id);
-  });
+  let tab = await browser.tabs.getCurrent();
+  browser.tabs.remove(tab.id);
 }
 
-document.addEventListener("DOMContentLoaded", init, false);
+document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
 

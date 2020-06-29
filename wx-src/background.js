@@ -75,13 +75,10 @@ browser.runtime.onInstalled.addListener(aDetails => {
 
     }).then(() => {
       if (! hasSanMiguelPrefs()) {
-        browser.commands.getAll().then(aCmds => {
-          // Show the post-update page only if the shortcut for triggering the
-          // Panic Button action was previously F9.
-          if (aCmds[0].shortcut == "F9") {
-            browser.tabs.create("pages/update-4.3.html");
-          }
-        });
+        // TO DO: In future versions (> 4.3), show the update page only if the
+        // keyboard shortcut was never migrated, to accommodate users updating
+        // from a very old release.
+        browser.tabs.create({ url: "pages/update-4.3.html" });
 
         log("Initializing 4.3 user preferences.");
         return setSanMiguelPrefs();

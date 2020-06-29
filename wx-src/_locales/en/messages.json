@@ -357,7 +357,7 @@
   },
 
   "changeShct": {
-    "message": "The keyboard shortcut can be changed by going to Manage Extension Shortcuts in Add-ons Manager."
+    "message": "If the keyboard shortcut was customized, then this change won’t affect you.  View or change the keyboard shortcut by going to Manage Extension Shortcuts in Add-ons Manager."
   },
 
   "btnClosePg": {

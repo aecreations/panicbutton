@@ -8,7 +8,6 @@
 
 :root {
     --url-bkgd-img: url("../img/bkgrd.png");
-    --color-bkgd: none;
     --color-main-border: #ddd;
     --color-main-bkgd: #fefefe;
     --color-main-border-shadow: #e0e0e0;
@@ -313,6 +312,11 @@ fieldset select.browser-style {
     display: none;
 }
 
+#panicbutton-key:-moz-focusring,
+#panicbutton-key-modifiers:-moz-focusring {
+    border-color: var(--color-main-bkgd) !important;
+}
+    
 #extern-keyb-shct {
     display: none;
     vertical-align: middle;

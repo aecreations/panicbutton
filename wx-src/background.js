@@ -3,12 +3,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-
 let gIsInitialized = false;
 let gOS;
 let gHostAppVer;
 let gPrefs;
-let gRestoreSessionWndID = null;
 let gReplaceSession = false;
 let gReplacemtWndID = null;
 let gShowCamouflageWnd = false;
@@ -181,15 +179,6 @@ function init()
 
     gOS = platform.os;
     log("Panic Button/wx: OS: " + gOS);
-
-    browser.windows.onCreated.addListener(aWnd => {
-      log(`Panic Button/wx: Opening window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-    });
-
-    browser.windows.onRemoved.addListener(aWndID => {
-      log(`Panic Button/wx: Closing window... gRestoreSessionWndID = ${gRestoreSessionWndID}`);
-      log("Closing window ID: " + aWndID);
-    });
 
     browser.browserAction.onClicked.addListener(aTab => {
       panic();

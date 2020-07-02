@@ -9,6 +9,7 @@ let gHostAppVer;
 let gPrefs;
 let gReplaceSession = false;
 let gReplacemtWndID = null;
+let gNumClosedWnds = 0;
 let gShowCamouflageWnd = false;
 let gCamouflageWndID = null;
 let gMinimizedWndStates = [];
@@ -343,13 +344,14 @@ function restoreBrowserSession()
     }
 
     log(`Panic Button/wx: restoreBrowserSession(): Number of sessions available: ${aSessions.length}`);
+    log(`Number of windows to restore: ${gNumClosedWnds}`);
     log("Session data:");
     log(aSessions);
     log("Restoring browser session...");
 
     let restoredSessions = [];
-
-    for (let i = 0; i < aSessions.length; i++) {
+      
+    for (let i = 0; i < gNumClosedWnds; i++) {
       let sess = aSessions[i];
       
       if (! sess) {
@@ -359,11 +361,9 @@ function restoreBrowserSession()
         
       let sessID = null;
       if (sess.tab) {
-        log("Restoring session tab");
         sessID = sess.tab.sessionId;
       }
       else {
-        log("Restoring session window");
         sessID = sess.window.sessionId;
       }
       log("Panic Button/wx: restoreBrowserSession(): Restoring session ID: " + sessID);
@@ -377,21 +377,15 @@ function restoreBrowserSession()
       log("Panic Button/wx: Finished restoring browser sessions. Result:");
       log(aResults);
 
+      gNumClosedWnds = 0;
+      
       if (gReplaceSession) {
         log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
         let replacemtWnd = browser.windows.get(gReplacemtWndID);
         replacemtWnd.then(aWnd => {
-          return browser.windows.remove(aWnd.id);
-
-        }).then(() => {
+          browser.windows.remove(aWnd.id);
           gReplacemtWndID = null;
           gReplaceSession = false;
-
-          browser.sessions.getRecentlyClosed().then(aSessions => {
-            log("Panic Button/wx: Forgetting session for the now-closed replacement window.");
-            let closedSess = aSessions[0];
-            browser.sessions.forgetClosedWindow(closedSess.window.sessionId);
-          });
         });
       }
     }).catch(aErr => {
@@ -435,22 +429,12 @@ function closeAll(aSaveSession, aReplacementURL)
   if (aSaveSession && aReplacementURL) {
     gReplaceSession = true;
 
-    log("Panic Button/wx: Opening replacement window first, before closing all browser windows.");
     browser.windows.create({ url: aReplacementURL }).then(aWnd => {
       gReplacemtWndID = aWnd.id;
       info("Window ID of temporary replacement window: " + gReplacemtWndID);
-
-      closeAllHelper();
     });
   }
-  else {
-    closeAllHelper();
-  }
-}
-
-
-function closeAllHelper()
-{
+  
   browser.windows.getAll().then(aWnds => {
     log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
 
@@ -460,8 +444,12 @@ function closeAllHelper()
         continue;
       }
 
-      log("Panic Button/wx::closeAllHelper(): Closing window " + wnd.id);
+      log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
       browser.windows.remove(wnd.id);
+
+      if (aSaveSession) {
+        gNumClosedWnds++;
+      }
     }
   });
 }

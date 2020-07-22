@@ -459,31 +459,35 @@ function closeAll(aSaveSession, aReplacementURL)
   log("Panic Button/wx: Invoked function closeAll()");
   log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
 
-  if (aSaveSession && aReplacementURL) {
-    gReplaceSession = true;
-
-    browser.windows.create({ url: aReplacementURL }).then(aWnd => {
-      gReplacemtWndID = aWnd.id;
-      info("Window ID of temporary replacement window: " + gReplacemtWndID);
-    });
-  }
-  
-  browser.windows.getAll().then(aWnds => {
+  browser.windows.getAll({populate: true}).then(aWnds => {
     log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
 
+    if (aSaveSession) {
+      gClosedWndStates = aWnds;
+     }
+    
+    let closeWnds = [];
+    
     for (let wnd of aWnds) {
-      if (gReplaceSession && wnd.id == gReplacemtWndID) {
-        log(`Skipping temporary replacement window (ID = ${gReplacemtWndID}).`);
-        continue;
+      if (aSaveSession) {
+        gClosedWndActiveTabIndexes.push(wnd.tabs.findIndex(aTab => aTab.active));
       }
       
       log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
-      browser.windows.remove(wnd.id);
-
-      if (aSaveSession) {
-        gNumClosedWnds++;
-      }
+      closeWnds.push(browser.windows.remove(wnd.id));
     }
+
+    Promise.all(closeWnds).then(() => {
+      if (aSaveSession && aReplacementURL) {
+        gReplaceSession = true;
+
+        log("Opening temporary replacement window.");
+        browser.windows.create({ url: aReplacementURL }).then(aWnd => {
+          gReplacemtWndID = aWnd.id;
+          info("Window ID of temporary replacement window: " + gReplacemtWndID);
+        });
+      }
+    });
   });
 }
 

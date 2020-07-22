@@ -3,14 +3,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-
 let gIsInitialized = false;
 let gOS;
 let gHostAppVer;
 let gPrefs;
-let gHideAll = false;
 let gReplaceSession = false;
 let gReplacemtWndID = null;
+let gNumClosedWnds = 0;
 let gShowCamouflageWnd = false;
 let gCamouflageWndID = null;
 let gMinimizedWndStates = [];
@@ -460,35 +459,31 @@ function closeAll(aSaveSession, aReplacementURL)
   log("Panic Button/wx: Invoked function closeAll()");
   log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
 
-  browser.windows.getAll({populate: true}).then(aWnds => {
+  if (aSaveSession && aReplacementURL) {
+    gReplaceSession = true;
+
+    browser.windows.create({ url: aReplacementURL }).then(aWnd => {
+      gReplacemtWndID = aWnd.id;
+      info("Window ID of temporary replacement window: " + gReplacemtWndID);
+    });
+  }
+  
+  browser.windows.getAll().then(aWnds => {
     log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
 
-    if (aSaveSession) {
-      gClosedWndStates = aWnds;
-    }
-
-    let closeWnds = [];
-
     for (let wnd of aWnds) {
-      if (aSaveSession) {
-        gClosedWndActiveTabIndexes.push(wnd.tabs.findIndex(aTab => aTab.active));
+      if (gReplaceSession && wnd.id == gReplacemtWndID) {
+        log(`Skipping temporary replacement window (ID = ${gReplacemtWndID}).`);
+        continue;
       }
       
       log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
-      closeWnds.push(browser.windows.remove(wnd.id));
-    }
+      browser.windows.remove(wnd.id);
 
-    Promise.all(closeWnds).then(() => {
-      if (aSaveSession && aReplacementURL) {
-        gReplaceSession = true;
-
-        log("Opening temporary replacement window.");
-        browser.windows.create({ url: aReplacementURL }).then(aWnd => {
-          gReplacemtWndID = aWnd.id;
-          info("Window ID of temporary replacement window: " + gReplacemtWndID);
-        });
+      if (aSaveSession) {
+        gNumClosedWnds++;
       }
-    });
+    }
   });
 }
 

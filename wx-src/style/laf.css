@@ -6,6 +6,9 @@
 
 
 :root {
+    --color-bkgd: white;
+    --color-default-text: black;
+    --color-disabled-text: rgba(0, 0, 0, 0.40);
     --color-btn-bkgd: rgba(12, 12, 13, 0.1);
     --color-btn-hover-bkgd: rgba(12, 12, 13, 0.2);
     --color-btn-hover-border: rgba(12, 12, 13, 0.1);
@@ -31,6 +34,9 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
+	--color-bkgd: #2a2a2e;
+	--color-default-text: #f9f9fa;
+	--color-disabled-text: rgba(249, 249, 250, 0.4);
 	--color-btn-bkgd: #4a4a4f;
 	--color-btn-hover-bkgd: #606060;
 	--color-btn-hover-border: #606060;
@@ -93,7 +99,8 @@ button.default {
     color: #fff;
 }
 
-button.browser-style:hover:not(.pressed):not(:disabled):not(.focused), select.browser-style:hover:not(.pressed):not(:disabled):not(.focused) {
+button.browser-style:hover:not(.pressed):not(:disabled):not(.focused),
+select.browser-style:hover:not(.pressed):not(:disabled):not(.focused) {
     border: 1px solid var(--color-btn-hover-bkgd);
     background-color: var(--color-btn-hover-bkgd);
 }
@@ -101,10 +108,6 @@ button.browser-style:hover:not(.pressed):not(:disabled):not(.focused), select.br
 button:hover {
     border-color: var(--color-btn-hover-border);
     background-color: var(--color-btn-hover-bkgd);
-}
-
-select.browser-style {
-    background-image: var(--url-dropdown-arrow);
 }
 
 button.default:hover {
@@ -117,14 +120,33 @@ button:active {
     background-color: var(--color-btn-active-bkgd);
 }
 
+button.default:active {
+    border: 1px solid #002275;
+    background-color: #002275;
+}
+
+select.browser-style {
+    background-image: var(--url-dropdown-arrow);
+}
+
+select.browser-style:focus,
+select.browser-style:focus > option {
+    color: var(--color-btn-text);
+}
+
 select.browser-style:active {
     border: 1px solid rgba(12, 12, 13, 0.3) !important;
     background-color: rgba(12, 12, 13, 0.3) !important;
 }
 
-button.default:active {
-    border: 1px solid #002275;
-    background-color: #002275;
+select:-moz-focusring {
+    outline-style: none;
+}
+
+select:-moz-focusring:not([size]):not(:disabled),
+select.browser-style:-moz-focusring:not([size]):not(:disabled) {
+    border-color: var(--color-bkgd) !important;
+    box-shadow: 0 0 0 2px #61b5ffbf;
 }
 
 input[type="text"],
@@ -132,6 +154,12 @@ input[type="password"],
 textarea {
     padding-left: 8px;
     padding-right: 8px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="search"],
+textarea {
     border: 1px solid var(--color-tb-border);
     background-color: var(--color-tb-bkgd);
     font: caption;
@@ -140,12 +168,15 @@ textarea {
 
 input[type="text"]:hover,
 input[type="password"]:hover,
+input[type="search"]:hover,
 textarea:hover {
     border-color: var(--color-tb-hover-border);
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
 textarea:focus {
     border-color: #0a84ff;
     box-shadow: 0 0 0 2px #61b5ffbf;
@@ -153,38 +184,39 @@ textarea:focus {
     transition-property: box-shadow;
 }
 
+input[type="text"]:-moz-focusring,
+input[type="password"]:-moz-focusring,
+input[type="number"]:-moz-focusring,
+input[type="search"]:-moz-focusring,
+textarea:-moz-focusring {
+    outline-style: none;
+}
+
 input[type="text"]::selection,
 input[type="password"]::selection,
+input[type="search"]::selection,
 textarea::selection {
     background-color: var(--color-tb-selection);
 }
 
-input[type="checkbox"]:disabled,
-input[type="checkbox"]:disabled + label,
-input[type="text"]:disabled,
-label[disabled] {
-    opacity: 0.4;
-}
-
-.browser-style > input[type="checkbox"],
-.browser-style > input[type="radio"] {
+.browser-style > input[type="checkbox"] {
     background-color: var(--color-cb-bkgd);
     border: 1px solid var(--color-cb-border);
 }
 
 .browser-style > input[type="checkbox"]:hover,
-.browser-style.hover > input[type="checkbox"]:not(:active),
-.browser-style > input[type="radio"]:hover,
-.browser-style.hover > input[type="radio"]:not(:active) {
+.browser-style.hover > input[type="checkbox"]:not(:active) {
     background-color: var(--color-cb-hover-bkgd);
     border-color: var(--color-cb-border);
 }
 
 .browser-style > input[type="checkbox"]:hover:active,
-.browser-style.pressed > input[type="checkbox"]:not(:active),
-.browser-style > input[type="radio"]:hover:active,
-.browser-style.pressed > input[type="radio"]:not(:active) {
+.browser-style.pressed > input[type="checkbox"]:not(:active) {
     background-color: var(--color-cb-active-bkgd);
+}
+
+.browser-style > input[type="checkbox"][disabled] + label {
+    color: var(--color-disabled-text);
 }
 
 .error {

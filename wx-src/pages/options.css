@@ -3,12 +3,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 @import url("../style/laf.css");
+@import url("../style/lightbox.css");
 
 
 :root {
     --url-bkgd-img: url("../img/bkgrd.png");
-    --color-bkgd: none;
-    --color-text-default: black;
     --color-main-border: #ddd;
     --color-main-bkgd: #fefefe;
     --color-main-border-shadow: #e0e0e0;
@@ -29,13 +28,13 @@
     --color-about-btn-border: #ededf0;
     --color-about-btn-border-hover: #ededf0;
     --color-about-btn: black;
+    --color-private-mode-warn-text: #c805c8;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
 	--url-bkgd-img: none;
 	--color-bkgd: #1a1a1e;
-	--color-text-default: #f9f9fa;
 	--color-main-border: #0c0c0d;
 	--color-main-bkgd: #2a2a2e;
 	--color-main-border-shadow: #0c0c0d;
@@ -56,6 +55,7 @@
 	--color-about-btn-border: #4a4a4f;
 	--color-about-btn-border-hover: #b1b1b3;
 	--color-about-btn: #f9f9fa;
+	--color-private-mode-warn-text: #ef6fef;
     }
 }
 
@@ -63,7 +63,7 @@
 body {
     background-color: var(--color-bkgd);
     background-image: var(--url-bkgd-img);
-    color: var(--color-text-default);
+    color: var(--color-default-text);
 }
 
 main {
@@ -265,7 +265,7 @@ fieldset select.browser-style {
 
 #private-browsing-warning {
     font-size: 11px;
-    color: #c805c8;
+    color: var(--color-private-mode-warn-text);
 }
 
 #private-browsing-warning-icon {
@@ -312,6 +312,11 @@ fieldset select.browser-style {
     display: none;
 }
 
+#panicbutton-key:-moz-focusring,
+#panicbutton-key-modifiers:-moz-focusring {
+    border-color: var(--color-main-bkgd) !important;
+}
+    
 #extern-keyb-shct {
     display: none;
     vertical-align: middle;
@@ -478,7 +483,6 @@ input[type="file"] {
     margin-bottom: 0;
     padding: 0 24px 0;
     border-radius: 2px;
-    outline: unset;
     font: caption;
     font-size: 15px !important;
 }

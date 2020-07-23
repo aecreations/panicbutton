@@ -44,13 +44,12 @@ let gToolbarBtnIcons = [
 // First-run initialization
 //
 
-browser.runtime.onInstalled.addListener(aDetails => {
+browser.runtime.onInstalled.addListener(async (aDetails) => {
   if (aDetails.reason == "install") {
     log("Panic Button/wx: Extension installed");
 
-    setDefaultPrefs().then(() => {
-      init();
-    });
+    await setDefaultPrefs();
+    await init();
   }
   else if (aDetails.reason == "update") {
     let oldVer = aDetails.previousVersion;
@@ -58,25 +57,19 @@ browser.runtime.onInstalled.addListener(aDetails => {
     
     log(`Panic Button/wx: Upgrading from version ${oldVer} to ${currVer}`);
 
-    browser.storage.local.get().then(aPrefs => {
-      gPrefs = aPrefs;
+    gPrefs = await browser.storage.local.get();
 
-      if (! hasSantaCruzPrefs()) {
-        log("Initializing 4.1 user preferences");
-        return setSantaCruzPrefs();
-      }
-      return null;
+    if (! hasSantaCruzPrefs()) {
+      log("Initializing 4.1 user preferences");
+      await setSantaCruzPrefs();
+    }
 
-    }).then(() => {
-      if (! hasSantaRosaPrefs()) {
-        log("Initializing 4.2 user preferences.");
-        return setSantaRosaPrefs();
-      }
-      return null;
+    if (! hasSantaRosaPrefs()) {
+      log("Initializing 4.2 user preferences.");
+      await setSantaRosaPrefs();
+    }
 
-    }).then(() => {
-      init();
-    });
+    await init();
   }
 });
 
@@ -154,17 +147,16 @@ async function setDefaultPrefs()
 // Initializing integration with host application
 //
 
-browser.runtime.onStartup.addListener(() => {
+browser.runtime.onStartup.addListener(async () => {
   log("Panic Button/wx: Initializing Panic Button during browser startup.");
 
-  browser.storage.local.get().then(aPrefs => {
-    gPrefs = aPrefs;
-    init();
-  });
+  aPrefs = await browser.storage.local.get();
+  gPrefs = aPrefs;
+  init();
 });
 
 
-function init()
+async function init()
 {
   if (gIsInitialized) {
     return;
@@ -173,7 +165,7 @@ function init()
   let getBrwsInfo = browser.runtime.getBrowserInfo();
   let getPlatInfo = browser.runtime.getPlatformInfo();
 
-  Promise.all([getBrwsInfo, getPlatInfo]).then(aResults => {
+  Promise.all([getBrwsInfo, getPlatInfo]).then(async (aResults) => {
     let brws = aResults[0];
     let platform = aResults[1];
     
@@ -183,17 +175,17 @@ function init()
     gOS = platform.os;
     log("Panic Button/wx: OS: " + gOS);
 
-    browser.browserAction.onClicked.addListener(aTab => {
-      panic();
+    browser.browserAction.onClicked.addListener(async (aTab) => {
+      await panic();
     });
 
-    browser.commands.onCommand.addListener(aCmd => {
+    browser.commands.onCommand.addListener(async (aCmd) => {
       if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
-        panic();
+        await panic();
       }
     });
 
-    browser.storage.onChanged.addListener((aChanges, aAreaName) => {
+    browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
       let changedPrefs = Object.keys(aChanges);
       
       for (let pref of changedPrefs) {
@@ -211,10 +203,9 @@ function init()
     setPanicButtonCustomizations();
 
     if (versionCompare(gHostAppVer, "66.0") < 0) {
-      setPanicButtonKeys().then(() => {
-        gIsInitialized = true;
-        log("Panic Button/wx: Initialized keyboard shortcut from user prefs.\nInitialization complete.");
-      });
+      await setPanicButtonKeys();
+      gIsInitialized = true;
+      log("Panic Button/wx: Initialized keyboard shortcut from user prefs.\nInitialization complete.");
     }
     else {
       gIsInitialized = true;
@@ -289,36 +280,36 @@ async function setPanicButtonKeys()
 }
 
 
-function panic()
+async function panic()
 {
   if (gReplaceSession) {
     if (gPrefs.restoreSessPswdEnabled) {
       browser.tabs.update({ url: "pages/restoreSession.html" });
     }
     else {
-      restoreBrowserSession();
+      await restoreBrowserSession();
     }
   }
   else if (gShowCamouflageWnd) {
-    restoreBrowserWindowState();
+    await restoreBrowserWindowState();
     gShowCamouflageWnd = false;
   }
   else {
     if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
       let replacementURL = gPrefs.replacementWebPgURL;
-      closeAll(true, replacementURL);
+      await closeAll(true, replacementURL);
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
-      minimizeAll();
+      await minimizeAll();
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
-      closeAll(false);
+      await closeAll(false);
     }
   }
 }
 
 
-function restoreBrowserWindowState()
+async function restoreBrowserWindowState()
 {
   if (gShowCamouflageWnd) {
     browser.windows.remove(gCamouflageWndID);
@@ -328,17 +319,20 @@ function restoreBrowserWindowState()
   while (gMinimizedWndStates.length > 0) {
     let minzWnd = gMinimizedWndStates.pop();
 
-    browser.windows.get(minzWnd.id).then(aWnd => {
+    try {
+      let wnd = await browser.windows.get(minzWnd.id);
+
       // Confirm that the minimized window still exists.
-      browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
-    }).catch(aErr => {
+      await browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
+    }
+    catch (e) {
       warn("Panic Button/wx: Window ID no longer valid (was it just closed?): " + minzWnd.id);
-    });
+    };
   }
 }
 
 
-function restoreBrowserSession()
+async function restoreBrowserSession()
 {
   function isNonrestrictedURL(aURL)
   {
@@ -355,139 +349,132 @@ function restoreBrowserSession()
 
   if (gReplaceSession) {
     log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
-    browser.windows.get(gReplacemtWndID).then(aWnd => {
-      return browser.windows.remove(aWnd.id);
+    let wnd = await browser.windows.get(gReplacemtWndID);
+    await browser.windows.remove(wnd.id);
 
-    }).then(() => {
-      gReplacemtWndID = null;
-      gReplaceSession = false;
+    gReplacemtWndID = null;
+    gReplaceSession = false;
 
-      log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
+    log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
 
-      let restoredWnds = [];
+    let restoredWnds = [];
+    
+    while (gClosedWndStates.length > 0) {   
+      let closedWnd = gClosedWndStates.shift();
       
-      while (gClosedWndStates.length > 0) {   
-        let closedWnd = gClosedWndStates.shift();
+      let wndPpty = {
+        type: "normal",
+        incognito: closedWnd.incognito,
+        state: closedWnd.state,
+      };
 
-        let wndPpty = {
-          type: "normal",
-          incognito: closedWnd.incognito,
-          state: closedWnd.state,
-        };
-
-        if (closedWnd.state == "normal") {
-          wndPpty.top = closedWnd.top;
-          wndPpty.left = closedWnd.left;
-          wndPpty.width = closedWnd.width;
-          wndPpty.height = closedWnd.height;
-        }
-        
-        if (closedWnd.tabs.length == 1) {
-          let brwsTabURL = closedWnd.tabs[0].url;
-
-          // Default to home page if URL is restricted.
-          wndPpty.url = isNonrestrictedURL(brwsTabURL) ? brwsTabURL : null;
-        }
-        else {
-          let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonrestrictedURL(aTab.url));
-          wndPpty.url = safeBrwsTabs.map(aTab => aTab.url);
-        }
-
-        log("Panic Button/wx::restoreBrowserSession(): Info about window being restored: ");
-        log(wndPpty);
-
-        browser.windows.create(wndPpty).then(aCreatedWnd => {
-          let activeTabIdx = gClosedWndActiveTabIndexes.shift();
-          let activeTabID = 0;
-
-          if (activeTabIdx >= aCreatedWnd.tabs.length) {
-            // Some tabs may not be restored (e.g. "about:" pages), which would
-            // mess up the saved index of the active tab.
-            log(`Setting last tab for window (id = ${aCreatedWnd.id}) to be active.`);
-            activeTabIdx = aCreatedWnd.tabs.length - 1;
-            activeTabID = aCreatedWnd.tabs[activeTabIdx].id;
-          }
-          else {
-            log(`Setting tab[${activeTabIdx}] for window (id = ${aCreatedWnd.id}) to be active.`);
-            activeTabID = aCreatedWnd.tabs[activeTabIdx].id;
-          }
-          browser.tabs.update(activeTabID, {active: true});
-          
-          if (closedWnd.focused) {
-            browser.windows.update(aCreatedWnd.id, {focused: true}).then(aUpdWnd => {
-              log(`Finished restoring window (ID = ${aCreatedWnd.id}) - giving this window the focus.`);
-            });
-          }
-          else {
-            log(`Finished restoring window (ID = ${aCreatedWnd.id})`);
-          }
-        });
+      if (closedWnd.state == "normal") {
+        wndPpty.top = closedWnd.top;
+        wndPpty.left = closedWnd.left;
+        wndPpty.width = closedWnd.width;
+        wndPpty.height = closedWnd.height;
       }
-    });
+      
+      if (closedWnd.tabs.length == 1) {
+        let brwsTabURL = closedWnd.tabs[0].url;
+
+        // Default to home page if URL is restricted.
+        wndPpty.url = isNonrestrictedURL(brwsTabURL) ? brwsTabURL : null;
+      }
+      else {
+        let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonrestrictedURL(aTab.url));
+        wndPpty.url = safeBrwsTabs.map(aTab => aTab.url);
+      }
+
+      log("Panic Button/wx::restoreBrowserSession(): Info about window being restored: ");
+      log(wndPpty);
+
+      let createdWnd = await browser.windows.create(wndPpty);
+      let activeTabIdx = gClosedWndActiveTabIndexes.shift();
+      let activeTabID = 0;
+
+      if (activeTabIdx >= createdWnd.tabs.length) {
+        // Some tabs may not be restored (e.g. "about:" pages), which would
+        // mess up the saved index of the active tab.
+        log(`Setting last tab for window (id = ${createdWnd.id}) to be active.`);
+        activeTabIdx = createdWnd.tabs.length - 1;
+        activeTabID = createdWnd.tabs[activeTabIdx].id;
+      }
+      else {
+        log(`Setting tab[${activeTabIdx}] for window (id = ${createdWnd.id}) to be active.`);
+        activeTabID = createdWnd.tabs[activeTabIdx].id;
+      }
+      await browser.tabs.update(activeTabID, {active: true});
+      
+      if (closedWnd.focused) {
+        let updWnd = await browser.windows.update(createdWnd.id, {focused: true});
+        log(`Finished restoring window (ID = ${createdWnd.id}) - giving this window the focus.`);
+      }
+      else {
+        log(`Finished restoring window (ID = ${createdWnd.id})`);
+      }
+    };
   }
 }
 
 
-function minimizeAll()
+async function minimizeAll()
 {
   log("Panic Button/wx: Invoked function minimizeAll()");
 
-  browser.windows.getAll().then(aWnds => {
-    for (let wnd of aWnds) {
-      gMinimizedWndStates.push({
-        id: wnd.id,
-        wndState: wnd.state,
-      });
-      browser.windows.update(wnd.id, { state: "minimized" }).then(() => {
-        log("Minimized window: " + wnd.id);
-      });
-    }
-  });
+  let wnds = await browser.windows.getAll();
+  for (let wnd of wnds) {
+    gMinimizedWndStates.push({
+      id: wnd.id,
+      wndState: wnd.state,
+    });
+    await browser.windows.update(wnd.id, { state: "minimized" });
+    log("Minimized window: " + wnd.id);
+  }
 
   if (gPrefs.showCamouflageWebPg) {
-    browser.windows.create({ url: gPrefs.camouflageWebPgURL }).then(aWnd => {
-      info("Panic Button/wx: Camouflage window: ID: " + aWnd.id);
-      gCamouflageWndID = aWnd.id;
-      gShowCamouflageWnd = true;
-    });
+    let camoWnd = await browser.windows.create({ url: gPrefs.camouflageWebPgURL });
+    info("Panic Button/wx: Camouflage window: ID: " + camoWnd.id);
+    gCamouflageWndID = camoWnd.id;
+    gShowCamouflageWnd = true;
   }
 }
 
 
-function closeAll(aSaveSession, aReplacementURL)
+async function closeAll(aSaveSession, aReplacementURL)
 {
   log("Panic Button/wx: Invoked function closeAll()");
   log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
 
-  browser.windows.getAll({populate: true}).then(aWnds => {
-    log("Panic Button/wx: Total number of windows currently open: " + aWnds.length);
+  let wnds = await browser.windows.getAll({populate: true});
+  log("Panic Button/wx: Total number of windows currently open: " + wnds.length);
 
+  if (aSaveSession) {
+    gClosedWndStates = wnds;
+  }
+  
+  let closeWnds = [];
+  
+  for (let wnd of wnds) {
     if (aSaveSession) {
-      gClosedWndStates = aWnds;
-     }
-    
-    let closeWnds = [];
-    
-    for (let wnd of aWnds) {
-      if (aSaveSession) {
-        gClosedWndActiveTabIndexes.push(wnd.tabs.findIndex(aTab => aTab.active));
-      }
-      
-      log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
-      closeWnds.push(browser.windows.remove(wnd.id));
+      gClosedWndActiveTabIndexes.push(wnd.tabs.findIndex(aTab => aTab.active));
     }
+    
+    log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
+    closeWnds.push(browser.windows.remove(wnd.id));
+  }
 
-    Promise.all(closeWnds).then(() => {
-      if (aSaveSession && aReplacementURL) {
-        gReplaceSession = true;
+  Promise.all(closeWnds).then(() => {
+    if (aSaveSession && aReplacementURL) {
+      gReplaceSession = true;
 
-        log("Opening temporary replacement window.");
-        browser.windows.create({ url: aReplacementURL }).then(aWnd => {
-          gReplacemtWndID = aWnd.id;
-          info("Window ID of temporary replacement window: " + gReplacemtWndID);
-        });
-      }
-    });
+      log("Opening temporary replacement window.");
+      browser.windows.create({ url: aReplacementURL }).then(aReplcWnd => {
+        gReplacemtWndID = aReplcWnd.id;
+        info("Window ID of temporary replacement window: " + gReplacemtWndID);
+        
+      });
+    }
   });
 }
 

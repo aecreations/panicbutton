@@ -150,8 +150,7 @@ async function setDefaultPrefs()
 browser.runtime.onStartup.addListener(async () => {
   log("Panic Button/wx: Initializing Panic Button during browser startup.");
 
-  aPrefs = await browser.storage.local.get();
-  gPrefs = aPrefs;
+  gPrefs = await browser.storage.local.get();
   init();
 });
 
@@ -469,10 +468,9 @@ async function closeAll(aSaveSession, aReplacementURL)
       gReplaceSession = true;
 
       log("Opening temporary replacement window.");
-      browser.windows.create({ url: aReplacementURL }).then(aReplcWnd => {
-        gReplacemtWndID = aReplcWnd.id;
+      browser.windows.create({ url: aReplacementURL }).then(aWnd => {
+        gReplacemtWndID = aWnd.id;
         info("Window ID of temporary replacement window: " + gReplacemtWndID);
-        
       });
     }
   });

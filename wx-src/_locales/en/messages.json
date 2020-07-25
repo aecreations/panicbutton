@@ -68,6 +68,14 @@
     "message": "Minimizes all browser windows.  Optionally opens a single window displaying a web page at a set location."
   },
 
+  "actMinimizeCurr": {
+    "message": "Minimize Current Window"
+  },
+
+  "actDescMinimizeCurr": {
+    "message": "Minimizes the current browser window."
+  },
+
   "actCloseAll": {
     "message": "Close All Windows"
   },

@@ -12,6 +12,7 @@ let gReplacemtWndID = null;
 let gNumClosedWnds = 0;
 let gShowCamouflageWnd = false;
 let gCamouflageWndID = null;
+let gMinimizedWndID = null;
 let gMinimizedWndStates = [];
 let gClosedWndStates = [];
 let gClosedWndActiveTabIndexes = [];
@@ -304,6 +305,9 @@ async function panic()
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
       await closeAll(false);
     }
+    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR) {
+      await minimizeCurrent();
+    }
   }
 }
 
@@ -437,6 +441,19 @@ async function minimizeAll()
     gCamouflageWndID = camoWnd.id;
     gShowCamouflageWnd = true;
   }
+}
+
+
+async function minimizeCurrent()
+{
+  log("Panic Button/wx: Invoked function minimizeCurrent()");
+
+  let wnd = await browser.windows.getCurrent();
+
+  await browser.windows.update(wnd.id, { state: "minimized" });
+  log("Minimized window: " + wnd.id);
+
+  gMinimizedWndID = wnd.id;
 }
 
 

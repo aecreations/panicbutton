@@ -20,7 +20,7 @@
     --color-tab-border-inactive: #b1b1b3;
     --color-tab-text-active: #0a84ff;
     --color-tab-border-active: #0a84ff;
-    --color-radio-opt-bkgd: #f9f9fa;
+    --color-radio-panel-bkgd: #f9f9fa;
     --color-toolbar-btn-icon-palette-bkgd: transparent;
     --color-about-btn-bkgd: #f9f9fa;
     --color-about-btn-bkgd-hover: #ededf0;
@@ -47,7 +47,7 @@
 	--color-tab-border-inactive: #d7d7db;
 	--color-tab-text-active: #45a1ff;
 	--color-tab-border-active: #0a84ff;
-	--color-radio-opt-bkgd: #38383d;
+	--color-radio-panel-bkgd: #38383d;
 	--color-toolbar-btn-icon-palette-bkgd: #d7d7db;
 	--color-about-btn-bkgd: #2a2a2e;
 	--color-about-btn-bkgd-hover: #38383d;
@@ -224,26 +224,26 @@ fieldset select.browser-style {
     display: block;
 }
 
-.action-radio-opt {
+.action-radio-panel {
     margin: 8px 0 4px 0;
     padding: 16px 8px;
     border: 1px solid var(--color-fieldset-border);
     border-radius: 4px;
-    background-color: var(--color-radio-opt-bkgd);
+    background-color: var(--color-radio-panel-bkgd);
 }
 
-.active-radio-opt {
+.active-radio-panel {
     border: 1px solid #45A1FF;
     background-color: rgba(69, 161, 255, 0.2);
 }
 
-.action-radio-opt input[type="radio"] + label {
+.action-radio-panel input[type="radio"] + label {
     font-size: 15px;
     font-weight: 600;
     vertical-align: middle;
 }
 
-.action-radio-opt input[type="radio"]:checked + label {
+.action-radio-panel input[type="radio"]:checked + label {
     font-weight: 700;
 }
 

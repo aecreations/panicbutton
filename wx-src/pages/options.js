@@ -69,9 +69,9 @@ async function init(aEvent)
   $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
 
   $("panic-action-hide-and-replace").addEventListener("click", aEvent => {
-    $("panic-action-minimize-all-radio-opt").classList.remove("active-radio-opt");
-    $("panic-action-close-all-radio-opt").classList.remove("active-radio-opt");
-    $("panic-action-hide-and-replace-radio-opt").classList.add("active-radio-opt");
+    $("panic-action-minimize-all-radio-panel").classList.remove("active-radio-panel");
+    $("panic-action-close-all-radio-panel").classList.remove("active-radio-panel");
+    $("panic-action-hide-and-replace-radio-panel").classList.add("active-radio-panel");
     document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "none";
     document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "block";
     setPref({ action: aEvent.target.value });
@@ -88,9 +88,9 @@ async function init(aEvent)
   });
   
   $("panic-action-minimize-all").addEventListener("click", aEvent => {
-    $("panic-action-hide-and-replace-radio-opt").classList.remove("active-radio-opt");
-    $("panic-action-close-all-radio-opt").classList.remove("active-radio-opt");
-    $("panic-action-minimize-all-radio-opt").classList.add("active-radio-opt");
+    $("panic-action-hide-and-replace-radio-panel").classList.remove("active-radio-panel");
+    $("panic-action-close-all-radio-panel").classList.remove("active-radio-panel");
+    $("panic-action-minimize-all-radio-panel").classList.add("active-radio-panel");
     document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "none";
     document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "block";
     setPref({ action: aEvent.target.value });
@@ -114,9 +114,9 @@ async function init(aEvent)
   });
 
   $("panic-action-close-all").addEventListener("click", aEvent => {
-    $("panic-action-hide-and-replace-radio-opt").classList.remove("active-radio-opt");
-    $("panic-action-minimize-all-radio-opt").classList.remove("active-radio-opt");
-    $("panic-action-close-all-radio-opt").classList.add("active-radio-opt");
+    $("panic-action-hide-and-replace-radio-panel").classList.remove("active-radio-panel");
+    $("panic-action-minimize-all-radio-panel").classList.remove("active-radio-panel");
+    $("panic-action-close-all-radio-panel").classList.add("active-radio-panel");
 
     let allActionOpts = document.querySelectorAll(".panic-action-options");
     allActionOpts.forEach(aActionOpt => {
@@ -264,7 +264,7 @@ async function init(aEvent)
   let panicActions = document.getElementsByName("panic-action");
   let panicActionRadio = panicActions[prefs.action];
   panicActionRadio.checked = true;
-  panicActionRadio.parentNode.classList.add("active-radio-opt");
+  panicActionRadio.parentNode.classList.add("active-radio-panel");
   
   if (prefs.action != aeConst.PANICBUTTON_ACTION_QUIT) {
     panicActionRadio.parentNode.getElementsByClassName("panic-action-options")[0].style.display = "block";

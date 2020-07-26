@@ -68,11 +68,7 @@ async function init(aEvent)
   $("reset-customizations").addEventListener("click", resetCustomizations, false);
   $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
 
-  $("panic-action-hide-and-replace").addEventListener("click", aEvent => {
-    let selectedActionID = aEvent.target.value;
-    switchSelectedActionRadioPanel(selectedActionID);
-    setPref({ action: selectedActionID });
-  });
+  $("panic-action-hide-and-replace").addEventListener("click", selectPanicAction);
 
   $("webpg-url").addEventListener("blur", aEvent => {
     let url = aEvent.target.value;
@@ -84,11 +80,7 @@ async function init(aEvent)
     setPref({ replacementWebPgURL: aEvent.target.value });
   });
   
-  $("panic-action-minimize-all").addEventListener("click", aEvent => {
-    let selectedActionID = aEvent.target.value;
-    switchSelectedActionRadioPanel(selectedActionID);
-    setPref({ action: selectedActionID });
-  });
+  $("panic-action-minimize-all").addEventListener("click", selectPanicAction);
 
   $("minz-all-camouflage").addEventListener("click", aEvent => {
     let isMinzAllCamo = aEvent.target.checked;
@@ -107,12 +99,6 @@ async function init(aEvent)
     setPref({ showCamouflageWebPg: isMinzAllCamo });
   });
 
-  $("panic-action-close-all").addEventListener("click", aEvent => {
-    let selectedActionID = aEvent.target.value;
-    switchSelectedActionRadioPanel(selectedActionID);
-    setPref({ action: selectedActionID });
-  });
-
   $("minz-all-camouflage-webpg-url").addEventListener("blur", aEvent => {
     let url = aEvent.target.value;
     if (url == "") {
@@ -122,6 +108,9 @@ async function init(aEvent)
     validateURLTextbox(aEvent.target);
     setPref({ camouflageWebPgURL: aEvent.target.value });
   });
+
+  $("panic-action-minimize-current").addEventListener("click", selectPanicAction);
+  $("panic-action-close-all").addEventListener("click", selectPanicAction);
 
   $("shortcut-key").addEventListener("click", aEvent => {
     setPref({ shortcutKey: aEvent.target.checked});
@@ -249,14 +238,10 @@ async function init(aEvent)
   });
 
   let prefs = await browser.storage.local.get();
-  let panicActions = document.getElementsByName("panic-action");
-  let panicActionRadio = panicActions[prefs.action];
+  let panicActions = Array.from(document.getElementsByName("panic-action"));
+  let panicActionRadio = panicActions.find(aRadioOpt => aRadioOpt.value == prefs.action);
   panicActionRadio.checked = true;
-  panicActionRadio.parentNode.classList.add("active-radio-panel");
-  
-  if (prefs.action != aeConst.PANICBUTTON_ACTION_QUIT) {
-    panicActionRadio.parentNode.getElementsByClassName("panic-action-options")[0].style.display = "block";
-  }
+  switchSelectedActionRadioPanel(prefs.action);
 
   $("shortcut-key").checked = prefs.shortcutKey;
   $("webpg-url").value = prefs.replacementWebPgURL;
@@ -549,6 +534,14 @@ function initDialogs()
 }
 
 
+function selectPanicAction(aEvent)
+{
+  let selectedActionID = aEvent.target.value;
+  switchSelectedActionRadioPanel(selectedActionID);
+  setPref({ action: selectedActionID });
+}
+
+
 function switchSelectedActionRadioPanel(aSelectedActionID)
 {
   let radioPanels = [
@@ -566,6 +559,11 @@ function switchSelectedActionRadioPanel(aSelectedActionID)
       radioBtnID: "panic-action-close-all",
       radioPanelID: "panic-action-close-all-radio-panel",
       actionOptLocator: null
+    },
+    {
+      radioBtnID: "panic-action-minimize-current",
+      radioPanelID: "panic-action-minimize-current-radio-panel",
+      actionOptLocator: ""  // TBA
     }
   ];
 

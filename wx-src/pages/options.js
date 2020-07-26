@@ -69,12 +69,9 @@ async function init(aEvent)
   $("custom-icon-upload").addEventListener("change", setCustomTBIcon, false);
 
   $("panic-action-hide-and-replace").addEventListener("click", aEvent => {
-    $("panic-action-minimize-all-radio-panel").classList.remove("active-radio-panel");
-    $("panic-action-close-all-radio-panel").classList.remove("active-radio-panel");
-    $("panic-action-hide-and-replace-radio-panel").classList.add("active-radio-panel");
-    document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "none";
-    document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "block";
-    setPref({ action: aEvent.target.value });
+    let selectedActionID = aEvent.target.value;
+    switchSelectedActionRadioPanel(selectedActionID);
+    setPref({ action: selectedActionID });
   });
 
   $("webpg-url").addEventListener("blur", aEvent => {
@@ -88,12 +85,9 @@ async function init(aEvent)
   });
   
   $("panic-action-minimize-all").addEventListener("click", aEvent => {
-    $("panic-action-hide-and-replace-radio-panel").classList.remove("active-radio-panel");
-    $("panic-action-close-all-radio-panel").classList.remove("active-radio-panel");
-    $("panic-action-minimize-all-radio-panel").classList.add("active-radio-panel");
-    document.querySelector("#panic-action-hide-and-replace ~ .panic-action-options").style.display = "none";
-    document.querySelector("#panic-action-minimize-all ~ .panic-action-options").style.display = "block";
-    setPref({ action: aEvent.target.value });
+    let selectedActionID = aEvent.target.value;
+    switchSelectedActionRadioPanel(selectedActionID);
+    setPref({ action: selectedActionID });
   });
 
   $("minz-all-camouflage").addEventListener("click", aEvent => {
@@ -114,15 +108,9 @@ async function init(aEvent)
   });
 
   $("panic-action-close-all").addEventListener("click", aEvent => {
-    $("panic-action-hide-and-replace-radio-panel").classList.remove("active-radio-panel");
-    $("panic-action-minimize-all-radio-panel").classList.remove("active-radio-panel");
-    $("panic-action-close-all-radio-panel").classList.add("active-radio-panel");
-
-    let allActionOpts = document.querySelectorAll(".panic-action-options");
-    allActionOpts.forEach(aActionOpt => {
-      aActionOpt.style.display = "none";
-    });
-    setPref({ action: aEvent.target.value });
+    let selectedActionID = aEvent.target.value;
+    switchSelectedActionRadioPanel(selectedActionID);
+    setPref({ action: selectedActionID });
   });
 
   $("minz-all-camouflage-webpg-url").addEventListener("blur", aEvent => {
@@ -558,6 +546,43 @@ function initDialogs()
     document.getElementById("ext-ver").innerText = chrome.i18n.getMessage("aboutExtVer", gExtInfo.version);
     document.getElementById("ext-desc").innerText = gExtInfo.description;
   };  
+}
+
+
+function switchSelectedActionRadioPanel(aSelectedActionID)
+{
+  let radioPanels = [
+    {
+      radioBtnID: "panic-action-hide-and-replace",
+      radioPanelID: "panic-action-hide-and-replace-radio-panel",
+      actionOptLocator: "#panic-action-hide-and-replace ~ .panic-action-options"
+    },
+    {
+      radioBtnID: "panic-action-minimize-all",
+      radioPanelID: "panic-action-minimize-all-radio-panel",
+      actionOptLocator: "#panic-action-minimize-all ~ .panic-action-options"
+    },
+    {
+      radioBtnID: "panic-action-close-all",
+      radioPanelID: "panic-action-close-all-radio-panel",
+      actionOptLocator: null
+    }
+  ];
+
+  radioPanels.forEach((aPanel, aIndex) => {
+    if (aIndex == aSelectedActionID) {
+      $(aPanel.radioPanelID).classList.add("active-radio-panel");
+      if (aPanel.actionOptLocator) {
+        document.querySelector(aPanel.actionOptLocator).style.display = "block";
+      }
+    }
+    else {
+      $(aPanel.radioPanelID).classList.remove("active-radio-panel");
+      if (aPanel.actionOptLocator) {
+        document.querySelector(aPanel.actionOptLocator).style.display = "none";
+      }
+    }
+  });
 }
 
 

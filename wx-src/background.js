@@ -136,6 +136,7 @@ async function setDefaultPrefs()
     restoreSessPswd: null,
     showCamouflageWebPg: false,
     camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
+    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_MINZ_CURR_WND,
   };
 
   gPrefs = aePanicButtonPrefs;
@@ -294,6 +295,14 @@ async function panic()
     await restoreBrowserWindowState();
     gShowCamouflageWnd = false;
   }
+  else if (gMinimizedWndID && gPrefs.minimizeCurrOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
+    if (await restoreMinimizedBrowserWindowState()) {
+      gMinimizedWndID = null;
+    }
+    else {
+      await minimizeCurrent();
+    }
+  }
   else {
     if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
       let replacementURL = gPrefs.replacementWebPgURL;
@@ -323,15 +332,37 @@ async function restoreBrowserWindowState()
     let minzWnd = gMinimizedWndStates.pop();
 
     try {
-      let wnd = await browser.windows.get(minzWnd.id);
+      await browser.windows.get(minzWnd.id);
 
       // Confirm that the minimized window still exists.
       await browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
     }
     catch (e) {
-      warn("Panic Button/wx: Window ID no longer valid (was it just closed?): " + minzWnd.id);
+      warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
     };
   }
+}
+
+
+async function restoreMinimizedBrowserWindowState()
+{
+  let rv = false;
+  let wnd = null;
+
+  try {
+    wnd = await browser.windows.get(gMinimizedWndID);    
+  }
+  catch (e) {
+    warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
+  }
+
+  if (wnd.state == "minimized") {
+    // TO DO: Don't assume previous window state.
+    await browser.windows.update(gMinimizedWndID, { state: "normal" });
+    rv = true;
+  }
+
+  return rv;
 }
 
 

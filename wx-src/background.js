@@ -121,6 +121,27 @@ async function setSantaRosaPrefs()
 }
 
 
+function hasSantaCatalinaPrefs()
+{
+  // Version 4.3
+  return gPrefs.hasOwnProperty("minimizeCurrOpt");
+}
+
+
+async function setSantaCatalinaPrefs()
+{
+  let newPrefs = {
+    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_MINZ_CURR_WND,
+  };
+
+  for (let pref in newPrefs) {
+    gPrefs[pref] = newPrefs[pref];
+  }
+
+  await browser.storage.local.set(newPrefs);
+}
+
+
 async function setDefaultPrefs()
 {
   let aePanicButtonPrefs = {
@@ -136,7 +157,7 @@ async function setDefaultPrefs()
     restoreSessPswd: null,
     showCamouflageWebPg: false,
     camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_MINZ_CURR_WND,
+    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
   };
 
   gPrefs = aePanicButtonPrefs;

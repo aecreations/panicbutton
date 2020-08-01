@@ -76,6 +76,22 @@
     "message": "Minimizes the current browser window."
   },
 
+  "minzCurrOpt": {
+    "message": "Clicking the Panic Button on another browser window should:"
+  },
+
+  "minzCurrOptMinz": {
+    "message": "Minimize it"
+  },
+
+  "minzCurrOptRstMinzed": {
+    "message": "Restore the minimized window"
+  },
+
+  "rstMinzedWndNote": {
+    "message": "This option applies only to the window that was minimized by Panic Button."
+  },
+
   "actCloseAll": {
     "message": "Close All Windows"
   },
@@ -151,7 +167,7 @@
     "message": "Open a new window after all browser windows are minimized"
   },
 
-  "descRestoreFromCamoWnd": {
+  "descRstFrmCamoWnd": {
     "message": "To restore your browser session, click the Panic Button again."
   },
 

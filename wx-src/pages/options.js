@@ -6,6 +6,7 @@
 
 let gPanicButton;
 let gActionDescs = [];
+let gRadioPanels = [];
 let gShctKeyModSelected = false;
 let gDialogs = {};
 let gExtInfo = null;
@@ -19,6 +20,17 @@ function $(aID)
 
 async function init(aEvent)
 {
+  function toggleRestoreMinimizedWndNote(aSelectedOpt)
+  {
+    let restoreMinzedWndNote = $("restore-minzed-wnd-note");
+    if (aSelectedOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
+      restoreMinzedWndNote.style.display = "block";
+    }
+    else {
+      restoreMinzedWndNote.style.display = "none";
+    }
+  }
+  
   gActionDescs = [
     browser.i18n.getMessage("actDescHideAndReplace"),
     browser.i18n.getMessage("actDescMinimizeAll"),
@@ -37,6 +49,29 @@ async function init(aEvent)
   }
   
   browser.history.deleteUrl({ url: window.location.href });
+
+  gRadioPanels = [
+    {
+      radioBtnID: "panic-action-hide-and-replace",
+      radioPanelID: "panic-action-hide-and-replace-radio-panel",
+      actionOptLocator: "#panic-action-hide-and-replace ~ .panic-action-options"
+    },
+    {
+      radioBtnID: "panic-action-minimize-all",
+      radioPanelID: "panic-action-minimize-all-radio-panel",
+      actionOptLocator: "#panic-action-minimize-all ~ .panic-action-options"
+    },
+    {
+      radioBtnID: "panic-action-close-all",
+      radioPanelID: "panic-action-close-all-radio-panel",
+      actionOptLocator: null
+    },
+    {
+      radioBtnID: "panic-action-minimize-current",
+      radioPanelID: "panic-action-minimize-current-radio-panel",
+      actionOptLocator: "#panic-action-minimize-current ~ .panic-action-options"
+    }
+  ];
 
   initDialogs();
 
@@ -110,6 +145,12 @@ async function init(aEvent)
   });
 
   $("panic-action-minimize-current").addEventListener("click", selectPanicAction);
+  $("minz-curr-action-opt").addEventListener("change", aEvent => {
+    let selectedOpt = aEvent.target.value;
+    setPref({ minimizeCurrOpt: selectedOpt });
+    toggleRestoreMinimizedWndNote(selectedOpt);
+  });
+  
   $("panic-action-close-all").addEventListener("click", selectPanicAction);
 
   $("shortcut-key").addEventListener("click", aEvent => {
@@ -283,6 +324,9 @@ async function init(aEvent)
     $("minz-all-camouflage-reset-url").setAttribute("disabled", "true");
     $("minz-all-restore-from-camo-instr").style.display = "none";
   }
+
+  $("minz-curr-action-opt").selectedIndex = prefs.minimizeCurrOpt;
+  toggleRestoreMinimizedWndNote(prefs.minimizeCurrOpt);
 
   $("toolbar-button-caption").value = prefs.toolbarBtnLabel;
 
@@ -544,30 +588,7 @@ function selectPanicAction(aEvent)
 
 function switchSelectedActionRadioPanel(aSelectedActionID)
 {
-  let radioPanels = [
-    {
-      radioBtnID: "panic-action-hide-and-replace",
-      radioPanelID: "panic-action-hide-and-replace-radio-panel",
-      actionOptLocator: "#panic-action-hide-and-replace ~ .panic-action-options"
-    },
-    {
-      radioBtnID: "panic-action-minimize-all",
-      radioPanelID: "panic-action-minimize-all-radio-panel",
-      actionOptLocator: "#panic-action-minimize-all ~ .panic-action-options"
-    },
-    {
-      radioBtnID: "panic-action-close-all",
-      radioPanelID: "panic-action-close-all-radio-panel",
-      actionOptLocator: null
-    },
-    {
-      radioBtnID: "panic-action-minimize-current",
-      radioPanelID: "panic-action-minimize-current-radio-panel",
-      actionOptLocator: ""  // TBA
-    }
-  ];
-
-  radioPanels.forEach((aPanel, aIndex) => {
+  gRadioPanels.forEach((aPanel, aIndex) => {
     if (aIndex == aSelectedActionID) {
       $(aPanel.radioPanelID).classList.add("active-radio-panel");
       if (aPanel.actionOptLocator) {

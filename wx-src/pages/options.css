@@ -308,6 +308,15 @@ fieldset select.browser-style {
     margin-top: 6px;
 }
 
+#minz-curr-action-opt {
+    width: 360px;
+    margin-top: 4px;
+}
+
+#restore-minzed-wnd-note {
+    display: none;
+}
+
 #panicbutton-key, #panicbutton-key-modifiers {
     display: none;
 }

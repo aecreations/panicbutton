@@ -58,14 +58,19 @@
 		<input type="text" id="minz-all-camouflage-webpg-url">
 		<button id="minz-all-camouflage-reset-url" data-i18n="btnReset"></button>
 	      </div>
-	      <div id="minz-all-restore-from-camo-instr" class="description indent" data-i18n="descRestoreFromCamoWnd"></div>
+	      <div id="minz-all-restore-from-camo-instr" class="description indent" data-i18n="descRstFrmCamoWnd"></div>
 	    </div>
 	  </div>
           <div id="panic-action-minimize-current-radio-panel" class="action-radio-panel browser-style">
             <input type="radio" id="panic-action-minimize-current" name="panic-action" value="3"/><label for="panic-action-minimize-current" data-i18n="actMinimizeCurr"></label>
             <div class="panic-action-desc" data-i18n="actDescMinimizeCurr"></div>
             <div class="panic-action-options indent browser-style">
-	      <!-- TO DO: Preferences for the Minimize Current Window action. -->
+	      <label for="minz-curr-action-opt" data-i18n="minzCurrOpt"></label>
+	      <select id="minz-curr-action-opt" class="browser-style">
+		<option value="0" data-i18n="minzCurrOptMinz"></option>
+		<option value="1" data-i18n="minzCurrOptRstMinzed"></option>
+	      </select>
+              <div id="restore-minzed-wnd-note" class="description" data-i18n="rstMinzedWndNote"></div>
             </div>
           </div>
 	  <div id="panic-action-close-all-radio-panel" class="action-radio-panel browser-style">

@@ -220,24 +220,12 @@ async function init()
       }
 
       setPanicButtonCustomizations();
-
-      if (versionCompare(gHostAppVer, "66.0") < 0) {
-        log("Panic Button/wx: User prefs changed; updating keyboard shortcut.");
-        setPanicButtonKeys();
-      }
     });
 
     setPanicButtonCustomizations();
 
-    if (versionCompare(gHostAppVer, "66.0") < 0) {
-      await setPanicButtonKeys();
-      gIsInitialized = true;
-      log("Panic Button/wx: Initialized keyboard shortcut from user prefs.\nInitialization complete.");
-    }
-    else {
-      gIsInitialized = true;
-      log("Panic Button/wx: Initialization of keyboard shortcut is automatically handled in Firefox 66 and newer.\nInitialization complete.");
-    }
+    gIsInitialized = true;
+    log("Panic Button/wx: Initialization complete.");
   });
 }
 
@@ -288,22 +276,6 @@ function setCustomToolbarButtonIcon()
 function getToolbarButtonIconLookup()
 {
   return gToolbarBtnIcons;
-}
-
-
-async function setPanicButtonKeys()
-{
-  let shortcutKeyMod = gPrefs.panicButtonKeyMod;
-  if (shortcutKeyMod) {
-    shortcutKeyMod += "+";
-  }
-
-  let shortcut = `${shortcutKeyMod}${gPrefs.panicButtonKey}`;
-  
-  await browser.commands.update({
-    name: aeConst.CMD_PANIC_BUTTON_ACTION,
-    shortcut,
-  });
 }
 
 
@@ -603,13 +575,6 @@ async function removeRestoreSessPasswd()
   
   await browser.storage.local.set(pswdPrefs);
 }
-
-
-function isDirectSetKeyboardShortcut()
-{
-  return (versionCompare(gHostAppVer, "66.0") >= 0);
-}
-
 
 function getOS()
 {

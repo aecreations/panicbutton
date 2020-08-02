@@ -793,7 +793,7 @@ function log(aMessage)
 }
 
 
-document.addEventListener("DOMContentLoaded", async (e) => { init() });
+document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
 
 document.addEventListener("contextmenu", aEvent => {
   if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {

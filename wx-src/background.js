@@ -45,15 +45,15 @@ let gToolbarBtnIcons = [
 // First-run initialization
 //
 
-browser.runtime.onInstalled.addListener(async (aDetails) => {
-  if (aDetails.reason == "install") {
+browser.runtime.onInstalled.addListener(async (aInstall) => {
+  if (aInstall.reason == "install") {
     log("Panic Button/wx: Extension installed");
 
     await setDefaultPrefs();
     await init();
   }
-  else if (aDetails.reason == "update") {
-    let oldVer = aDetails.previousVersion;
+  else if (aInstall.reason == "update") {
+    let oldVer = aInstall.previousVersion;
     let currVer = browser.runtime.getManifest().version;
     
     log(`Panic Button/wx: Upgrading from version ${oldVer} to ${currVer}`);
@@ -68,6 +68,11 @@ browser.runtime.onInstalled.addListener(async (aDetails) => {
     if (! hasSantaRosaPrefs()) {
       log("Initializing 4.2 user preferences.");
       await setSantaRosaPrefs();
+    }
+
+    if (! hasSantaCatalinaPrefs()) {
+      log("Initializing 4.3 user preferences.");
+      await setSantaCatalinaPrefs();
     }
 
     await init();
@@ -192,7 +197,7 @@ async function init()
     let platform = aResults[1];
     
     gHostAppVer = brws.version;
-    log(`Panic Button/wx: Host app: ${brws.name} ${gHostAppVer}`);
+    log(`Panic Button/wx: Host app: ${brws.name} (version ${gHostAppVer})`);
 
     gOS = platform.os;
     log("Panic Button/wx: OS: " + gOS);

@@ -35,7 +35,7 @@
 
     "commands": {
 	"ae-panicbutton": {
-	    "suggested_key": { "default": "F9" },
+	    "suggested_key": { "default": "F8" },
 	    "description": "__MSG_cmdDesc__"
 	}
     },

@@ -2,12 +2,12 @@
     "manifest_version": 2,
     "name": "__MSG_extName__",
     "description": "__MSG_extDesc__",
-    "version": "4.3a2+",
+    "version": "4.3a3",
     "homepage_url": "https://aecreations.sourceforge.io/panicbutton/index.php",
     "author": "AE Creations",
 
     "browser_specific_settings": {
-	"gecko": {
+        "gecko": {
 	  "strict_min_version": "78.0",
 	  "update_url": "https://aecreations.github.io/updates/update-test.json"
 	}

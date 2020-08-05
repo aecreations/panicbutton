@@ -1,0 +1,91 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("../style/laf.css");
+
+
+:root {
+    --url-bkgd-img: url("../img/restoreSessionPgBkg.svg");
+    --color-bkgd: none;
+    --color-subhead: #737373;
+    --color-main-border: #ddd;
+    --color-main-bkgd: #fefefe;
+    --color-main-border-shadow: #e0e0e0;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+	--url-bkgd-img: url("../img/restoreSessionPgBkg-dk.svg");
+	--color-bkgd: #1a1a1e;
+	--color-subhead: #b1b1b3;
+	--color-main-border: #0c0c0d;
+	--color-main-bkgd: #2a2a2e;
+	--color-main-border-shadow: #0c0c0d;
+    }
+}
+
+
+body {
+    background-image: var(--url-bkgd-img);
+    background-repeat: repeat;
+    background-color: var(--color-bkgd);
+    color: var(--color-default-text);
+    font-size: 15px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 200;
+    letter-spacing: -0.25px;
+    vertical-align: top;
+}
+
+h2 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+main {
+    width: 540px;
+    margin: 24px auto 24px auto;
+    padding: 24px;
+    border: 1px solid var(--color-main-border);
+    border-radius: 2px;
+    box-shadow: 0 0 8px 2px var(--color-main-border-shadow);
+    background-color: var(--color-main-bkgd);
+}
+
+button {
+    min-width: 132px;
+    height: 32px;
+    margin-bottom: 0;
+    margin-left: 10px;
+    padding: 0 24px 0;
+    font-size: 15px;
+}
+
+.keyb {
+    font-weight: bold;
+}
+
+#dlg-hdr {
+    margin-bottom: 32px;
+}
+
+#prmpt-icon {
+    float: left;
+    margin-right: 18px;
+    width: 128px;
+    height: 128px;
+}
+
+#subhead {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--color-subhead)
+}
+
+#dlg-btns {
+    text-align: right;
+}

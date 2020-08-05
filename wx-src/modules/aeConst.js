@@ -26,4 +26,6 @@ let aeConst = {
   REPLACE_WEB_PAGE_DEFAULT_URL: "https://www.mozilla.org/firefox/",
 
   CUSTOM_ICON_IDX: 20,
+
+  DEFAULT_KEYB_SHCT: "F8",
 };

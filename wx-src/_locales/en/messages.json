@@ -334,6 +334,48 @@
     "description": "Accept button in the Restore Session Password page"
   },
 
+  "titleUpdatePg": {
+    "message": "Panic Button Updated",
+    "description": "Title of the post-update page that appears after Panic Button is upgraded"
+  },
+
+  "hdgUpdatePg": {
+    "message": "Psst… New Version Installed!"
+  },
+
+  "subhdgSantaCatalina": {
+    "message": "Panic Button has been upgraded to version 4.3",
+    "description": "Subheading for version 4.3, code name Santa Catalina"
+  },
+
+  "whatsNew": {
+    "message": "What’s New"
+  },
+
+  "keybShctChg1": {
+    "message": "The default keyboard shortcut for triggering the "
+  },
+
+  "keybShctChg2": {
+    "message": " action has changed.  It is now F8."
+  },
+
+  "keybShctWhy": {
+    "message": "Why did it change?"
+  },
+
+  "keybShctExpl": {
+    "message": "Because F9 turns on Reader Mode, so that key can’t be used anymore."
+  },
+
+  "changeShct": {
+    "message": "You can view or change the keyboard shortcut by going to Manage Extension Shortcuts in Add-ons Manager."
+  },
+
+  "btnClosePg": {
+    "message": "Close This Page"
+  },
+
   "msgUnknown": {
     "message": "No help is available (so leave me alone)."
   }

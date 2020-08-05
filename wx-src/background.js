@@ -73,6 +73,11 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
     if (! hasSantaCatalinaPrefs()) {
       log("Initializing 4.3 user preferences.");
       await setSantaCatalinaPrefs();
+
+      let cmds = await browser.commands.getAll();
+      if (cmds[0].shortcut == aeConst.DEFAULT_KEYB_SHCT) {
+        browser.tabs.create({ url: "pages/update-4.3.html" });
+      }
     }
 
     await init();
@@ -575,6 +580,36 @@ async function removeRestoreSessPasswd()
   
   await browser.storage.local.set(pswdPrefs);
 }
+
+
+function getPanicActionUIStringKey()
+{
+  let rv = "";
+  
+  switch (Number(gPrefs.action)) {
+  case aeConst.PANICBUTTON_ACTION_REPLACE:
+    rv = "actHideAndReplace";
+    break;
+
+  case aeConst.PANICBUTTON_ACTION_MINIMIZE:
+    rv = "actMinimizeAll";
+    break;
+
+  case aeConst.PANICBUTTON_ACTION_QUIT:
+    rv = "actCloseAll";
+    break;
+
+  case aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR:
+    rv = "actMinimizeCurr";
+    break;
+
+  default:
+    break;
+  }
+
+  return rv;
+}
+
 
 function getOS()
 {

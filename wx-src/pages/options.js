@@ -210,6 +210,13 @@ async function init(aEvent)
     });
   });
 
+  $("reset-shortcut").addEventListener("click", aEvent => {
+    browser.commands.reset(aeConst.CMD_PANIC_BUTTON_ACTION);
+
+    $("panicbutton-key").selectedIndex = 7;
+    $("panicbutton-key-modifiers").selectedIndex = 0;
+  });
+
   $("toolbar-button-caption").addEventListener("blur", aEvent => {
     setPref({ toolbarBtnLabel: aEvent.target.value });
   });

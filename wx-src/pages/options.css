@@ -424,6 +424,10 @@ input[type="file"] {
     margin-left: -22px;
 }
 
+#reset-shortcut {
+    margin-top: 12px;
+}
+
 #about-btn {
     float: right;
     height: unset;

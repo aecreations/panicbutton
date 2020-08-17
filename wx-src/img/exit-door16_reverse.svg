@@ -14,54 +14,10 @@
    height="16"
    id="svg2999"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="exit-door_reverse.svg">
   <defs
      id="defs3001">
-    <linearGradient
-       id="linearGradient5307">
-      <stop
-         style="stop-color:#808080;stop-opacity:1;"
-         offset="0"
-         id="stop5309" />
-      <stop
-         style="stop-color:#383838;stop-opacity:0;"
-         offset="1"
-         id="stop5311" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient5299">
-      <stop
-         style="stop-color:#606060;stop-opacity:1;"
-         offset="0"
-         id="stop5301" />
-      <stop
-         style="stop-color:#404040;stop-opacity:1;"
-         offset="1"
-         id="stop5303" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient5291">
-      <stop
-         style="stop-color:#f0f0f0;stop-opacity:1;"
-         offset="0"
-         id="stop5293" />
-      <stop
-         style="stop-color:#b4b4b4;stop-opacity:1;"
-         offset="1"
-         id="stop5295" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient5279">
-      <stop
-         style="stop-color:#c8c8c8;stop-opacity:1;"
-         offset="0"
-         id="stop5281" />
-      <stop
-         style="stop-color:#c8c8c8;stop-opacity:0;"
-         offset="1"
-         id="stop5283" />
-    </linearGradient>
     <linearGradient
        id="linearGradient5267"
        osb:paint="gradient">
@@ -102,18 +58,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.395604"
-     inkscape:cx="1.487732"
+     inkscape:zoom="31.672167"
+     inkscape:cx="3.9537613"
      inkscape:cy="5.2836112"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:snap-global="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="671"
+     inkscape:window-width="2048"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -141,20 +97,20 @@
      inkscape:groupmode="layer"
      transform="translate(0,-16)">
     <rect
-       style="fill:#c0c8d0;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:0.98854232;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f9f9f9;fill-opacity:0.00313725;fill-rule:nonzero;stroke:#d7d7db;stroke-width:0.98854232;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3009"
        width="10.011459"
        height="15.011457"
        x="5.4942713"
        y="16.494272" />
     <path
-       style="fill:#ffffff;fill-opacity:1;stroke:#222a33;stroke-width:0.99262607;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#f9f9f9;fill-opacity:0.50196081;stroke:#d7d7db;stroke-width:0.99262607;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 5.569213,31.016121 6.885609,-2.453325 -0.04621,-11.948603 -6.8856087,0.04542 z"
        id="path5289"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
     <path
-       style="fill:#ffffff;fill-opacity:1;stroke:#222a33;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#222a33;fill-opacity:1;stroke:#d7d7db;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 9.0518132,23.955417 -5.5351843,-4.047952 0,2.677876 -3.02463952,0.04465 0,2.6955 2.95665652,0 0,2.802429 z"
        id="path7173"
        inkscape:connector-curvature="0"

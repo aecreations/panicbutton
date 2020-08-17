@@ -13,7 +13,7 @@
    height="16"
    id="svg2987"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="dotted-window16_reverse.svg"
    inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/window32.png"
    inkscape:export-xdpi="90"
@@ -27,8 +27,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="14.75"
-     inkscape:cx="4.9612084"
+     inkscape:zoom="20.85965"
+     inkscape:cx="5.2163626"
      inkscape:cy="3.7980375"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -37,8 +37,8 @@
      objecttolerance="20"
      gridtolerance="10"
      inkscape:snap-global="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="674"
+     inkscape:window-width="2048"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
      inkscape:window-y="1"
      inkscape:window-maximized="1">
@@ -68,7 +68,7 @@
      inkscape:groupmode="layer"
      transform="translate(0,-16)">
     <rect
-       style="fill:#f9f9fa;fill-opacity:1;stroke:#222a33;stroke-width:1.65268766999999994;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.65268769999999998, 1.65268769999999998;stroke-dashoffset:0"
+       style="fill:#f9f9fa;fill-opacity:0.00313725;stroke:#d7d7db;stroke-width:1.65268767;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.6526877, 1.65268769999999998;stroke-dashoffset:0"
        id="rect3765"
        width="14.265055"
        height="12.392086"
@@ -77,7 +77,7 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
-       style="fill:#222a33;fill-opacity:1;fill-rule:nonzero;stroke:#222a33;stroke-width:0.54393929;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#d7d7db;fill-opacity:1;fill-rule:nonzero;stroke:#d7d7db;stroke-width:0.54393929;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3791"
        width="10.47206"
        height="2.2775249"

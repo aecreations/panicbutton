@@ -333,11 +333,26 @@ fieldset select.browser-style {
 
 #prefs-customize {
     border-top: none;
-    padding-bottom: 18px;
+    padding-bottom: 20px;
+}
+
+#prefpane-customize button,
+#prefpane-customize select {
+    font-size: 15px;
+    height: 28px;
+}
+
+#prefpane-customize label {
+    font-size: 15px;
+}
+
+#prefpane-customize input[type="text"] {
+    font-size: 15px;
+    height: 28px;
 }
 
 #toolbar-button-caption {
-    width: 14em;
+    width: 192px;
 }
 
 #toolbar-button-icon {
@@ -390,7 +405,7 @@ input[type="file"] {
 }
 
 #custom-icon-upload-btn {
-    padding: 4px 16px 4px 16px;
+    padding: 4px 20px 4px 20px;
     border: 1px solid var(--color-btn-border);
     border-radius: 2px;
     box-shadow: 0 0 0 0 transparent;
@@ -422,6 +437,14 @@ input[type="file"] {
 
 #rev-contrast-icon {
     margin-left: -22px;
+}
+
+#rev-contrast-icon + label {
+    font-size: 13px;
+}
+
+#shct-note {
+    font-size: 13px;
 }
 
 #reset-shortcut {

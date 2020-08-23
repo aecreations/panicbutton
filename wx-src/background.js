@@ -387,7 +387,7 @@ async function restoreBrowserSession()
   if (gReplaceSession) {
     log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
 
-    let restoredWnds = [];
+    let focusedWndID = null;
     
     while (gClosedWndStates.length > 0) {   
       let closedWnd = gClosedWndStates.shift();
@@ -436,20 +436,23 @@ async function restoreBrowserSession()
       await browser.tabs.update(activeTabID, {active: true});
       
       if (closedWnd.focused) {
-        let updWnd = await browser.windows.update(createdWnd.id, {focused: true});
-        log(`Finished restoring window (ID = ${createdWnd.id}) - giving this window the focus.`);
+        focusedWndID = createdWnd.id;
       }
-      else {
-        log(`Finished restoring window (ID = ${createdWnd.id})`);
-      }
+      
+      log(`Panic Button/wx: Finished restoring window (ID = ${createdWnd.id})`);
     }
 
-    log(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
-    let wnd = await browser.windows.get(gReplacemtWndID);
-    await browser.windows.remove(wnd.id);
-
+    info(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
+    
+    let replacemtWnd = await browser.windows.get(gReplacemtWndID);
+    await browser.windows.remove(replacemtWnd.id);
     gReplacemtWndID = null;
     gReplaceSession = false;
+
+    if (focusedWndID) {
+      let updWnd = await browser.windows.update(focusedWndID, {focused: true});
+      log(`Panic Button/wx: Focusing window ${updWnd.id}`);
+    }
   }
 }
 

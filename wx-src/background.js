@@ -76,7 +76,7 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
 
       let cmds = await browser.commands.getAll();
       if (cmds[0].shortcut == aeConst.DEFAULT_KEYB_SHCT) {
-        browser.tabs.create({ url: "pages/update-4.3.html" });
+        browser.tabs.create({ url: "pages/whatsnew-4.3.html" });
       }
     }
 

@@ -100,10 +100,6 @@
     "message": "Closes all browser windows."
   },
 
-  "notPrivBrws": {
-    "message": "Does not work when Firefox is set to always use Private Browsing."
-  },
-
   "labelWebPgURL": {
     "message": "Web location (URL):"
   },

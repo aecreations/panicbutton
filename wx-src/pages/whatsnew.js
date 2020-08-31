@@ -18,16 +18,12 @@ async function init()
 
   browser.history.deleteUrl({ url: window.location.href });
 
-
-  let keybShctChg = $("keyb-shct-change");
-  keybShctChg.appendChild(createTextNode("keybShctChg1"));
-  keybShctChg.appendChild(createEltWithID("span", "panic-button-action", gPanicButton.getPanicActionUIStringKey()));
-  keybShctChg.appendChild(createTextNode("keybShctChg2"));
-
-  let keybShctExpl = $("explanation");
-  keybShctExpl.appendChild(createTextNodeWithSpc());
-  keybShctExpl.appendChild(createTextNode("keybShctExpl"));
-
+  let donateCTA = $("donate-cta");
+  donateCTA.appendChild(createTextNode("donateCta1"));
+  donateCTA.appendChild(createTextNodeWithSpc());
+  donateCTA.appendChild(createHyperlink("donateLink", "https://www.paypal.me/aecreations88/5.99cad"));
+  donateCTA.appendChild(createTextNode("donateCta2"));
+  
   $("btn-close").addEventListener("click", async (aEvent) => { closePage() });
   
   document.addEventListener("contextmenu", aEvent => {
@@ -69,6 +65,16 @@ function createEltWithClass(aNodeName, aNodeClass, aStringKey)
   let text = document.createTextNode(browser.i18n.getMessage(aStringKey));
   rv.appendChild(text);
   return rv;
+}
+
+
+function createHyperlink(aStringKey, aURL)
+{
+  let rv = document.createElement("a");
+  rv.setAttribute("href", aURL);
+  let text = document.createTextNode(browser.i18n.getMessage(aStringKey));
+  rv.appendChild(text);
+  return rv; 
 }
 
 

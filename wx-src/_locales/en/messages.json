@@ -330,42 +330,48 @@
     "description": "Accept button in the Restore Session Password page"
   },
 
-  "titleUpdatePg": {
-    "message": "Panic Button Updated",
-    "description": "Title of the post-update page that appears after Panic Button is upgraded"
+  "newVerHdg": {
+    "message": "New Version Installed!"
   },
 
-  "hdgUpdatePg": {
-    "message": "Psst… New Version Installed!"
-  },
-
-  "subhdgSantaCatalina": {
-    "message": "Panic Button has been upgraded to version 4.3",
-    "description": "Subheading for version 4.3, code name Santa Catalina"
+  "upgrade": {
+    "message": "Panic Button has been upgraded to version 4.3."
   },
 
   "whatsNew": {
     "message": "What’s New"
   },
 
-  "keybShctChg1": {
-    "message": "The default keyboard shortcut for triggering the "
+  "whatsNew1": {
+    "message": "Panic Button can now restore multiple browser windows that were hidden by the Hide and Replace action"
   },
 
-  "keybShctChg2": {
-    "message": " action has changed.  It is now F8."
+  "whatsNew2": {
+    "message": "New action: Minimize Current Window"
   },
 
-  "keybShctWhy": {
-    "message": "Why did it change?"
+  "whatsNew3": {
+    "message": "Improvements to Dark Mode icons"
   },
 
-  "keybShctExpl": {
-    "message": "Because F9 turns on Reader Mode, so that key can’t be used anymore."
+  "whatsNew4": {
+    "message": "The default keyboard shortcut is changed to F8 to avoid a conflict with toggling Reader Mode"
   },
 
-  "changeShct": {
-    "message": "You can view or change the keyboard shortcut by going to Manage Extension Shortcuts in Add-ons Manager."
+  "donateHdg": {
+    "message": "Donate!"
+  },
+
+  "donateCta1": {
+    "message": "Support the development of Panic Button by"
+  },
+
+  "donateLink": {
+    "message": "making a small contribution"
+  },
+
+  "donateCta2": {
+    "message": "."
   },
 
   "btnClosePg": {

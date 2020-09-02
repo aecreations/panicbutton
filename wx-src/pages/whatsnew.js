@@ -21,7 +21,7 @@ async function init()
   let donateCTA = $("donate-cta");
   donateCTA.appendChild(createTextNode("donateCta1"));
   donateCTA.appendChild(createTextNodeWithSpc());
-  donateCTA.appendChild(createHyperlink("donateLink", "https://www.paypal.me/aecreations88/5.99cad"));
+  donateCTA.appendChild(createHyperlink("donateLink", aeConst.DONATE_URL));
   donateCTA.appendChild(createTextNode("donateCta2"));
   
   $("btn-close").addEventListener("click", async (aEvent) => { closePage() });

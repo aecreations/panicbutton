@@ -582,7 +582,7 @@ input[type="file"] {
 #about-dlg {
     top: 72px;
     --width: 410px;
-    --height: 248px;
+    --height: 280px;
 }
 
 #about-dlg #ext-icon {
@@ -634,4 +634,12 @@ input[type="file"] {
 
 #about-dlg #credits label {
     line-height: 18px;
+}
+
+#about-dlg #usr-contrib-cta {
+    margin-top: 8px;
+}
+
+#about-dlg #usr-contrib-cta-hdg {
+    font-weight: 600;
 }

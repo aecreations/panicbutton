@@ -9,7 +9,6 @@ let gActionDescs = [];
 let gRadioPanels = [];
 let gShctKeyModSelected = false;
 let gDialogs = {};
-let gExtInfo = null;
 
 
 function $(aID)
@@ -229,6 +228,14 @@ async function init(aEvent)
     gDialogs.about.showModal();
   });
 
+  let usrContribCTA = $("usr-contrib-cta");
+  usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-hdg", "aboutContribHdg"));
+  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutDonate", aeConst.DONATE_URL));
+  usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());
+  usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-conj", "aboutContribConj"))
+  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutL10n", aeConst.L10N_URL));
+/**
+  // TO DO: Simplify by doing this on all elements with the "hyperlink" class.
   $("aboutHomePgLink").addEventListener("click", aEvent => {
     aEvent.preventDefault();
     gotoURL(aEvent.target.href);
@@ -237,6 +244,15 @@ async function init(aEvent)
   $("aboutLicLink").addEventListener("click", aEvent => {
     aEvent.preventDefault();
     gotoURL(aEvent.target.href);
+  });
+  // END TO DO
+**/
+  let hyperlinks = document.querySelectorAll("a.hyperlink");
+  hyperlinks.forEach(aElt => {
+    aElt.addEventListener("click", aEvent => {
+      aEvent.preventDefault();
+      gotoURL(aEvent.target.href);
+    });
   });
 
   // Catch-all click event listener
@@ -550,19 +566,22 @@ function initDialogs()
   };
   
   gDialogs.about = new aeDialog("#about-dlg");
+  gDialogs.extInfo = null;
   gDialogs.about.onInit = () => {
-    if (! gExtInfo) {
+    let that = gDialogs.about;
+    
+    if (! that.extInfo) {
       let extManifest = chrome.runtime.getManifest();
-      gExtInfo = {
+      that.extInfo = {
         name: extManifest.name,
         version: extManifest.version,
         description: extManifest.description,
       };
     }
 
-    document.getElementById("ext-name").innerText = gExtInfo.name;
-    document.getElementById("ext-ver").innerText = chrome.i18n.getMessage("aboutExtVer", gExtInfo.version);
-    document.getElementById("ext-desc").innerText = gExtInfo.description;
+    document.getElementById("ext-name").innerText = that.extInfo.name;
+    document.getElementById("ext-ver").innerText = chrome.i18n.getMessage("aboutExtVer", that.extInfo.version);
+    document.getElementById("ext-desc").innerText = that.extInfo.description;
   };  
 }
 

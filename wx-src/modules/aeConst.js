@@ -28,4 +28,7 @@ let aeConst = {
   CUSTOM_ICON_IDX: 20,
 
   DEFAULT_KEYB_SHCT: "F8",
+
+  DONATE_URL: "https://www.paypal.me/aecreations88/5.99cad",
+  L10N_URL: "https://crowdin.com/project/aecreations-panic-button",
 };

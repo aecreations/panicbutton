@@ -141,7 +141,7 @@ function hasSantaCatalinaPrefs()
 async function setSantaCatalinaPrefs()
 {
   let newPrefs = {
-    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_MINZ_CURR_WND,
+    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
   };
 
   for (let pref in newPrefs) {

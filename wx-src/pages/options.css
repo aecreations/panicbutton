@@ -28,7 +28,27 @@
     --color-about-btn-border: #ededf0;
     --color-about-btn-border-hover: #ededf0;
     --color-about-btn: black;
-    --color-private-mode-warn-text: #c805c8;
+
+    --url-icon-default: url("../img/default32.svg");
+    --url-icon-exclamation-in-ball: url("../img/exclamation-in-ball32.svg");
+    --url-icon-quit: url("../img/quit32.svg");
+    --url-icon-exit-door: url("../img/exit-door32.svg");
+    --url-icon-window-minimize: url("../img/window-minimize32.svg");
+    --url-icon-window-with-exclamation: url("../img/window-with-exclamation32.svg");
+    --url-icon-window-with-exclamation-ball: url("../img/window-with-exclamation-ball32.svg");
+    --url-icon-window-with-cross: url("../img/window-with-cross32.svg");
+    --url-icon-window-with-check: url("../img/window-with-check32.svg");
+    --url-icon-plain-window: url("../img/plain-window32.svg");
+    --url-icon-dotted-window: url("../img/dotted-window32.svg");
+    --url-icon-window-with-globe: url("../img/window-with-globe32.svg");
+    --url-icon-web-page: url("../img/web-page32.svg");
+    --url-icon-web-page-with-globe: url("../img/web-page-with-globe32.svg");
+    --url-icon-web-document: url("../img/web-document32.svg");
+    --url-icon-smiley: url("../img/smiley32.svg");
+    --url-icon-picture: url("../img/picture32.svg");
+    --url-icon-desktop: url("../img/desktop32.svg");
+    --url-icon-computer: url("../img/computer32.svg");
+    --url-icon-letter-a: url("../img/letter-a32.svg");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,7 +75,28 @@
 	--color-about-btn-border: #4a4a4f;
 	--color-about-btn-border-hover: #b1b1b3;
 	--color-about-btn: #f9f9fa;
-	--color-private-mode-warn-text: #ef6fef;
+
+	--url-icon-default: url("../img/default32.svg");
+	--url-icon-default: url("../img/default32.svg");
+	--url-icon-exclamation-in-ball: url("../img/exclamation-in-ball32.svg");
+	--url-icon-quit: url("../img/quit32.svg");
+	--url-icon-exit-door: url("../img/exit-door32.svg");
+	--url-icon-window-minimize: url("../img/window-minimize32.svg");
+	--url-icon-window-with-exclamation: url("../img/window-with-exclamation32.svg");
+	--url-icon-window-with-exclamation-ball: url("../img/window-with-exclamation-ball32.svg");
+	--url-icon-window-with-cross: url("../img/window-with-cross32.svg");
+	--url-icon-window-with-check: url("../img/window-with-check32.svg");
+	--url-icon-plain-window: url("../img/plain-window32.svg");
+	--url-icon-dotted-window: url("../img/dotted-window32.svg");
+	--url-icon-window-with-globe: url("../img/window-with-globe32.svg");
+	--url-icon-web-page: url("../img/web-page32.svg");
+	--url-icon-web-page-with-globe: url("../img/web-page-with-globe32.svg");
+	--url-icon-web-document: url("../img/web-document32.svg");
+	--url-icon-smiley: url("../img/smiley32.svg");
+	--url-icon-picture: url("../img/picture32.svg");
+	--url-icon-desktop: url("../img/desktop32.svg");
+	--url-icon-computer: url("../img/computer32.svg");
+	--url-icon-letter-a: url("../img/letter-a32.svg");
     }
 }
 
@@ -372,11 +413,94 @@ fieldset select.browser-style {
     padding: 4px;
     width: 36px;
     height: 36px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 28px 28px;
 }
 
 #toolbar-button-icon input[type="radio"]:checked + label img,
 #toolbar-button-icon input[type="radio"]:checked + label canvas {
     background-color: highlight;
+}
+
+#toolbar-button-icon > #default + label > canvas {
+    background-image: var(--url-icon-default);
+}
+
+#toolbar-button-icon > #exclamation-in-ball + label > canvas {
+    background-image: var(--url-icon-exclamation-in-ball);
+}
+
+#toolbar-button-icon > #quit + label > canvas {
+    background-image: var(--url-icon-quit);
+}
+
+#toolbar-button-icon > #exit-door + label > canvas {
+    background-image: var(--url-icon-exit-door);
+}
+
+#toolbar-button-icon > #window-minimize + label > canvas {
+    background-image: var(--url-icon-window-minimize);
+}
+
+#toolbar-button-icon > #window-with-exclamation + label > canvas {
+    background-image: var(--url-icon-window-with-exclamation);
+}
+
+#toolbar-button-icon > #window-with-exclamation-ball + label > canvas {
+    background-image: var(--url-icon-window-with-exclamation-ball);
+}
+
+#toolbar-button-icon > #window-with-cross + label > canvas {
+    background-image: var(--url-icon-window-with-cross);
+}
+
+#toolbar-button-icon > #window-with-check + label > canvas {
+    background-image: var(--url-icon-window-with-check);
+}
+
+#toolbar-button-icon > #plain-window + label > canvas {
+    background-image: var(--url-icon-plain-window);
+}
+
+#toolbar-button-icon > #dotted-window + label > canvas {
+    background-image: var(--url-icon-dotted-window);
+}
+
+#toolbar-button-icon > #window-with-globe + label > canvas {
+    background-image: var(--url-icon-window-with-globe);
+}
+
+#toolbar-button-icon > #web-page + label > canvas {
+    background-image: var(--url-icon-web-page);
+}
+
+#toolbar-button-icon > #web-page-with-globe + label > canvas {
+    background-image: var(--url-icon-web-page-with-globe);
+}
+
+#toolbar-button-icon > #web-document + label > canvas {
+    background-image: var(--url-icon-web-document);
+}
+
+#toolbar-button-icon > #smiley + label > canvas {
+    background-image: var(--url-icon-smiley);
+}
+
+#toolbar-button-icon > #picture + label > canvas {
+    background-image: var(--url-icon-picture);
+}
+
+#toolbar-button-icon > #desktop + label > canvas {
+    background-image: var(--url-icon-desktop);
+}
+
+#toolbar-button-icon > #computer + label > canvas {
+    background-image: var(--url-icon-computer);
+}
+
+#toolbar-button-icon > #letter-a + label > canvas {
+    background-image: var(--url-icon-letter-a);
 }
 
 #icon-options {

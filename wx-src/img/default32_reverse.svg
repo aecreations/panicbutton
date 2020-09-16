@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   id="svg2994"
+   version="1.1"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   sodipodi:docname="default32_reverse.svg"
+   inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/icon.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45">
+  <defs
+     id="defs2996" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="15.556349"
+     inkscape:cx="7.9752458"
+     inkscape:cy="16.252402"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:snap-global="false"
+     inkscape:window-width="2048"
+     inkscape:window-height="1026"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3002"
+       empspacing="1"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="3.8146972e-06"
+       originy="1.5258789e-05" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata2999">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(1.9073486e-6,-32.000008)">
+    <circle
+       style="opacity:1;fill:#d7d7db;fill-opacity:1;fill-rule:nonzero;stroke:#d7d7db;stroke-width:2.51399994;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3004"
+       cx="15.999998"
+       cy="48.000008"
+       r="14.743" />
+    <g
+       aria-label="!"
+       transform="matrix(0.55432583,0,0,0.42718381,0.42815813,32.428164)"
+       style="font-style:normal;font-weight:bold;line-height:0%;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Sans Bold';letter-spacing:0px;word-spacing:0px;fill:#38383d;fill-opacity:1;stroke:none;stroke-width:2.05499172"
+       id="text3849">
+      <path
+         d="M 24.78969,39.423939 23.829165,25.046085 q -0.270148,-4.202296 -0.270148,-6.033296 0,-2.491361 1.290705,-3.872116 1.320722,-1.41077 3.451886,-1.41077 2.58141,0 3.451886,1.800983 0.870476,1.770968 0.870476,5.132805 0,1.981082 -0.210115,4.022197 L 31.12315,39.483972 q -0.210115,2.641443 -0.900492,4.052214 -0.690377,1.410771 -2.281247,1.410771 -1.620885,0 -2.251229,-1.350738 -0.630345,-1.380755 -0.900492,-4.17228 z m 3.33182,19.75079 q -1.831,0 -3.211755,-1.170639 -1.350738,-1.200656 -1.350738,-3.33182 0,-1.861017 1.290705,-3.151722 1.320722,-1.320722 3.211755,-1.320722 1.891033,0 3.211755,1.320722 1.350738,1.290705 1.350738,3.151722 0,2.101147 -1.350738,3.301803 -1.350738,1.200656 -3.151722,1.200656 z"
+         style="font-size:61.47358322px;line-height:1.25;fill:#38383d;fill-opacity:1;stroke-width:2.05499172"
+         id="path6690"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

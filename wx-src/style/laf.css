@@ -89,7 +89,8 @@ button {
     text-align: center;
 }
 
-button[disabled] {
+button[disabled],
+select.browser-style[disabled] {
     opacity: 0.4;
 }
 
@@ -213,6 +214,12 @@ textarea::selection {
 .browser-style > input[type="checkbox"]:hover:active,
 .browser-style.pressed > input[type="checkbox"]:not(:active) {
     background-color: var(--color-cb-active-bkgd);
+}
+
+label[disabled],
+input[type="text"][disabled],
+.browser-style > input[type="checkbox"][disabled] {
+    opacity: 0.4;
 }
 
 .browser-style > input[type="checkbox"][disabled] + label {

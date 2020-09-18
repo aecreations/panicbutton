@@ -221,7 +221,16 @@ async function init(aEvent)
   });
 
   $("rev-contrast-icon").addEventListener("click", aEvent => {
-    setPref({ toolbarBtnRevContrastIco: aEvent.target.checked });
+    let isRevContrast = aEvent.target.checked;   
+    setPref({ toolbarBtnRevContrastIco: isRevContrast });
+
+    let toolbarIconPicker = $("toolbar-button-icon");
+    if (isRevContrast) {
+      toolbarIconPicker.setAttribute("colorscheme", "dark");
+    }
+    else {
+      toolbarIconPicker.removeAttribute("colorscheme");
+    }
   });
 
   $("about-btn").addEventListener("click", aEvent => {
@@ -234,19 +243,7 @@ async function init(aEvent)
   usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-conj", "aboutContribConj"))
   usrContribCTA.appendChild(aeDOM.createHyperlink("aboutL10n", aeConst.L10N_URL));
-/**
-  // TO DO: Simplify by doing this on all elements with the "hyperlink" class.
-  $("aboutHomePgLink").addEventListener("click", aEvent => {
-    aEvent.preventDefault();
-    gotoURL(aEvent.target.href);
-  });
 
-  $("aboutLicLink").addEventListener("click", aEvent => {
-    aEvent.preventDefault();
-    gotoURL(aEvent.target.href);
-  });
-  // END TO DO
-**/
   let hyperlinks = document.querySelectorAll("a.hyperlink");
   hyperlinks.forEach(aElt => {
     aElt.addEventListener("click", aEvent => {
@@ -360,7 +357,10 @@ async function init(aEvent)
     $(toolbarBtnIconID).checked = true;
   }
 
-  revContrastChbox.checked = prefs.toolbarBtnRevContrastIco;
+  if (prefs.toolbarBtnRevContrastIco) {
+    revContrastChbox.checked = true;
+    $("toolbar-button-icon").setAttribute("colorscheme", "dark");
+  }
 
   let cmds = await browser.commands.getAll();
   let keySelectElt = $("panicbutton-key");

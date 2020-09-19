@@ -600,12 +600,14 @@ function initDialogs()
         name: extManifest.name,
         version: extManifest.version,
         description: extManifest.description,
+        homePgURL: extManifest.homepage_url,
       };
     }
 
     document.getElementById("ext-name").innerText = that.extInfo.name;
     document.getElementById("ext-ver").innerText = chrome.i18n.getMessage("aboutExtVer", that.extInfo.version);
     document.getElementById("ext-desc").innerText = that.extInfo.description;
+    document.getElementById("ext-home-pg-link").href = that.extInfo.homePgURL;
   };  
 }
 

@@ -200,6 +200,10 @@ fieldset select.browser-style {
     font-size: 11px;
 }
 
+.description.disabled {
+    opacity: 0.4;
+}
+
 .indent {
     margin-left: 28px;
 }

@@ -153,7 +153,19 @@ async function init(aEvent)
   $("panic-action-close-all").addEventListener("click", selectPanicAction);
 
   $("shortcut-key").addEventListener("click", aEvent => {
-    setPref({ shortcutKey: aEvent.target.checked});
+    let isKeybShct = aEvent.target.checked;
+    setPref({ shortcutKey: isKeybShct });
+
+    $("panicbutton-key").disabled = !isKeybShct;
+    $("panicbutton-key-modifiers").disabled = !isKeybShct;
+    $("reset-shortcut").disabled = !isKeybShct;
+
+    if (isKeybShct) {
+      $("shct-note").classList.remove("disabled");
+    }
+    else {
+      $("shct-note").classList.add("disabled");
+    }
   });
 
   $("panicbutton-key").addEventListener("change", aEvent => {
@@ -286,7 +298,6 @@ async function init(aEvent)
   panicActionRadio.checked = true;
   switchSelectedActionRadioPanel(prefs.action);
 
-  $("shortcut-key").checked = prefs.shortcutKey;
   $("webpg-url").value = prefs.replacementWebPgURL;
 
   let setPswd = $("hide-and-replc-set-pswd");
@@ -351,7 +362,7 @@ async function init(aEvent)
     };
     img.src = prefs.toolbarBtnData;
     
-    revContrastChbox.setAttribute("disabled", "true");
+    revContrastChbox.disabled = true;
   }
   else {
     $(toolbarBtnIconID).checked = true;
@@ -362,9 +373,22 @@ async function init(aEvent)
     $("toolbar-button-icon").setAttribute("colorscheme", "dark");
   }
 
-  let cmds = await browser.commands.getAll();
+  let keybShctChbox = $("shortcut-key");
   let keySelectElt = $("panicbutton-key");
   let keyModSelectElt = $("panicbutton-key-modifiers");
+  let isKeybShct = prefs.shortcutKey;
+
+  if (isKeybShct) {
+    keybShctChbox.checked = true;
+  }
+  else {
+    keySelectElt.disabled = true;
+    keyModSelectElt.disabled = true;
+    $("shct-note").classList.add("disabled");
+    $("reset-shortcut").disabled = true;
+  }
+
+  let cmds = await browser.commands.getAll();
   let keyModNoneOptElt = $("key-modifiers-none");
   let allKeys = keySelectElt.options;
   let allModifiers = keyModSelectElt.options;

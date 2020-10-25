@@ -590,7 +590,7 @@ function initDialogs()
   };
   
   gDialogs.about = new aeDialog("#about-dlg");
-  gDialogs.extInfo = null;
+  gDialogs.about.extInfo = null;
   gDialogs.about.onInit = () => {
     let that = gDialogs.about;
     

@@ -16,6 +16,7 @@ let gMinimizedWndID = null;
 let gMinimizedWndStates = [];
 let gClosedWndStates = [];
 let gClosedWndActiveTabIndexes = [];
+let gClosedWndNumPinnedTabs = [];
 
 let gToolbarBtnIcons = [
   "default",
@@ -382,8 +383,6 @@ async function restoreBrowserSession()
               || aURL.startsWith("about:")));
   }
 
-  let activeTabIndexes = [];
-
   if (gReplaceSession) {
     log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
 
@@ -434,6 +433,11 @@ async function restoreBrowserSession()
         activeTabID = createdWnd.tabs[activeTabIdx].id;
       }
       await browser.tabs.update(activeTabID, {active: true});
+
+      let numPinnedTabs = gClosedWndNumPinnedTabs.shift();
+      for (let i = 0; i < numPinnedTabs; i++) {
+        browser.tabs.update(createdWnd.tabs[i].id, {pinned: true});
+      }
       
       if (closedWnd.focused) {
         focusedWndID = createdWnd.id;
@@ -520,6 +524,12 @@ async function closeAll(aSaveSession, aReplacementURL)
 
     if (aSaveSession) {
       gClosedWndActiveTabIndexes.push(wnd.tabs.findIndex(aTab => aTab.active));
+
+      let numPinnedTabs = 0;
+      wnd.tabs.forEach(aTab => {
+        aTab.pinned && numPinnedTabs++;
+      });
+      gClosedWndNumPinnedTabs.push(numPinnedTabs);
     }
     
     log("Panic Button/wx::closeAll(): Closing window " + wnd.id);

@@ -526,9 +526,14 @@ async function closeAll(aSaveSession, aReplacementURL)
       gClosedWndActiveTabIndexes.push(wnd.tabs.findIndex(aTab => aTab.active));
 
       let numPinnedTabs = 0;
-      wnd.tabs.forEach(aTab => {
-        aTab.pinned && numPinnedTabs++;
-      });
+      for (let i = 0; i < wnd.tabs.length; i++) {
+        if (wnd.tabs[i].pinned) {
+          numPinnedTabs++;
+        }
+        else {
+          break;
+        }
+      };
       gClosedWndNumPinnedTabs.push(numPinnedTabs);
     }
     

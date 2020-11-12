@@ -93,9 +93,13 @@ async function init(aEvent)
   let locale = browser.i18n.getUILanguage();
   let buttons = document.querySelectorAll("button");
   buttons.forEach(aBtn => { aBtn.setAttribute("locale", locale) });
-  $("webpg-url").setAttribute("locale", locale);
-  $("custom-icon-upload-btn").setAttribute("locale", locale);
-  $("set-password-dlg").setAttribute("locale", locale);
+  [
+    "webpg-url",
+    "minz-all-camouflage-webpg-url",
+    "custom-icon-upload-btn",
+    "set-password-dlg",
+    "usr-contrib-cta",
+  ].forEach(aEltStor => { $(aEltStor).setAttribute("locale", locale) });
 
   $("reset-url").addEventListener("click", resetReplacemtWebPageURL, false);
   $("minz-all-camouflage-reset-url").addEventListener("click", resetMinzAllCamouflageWebPageURL, false);
@@ -251,6 +255,7 @@ async function init(aEvent)
 
   let usrContribCTA = $("usr-contrib-cta");
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-hdg", "aboutContribHdg"));
+  usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());
   usrContribCTA.appendChild(aeDOM.createHyperlink("aboutDonate", aeConst.DONATE_URL));
   usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-conj", "aboutContribConj"))

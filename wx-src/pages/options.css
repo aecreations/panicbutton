@@ -312,6 +312,11 @@ fieldset select.browser-style {
     width: 256px;
 }
 
+#reset-url[locale="de"],
+#minz-all-camouflage-reset-url[locale="de"] {
+    letter-spacing: -0.1px;
+}
+
 #hide-and-replace-pswd {
     margin-top: 12px;
     margin-bottom: 0;
@@ -329,6 +334,10 @@ fieldset select.browser-style {
 
 #minz-all-camouflage-webpg-url {
     width: 270px;
+}
+
+#minz-all-camouflage-webpg-url[locale="de"] {
+    width: 228px;
 }
 
 #minz-all-restore-from-camo-instr {
@@ -835,6 +844,10 @@ input[type="file"] {
 
 #about-dlg #usr-contrib-cta {
     margin-top: 8px;
+}
+
+#about-dlg #usr-contrib-cta[locale="de"] {
+    letter-spacing: -0.1px;
 }
 
 #about-dlg #usr-contrib-cta-hdg {

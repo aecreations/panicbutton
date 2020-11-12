@@ -51,14 +51,29 @@
   "actDescMinimizeAll": {
     "message": "Minimiert alle Browser-Fenster. Optional öffnet sich ein einzelnes Fenster, mit einer einstellbaren Webseite."
   },
+  "actMinimizeCurr": {
+    "message": "Aktuelles Fenster minimieren"
+  },
+  "actDescMinimizeCurr": {
+    "message": "Minimiert das aktuelle Browser-Fenster."
+  },
+  "minzCurrOpt": {
+    "message": "Wenn der Panic Button in einem anderen Browser-Fenster geklickt wird, soll:"
+  },
+  "minzCurrOptMinz": {
+    "message": "Minimieren"
+  },
+  "minzCurrOptRstMinzed": {
+    "message": "Minimiertes Fenster wiederherstellen"
+  },
+  "rstMinzedWndNote": {
+    "message": "Diese Option wird nur für das Fenster angewendet, das durch Panik Button minimiert wurde."
+  },
   "actCloseAll": {
     "message": "Alle Fenster schließen"
   },
   "actDescCloseAll": {
     "message": "Schließt alle Browser-Fenster."
-  },
-  "notPrivBrws": {
-    "message": "Funktioniert nicht, wenn Firefox eingestellt wurde immer Privates Surfen zu nutzen."
   },
   "labelWebPgURL": {
     "message": "Internetadresse (URL):"
@@ -108,8 +123,8 @@
   "labelMinzAllCamoWebPg": {
     "message": "Ein neues Fenster öffnen, nachdem alle Browser-Fenster minimiert wurden"
   },
-  "descRestoreFromCamoWnd": {
-    "message": "Um die Browser-Sitzung wiederherzustellen den Panic Button erneut klicken."
+  "descRstFrmCamoWnd": {
+    "message": "Um die Browsersitzung wiederherzustellen den Panic Button erneut klicken."
   },
   "labelShortcutKey": {
     "message": "Diese Tastenkombination drücken, um die Panic Button Aktion auszulösen:"
@@ -223,6 +238,20 @@
   "aboutTrans": {
     "message": "Die Übersetzungen wurden von Crowdin-Übersetzern erstellt."
   },
+  "aboutContribHdg": {
+    "message": "Willst du mithelfen?",
+    "description": "About dialog text for encouraging users to donate or help with translation"
+  },
+  "aboutDonate": {
+    "message": "Spenden"
+  },
+  "aboutContribConj": {
+    "message": "oder",
+    "description": "Conjunction connecting the CTA hyperlinks for donating or supplying a translation"
+  },
+  "aboutL10n": {
+    "message": "eine Übersetzung hinzufügen."
+  },
   "errPrefPgFailed": {
     "message": "Einstellungen des AddOn können nicht geladen werden. Firefox neustarten und nochmal versuchen."
   },
@@ -233,6 +262,42 @@
   "restrSessAccept": {
     "message": "Sitzung wiederherstellen",
     "description": "Accept button in the Restore Session Password page"
+  },
+  "newVerHdg": {
+    "message": "Neue Version installiert!"
+  },
+  "upgrade": {
+    "message": "Panic Button wurde auf Version 4.3 aktualisiert."
+  },
+  "whatsNew": {
+    "message": "Neues"
+  },
+  "whatsNew1": {
+    "message": "Panic Button kann nun mehrere Browser-Fenster wiederherstellen, die durch die Aktion Ausblenden und Ersetzen versteckt wurden"
+  },
+  "whatsNew2": {
+    "message": "Neue Aktion: Aktuelles Fenster minimieren"
+  },
+  "whatsNew3": {
+    "message": "Verbesserte Symbole für die dunkle Ansicht"
+  },
+  "whatsNew4": {
+    "message": "Das Standard-Tastaturkürzel ist auf F8 geändert, um einen Konflikt mit dem Lesemodus zu vermeiden"
+  },
+  "donateHdg": {
+    "message": "Spenden!"
+  },
+  "donateCta1": {
+    "message": "Unterstütze die Entwicklung von Panic Button durch"
+  },
+  "donateLink": {
+    "message": "eine kleine Spende leisten"
+  },
+  "donateCta2": {
+    "message": "."
+  },
+  "btnClosePg": {
+    "message": "Diese Seite schließen"
   },
   "msgUnknown": {
     "message": "Keine Hilfe verfügbar (lass mich also in Ruhe)."

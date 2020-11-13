@@ -309,7 +309,7 @@ fieldset select.browser-style {
 }
 
 #webpg-url[locale="de"] {
-    width: 256px;
+    width: 255px;
 }
 
 #reset-url[locale="de"],
@@ -337,7 +337,7 @@ fieldset select.browser-style {
 }
 
 #minz-all-camouflage-webpg-url[locale="de"] {
-    width: 228px;
+    width: 227px;
 }
 
 #minz-all-restore-from-camo-instr {

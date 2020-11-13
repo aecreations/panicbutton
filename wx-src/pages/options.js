@@ -99,7 +99,7 @@ async function init(aEvent)
     "custom-icon-upload-btn",
     "set-password-dlg",
     "usr-contrib-cta",
-  ].forEach(aEltStor => { $(aEltStor).setAttribute("locale", locale) });
+  ].forEach(aID => { $(aID).setAttribute("locale", locale) });
 
   $("reset-url").addEventListener("click", resetReplacemtWebPageURL, false);
   $("minz-all-camouflage-reset-url").addEventListener("click", resetMinzAllCamouflageWebPageURL, false);

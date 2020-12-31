@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "__MSG_extName__",
     "description": "__MSG_extDesc__",
-    "version": "4.3.1",
+    "version": "4.4a0+",
     "homepage_url": "https://aecreations.sourceforge.io/panicbutton/index.php",
     "author": "AE Creations",
 
@@ -20,7 +20,10 @@
     "permissions": ["history", "storage", "tabs"],
       
     "background": {
-        "scripts": ["modules/aeConst.js", "background.js"]
+	"scripts": [
+	    "modules/aeConst.js",
+	    "background.js"
+	]
     },
 
     "browser_action": {

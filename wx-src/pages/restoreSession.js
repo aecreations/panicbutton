@@ -12,63 +12,60 @@ function $(aID)
 }
 
 
-function init(aEvent)
+async function init(aEvent)
 {
-  browser.runtime.getBackgroundPage().then(aBkgrdPgWnd => {
-    gPanicButton = aBkgrdPgWnd;
-    return browser.history.deleteUrl({ url: window.location.href });
+  gPanicButton = await browser.runtime.getBackgroundPage();
+  browser.history.deleteUrl({ url: window.location.href });
 
-  }).then(() => {
-    $("btn-ok").addEventListener("click", aEvent => {
-      let usrPswd = gPanicButton.getRestoreSessPasswd();
-      let passwd = $("restore-sess-pswd");
-      
-      if (passwd.value != usrPswd) {
-        $("err-msg").innerText = browser.i18n.getMessage("pswdWrong");
-        passwd.select();
-        passwd.focus();
-        return;
-      }
-      gPanicButton.restoreBrowserSession();
-    });
-
-    $("btn-cancel").addEventListener("click", aEvent => {
-      window.history.back();
-    });
-
-    let helpDlg = new aeDialog("#hlp-dlg");
-
-    window.addEventListener("keydown", aEvent => {
-      if (aEvent.key == "Enter") {
-        if (aeDialog.isOpen()) {
-          aeDialog.acceptDlgs();
-        }
-        else {
-          $("btn-ok").click();
-        }
-      }
-      else if (aEvent.key == "Escape") {
-        if (aeDialog.isOpen()) {
-          aeDialog.cancelDlgs();
-        }
-        else {
-          $("btn-cancel").click();
-        }
-      }
-      else if (aEvent.key == "F1") {
-        helpDlg.showModal();
-      }
-    });
-
-    $("restore-sess-pswd").focus();
+  $("btn-ok").addEventListener("click", async (aEvent) => {
+    let usrPswd = gPanicButton.getRestoreSessPasswd();
+    let passwd = $("restore-sess-pswd");
+    
+    if (passwd.value != usrPswd) {
+      $("err-msg").innerText = browser.i18n.getMessage("pswdWrong");
+      passwd.select();
+      passwd.focus();
+      return;
+    }
+    await gPanicButton.restoreBrowserSession();
   });
+
+  $("btn-cancel").addEventListener("click", aEvent => {
+    window.history.back();
+  });
+
+  let helpDlg = new aeDialog("#hlp-dlg");
+
+  window.addEventListener("keydown", aEvent => {
+    if (aEvent.key == "Enter") {
+      if (aeDialog.isOpen()) {
+        aeDialog.acceptDlgs();
+      }
+      else {
+        $("btn-ok").click();
+      }
+    }
+    else if (aEvent.key == "Escape") {
+      if (aeDialog.isOpen()) {
+        aeDialog.cancelDlgs();
+      }
+      else {
+        $("btn-cancel").click();
+      }
+    }
+    else if (aEvent.key == "F1") {
+      helpDlg.showModal();
+    }
+  });
+
+  $("restore-sess-pswd").focus();
 }
 
 
-document.addEventListener("DOMContentLoaded", init, false);
+document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
 
 document.addEventListener("contextmenu", aEvent => {
   if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
     aEvent.preventDefault();
   }
-}, false);
+});

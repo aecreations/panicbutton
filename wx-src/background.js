@@ -8,15 +8,17 @@ let gOS;
 let gHostAppVer;
 let gPrefs;
 let gReplaceSession = false;
-let gReplacemtWndID = null;
 let gNumClosedWnds = 0;
 let gShowCamouflageWnd = false;
 let gCamouflageWndID = null;
 let gMinimizedWndID = null;
 let gMinimizedWndStates = [];
+/***
+let gReplacemtWndID = null;
 let gClosedWndStates = [];
 let gClosedWndActiveTabIndexes = [];
 let gClosedWndNumPinnedTabs = [];
+***/
 
 let gToolbarBtnIcons = [
   "default",
@@ -309,14 +311,15 @@ async function panic()
   }
   else {
     if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
-      let replacementURL = gPrefs.replacementWebPgURL;
-      await closeAll(true, replacementURL);
+      let replacemtURL = gPrefs.replacementWebPgURL;
+      gReplaceSession = true;
+      await aeBrowserSession.saveAndClose(replacemtURL);
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
       await minimizeAll();
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
-      await closeAll(false);
+      await closeAll();
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR) {
       await minimizeCurrent();
@@ -371,6 +374,14 @@ async function restoreMinimizedBrowserWindowState()
 
 
 async function restoreBrowserSession()
+{
+  await aeBrowserSession.restore();
+  gReplaceSession = false;
+}
+
+
+// DEPRECATED - Replaced by aeBrowserSession module.
+async function restoreBrowserSessionEx()
 {
   function isNonrestrictedURL(aURL)
   {
@@ -459,6 +470,7 @@ async function restoreBrowserSession()
     }
   }
 }
+// END DEPRECATED
 
 
 async function minimizeAll()
@@ -497,7 +509,8 @@ async function minimizeCurrent()
 }
 
 
-async function closeAll(aSaveSession, aReplacementURL)
+// DEPRECATED - Replaced by aeBrowserSession module.
+async function closeAllEx(aSaveSession, aReplacementURL)
 {
   log("Panic Button/wx: Invoked function closeAll()");
   log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
@@ -538,6 +551,17 @@ async function closeAll(aSaveSession, aReplacementURL)
     }
     
     log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
+    browser.windows.remove(wnd.id);
+  }
+}
+// END DEPRECATED
+
+
+async function closeAll()
+{
+  let wnds = await browser.windows.getAll({populate: true});
+
+  for (let wnd of wnds) {
     browser.windows.remove(wnd.id);
   }
 }

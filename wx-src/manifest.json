@@ -22,7 +22,6 @@
     "background": {
 	"scripts": [
 	    "modules/aeConst.js",
-	    "modules/aeBrowserSession.js",
 	    "background.js"
 	]
     },

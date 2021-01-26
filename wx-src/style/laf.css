@@ -205,19 +205,24 @@ textarea::selection {
     vertical-align: middle;
 }
 
-.browser-style > input[type="checkbox"] {
+.browser-style > input[type="checkbox"],
+.browser-style > input[type="radio"] {
     background-color: var(--color-cb-bkgd);
     border: 1px solid var(--color-cb-border);
 }
 
 .browser-style > input[type="checkbox"]:hover,
-.browser-style.hover > input[type="checkbox"]:not(:active) {
+.browser-style.hover > input[type="checkbox"]:not(:active),
+.browser-style > input[type="radio"]:hover,
+.browser-style.hover > input[type="radio"]:not(:active) {
     background-color: var(--color-cb-hover-bkgd);
     border-color: var(--color-cb-border);
 }
 
 .browser-style > input[type="checkbox"]:hover:active,
-.browser-style.pressed > input[type="checkbox"]:not(:active) {
+.browser-style.pressed > input[type="checkbox"]:not(:active),
+.browser-style > input[type="radio"]:hover:active,
+.browser-style.pressed > input[type="radio"]:not(:active) {
     background-color: var(--color-cb-active-bkgd);
 }
 

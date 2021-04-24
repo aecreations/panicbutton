@@ -8,8 +8,8 @@
 
     "browser_specific_settings": {
         "gecko": {
-	  "strict_min_version": "78.0"
-	}
+          "strict_min_version": "78.0"
+        }
     },
     
     "icons": {
@@ -17,35 +17,39 @@
         "96": "img/icon.svg"
     },
 
-    "permissions": ["history", "storage", "tabs"],
+    "permissions": [
+        "history",
+        "storage",
+        "tabs"
+    ],
       
     "background": {
-	"scripts": [
-	    "modules/aeConst.js",
-	    "background.js"
-	]
+        "scripts": [
+            "modules/aeConst.js",
+            "background.js"
+        ]
     },
 
     "browser_action": {
-	"default_icon": {
-	    "16": "img/default16.svg",
-	    "32": "img/default32.svg",
-	    "64": "img/default32.svg"
-	},
-	"default_title": "__MSG_defaultBtnLabel__"
+        "default_icon": {
+            "16": "img/default16.svg",
+            "32": "img/default32.svg",
+            "64": "img/default32.svg"
+        },
+        "default_title": "__MSG_defaultBtnLabel__"
     },
 
     "commands": {
-	"ae-panicbutton": {
-	    "suggested_key": { "default": "F8" },
-	    "description": "__MSG_cmdDesc__"
-	}
+        "ae-panicbutton": {
+            "suggested_key": { "default": "F8" },
+            "description": "__MSG_cmdDesc__"
+        }
     },
     
     "options_ui": {
-	"page": "pages/options.html",
+        "page": "pages/options.html",
         "open_in_tab": true,
-	"browser_style": true
+        "browser_style": true
     },
 
     "default_locale": "en"

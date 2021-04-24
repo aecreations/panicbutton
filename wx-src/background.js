@@ -3,18 +3,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-let gIsInitialized = false;
 let gOS;
 let gHostAppVer;
 let gPrefs;
-let gReplaceSession = false;
-let gNumClosedWnds = 0;
 let gShowCamouflageWnd = false;
 let gCamouflageWndID = null;
 let gMinimizedWndID = null;
 let gMinimizedWndStates = [];
 
 let gBrowserSession = {
+  _replaceSession: false,
   _replacemtWndID: null,
   _savedWndStates: [],
   _savedWndActiveTabIdxs: [],
@@ -28,6 +26,7 @@ let gBrowserSession = {
     if (aReplacementURL) {
       let replcWnd = await browser.windows.create({ url: aReplacementURL });
       this._replacemtWndID = replcWnd.id;
+      this._replaceSession = true;
     }
 
     for (let wnd of wnds) {
@@ -121,12 +120,19 @@ let gBrowserSession = {
     let replacemtWnd = await browser.windows.get(this._replacemtWndID);
     await browser.windows.remove(replacemtWnd.id);
     this._replacemtWndID = null;
+    this._replaceSession = false;
 
     if (focusedWndID) {
       let updWnd = await browser.windows.update(focusedWndID, {focused: true});
     }
+  },
+
+  isStashed()
+  {
+    return this._replaceSession;
   }
 };
+
 
 let gToolbarBtnIcons = [
   "default",
@@ -301,10 +307,6 @@ browser.runtime.onStartup.addListener(async () => {
 
 async function init()
 {
-  if (gIsInitialized) {
-    return;
-  }
-
   let getBrwsInfo = browser.runtime.getBrowserInfo();
   let getPlatInfo = browser.runtime.getPlatformInfo();
 
@@ -340,7 +342,6 @@ async function init()
 
     await setPanicButtonCustomizations();
 
-    gIsInitialized = true;
     log("Panic Button/wx: Initialization complete.");
   });
 }
@@ -395,12 +396,12 @@ function getToolbarButtonIconLookup()
 
 async function panic()
 {
-  if (gReplaceSession) {
+  if (gBrowserSession.isStashed()) {
     if (gPrefs.restoreSessPswdEnabled) {
       browser.tabs.update({ url: "pages/restoreSession.html" });
     }
     else {
-      await restoreBrowserSession();
+      await gBrowserSession.restore();
     }
   }
   else if (gShowCamouflageWnd) {
@@ -418,7 +419,6 @@ async function panic()
   else {
     if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
       let replacemtURL = gPrefs.replacementWebPgURL;
-      gReplaceSession = true;
       await gBrowserSession.saveAndClose(replacemtURL);
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
@@ -476,13 +476,6 @@ async function restoreMinimizedBrowserWindowState()
   }
 
   return rv;
-}
-
-
-async function restoreBrowserSession()
-{
-  await gBrowserSession.restore();
-  gReplaceSession = false;
 }
 
 

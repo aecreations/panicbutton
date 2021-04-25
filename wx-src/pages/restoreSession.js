@@ -3,8 +3,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-let gPanicButton;
-
 
 function $(aID)
 {
@@ -14,11 +12,14 @@ function $(aID)
 
 async function init(aEvent)
 {
-  gPanicButton = await browser.runtime.getBackgroundPage();
   browser.history.deleteUrl({ url: window.location.href });
 
   $("btn-ok").addEventListener("click", async (aEvent) => {
-    let usrPswd = gPanicButton.getRestoreSessPasswd();
+    let resp = await browser.runtime.sendMessage({
+      msgID: "get-restore-sess-passwd",
+    });
+
+    let usrPswd = resp.restoreSessPwd;
     let passwd = $("restore-sess-pswd");
     
     if (passwd.value != usrPswd) {
@@ -27,7 +28,8 @@ async function init(aEvent)
       passwd.focus();
       return;
     }
-    await gPanicButton.restoreBrowserSession();
+
+    await browser.runtime.sendMessage({ msgID: "restore-brws-sess" });
   });
 
   $("btn-cancel").addEventListener("click", aEvent => {

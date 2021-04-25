@@ -440,28 +440,6 @@ async function init()
     gOS = platform.os;
     log("Panic Button/wx: OS: " + gOS);
 
-    // TO DO: Move these event listeners out of init().
-    browser.browserAction.onClicked.addListener(async (aTab) => {
-      await panic();
-    });
-
-    browser.commands.onCommand.addListener(async (aCmd) => {
-      if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
-        await panic();
-      }
-    });
-
-    browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
-      let changedPrefs = Object.keys(aChanges);
-      
-      for (let pref of changedPrefs) {
-        gPrefs[pref] = aChanges[pref].newValue;
-      }
-
-      await setPanicButtonCustomizations();
-    });
-    // END TO DO
-
     await setPanicButtonCustomizations();
 
     log("Panic Button/wx: Initialization complete.");
@@ -516,6 +494,53 @@ function getToolbarButtonIconLookup()
 }
 
 
+//
+// Event listeners
+//
+
+browser.browserAction.onClicked.addListener(async (aTab) => {
+  await panic();
+});
+
+browser.commands.onCommand.addListener(async (aCmd) => {
+  if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
+    await panic();
+  }
+});
+
+browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
+  let changedPrefs = Object.keys(aChanges);
+  
+  for (let pref of changedPrefs) {
+    gPrefs[pref] = aChanges[pref].newValue;
+  }
+
+  await setPanicButtonCustomizations();
+});
+
+
+browser.runtime.onMessage.addListener(aRequest => {
+  log(`Panic Button/wx: Received message "${aRequest.msgID}"`);
+    
+  let resp = null;
+
+  if (aRequest.msgID == "get-restore-sess-passwd") {
+    resp = {
+      restoreSessPwd: getRestoreSessPasswd(),
+    };
+
+    return Promise.resolve(resp);
+  }
+  else if (aRequest.msgID == "restore-brws-sess") {
+    gBrowserSession.restore();
+  }
+});
+
+
+//
+// Browser action
+//
+
 async function panic()
 {
   if (gBrowserSession.isStashed()) {
@@ -551,15 +576,6 @@ async function panic()
     }
   }
 }
-
-
-// TEMPORARY
-// Called by the restore session password page. To be replaced with extension message passing.
-function restoreBrowserSession()
-{
-  gBrowserSession.restore();
-}
-// END TEMPORARY
 
 
 async function setRestoreSessPasswd(aPswd)

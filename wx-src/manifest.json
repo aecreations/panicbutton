@@ -26,6 +26,7 @@
     "background": {
         "scripts": [
             "modules/aeConst.js",
+            "scripts/aePrefs.js",
             "background.js"
         ]
     },

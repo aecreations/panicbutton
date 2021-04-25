@@ -254,28 +254,7 @@ let gBrowserSession = {
 };
 
 
-let gToolbarBtnIcons = [
-  "default",
-  "exclamation-in-ball",
-  "quit",
-  "exit-door",
-  "window-minimize",
-  "window-with-exclamation",
-  "window-with-exclamation-ball",
-  "window-with-cross",
-  "window-with-check",
-  "plain-window",
-  "dotted-window",
-  "window-with-globe",
-  "web-page",
-  "web-page-with-globe",
-  "web-document",
-  "smiley",
-  "picture",
-  "desktop",
-  "computer",
-  "letter-a"
-];
+let gToolbarBtnIcons = [];
 
 
 //
@@ -295,7 +274,7 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
     
     log(`Panic Button/wx: Upgrading from version ${oldVer} to ${currVer}`);
 
-    gPrefs = await browser.storage.local.get();
+    gPrefs = await aePrefs.getAllPrefs();
 
     if (! hasSantaCruzPrefs()) {
       log("Initializing 4.1 user preferences");
@@ -332,7 +311,7 @@ function hasSantaCruzPrefs()
 async function setSantaCruzPrefs()
 {
   let newPrefs = {
-    panicButtonKey: "F9",
+    panicButtonKey: "F9",  // Old default keyboard shortcut until version 4.3
     panicButtonKeyMod: "",
     restoreSessPswdEnabled: false,
     restoreSessPswd: null,
@@ -342,7 +321,7 @@ async function setSantaCruzPrefs()
     gPrefs[pref] = newPrefs[pref];
   }
 
-  await browser.storage.local.set(newPrefs);
+  await aePrefs.setPrefs(newPrefs);
 }
 
 
@@ -364,7 +343,7 @@ async function setSantaRosaPrefs()
     gPrefs[pref] = newPrefs[pref];
   }
 
-  await browser.storage.local.set(newPrefs);
+  await aePrefs.setPrefs(newPrefs);
 }
 
 
@@ -385,30 +364,16 @@ async function setSantaCatalinaPrefs()
     gPrefs[pref] = newPrefs[pref];
   }
 
-  await browser.storage.local.set(newPrefs);
+  await aePrefs.setPrefs(newPrefs);
 }
 
 
 async function setDefaultPrefs()
 {
-  let aePanicButtonPrefs = {
-    action: aeConst.PANICBUTTON_ACTION_REPLACE,
-    toolbarBtnIcon: 0,
-    toolbarBtnLabel: browser.i18n.getMessage("defaultBtnLabel"),
-    toolbarBtnRevContrastIco: false,
-    shortcutKey: true,
-    panicButtonKey: "F9",
-    panicButtonKeyMod: "",
-    replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-    restoreSessPswdEnabled: false,
-    restoreSessPswd: null,
-    showCamouflageWebPg: false,
-    camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
-  };
+  let defaultPrefs = aePrefs.getDefaultPrefs();
 
-  gPrefs = aePanicButtonPrefs;
-  await browser.storage.local.set(aePanicButtonPrefs);
+  gPrefs = defaultPrefs;
+  await aePrefs.setPrefs(defaultPrefs);
 }
 
 
@@ -420,7 +385,7 @@ async function setDefaultPrefs()
 browser.runtime.onStartup.addListener(async () => {
   log("Panic Button/wx: Initializing Panic Button during browser startup.");
 
-  gPrefs = await browser.storage.local.get();
+  gPrefs = await aePrefs.getAllPrefs();
   init();
 });
 
@@ -460,8 +425,9 @@ async function setToolbarButtonIcon(aIconIndex, isReverseContrast)
     await setCustomToolbarButtonIcon();
     return;
   }
-  
-  let toolbarBtnIconName = gToolbarBtnIcons[aIconIndex];
+
+  let toolbarBtnIcons = getToolbarButtonIconsMap();
+  let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
   let revCntrst = isReverseContrast ? "_reverse" : "";
 
   browser.browserAction.setIcon({
@@ -475,7 +441,7 @@ async function setToolbarButtonIcon(aIconIndex, isReverseContrast)
 
 async function setCustomToolbarButtonIcon()
 {
-  let prefs = await browser.storage.local.get();
+  let prefs = await aePrefs.getPref("toolbarBtnData");
   let iconDataURL = prefs.toolbarBtnData;
 
   browser.browserAction.setIcon({
@@ -490,12 +456,35 @@ async function setCustomToolbarButtonIcon()
 
 function getToolbarButtonIconsMap()
 {
-  return gToolbarBtnIcons;
+  let rv = [
+    "default",
+    "exclamation-in-ball",
+    "quit",
+    "exit-door",
+    "window-minimize",
+    "window-with-exclamation",
+    "window-with-exclamation-ball",
+    "window-with-cross",
+    "window-with-check",
+    "plain-window",
+    "dotted-window",
+    "window-with-globe",
+    "web-page",
+    "web-page-with-globe",
+    "web-document",
+    "smiley",
+    "picture",
+    "desktop",
+    "computer",
+    "letter-a"
+  ];
+
+  return rv;
 }
 
 
 //
-// Event listeners
+// Event handlers
 //
 
 browser.browserAction.onClicked.addListener(async (aTab) => {
@@ -615,7 +604,7 @@ async function setRestoreSessPasswd(aPswd)
   }
 
   let encPwd = b64EncodeUnicode(aPswd);
-  await browser.storage.local.set({
+  await aePrefs.setPrefs({
     restoreSessPswdEnabled: true,
     restoreSessPswd: encPwd,
   });
@@ -647,7 +636,7 @@ async function removeRestoreSessPasswd()
     restoreSessPswd: null,
   };
   
-  await browser.storage.local.set(pswdPrefs);
+  await aePrefs.setPrefs(pswdPrefs);
 }
 
 

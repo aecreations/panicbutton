@@ -6,10 +6,130 @@
 let gOS;
 let gHostAppVer;
 let gPrefs;
-let gShowCamouflageWnd = false;
-let gCamouflageWndID = null;
-let gMinimizedWndID = null;
-let gMinimizedWndStates = [];
+
+let gBrowserWindows = {
+  _minzWndID: null,
+  _camoWndID: null,
+  _minzWndStates: [],
+  
+  async minimizeCurrent()
+  {
+    log("Panic Button/wx: gBrowserWindows.minimizeCurrent()");
+
+    let wnd = await browser.windows.getCurrent();
+
+    await browser.windows.update(wnd.id, { state: "minimized" });
+    log("Minimized window: " + wnd.id);
+
+    this._minzWndID = wnd.id;
+  },
+
+  async minimizeAll()
+  {
+    log("Panic Button/wx: gBrowserWindows.minimizeAll()");
+
+    let wnds = await browser.windows.getAll();
+    for (let wnd of wnds) {
+      this._minzWndStates.push({
+        id: wnd.id,
+        wndState: wnd.state,
+      });
+      await browser.windows.update(wnd.id, { state: "minimized" });
+      log("Minimized window: " + wnd.id);
+    }
+
+    if (gPrefs.showCamouflageWebPg) {
+      this._openCamouflageWnd(gPrefs.camouflageWebPgURL);
+    }    
+  },
+
+  async restoreAll()
+  {
+    if (this.isCamouflageWindowOpen()) {
+      this._closeCamouflageWnd();
+    }
+    
+    while (this._minzWndStates.length > 0) {
+      let minzWnd = this._minzWndStates.pop();
+
+      try {
+        await browser.windows.get(minzWnd.id);
+
+        // Confirm that the minimized window still exists.
+        await browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
+      }
+      catch (e) {
+        warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
+      };
+    }
+  },
+
+  async restoreMinimized()
+  {
+    let rv = false;
+    let wnd = null;
+
+    try {
+      wnd = await browser.windows.get(this._minzWndID);    
+    }
+    catch (e) {
+      warn("Panic Button/wx: gBrowserWindows.restoreMinimized(): Window ID no longer valid (was it just closed?)");
+    }
+
+    if (wnd.state == "minimized") {
+      // TO DO: Don't assume previous window state.
+      await browser.windows.update(this._minzWndID, { state: "normal" });
+      this._minzWndID = null;
+      rv = true;
+    }
+
+    return rv;
+  },
+  
+  async closeAll()
+  {
+    let wnds = await browser.windows.getAll({populate: true});
+
+    for (let wnd of wnds) {
+      browser.windows.remove(wnd.id);
+    }
+  },
+
+  isCamouflageWindowOpen()
+  {
+    return (this._camoWndID != null);
+  },
+
+  isMinimized()
+  {
+    return (this._minzWndID != null);
+  },
+
+
+  //
+  // Private helper methods
+  //
+  
+  async _openCamouflageWnd(aCamouflageURL)
+  {
+    let wnd = await browser.windows.create({ url: aCamouflageURL });
+    info("Panic Button/wx: gBrowserWindows.openCamouflageWnd(): Camouflage window ID: " + wnd.id);
+    this._camoWndID = wnd.id;
+    
+    return this._camoWndID;
+  },
+
+  _closeCamouflageWnd()
+  {
+    if (this._camoWndID === null) {
+      throw new Error("Panic Button/wx: gBrowserWindows.closeCamouflageWnd(): Camouflage window ID is null");
+    }
+    
+    browser.windows.remove(this._camoWndID);
+    this._camoWndID = null;
+  }
+};
+
 
 let gBrowserSession = {
   _replaceSession: false,
@@ -320,6 +440,7 @@ async function init()
     gOS = platform.os;
     log("Panic Button/wx: OS: " + gOS);
 
+    // TO DO: Move these event listeners out of init().
     browser.browserAction.onClicked.addListener(async (aTab) => {
       await panic();
     });
@@ -339,6 +460,7 @@ async function init()
 
       await setPanicButtonCustomizations();
     });
+    // END TO DO
 
     await setPanicButtonCustomizations();
 
@@ -404,16 +526,13 @@ async function panic()
       await gBrowserSession.restore();
     }
   }
-  else if (gShowCamouflageWnd) {
-    await restoreBrowserWindowState();
-    gShowCamouflageWnd = false;
+  else if (gBrowserWindows.isCamouflageWindowOpen()) {
+    await gBrowserWindows.restoreAll();
   }
-  else if (gMinimizedWndID && gPrefs.minimizeCurrOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
-    if (await restoreMinimizedBrowserWindowState()) {
-      gMinimizedWndID = null;
-    }
-    else {
-      await minimizeCurrent();
+  else if (gBrowserWindows.isMinimized()
+           && gPrefs.minimizeCurrOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
+    if (! await gBrowserWindows.restoreMinimized()) {
+      await gBrowserWindows.minimizeCurrent();
     }
   }
   else {
@@ -422,107 +541,25 @@ async function panic()
       await gBrowserSession.saveAndClose(replacemtURL);
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
-      await minimizeAll();
+      await gBrowserWindows.minimizeAll();
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
-      await closeAll();
+      await gBrowserWindows.closeAll();
     }
     else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR) {
-      await minimizeCurrent();
+      await gBrowserWindows.minimizeCurrent();
     }
   }
 }
 
 
-async function restoreBrowserWindowState()
+// TEMPORARY
+// Called by the restore session password page. To be replaced with extension message passing.
+function restoreBrowserSession()
 {
-  if (gShowCamouflageWnd) {
-    browser.windows.remove(gCamouflageWndID);
-    gCamouflageWndID = null;
-  }
-  
-  while (gMinimizedWndStates.length > 0) {
-    let minzWnd = gMinimizedWndStates.pop();
-
-    try {
-      await browser.windows.get(minzWnd.id);
-
-      // Confirm that the minimized window still exists.
-      await browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
-    }
-    catch (e) {
-      warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
-    };
-  }
+  gBrowserSession.restore();
 }
-
-
-async function restoreMinimizedBrowserWindowState()
-{
-  let rv = false;
-  let wnd = null;
-
-  try {
-    wnd = await browser.windows.get(gMinimizedWndID);    
-  }
-  catch (e) {
-    warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
-  }
-
-  if (wnd.state == "minimized") {
-    // TO DO: Don't assume previous window state.
-    await browser.windows.update(gMinimizedWndID, { state: "normal" });
-    rv = true;
-  }
-
-  return rv;
-}
-
-
-async function minimizeAll()
-{
-  log("Panic Button/wx: Invoked function minimizeAll()");
-
-  let wnds = await browser.windows.getAll();
-  for (let wnd of wnds) {
-    gMinimizedWndStates.push({
-      id: wnd.id,
-      wndState: wnd.state,
-    });
-    await browser.windows.update(wnd.id, { state: "minimized" });
-    log("Minimized window: " + wnd.id);
-  }
-
-  if (gPrefs.showCamouflageWebPg) {
-    let camoWnd = await browser.windows.create({ url: gPrefs.camouflageWebPgURL });
-    info("Panic Button/wx: Camouflage window: ID: " + camoWnd.id);
-    gCamouflageWndID = camoWnd.id;
-    gShowCamouflageWnd = true;
-  }
-}
-
-
-async function minimizeCurrent()
-{
-  log("Panic Button/wx: Invoked function minimizeCurrent()");
-
-  let wnd = await browser.windows.getCurrent();
-
-  await browser.windows.update(wnd.id, { state: "minimized" });
-  log("Minimized window: " + wnd.id);
-
-  gMinimizedWndID = wnd.id;
-}
-
-
-async function closeAll()
-{
-  let wnds = await browser.windows.getAll({populate: true});
-
-  for (let wnd of wnds) {
-    browser.windows.remove(wnd.id);
-  }
-}
+// END TEMPORARY
 
 
 async function setRestoreSessPasswd(aPswd)

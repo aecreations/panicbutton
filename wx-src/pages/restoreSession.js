@@ -36,30 +36,6 @@ async function init(aEvent)
     window.history.back();
   });
 
-  let helpDlg = new aeDialog("#hlp-dlg");
-
-  window.addEventListener("keydown", aEvent => {
-    if (aEvent.key == "Enter") {
-      if (aeDialog.isOpen()) {
-        aeDialog.acceptDlgs();
-      }
-      else {
-        $("btn-ok").click();
-      }
-    }
-    else if (aEvent.key == "Escape") {
-      if (aeDialog.isOpen()) {
-        aeDialog.cancelDlgs();
-      }
-      else {
-        $("btn-cancel").click();
-      }
-    }
-    else if (aEvent.key == "F1") {
-      helpDlg.showModal();
-    }
-  });
-
   $("restore-sess-pswd").focus();
 }
 
@@ -69,5 +45,29 @@ document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
 document.addEventListener("contextmenu", aEvent => {
   if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
     aEvent.preventDefault();
+  }
+});
+
+
+window.addEventListener("keydown", aEvent => {
+  if (aEvent.key == "Enter") {
+    if (aeDialog.isOpen()) {
+      aeDialog.acceptDlgs();
+    }
+    else {
+      $("btn-ok").click();
+    }
+  }
+  else if (aEvent.key == "Escape") {
+    if (aeDialog.isOpen()) {
+      aeDialog.cancelDlgs();
+    }
+    else {
+      $("btn-cancel").click();
+    }
+  }
+  else if (aEvent.key == "F1") {
+    let helpDlg = new aeDialog("#hlp-dlg");
+    helpDlg.showModal();
   }
 });

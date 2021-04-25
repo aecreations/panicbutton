@@ -3,8 +3,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-let gPanicButton;
-
 
 function $(aID)
 {
@@ -14,8 +12,6 @@ function $(aID)
 
 async function init()
 {
-  gPanicButton = await browser.runtime.getBackgroundPage();
-
   browser.history.deleteUrl({ url: window.location.href });
 
   let donateCTA = $("donate-cta");
@@ -24,13 +20,7 @@ async function init()
   donateCTA.appendChild(createHyperlink("donateLink", aeConst.DONATE_URL));
   donateCTA.appendChild(createTextNode("donateCta2"));
   
-  $("btn-close").addEventListener("click", async (aEvent) => { closePage() });
-  
-  document.addEventListener("contextmenu", aEvent => {
-    if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
-      aEvent.preventDefault();
-    }
-  }, false);   
+  $("btn-close").addEventListener("click", async (aEvent) => { closePage() }); 
 }
 
 
@@ -86,3 +76,9 @@ async function closePage()
 
 
 document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
+
+document.addEventListener("contextmenu", aEvent => {
+  if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
+    aEvent.preventDefault();
+  }
+});

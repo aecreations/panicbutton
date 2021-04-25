@@ -5,6 +5,7 @@
 
 
 let gPanicButton;
+let gOS;
 let gActionDescs = [];
 let gRadioPanels = [];
 let gShctKeyModSelected = false;
@@ -74,10 +75,11 @@ async function init(aEvent)
 
   initDialogs();
 
-  let os = gPanicButton.getOS();
+  let resp = await browser.runtime.sendMessage({ msgID: "get-system-info" });
+  gOS = resp.os;
   let keyModAccelShift, keyModAltShift;
 
-  if (os == "mac") {
+  if (gOS == "mac") {
     keyModAccelShift = "keyModAccelShiftMac";
     keyModAltShift = "keyModAltShiftMac";
     $("panicbutton-key-del").innerText = chrome.i18n.getMessage("keyMacDel");
@@ -316,8 +318,9 @@ async function init(aEvent)
     rmPswd.style.visibility = "hidden";
   }
 
-  setPswd.addEventListener("click", aEvent => {
-    let prefs = gPanicButton.getPrefs();
+  setPswd.addEventListener("click", async (aEvent) => {
+    // Need to get the most up-to-date prefs
+    let prefs = await browser.storage.local.get();
     if (prefs.restoreSessPswdEnabled) {
       gDialogs.changeRestoreSessPswd.showModal();
     }
@@ -348,7 +351,10 @@ async function init(aEvent)
 
   $("toolbar-button-caption").value = prefs.toolbarBtnLabel;
 
-  let toolbarBtnIcons = gPanicButton.getToolbarButtonIconLookup();
+  resp = await browser.runtime.sendMessage({
+    msgID: "get-toolbar-btn-icons-map"
+  });
+  let toolbarBtnIcons = resp.toolbarBtnIconsMap;
   let toolbarBtnIconID = toolbarBtnIcons[prefs.toolbarBtnIcon];
   let revContrastChbox = $("rev-contrast-icon");
   
@@ -406,7 +412,7 @@ async function init(aEvent)
   if (shctArr.length > 1) {
     panicButtonKeyMod = keybShct.substring(0, keybShct.lastIndexOf("+"));
     // On macOS, the CTRL key is "MacCtrl".
-    if (gPanicButton.getOS() == "mac") {
+    if (gOS == "mac") {
       panicButtonKeyMod = panicButtonKeyMod.replace(/Command/, "Ctrl");
     }
   }
@@ -489,7 +495,7 @@ function initDialogs()
   gDialogs.setRestoreSessPswd.onShow = () => {
     $("enter-password").focus();
   };
-  gDialogs.setRestoreSessPswd.onAccept = () => {
+  gDialogs.setRestoreSessPswd.onAccept = async () => {
     let that = gDialogs.setRestoreSessPswd;
     
     let passwd = $("enter-password").value;
@@ -505,15 +511,18 @@ function initDialogs()
       return;
     }
 
-    gPanicButton.setRestoreSessPasswd(passwd).then(() => {
-      // Add a short delay so that user can see resulting prefs UI changes.
-      window.setTimeout(() => {
-        $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("chgPswd");
-        $("hide-and-replc-rm-pswd").style.visibility = "visible";
-      }, 500);
-      
-      that.close();
+    let resp = await browser.runtime.sendMessage({
+      msgID: "set-restore-sess-passwd",
+      passwd,
     });
+
+    // Add a short delay so that user can see resulting prefs UI changes.
+    window.setTimeout(() => {
+      $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("chgPswd");
+      $("hide-and-replc-rm-pswd").style.visibility = "visible";
+    }, 500);
+    
+    that.close();
   };
 
   gDialogs.changeRestoreSessPswd = new aeDialog("#change-password-dlg");
@@ -526,7 +535,7 @@ function initDialogs()
   gDialogs.changeRestoreSessPswd.onShow = () => {
     $("old-pswd").focus();
   };
-  gDialogs.changeRestoreSessPswd.onAccept = () => {
+  gDialogs.changeRestoreSessPswd.onAccept = async () => {
     let that = gDialogs.changeRestoreSessPswd;
 
     let oldPswdElt = $("old-pswd");
@@ -541,8 +550,11 @@ function initDialogs()
       return;
     }
 
+    let resp = await browser.runtime.sendMessage({
+      msgID: "get-restore-sess-passwd"
+    });
+    let currentPswd = resp.restoreSessPwd;
     let enteredOldPswd = oldPswdElt.value;
-    let currentPswd = gPanicButton.getRestoreSessPasswd();
     
     if (enteredOldPswd != currentPswd) {
       $("chg-pswd-error").innerText = browser.i18n.getMessage("pswdWrong");
@@ -554,16 +566,19 @@ function initDialogs()
     if (passwd == "" && confirmPasswd == "") {
       // If both password fields are empty, clear the password as if the user
       // had clicked "Remove Password"
-      gPanicButton.removeRestoreSessPasswd().then(() => {
-        resetPasswdPrefs();
-        that.close();
-      });
+      await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
+
+      resetPasswdPrefs();
+      that.close();
       return;
     }
 
-    gPanicButton.setRestoreSessPasswd(passwd).then(() => {
-      that.close();
+    await browser.runtime.sendMessage({
+      msgID: "set-restore-sess-passwd",
+      passwd
     });
+
+    that.close();
   };
 
   gDialogs.removeRestoreSessPswd = new aeDialog("#remove-password-dlg");
@@ -574,12 +589,15 @@ function initDialogs()
   gDialogs.removeRestoreSessPswd.onShow = () => {
     $("pswd-for-removal").focus();
   };
-  gDialogs.removeRestoreSessPswd.onAccept = () => {
+  gDialogs.removeRestoreSessPswd.onAccept = async () => {
     let that = gDialogs.removeRestoreSessPswd;
 
     let enteredPswdElt = $("pswd-for-removal");
     let enteredPswd = enteredPswdElt.value;
-    let currPswd = gPanicButton.getRestoreSessPasswd();
+    let resp = await browser.runtime.sendMessage({
+      msgID: "get-restore-sess-passwd"
+    });
+    let currPswd = resp.restoreSessPwd;
 
     if (enteredPswd != currPswd) {
       $("rm-pswd-error").innerText = browser.i18n.getMessage("pswdWrong");
@@ -588,10 +606,9 @@ function initDialogs()
       return;
     }
     
-    gPanicButton.removeRestoreSessPasswd().then(() => {
-      resetPasswdPrefs();
-      that.close();
-    });
+    await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
+    resetPasswdPrefs();
+    that.close();
   };
   
   gDialogs.about = new aeDialog("#about-dlg");
@@ -692,7 +709,7 @@ function setCustomTBIcon(aEvent)
 function getLocalizedKeybShct(aShortcutKeyModifiers, aShortcutKey)
 {
   let rv = "";
-  let isMacOS = gPanicButton.getOS() == "mac";
+  let isMacOS = gOS == "mac";
   let keys = [
     "Home", "End", "PageUp", "PageDown", "Space", "Insert", "Delete",
     "Up", "Down", "Left", "Right"

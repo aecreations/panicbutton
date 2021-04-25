@@ -488,7 +488,7 @@ async function setCustomToolbarButtonIcon()
 }
 
 
-function getToolbarButtonIconLookup()
+function getToolbarButtonIconsMap()
 {
   return gToolbarBtnIcons;
 }
@@ -519,20 +519,39 @@ browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
 });
 
 
-browser.runtime.onMessage.addListener(aRequest => {
+browser.runtime.onMessage.addListener(async (aRequest) => {
   log(`Panic Button/wx: Received message "${aRequest.msgID}"`);
     
   let resp = null;
 
-  if (aRequest.msgID == "get-restore-sess-passwd") {
+  if (aRequest.msgID == "get-system-info") {
     resp = {
-      restoreSessPwd: getRestoreSessPasswd(),
+      os: getOS(),
     };
-
-    return Promise.resolve(resp);
+  }
+  else if (aRequest.msgID == "get-prefs") {
+    resp = { prefs: getPrefs() };
+  }
+  else if (aRequest.msgID == "get-toolbar-btn-icons-map") {
+    resp = { toolbarBtnIconsMap: getToolbarButtonIconsMap() };
   }
   else if (aRequest.msgID == "restore-brws-sess") {
     gBrowserSession.restore();
+  }
+  else if (aRequest.msgID == "get-restore-sess-passwd") {
+    resp = { restoreSessPwd: getRestoreSessPasswd() };
+  }
+  else if (aRequest.msgID == "set-restore-sess-passwd") {
+    await setRestoreSessPasswd(aRequest.passwd);
+    resp = { status: "ok" };
+  }
+  else if (aRequest.msgID == "rm-restore-sess-passwd") {
+    await removeRestoreSessPasswd();
+    resp = { status: "ok" };
+  }
+
+  if (resp) {
+    return Promise.resolve(resp);
   }
 });
 

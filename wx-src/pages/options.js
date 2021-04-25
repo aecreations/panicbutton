@@ -4,7 +4,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
-let gPanicButton;
 let gOS;
 let gActionDescs = [];
 let gRadioPanels = [];
@@ -39,14 +38,6 @@ async function init(aEvent)
 
   $("preftab-options-btn").addEventListener("click", switchPrefsPanel);
   $("preftab-customize-btn").addEventListener("click", switchPrefsPanel);
-  
-  gPanicButton = await browser.runtime.getBackgroundPage();
-
-  if (! gPanicButton) {
-    window.alert(browser.i18n.getMessage("errPrefPgFailed"));
-    closePage();
-    return;
-  }
   
   browser.history.deleteUrl({ url: window.location.href });
 
@@ -271,34 +262,6 @@ async function init(aEvent)
     });
   });
 
-  // Catch-all click event listener
-  document.addEventListener("click", aEvent => {
-    if (aEvent.target.tagName == "INPUT"
-        && aEvent.target.getAttribute("type") == "radio"
-        && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
-      setPref({ toolbarBtnIcon: aEvent.target.value });
-
-      let revContrastChbox = $("rev-contrast-icon");
-      
-      if (aEvent.target.id == "custom-icon") {
-        revContrastChbox.setAttribute("disabled", "true");
-      }
-      else {
-        revContrastChbox.removeAttribute("disabled");
-      }
-    }
-  }, false);
-
-  // Handle key events when a dialog is open.
-  window.addEventListener("keydown", aEvent => {
-    if (aEvent.key == "Enter" && aeDialog.isOpen()) {
-      aeDialog.acceptDlgs();
-    }
-    else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
-      aeDialog.cancelDlgs();
-    }
-  });
-
   let prefs = await browser.storage.local.get();
   let panicActions = Array.from(document.getElementsByName("panic-action"));
   let panicActionRadio = panicActions.find(aRadioOpt => aRadioOpt.value == prefs.action);
@@ -458,6 +421,37 @@ async function init(aEvent)
     keyModNoneOptElt.style.display = "none";
   }
 }
+
+
+//
+// Event handlers
+//
+
+document.addEventListener("click", aEvent => {
+  if (aEvent.target.tagName == "INPUT"
+      && aEvent.target.getAttribute("type") == "radio"
+      && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
+    setPref({ toolbarBtnIcon: aEvent.target.value });
+
+    let revContrastChbox = $("rev-contrast-icon");
+    
+    if (aEvent.target.id == "custom-icon") {
+      revContrastChbox.setAttribute("disabled", "true");
+    }
+    else {
+      revContrastChbox.removeAttribute("disabled");
+    }
+  }
+});
+
+window.addEventListener("keydown", aEvent => {
+  if (aEvent.key == "Enter" && aeDialog.isOpen()) {
+    aeDialog.acceptDlgs();
+  }
+  else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
+    aeDialog.cancelDlgs();
+  }
+});
 
 
 function switchPrefsPanel(aEvent)

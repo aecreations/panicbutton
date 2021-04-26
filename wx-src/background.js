@@ -254,9 +254,6 @@ let gBrowserSession = {
 };
 
 
-let gToolbarBtnIcons = [];
-
-
 //
 // First-run initialization
 //
@@ -537,6 +534,9 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
   else if (aRequest.msgID == "rm-restore-sess-passwd") {
     await removeRestoreSessPasswd();
     resp = { status: "ok" };
+  }
+  else if (aRequest.msgID == "get-panic-action-str-key") {
+    resp = { stringKey: getPanicActionUIStringKey() };
   }
 
   if (resp) {

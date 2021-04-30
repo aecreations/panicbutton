@@ -173,7 +173,7 @@ let gBrowserSession = {
 
   async restore()
   {
-    function isNonrestrictedURL(aURL)
+    function isNonRestrictedURL(aURL)
     {
       // The restricted URLs for browser.tabs.create() are described here:
       // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/create
@@ -186,54 +186,97 @@ let gBrowserSession = {
 
     let focusedWndID = null;
     
-    while (this._savedWndStates.length > 0) {   
+    while (this._savedWndStates.length > 0) {
       let closedWnd = this._savedWndStates.shift();
-      let wndInfo = {
+      let wndPpty = {
         type: "normal",
         incognito: closedWnd.incognito,
         state: closedWnd.state,
       };
 
       if (closedWnd.state == "normal") {
-        wndInfo.top = closedWnd.top;
-        wndInfo.left = closedWnd.left;
-        wndInfo.width = closedWnd.width;
-        wndInfo.height = closedWnd.height;
+        wndPpty.top = closedWnd.top;
+        wndPpty.left = closedWnd.left;
+        wndPpty.width = closedWnd.width;
+        wndPpty.height = closedWnd.height;
       }
+
+      let tabURLs = [];
       
       if (closedWnd.tabs.length == 1) {
         let brwsTabURL = closedWnd.tabs[0].url;
 
         // Default to home page if URL is restricted.
-        wndInfo.url = isNonrestrictedURL(brwsTabURL) ? brwsTabURL : null;
+        wndPpty.url = isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
       }
       else {
-        let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonrestrictedURL(aTab.url));
-        wndInfo.url = safeBrwsTabs.map(aTab => aTab.url);
+        wndPpty.url = "about:blank";
+        let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonRestrictedURL(aTab.url));
+        tabURLs = safeBrwsTabs.map(aTab => aTab.url);
       }
 
-      let createdWnd = await browser.windows.create(wndInfo);
+      let createdWnd;
+      try {
+        createdWnd = await browser.windows.create(wndPpty);
+      }
+      catch (e) {
+        console.error("Error creating browser window: " + e);
+      }
+      
+      let wndID = createdWnd.id;
+      tabURLs.forEach(async (aURL, aIdx, aArr) => {
+        browser.tabs.create({
+          windowId: wndID,
+          url: aURL,
+          discarded: !gPrefs.restoreSessLoadAllTabs,
+        });
+      });
+
+      if (tabURLs.length > 1) {
+        // Get rid of dummy browser tab.
+        let brwsTabs = await browser.tabs.query({
+          windowId: wndID,
+          index: 0,
+        });
+
+        try {
+          await browser.tabs.remove(brwsTabs[0].id);
+        }
+        catch (e) {
+          console.error("Error removing dummy tab: " + e);
+        }
+      }
+      
       let activeTabIdx = this._savedWndActiveTabIdxs.shift();
       let activeTabID = 0;
 
-      if (activeTabIdx >= createdWnd.tabs.length) {
+      let wnd = await browser.windows.get(createdWnd.id, { populate: true });
+
+      if (activeTabIdx >= wnd.tabs.length) {
         // Some tabs may not be restored (e.g. "about:" pages), which would
         // mess up the saved index of the active tab.
-        activeTabIdx = createdWnd.tabs.length - 1;
-        activeTabID = createdWnd.tabs[activeTabIdx].id;
+        activeTabIdx = wnd.tabs.length - 1;
+        activeTabID = wnd.tabs[activeTabIdx].id;
       }
       else {
-        activeTabID = createdWnd.tabs[activeTabIdx].id;
+        activeTabID = wnd.tabs[activeTabIdx].id;
       }
-      await browser.tabs.update(activeTabID, {active: true});
+
+      log("Index of active browser tab: " + activeTabIdx + "; active browser tab ID: " + activeTabID);
+      try {
+        await browser.tabs.update(activeTabID, {active: true});
+      }
+      catch (e) {
+        console.error(`Error updating tab (index = ${activeTabIdx}, ID = ${activeTabID}) to make it active: ${e}`);
+      }
 
       let numPinnedTabs = this._savedWndNumPinnedTabs.shift();
       for (let i = 0; i < numPinnedTabs; i++) {
-        browser.tabs.update(createdWnd.tabs[i].id, {pinned: true});
+        browser.tabs.update(wnd.tabs[i].id, {pinned: true});
       }
-      
+
       if (closedWnd.focused) {
-        focusedWndID = createdWnd.id;
+        focusedWndID = wnd.id;
       }
     }
 
@@ -243,7 +286,7 @@ let gBrowserSession = {
     this._replaceSession = false;
 
     if (focusedWndID) {
-      let updWnd = await browser.windows.update(focusedWndID, {focused: true});
+      await browser.windows.update(focusedWndID, {focused: true});
     }
   },
 
@@ -286,11 +329,12 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
     if (! hasSantaCatalinaPrefs()) {
       log("Initializing 4.3 user preferences.");
       await setSantaCatalinaPrefs();
+    }
 
-      let cmds = await browser.commands.getAll();
-      if (cmds[0].shortcut == aeConst.DEFAULT_KEYB_SHCT) {
-        browser.tabs.create({ url: "pages/whatsnew.html" });
-      }
+    if (! hasSanNicolasPrefs()) {
+      log("Initializing 4.4 user preferences.");
+      await setSanNicolasPrefs();
+      browser.tabs.create({ url: "pages/whatsnew.html" });
     }
 
     await init();
@@ -355,6 +399,27 @@ async function setSantaCatalinaPrefs()
 {
   let newPrefs = {
     minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
+  };
+
+  for (let pref in newPrefs) {
+    gPrefs[pref] = newPrefs[pref];
+  }
+
+  await aePrefs.setPrefs(newPrefs);
+}
+
+
+function hasSanNicolasPrefs()
+{
+  // Version 4.4
+  return gPrefs.hasOwnProperty("restoreSessLoadAllTabs");
+}
+
+
+async function setSanNicolasPrefs()
+{
+  let newPrefs = {
+    restoreSessLoadAllTabs: false,
   };
 
   for (let pref in newPrefs) {

@@ -228,7 +228,7 @@ let gBrowserSession = {
         browser.tabs.create({
           windowId: wndID,
           url: aURL,
-          discarded: !gPrefs.restoreSessLoadAllTabs,
+          discarded: gPrefs.restoreSessSnoozeInactvTabs,
         });
       });
 
@@ -412,14 +412,14 @@ async function setSantaCatalinaPrefs()
 function hasSanNicolasPrefs()
 {
   // Version 4.4
-  return gPrefs.hasOwnProperty("restoreSessLoadAllTabs");
+  return gPrefs.hasOwnProperty("restoreSessSnoozeInactvTabs");
 }
 
 
 async function setSanNicolasPrefs()
 {
   let newPrefs = {
-    restoreSessLoadAllTabs: false,
+    restoreSessSnoozeInactvTabs: false,
   };
 
   for (let pref in newPrefs) {

@@ -18,7 +18,7 @@ let aePrefs = {
     showCamouflageWebPg: false,
     camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
     minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
-    restoreSessSnoozeInactvTabs: false,
+    restoreSessInactvTabsZzz: true,
 
     // DEPRECATED - Default keyboard shortcuts are now set in the
     // extension manifest.

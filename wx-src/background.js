@@ -134,14 +134,11 @@ let gBrowserWindows = {
 let gBrowserSession = {
   _replaceSession: false,
   _replacemtWndID: null,
-  _savedWndStates: [],
-  _savedWndActiveTabIdxs: [],
-  _savedWndNumPinnedTabs: [],
+  _savedWnds: [],
   
   async saveAndClose(aReplacementURL)
   {
     let wnds = await browser.windows.getAll({populate: true});
-    this._savedWndStates = wnds;
 
     if (aReplacementURL) {
       let replcWnd = await browser.windows.create({ url: aReplacementURL });
@@ -154,8 +151,7 @@ let gBrowserSession = {
 	continue;
       }
 
-      this._savedWndActiveTabIdxs.push(wnd.tabs.findIndex(aTab => aTab.active));
-
+      let activeTabIdx = wnd.tabs.findIndex(aTab => aTab.active);
       let numPinnedTabs = 0;
       for (let i = 0; i < wnd.tabs.length; i++) {
         if (wnd.tabs[i].pinned) {
@@ -166,7 +162,9 @@ let gBrowserSession = {
         }
       };
 
-      this._savedWndNumPinnedTabs.push(numPinnedTabs);
+      let savedWnd = new aeSavedWindow(activeTabIdx, numPinnedTabs, wnd);
+      this._savedWnds.push(savedWnd);
+
       browser.windows.remove(wnd.id);
     }
   },
@@ -186,44 +184,38 @@ let gBrowserSession = {
 
     let focusedWndID = null;
     
-    while (this._savedWndStates.length > 0) {
-      let closedWnd = this._savedWndStates.shift();
+    while (this._savedWnds.length > 0) {
+      let closedWnd = this._savedWnds.shift();
       let wndPpty = {
         type: "normal",
-        incognito: closedWnd.incognito,
-        state: closedWnd.state,
+        incognito: closedWnd.info.incognito,
+        state: closedWnd.info.state,
       };
 
-      if (closedWnd.state == "normal") {
-        wndPpty.top = closedWnd.top;
-        wndPpty.left = closedWnd.left;
-        wndPpty.width = closedWnd.width;
-        wndPpty.height = closedWnd.height;
+      if (closedWnd.info.state == "normal") {
+        wndPpty.top = closedWnd.info.top;
+        wndPpty.left = closedWnd.info.left;
+        wndPpty.width = closedWnd.info.width;
+        wndPpty.height = closedWnd.info.height;
       }
 
       let tabURLs = [];
       
-      if (closedWnd.tabs.length == 1) {
-        let brwsTabURL = closedWnd.tabs[0].url;
+      if (closedWnd.info.tabs.length == 1) {
+        let brwsTabURL = closedWnd.info.tabs[0].url;
 
         // Default to home page if URL is restricted.
         wndPpty.url = isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
       }
       else {
         wndPpty.url = "about:blank";
-        let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonRestrictedURL(aTab.url));
+        let safeBrwsTabs = closedWnd.info.tabs.filter(aTab => isNonRestrictedURL(aTab.url));
         tabURLs = safeBrwsTabs.map(aTab => aTab.url);
       }
 
-      let createdWnd;
-      try {
-        createdWnd = await browser.windows.create(wndPpty);
-      }
-      catch (e) {
-        console.error("Error creating browser window: " + e);
-      }
-      
+      let createdWnd = await browser.windows.create(wndPpty);
       let wndID = createdWnd.id;
+
       tabURLs.forEach(async (aURL, aIdx, aArr) => {
         browser.tabs.create({
           windowId: wndID,
@@ -238,16 +230,10 @@ let gBrowserSession = {
           windowId: wndID,
           index: 0,
         });
-
-        try {
-          await browser.tabs.remove(brwsTabs[0].id);
-        }
-        catch (e) {
-          console.error("Error removing dummy tab: " + e);
-        }
+        await browser.tabs.remove(brwsTabs[0].id);
       }
       
-      let activeTabIdx = this._savedWndActiveTabIdxs.shift();
+      let activeTabIdx = closedWnd.activeTabIdx;
       let activeTabID = 0;
 
       let wnd = await browser.windows.get(createdWnd.id, { populate: true });
@@ -270,12 +256,12 @@ let gBrowserSession = {
         console.error(`Error updating tab (index = ${activeTabIdx}, ID = ${activeTabID}) to make it active: ${e}`);
       }
 
-      let numPinnedTabs = this._savedWndNumPinnedTabs.shift();
+      let numPinnedTabs = closedWnd.numPinnedTabs;
       for (let i = 0; i < numPinnedTabs; i++) {
         browser.tabs.update(wnd.tabs[i].id, {pinned: true});
       }
 
-      if (closedWnd.focused) {
+      if (closedWnd.info.focused) {
         focusedWndID = wnd.id;
       }
     }

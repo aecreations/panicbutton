@@ -27,6 +27,7 @@
         "scripts": [
             "scripts/aeConst.js",
             "scripts/aePrefs.js",
+	    "scripts/aeSavedWindow.js",
             "background.js"
         ]
     },

@@ -171,17 +171,6 @@ let gBrowserSession = {
 
   async restore()
   {
-    function isNonRestrictedURL(aURL)
-    {
-      // The restricted URLs for browser.tabs.create() are described here:
-      // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/create
-      return (!(aURL.startsWith("chrome:")
-		|| aURL.startsWith("file:")
-		|| aURL.startsWith("javascript:")
-		|| aURL.startsWith("data:")
-		|| aURL.startsWith("about:")));
-    }
-
     let focusedWndID = null;
     
     while (this._savedWnds.length > 0) {
@@ -199,32 +188,64 @@ let gBrowserSession = {
         wndPpty.height = closedWnd.info.height;
       }
 
-      let tabURLs = [];
+      let savedTabs = [];
       
       if (closedWnd.info.tabs.length == 1) {
         let brwsTabURL = closedWnd.info.tabs[0].url;
 
         // Default to home page if URL is restricted.
-        wndPpty.url = isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
+        wndPpty.url = this._isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
       }
       else {
         wndPpty.url = "about:blank";
-        let safeBrwsTabs = closedWnd.info.tabs.filter(aTab => isNonRestrictedURL(aTab.url));
-        tabURLs = safeBrwsTabs.map(aTab => aTab.url);
+        savedTabs = closedWnd.info.tabs.filter(aTab => this._isNonRestrictedURL(aTab.url));
       }
 
       let createdWnd = await browser.windows.create(wndPpty);
       let wndID = createdWnd.id;
 
-      tabURLs.forEach(async (aURL, aIdx, aArr) => {
-        browser.tabs.create({
+      log("All saved tabs:");
+      log(savedTabs);
+
+      savedTabs.forEach(async (aTab, aIdx, aArr) => {
+        log("Re-creating tab properties for saved tab:");
+        log(aTab);
+
+        let isReaderMode = false;
+        let tabPpty = {
           windowId: wndID,
-          url: aURL,
           discarded: gPrefs.restoreSessInactvTabsZzz,
-        });
+        };
+        if (aTab.isInReaderMode) {
+          tabPpty.url = this._sanitizeReaderModeURL(aTab.url);
+          isReaderMode = true;
+        }
+        else {
+          tabPpty.url = aTab.url;
+        }
+
+        log("About to restore browser tab:");
+        log(tabPpty);
+
+        let tab = await browser.tabs.create(tabPpty);
+
+        log("Browser tab restored; tab ID = " + tab.id);
+        log(tab);
+
+        if (isReaderMode) {
+          // TO DO: The following doesn't work. Probably need to wait until the
+          // tab has finished loading in order to switch it to Reader Mode.
+          log("Switching browser tab " + tab.id + " to Reader Mode");
+          try {
+            await browser.tabs.toggleReaderMode(tab.id);
+          }
+          catch (e) {
+            warn("Unable to switch to Reader Mode: " + e);
+          }
+        }
       });
 
-      if (tabURLs.length > 1) {
+      if (savedTabs.length > 1) {
         // Get rid of dummy browser tab.
         let brwsTabs = await browser.tabs.query({
           windowId: wndID,
@@ -279,6 +300,41 @@ let gBrowserSession = {
   isStashed()
   {
     return this._replaceSession;
+  },
+
+
+  //
+  // Private helper methods
+  //
+
+  _isNonRestrictedURL(aURL)
+  {
+    // The restricted URLs for browser.tabs.create() are described here:
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/create
+    let rv = true;
+
+    if (aURL.startsWith("about:reader")) {
+      rv = true;
+    }
+    else {
+      rv = !(aURL.startsWith("chrome:")
+	     || aURL.startsWith("file:")
+	     || aURL.startsWith("javascript:")
+	     || aURL.startsWith("data:")
+	     || aURL.startsWith("about:"));
+    }
+    return rv;
+  },
+
+  _sanitizeReaderModeURL(aURL)
+  {
+    // Reader Mode tabs have a special URL format: "about:reader?url=<Encoded URL>"
+    let rv = "";
+    let encURL = aURL.substr(17);
+
+    rv = decodeURIComponent(encURL);
+
+    return rv;
   }
 };
 

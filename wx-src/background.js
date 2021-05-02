@@ -231,7 +231,7 @@ let gBrowserSession = {
         }
       });
 
-      if (savedTabs.length >= 1) {
+      if (savedTabs.length > 0) {
         // Get rid of dummy browser tab.
         let brwsTabs = await browser.tabs.query({
           windowId: wndID,
@@ -657,7 +657,7 @@ browser.tabs.onUpdated.addListener((aTabID, aChangeInfo, aTab) => {
   if (aChangeInfo.status == "complete") {
     if (gBrowserSession.isStashed()) {
       // Don't do anything for the temporary replacement browser window that was
-      // opened when Hide All Windows was invoked.
+      // opened when Hide And Replace was invoked.
       return;
     }
 

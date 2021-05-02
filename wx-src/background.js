@@ -135,10 +135,11 @@ let gBrowserSession = {
   _replaceSession: false,
   _replacemtWndID: null,
   _savedWnds: [],
-  
+  _readerModeTabIDs: new Set(),
+
   async saveAndClose(aReplacementURL)
   {
-    let wnds = await browser.windows.getAll({populate: true});
+    let wnds = await browser.windows.getAll({ populate: true });
 
     if (aReplacementURL) {
       let replcWnd = await browser.windows.create({ url: aReplacementURL });
@@ -167,6 +168,8 @@ let gBrowserSession = {
 
       browser.windows.remove(wnd.id);
     }
+
+    this._readerModeTabIDs.clear();
   },
 
   async restore()
@@ -199,18 +202,16 @@ let gBrowserSession = {
       else {
         wndPpty.url = "about:blank";
         savedTabs = closedWnd.info.tabs.filter(aTab => this._isNonRestrictedURL(aTab.url));
+
+        if (savedTabs.length == 0) {
+          wndPpty.url = null;
+        }
       }
 
       let createdWnd = await browser.windows.create(wndPpty);
       let wndID = createdWnd.id;
 
-      log("All saved tabs:");
-      log(savedTabs);
-
-      savedTabs.forEach(async (aTab, aIdx, aArr) => {
-        log("Re-creating tab properties for saved tab:");
-        log(aTab);
-
+      savedTabs.forEach(async (aTab, aIndex, aArray) => {
         let isReaderMode = false;
         let tabPpty = {
           windowId: wndID,
@@ -224,28 +225,13 @@ let gBrowserSession = {
           tabPpty.url = aTab.url;
         }
 
-        log("About to restore browser tab:");
-        log(tabPpty);
-
         let tab = await browser.tabs.create(tabPpty);
-
-        log("Browser tab restored; tab ID = " + tab.id);
-        log(tab);
-
         if (isReaderMode) {
-          // TO DO: The following doesn't work. Probably need to wait until the
-          // tab has finished loading in order to switch it to Reader Mode.
-          log("Switching browser tab " + tab.id + " to Reader Mode");
-          try {
-            await browser.tabs.toggleReaderMode(tab.id);
-          }
-          catch (e) {
-            warn("Unable to switch to Reader Mode: " + e);
-          }
+          this._readerModeTabIDs.add(tab.id);
         }
       });
 
-      if (savedTabs.length > 1) {
+      if (savedTabs.length >= 1) {
         // Get rid of dummy browser tab.
         let brwsTabs = await browser.tabs.query({
           windowId: wndID,
@@ -270,12 +256,7 @@ let gBrowserSession = {
       }
 
       log("Index of active browser tab: " + activeTabIdx + "; active browser tab ID: " + activeTabID);
-      try {
-        await browser.tabs.update(activeTabID, {active: true});
-      }
-      catch (e) {
-        console.error(`Error updating tab (index = ${activeTabIdx}, ID = ${activeTabID}) to make it active: ${e}`);
-      }
+      await browser.tabs.update(activeTabID, {active: true});
 
       let numPinnedTabs = closedWnd.numPinnedTabs;
       for (let i = 0; i < numPinnedTabs; i++) {
@@ -286,6 +267,7 @@ let gBrowserSession = {
         focusedWndID = wnd.id;
       }
     }
+    // END while
 
     let replacemtWnd = await browser.windows.get(this._replacemtWndID);
     await browser.windows.remove(replacemtWnd.id);
@@ -302,6 +284,25 @@ let gBrowserSession = {
     return this._replaceSession;
   },
 
+  isReaderModeTab(aTabID)
+  {
+    return this._readerModeTabIDs.has(aTabID);
+  },
+
+  async restoreReaderModeTab(aTabID)
+  {
+    let brwsTab = await browser.tabs.get(aTabID);
+    if (! brwsTab.isInReaderMode) {
+      try {
+        await browser.tabs.toggleReaderMode(aTabID);
+      }
+      catch (e) {
+        warn(`Panic Button/wx: gBrowserSession.restoreReaderModeTab(): Unable to turn on Reader Mode for tab ${aTabID}: ${e}`);
+      }
+    }
+    this._readerModeTabIDs.delete(aTabID);
+  },
+  
 
   //
   // Private helper methods
@@ -650,6 +651,22 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     return Promise.resolve(resp);
   }
 });
+
+
+browser.tabs.onUpdated.addListener((aTabID, aChangeInfo, aTab) => {
+  if (aChangeInfo.status == "complete") {
+    if (gBrowserSession.isStashed()) {
+      // Don't do anything for the temporary replacement browser window that was
+      // opened when Hide All Windows was invoked.
+      return;
+    }
+
+    if (gBrowserSession.isReaderModeTab(aTabID)) {
+      log(`Attempting to restore Reader Mode on tab ${aTabID}\nstatus: ${aTab.status}\nURL: ${aTab.url}\ndiscarded: ${aTab.discarded}\nisArticle: ${aTab.isArticle}\nisInReaderMode: ${aTab.isInReaderMode}`);
+      gBrowserSession.restoreReaderModeTab(aTabID);
+    }
+  }
+}, { properties: ["status"] });
 
 
 //

@@ -169,7 +169,7 @@ fieldset button {
     padding-right: 18px;
 }
 
-fieldset button[locale="de"] {
+fieldset button[data-locale="de"] {
     padding-left: 4px;
     padding-right: 4px;
 }
@@ -308,13 +308,14 @@ fieldset select.browser-style {
     width: 300px;
 }
 
-#webpg-url[locale="de"] {
-    width: 255px;
+#webpg-url[data-locale="de"] {
+    width: 246px;
+    margin-right: 4px;
 }
 
-#reset-url[locale="de"],
-#minz-all-camouflage-reset-url[locale="de"] {
-    letter-spacing: -0.1px;
+#reset-url[data-locale="de"],
+#minz-all-camouflage-reset-url[data-locale="de"] {
+    letter-spacing: -0.5px;
 }
 
 #hide-and-replace-pswd {
@@ -336,8 +337,9 @@ fieldset select.browser-style {
     width: 270px;
 }
 
-#minz-all-camouflage-webpg-url[locale="de"] {
-    width: 227px;
+#minz-all-camouflage-webpg-url[data-locale="de"] {
+    width: 218px;
+    margin-right: 4px;
 }
 
 #minz-all-restore-from-camo-instr {
@@ -621,7 +623,7 @@ input[type="file"] {
     transition-property: box-shadow, border;
 }
 
-#custom-icon-upload-btn[locale="de"] {
+#custom-icon-upload-btn[data-locale="de"] {
     padding-left: 4px;
     padding-right: 4px;
 }
@@ -734,7 +736,7 @@ input[type="file"] {
     --height: 336px;
 }
 
-#set-password-dlg[locale="de"] {
+#set-password-dlg[data-locale="de"] {
     --height: 354px;
 }
 
@@ -842,12 +844,16 @@ input[type="file"] {
     line-height: 18px;
 }
 
+#about-dlg #translations-ack[data-locale="de"] {
+    letter-spacing: -0.01px;
+}
+
 #about-dlg #usr-contrib-cta {
     margin-top: 8px;
 }
 
-#about-dlg #usr-contrib-cta[locale="de"] {
-    letter-spacing: -0.1px;
+#about-dlg #usr-contrib-cta[data-locale="de"] {
+    letter-spacing: -0.45px;
 }
 
 #about-dlg #usr-contrib-cta-hdg {

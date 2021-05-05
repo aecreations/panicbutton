@@ -85,14 +85,15 @@ async function init(aEvent)
 
   let locale = browser.i18n.getUILanguage();
   let buttons = document.querySelectorAll("button");
-  buttons.forEach(aBtn => { aBtn.setAttribute("locale", locale) });
+  buttons.forEach(aBtn => { aBtn.dataset["locale"] = locale });
   [
     "webpg-url",
     "minz-all-camouflage-webpg-url",
     "custom-icon-upload-btn",
     "set-password-dlg",
+    "translations-ack",
     "usr-contrib-cta",
-  ].forEach(aID => { $(aID).setAttribute("locale", locale) });
+  ].forEach(aID => { $(aID).dataset["locale"] = locale });
 
   $("reset-url").addEventListener("click", resetReplacemtWebPageURL, false);
   $("minz-all-camouflage-reset-url").addEventListener("click", resetMinzAllCamouflageWebPageURL, false);

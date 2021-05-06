@@ -19,6 +19,7 @@
 
     "permissions": [
         "history",
+        "menus",
         "storage",
         "tabs"
     ],

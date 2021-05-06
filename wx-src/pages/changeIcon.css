@@ -1,0 +1,41 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("../style/laf.css");
+@import url("../style/toolbarIconPicker.css");
+
+
+body {
+    overflow: hidden;
+    margin: 18px;
+    background-color: var(--color-bkgd);
+    color: var(--color-default-text);
+    font-size: 15px;
+}
+
+button {
+    min-width: 88px;
+    min-height: 32px;
+    font-size: 15px;
+}
+
+label {
+    margin-right: 4px;
+}
+
+#toolbar-button-icon {
+    width: 100%;
+}
+
+#dlg-buttons {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    width: 100%;
+}
+
+#dlg-buttons > #btn-accept {
+    float: right;
+    margin-right: 36px;
+}

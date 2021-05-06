@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title data-i18n="chgIconTitle"></title>
+
+    <link rel="stylesheet" href="changeIcon.css"/>
+  </head>
+
+  <body>
+
+    <label data-i18n="labelSelIcon"></label>
+    <div id="toolbar-button-icon">
+      <input type="radio" name="toolbar-button-icon" id="default" value="0"/>
+      <label for="default"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="exclamation-in-ball" value="1"/>
+      <label for="exclamation-in-ball"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="quit" value="2"/>
+      <label for="quit"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="exit-door" value="3"/>
+      <label for="exit-door"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="window-minimize" value="4"/>
+      <label for="window-minimize"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="window-with-exclamation" value="5"/>
+      <label for="window-with-exclamation"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="window-with-exclamation-ball" value="6"/>
+      <label for="window-with-exclamation-ball"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="window-with-cross" value="7"/>
+      <label for="window-with-cross"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="window-with-check" value="8"/>
+      <label for="window-with-check"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="plain-window" value="9"/>
+      <label for="plain-window"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="dotted-window" value="10"/>
+      <label for="dotted-window"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="window-with-globe" value="11"/>
+      <label for="window-with-globe"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="web-page" value="12"/>
+      <label for="web-page"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="web-page-with-globe" value="13"/>
+      <label for="web-page-with-globe"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="web-document" value="14"/>
+      <label for="web-document"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="smiley" value="15"/>
+      <label for="smiley"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="picture" value="16"/>
+      <label for="picture"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="desktop" value="17"/>
+      <label for="desktop"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="computer" value="18"/>
+      <label for="computer"><canvas/></label>
+      <input type="radio" name="toolbar-button-icon" id="letter-a" value="19"/>
+      <label for="letter-a"><canvas/></label>
+
+      <input type="radio" name="toolbar-button-icon" id="custom-icon" value="20"/>
+      <label id="custom-icon-label" for="custom-icon">
+        <canvas id="custom-icon-img" width="36" height="36"></canvas>
+      </label>
+    </div>
+
+    <div id="dlg-buttons">
+      <button id="more-customzns" data-i18n="btnMoreCustomzns"></button>
+      <button id="btn-accept" class="default" data-i18n="btnDone"></button>
+    </div>
+
+    <script src="../scripts/aeConst.js"></script>
+    <script src="../scripts/aeI18n.js"></script>
+    <script src="../scripts/aePrefs.js"></script>
+    <script src="changeIcon.js"></script>
+  </body>
+</html>

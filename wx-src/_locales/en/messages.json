@@ -15,6 +15,10 @@
     "message": "Cancel"
   },
 
+  "btnDone": {
+    "message": "Done"
+  },
+
   "defaultBtnLabel": {
     "message": "Panic Button"
   },
@@ -24,6 +28,23 @@
     "description": "Keyboard shortcut description in Manage Extension Shortcuts"
   },
 
+  "chgIconMenu": {
+    "message": "Change Icon…"
+  },
+
+  "chgIconTitle": {
+    "message": "Change Icon",
+    "description": "Title of Change Icon popup window"
+  },
+
+  "labelSelIcon": {
+    "message": "Select an icon:"
+  },
+
+  "btnMoreCustomzns": {
+    "message": "More Customizations…"
+  },
+  
   "prefsPgTitle": {
     "message": "Preferences"
   },

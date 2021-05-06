@@ -6,6 +6,7 @@
 let gOS;
 let gHostAppVer;
 let gPrefs;
+let gChangeIconWndID = null;
 
 let gBrowserWindows = {
   _minzWndID: null,
@@ -511,6 +512,12 @@ async function init()
     log("Panic Button/wx: OS: " + gOS);
 
     await setPanicButtonCustomizations();
+    
+    browser.menus.create({
+      id: "ae-panicbutton-change-icon",
+      title: browser.i18n.getMessage("chgIconMenu"),
+      contexts: ["browser_action"],
+    });
 
     log("Panic Button/wx: Initialization complete.");
   });
@@ -601,6 +608,13 @@ browser.commands.onCommand.addListener(async (aCmd) => {
     await panic();
   }
 });
+
+browser.menus.onClicked.addListener((aInfo, aTab) => {
+  if (aInfo.menuItemId == "ae-panicbutton-change-icon") {
+    openChangeIconDlg();
+  }
+});
+
 
 browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
   let changedPrefs = Object.keys(aChanges);
@@ -761,6 +775,42 @@ async function removeRestoreSessPasswd()
   };
   
   await aePrefs.setPrefs(pswdPrefs);
+}
+
+
+async function openChangeIconDlg()
+{
+  let url = browser.runtime.getURL("pages/changeIcon.html");
+
+  async function openChgIconDlgHelper()
+  {
+    let width = 404;
+    let height = 272;
+    let wnd = await browser.windows.create({
+      url, type: "detached_panel",
+      width, height,
+      left: window.screen.availWidth - width / 2,
+      top:  window.screen.availHeight - height / 2
+    });
+
+    gChangeIconWndID = wnd.id;
+    browser.history.deleteUrl({ url });
+  }
+
+  if (gChangeIconWndID) {
+    try {
+      let wnd = await browser.windows.get(gChangeIconWndID);
+      browser.windows.update(gChangeIconWndID, { focused: true });
+    }
+    catch (e) {
+      // Handle dangling ref
+      gChangeIconWndID = null;
+      openChgIconDlgHelper();
+    }
+  }
+  else {
+    openChgIconDlgHelper();
+  }
 }
 
 

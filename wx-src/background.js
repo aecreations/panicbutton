@@ -637,9 +637,6 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
       os: getOS(),
     };
   }
-  else if (aRequest.msgID == "get-prefs") {
-    resp = { prefs: getPrefs() };
-  }
   else if (aRequest.msgID == "get-toolbar-btn-icons-map") {
     resp = { toolbarBtnIconsMap: getToolbarButtonIconsMap() };
   }
@@ -659,6 +656,9 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
   }
   else if (aRequest.msgID == "get-panic-action-str-key") {
     resp = { stringKey: getPanicActionUIStringKey() };
+  }
+  else if (aRequest.msgID == "close-change-icon-dlg") {
+    gChangeIconWndID = null;
   }
 
   if (resp) {

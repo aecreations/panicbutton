@@ -288,6 +288,11 @@ fieldset select.browser-style {
     margin-right: 8px;
 }
 
+#restore-sess-options {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
 #minz-all-camouflage-webpg {
     margin-top: 4px;
 }

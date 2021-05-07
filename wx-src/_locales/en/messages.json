@@ -180,6 +180,10 @@
     "message": "Passwords do not match."
   },
 
+  "labelSnoozeInactTabs": {
+    "message": "When restoring browser session, snooze inactive browser tabs"
+  },
+  
   "labelMinzAllCamoWebPg": {
     "message": "Open a new window after all browser windows are minimized"
   },

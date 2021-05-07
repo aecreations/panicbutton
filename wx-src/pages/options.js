@@ -112,6 +112,10 @@ async function init(aEvent)
     aePrefs.setPrefs({ replacementWebPgURL: aEvent.target.value });
   });
   
+  $("restore-sess-snooze-tabs").addEventListener("click", aEvent => {
+    aePrefs.setPrefs({ restoreSessInactvTabsZzz: aEvent.target.checked });
+  });
+
   $("panic-action-minimize-all").addEventListener("click", selectPanicAction);
 
   $("minz-all-camouflage").addEventListener("click", aEvent => {
@@ -295,6 +299,8 @@ async function init(aEvent)
   rmPswd.addEventListener("click", aEvent => {
     gDialogs.removeRestoreSessPswd.showModal();
   });
+
+  $("restore-sess-snooze-tabs").checked = prefs.restoreSessInactvTabsZzz;
 
   $("minz-all-camouflage").checked = prefs.showCamouflageWebPg;
   $("minz-all-camouflage-webpg-url").value = prefs.camouflageWebPgURL;

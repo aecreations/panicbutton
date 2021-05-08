@@ -75,6 +75,8 @@ async function init(aEvent)
   initDialogs();
 
   let os = gPanicButton.getOS();
+  document.body.dataset.os = os;
+  
   let keyModAccelShift, keyModAltShift;
 
   if (os == "mac") {

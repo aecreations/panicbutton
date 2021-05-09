@@ -372,16 +372,44 @@ async function restoreMinimizedBrowserWindowState()
 
 async function restoreBrowserSession()
 {
-  function isNonrestrictedURL(aURL)
+  function isNonRestrictedURL(aURL)
   {
     // The restricted URLs for browser.tabs.create() are described here:
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/create
-    return (!(aURL.startsWith("chrome:")
-              || aURL.startsWith("file:")
-              || aURL.startsWith("javascript:")
-              || aURL.startsWith("data:")
-              || aURL.startsWith("about:")));
+    let rv = true;
+
+    if (aURL.startsWith("about:reader")) {
+      rv = true;
+    }
+    else {
+      rv = !(aURL.startsWith("chrome:")
+	     || aURL.startsWith("file:")
+	     || aURL.startsWith("javascript:")
+	     || aURL.startsWith("data:")
+	     || aURL.startsWith("about:"));
+    }
+    return rv;
   }
+
+  function sanitizeURL(aURL)
+  {
+    let rv = "";
+
+    if (aURL === null) {
+      rv = null;
+    }
+    // Reader Mode tabs have a special URL format: "about:reader?url=<Encoded URL>"
+    else if (aURL.startsWith("about:reader")) {
+      let encURL = aURL.substr(17);
+      rv = decodeURIComponent(encURL);
+    }
+    else {
+      rv = aURL;
+    }
+    
+    return rv;
+  }
+  // END nested functions
 
   if (gReplaceSession) {
     log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
@@ -402,16 +430,25 @@ async function restoreBrowserSession()
         wndPpty.width = closedWnd.width;
         wndPpty.height = closedWnd.height;
       }
-      
+
       if (closedWnd.tabs.length == 1) {
         let brwsTabURL = closedWnd.tabs[0].url;
 
         // Default to home page if URL is restricted.
-        wndPpty.url = isNonrestrictedURL(brwsTabURL) ? brwsTabURL : null;
+        let safeTabURL = isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
+        wndPpty.url = sanitizeURL(safeTabURL);
       }
       else {
-        let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonrestrictedURL(aTab.url));
-        wndPpty.url = safeBrwsTabs.map(aTab => aTab.url);
+        let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonRestrictedURL(aTab.url));
+
+        if (safeBrwsTabs.length == 0) {
+          wndPpty.url = null;
+        }
+        else {
+          wndPpty.url = safeBrwsTabs.map(aTab => {
+            return sanitizeURL(aTab.url);
+          });
+        }
       }
 
       log("Panic Button/wx::restoreBrowserSession(): Info about window being restored: ");

@@ -786,16 +786,25 @@ async function openChangeIconDlg()
   {
     let width = 404;
     let height = 272;
+    let coords = await aePrefs.getPref("changeIconDlgPos");
+    
+    let left = coords.x === null ? ((window.screen.availWidth - width) / 2) : coords.x;
+    let top  = coords.y === null ? ((window.screen.availHeight - height) / 2) : coords.y;
+
     let wnd = await browser.windows.create({
       url, type: "detached_panel",
       width, height,
-      left: window.screen.availWidth - width / 2,
-      top:  window.screen.availHeight - height / 2
+      left, top
     });
 
     gChangeIconWndID = wnd.id;
     browser.history.deleteUrl({ url });
+
+    // Workaround to bug where window position isn't set when calling
+    // `browser.windows.create()`
+    browser.windows.update(wnd.id, { left, top });
   }
+  // END nested function
 
   if (gChangeIconWndID) {
     try {

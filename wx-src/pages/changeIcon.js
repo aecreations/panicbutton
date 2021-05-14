@@ -88,3 +88,12 @@ document.addEventListener("contextmenu", aEvent => {
     aEvent.preventDefault();
   }
 });
+
+window.addEventListener("beforeunload", aEvent => {
+  aePrefs.setPrefs({
+    changeIconDlgPos: {
+      x: window.screenX,
+      y: window.screenY,
+    }
+  });
+});

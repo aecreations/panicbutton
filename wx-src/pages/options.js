@@ -426,6 +426,13 @@ async function init(aEvent)
     // Don't allow selection of a non-function key without a modifier.
     keyModNoneOptElt.style.display = "none";
   }
+
+  // Close the Change Icon dialog if it is open.
+  resp = await browser.runtime.sendMessage({ msgID: "ping-change-icon-dlg" });
+  if (resp.isChangeIconDlgOpen) {
+    $("preftab-customize-btn").click();
+    browser.runtime.sendMessage({ msgID: "auto-close-change-icon-dlg" }); 
+  }
 }
 
 
@@ -456,6 +463,20 @@ window.addEventListener("keydown", aEvent => {
   }
   else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
     aeDialog.cancelDlgs();
+  }
+});
+
+
+browser.runtime.onMessage.addListener(aRequest => {
+  log(`Panic Button/wx::options.js: Received message "${aRequest.msgID}"`);
+
+  if (aRequest.msgID == "ext-prefs-customize") {
+    $("preftab-customize-btn").click();
+    window.focus();
+  }
+  else if (aRequest.msgID == "ping-ext-prefs-pg") {
+    let resp = { isExtPrefsPgOpen: true };
+    return Promise.resolve(resp);
   }
 });
 

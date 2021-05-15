@@ -660,6 +660,9 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
   else if (aRequest.msgID == "close-change-icon-dlg") {
     gChangeIconWndID = null;
   }
+  else if (aRequest.msgID == "ping-change-icon-dlg") {
+    resp = { isChangeIconDlgOpen: !!gChangeIconWndID };
+  }
 
   if (resp) {
     return Promise.resolve(resp);
@@ -784,6 +787,18 @@ async function openChangeIconDlg()
 
   async function openChgIconDlgHelper()
   {
+    // Don't open the Change Icon dialog if the extension preferences page is
+    // already open.
+    let resp = null;
+    try {
+      resp = await browser.runtime.sendMessage({ msgID: "ping-ext-prefs-pg" });
+    }
+    catch (e) {}
+    if (resp) {
+      browser.runtime.sendMessage({ msgID: "ext-prefs-customize" });
+      return;
+    }
+    
     let width = 404;
     let height = 272;
     let coords = await aePrefs.getPref("changeIconDlgPos");

@@ -49,7 +49,6 @@ async function init()
 
   $("more-customzns").addEventListener("click", async (aEvent) => {
     await browser.runtime.openOptionsPage();
-    closeDlg();
   });
   $("btn-accept").addEventListener("click", aEvent => { closeDlg() });
 }
@@ -96,4 +95,13 @@ window.addEventListener("beforeunload", aEvent => {
       y: window.screenY,
     }
   });
+});
+
+
+browser.runtime.onMessage.addListener(aRequest => {
+  log(`Panic Button/wx::changeIcon.js: Received message "${aRequest.msgID}"`);
+    
+  if (aRequest.msgID == "auto-close-change-icon-dlg") {
+    closeDlg();
+  }
 });

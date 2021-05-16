@@ -88,8 +88,8 @@ document.addEventListener("contextmenu", aEvent => {
   }
 });
 
-window.addEventListener("beforeunload", aEvent => {
-  aePrefs.setPrefs({
+window.addEventListener("beforeunload", async (aEvent) => {
+  await aePrefs.setPrefs({
     changeIconDlgPos: {
       x: window.screenX,
       y: window.screenY,

@@ -467,12 +467,15 @@ window.addEventListener("keydown", aEvent => {
 });
 
 
-browser.runtime.onMessage.addListener(aRequest => {
+browser.runtime.onMessage.addListener(async (aRequest) => {
   log(`Panic Button/wx::options.js: Received message "${aRequest.msgID}"`);
 
   if (aRequest.msgID == "ext-prefs-customize") {
     $("preftab-customize-btn").click();
-    window.focus();
+
+    let prefsPgTab = await browser.tabs.getCurrent();
+    browser.windows.update(prefsPgTab.windowId, { focused: true });
+    browser.tabs.update(prefsPgTab.id, { active: true });
   }
   else if (aRequest.msgID == "ping-ext-prefs-pg") {
     let resp = { isExtPrefsPgOpen: true };

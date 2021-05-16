@@ -88,15 +88,6 @@ document.addEventListener("contextmenu", aEvent => {
   }
 });
 
-window.addEventListener("beforeunload", async (aEvent) => {
-  await aePrefs.setPrefs({
-    changeIconDlgPos: {
-      x: window.screenX,
-      y: window.screenY,
-    }
-  });
-});
-
 
 browser.runtime.onMessage.addListener(aRequest => {
   log(`Panic Button/wx::changeIcon.js: Received message "${aRequest.msgID}"`);

@@ -798,13 +798,36 @@ async function openChangeIconDlg()
       browser.runtime.sendMessage({ msgID: "ext-prefs-customize" });
       return;
     }
-    
+
+    // Get browser window geometry.
+    let result = null;
+    try {
+      result = await browser.tabs.executeScript({
+        code: "`${window.outerWidth},${window.screenX},${window.screenY}`;"
+      });
+    }
+    catch (e) {}
+      
     let width = 404;
     let height = 272;
-    let coords = await aePrefs.getPref("changeIconDlgPos");
-    
-    let left = coords.x === null ? ((window.screen.availWidth - width) / 2) : coords.x;
-    let top  = coords.y === null ? ((window.screen.availHeight - height) / 2) : coords.y;
+    let left, top;
+
+    if (result == null || result[0] == null) {
+      // Handle inability to get browser window geometry if current tab is in
+      // Reader Mode, or if its URL is restricted (e.g., any "about:" URL).
+      // TO DO: If unable to get browser window geometry from the current tab,
+      // try another tab in the same window.
+      left = null;
+      top = null;
+    }
+    else {
+      let wndGeom = result[0].split(",");
+      let wndWidth = Number(wndGeom[0]);
+      let wndLeft = Number(wndGeom[1]);
+      let wndTop = Number(wndGeom[2]);
+      left = Math.ceil((wndWidth - width) / 2) + wndLeft;
+      top = wndTop + (gOS == "mac" ? 96 : 128);
+    }
 
     let wnd = await browser.windows.create({
       url, type: "detached_panel",

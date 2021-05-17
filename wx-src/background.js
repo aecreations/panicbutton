@@ -195,10 +195,19 @@ let gBrowserSession = {
       let savedTabs = [];
       
       if (closedWnd.info.tabs.length == 1) {
-        let brwsTabURL = closedWnd.info.tabs[0].url;
+        let savedTab = closedWnd.info.tabs[0];
+        let brwsTabURL = savedTab.url;
 
         // Default to home page if URL is restricted.
-        wndPpty.url = this._isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
+        brwsTabURL = this._isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
+
+        if (savedTab.isInReaderMode) {
+          wndPpty.url = this._sanitizeReaderModeURL(brwsTabURL);
+          this._readerModeTabIDs.add(savedTab.id);
+        }
+        else {
+          wndPpty.url = brwsTabURL;
+        }
       }
       else {
         wndPpty.url = "about:blank";
@@ -299,6 +308,7 @@ let gBrowserSession = {
       }
       catch (e) {
         warn(`Panic Button/wx: gBrowserSession.restoreReaderModeTab(): Unable to turn on Reader Mode for tab ${aTabID}: ${e}`);
+        return;
       }
     }
     this._readerModeTabIDs.delete(aTabID);

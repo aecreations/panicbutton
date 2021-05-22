@@ -528,6 +528,11 @@ async function init()
       title: browser.i18n.getMessage("chgIconMenu"),
       contexts: ["browser_action"],
     });
+    browser.menus.create({
+      id: "ae-panicbutton-prefs",
+      title: browser.i18n.getMessage("prefsPgMenu"),
+      contexts: ["browser_action"],
+    });
 
     log("Panic Button/wx: Initialization complete.");
   });
@@ -622,6 +627,9 @@ browser.commands.onCommand.addListener(async (aCmd) => {
 browser.menus.onClicked.addListener((aInfo, aTab) => {
   if (aInfo.menuItemId == "ae-panicbutton-change-icon") {
     openChangeIconDlg();
+  }
+  else if (aInfo.menuItemId == "ae-panicbutton-prefs") {
+    browser.runtime.openOptionsPage();
   }
 });
 

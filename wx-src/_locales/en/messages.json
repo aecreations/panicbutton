@@ -29,7 +29,8 @@
   },
 
   "chgIconMenu": {
-    "message": "Change Icon…"
+    "message": "Change Icon…",
+    "description": "Browser action (toolbar button) context menu"
   },
 
   "chgIconTitle": {
@@ -45,6 +46,11 @@
     "message": "More Customizations…"
   },
   
+  "prefsPgMenu": {
+    "message": "Panic Button Options…",
+    "description": "Browser action (toolbar button) context menu"
+  },
+
   "prefsPgTitle": {
     "message": "Preferences"
   },

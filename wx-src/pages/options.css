@@ -541,8 +541,12 @@ input[type="file"] {
     float: left;
     margin-left: -6px;
     margin-top: 8px;
-    background-image: url("chrome://global/skin/icons/question-64.png");
+    background-image: url("../img/question-64.png");
     background-size: contain;
+}
+
+body[dataset-os="mac"] #remove-password-dlg .msgbox-icon {
+    background-image: url("chrome://global/skin/icons/question-64-mac.png");
 }
 
 #remove-password-dlg .dlg-content {

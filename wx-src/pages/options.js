@@ -68,6 +68,8 @@ async function init(aEvent)
 
   let resp = await browser.runtime.sendMessage({ msgID: "get-system-info" });
   gOS = resp.os;
+  document.body.dataset.os = gOS;
+  
   let keyModAccelShift, keyModAltShift;
 
   if (gOS == "mac") {

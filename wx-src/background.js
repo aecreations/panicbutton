@@ -153,6 +153,9 @@ let gBrowserSession = {
 	continue;
       }
 
+      log("Panic Button/wx: gBrowserSession.saveAndClose(): Saving browser window:");
+      log(wnd);
+
       let activeTabIdx = wnd.tabs.findIndex(aTab => aTab.active);
       let numPinnedTabs = 0;
       for (let i = 0; i < wnd.tabs.length; i++) {
@@ -254,6 +257,9 @@ let gBrowserSession = {
       let activeTabID = 0;
 
       let wnd = await browser.windows.get(createdWnd.id, { populate: true });
+
+      log("Panic Button/wx: gBrowserSession.restore(): Restored browser window:");
+      log(wnd);
 
       if (activeTabIdx >= wnd.tabs.length) {
         // Some tabs may not be restored (e.g. "about:" pages), which would

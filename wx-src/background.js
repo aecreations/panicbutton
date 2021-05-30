@@ -814,7 +814,7 @@ async function openChangeIconDlg()
     let rv = null;   
     try {
       rv = await browser.tabs.executeScript(aTabID, {
-        code: "`${window.outerWidth},${window.screenX},${window.screenY}`;"
+        code: "`${window.outerWidth},${window.outerHeight},${window.screenX},${window.screenY}`;"
       });
     }
     catch (e) {}
@@ -844,16 +844,17 @@ async function openChangeIconDlg()
 
     for (let tab of brwsTabs) {
       geomData = await getBrwsWndGeometry(tab.id);
-      log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data for tab ${tab.id} (${tab.title}):`);
+      log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from tab ${tab.id} (${tab.title}):`);
       log(geomData);
 
-      if (geomData && geomData[0] != null) {
+      if ((geomData instanceof Array) && (typeof geomData[0] == "string")) {
         break;
       }
     }
 
     let width = 404;
     let height = 272;
+    let topOffset = (gOS == "mac" ? 96 : 128);
     let left, top;
 
     if (geomData == null || geomData[0] == null) {
@@ -865,10 +866,22 @@ async function openChangeIconDlg()
     else {
       let wndGeom = geomData[0].split(",");
       let wndWidth = Number(wndGeom[0]);
-      let wndLeft = Number(wndGeom[1]);
-      let wndTop = Number(wndGeom[2]);
-      left = Math.ceil((wndWidth - width) / 2) + wndLeft;
-      top = wndTop + (gOS == "mac" ? 96 : 128);
+      let wndHeight = Number(wndGeom[1]);
+      let wndLeft = Number(wndGeom[2]);
+      let wndTop = Number(wndGeom[3]);
+
+      if (wndWidth < width) {
+        left = null;
+      }
+      else {
+        left = Math.ceil((wndWidth - width) / 2) + wndLeft;
+      }
+
+      if ((wndHeight + topOffset) < height) {
+        top = null;
+      }
+      
+      top = wndTop + topOffset;
     }
 
     let wnd = await browser.windows.create({

@@ -809,6 +809,19 @@ async function openChangeIconDlg()
 {
   let url = browser.runtime.getURL("pages/changeIcon.html");
 
+  async function getBrwsWndGeometry(aTabID)
+  {
+    let rv = null;   
+    try {
+      rv = await browser.tabs.executeScript(aTabID, {
+        code: "`${window.outerWidth},${window.screenX},${window.screenY}`;"
+      });
+    }
+    catch (e) {}
+
+    return rv;
+  }
+
   async function openChgIconDlgHelper()
   {
     // Don't open the Change Icon dialog if the extension preferences page is
@@ -823,29 +836,34 @@ async function openChangeIconDlg()
       return;
     }
 
-    // Get browser window geometry.
-    let result = null;
-    try {
-      result = await browser.tabs.executeScript({
-        code: "`${window.outerWidth},${window.screenX},${window.screenY}`;"
-      });
+    // Get browser window geometry by calculating it from any loaded browser tab
+    // in the current window. If the tab URL is restricted (e.g. any "about:"
+    // URL), then try again with another tab in the same window.
+    let brwsTabs = await browser.tabs.query({ currentWindow: true, discarded: false });
+    let geomData = "";
+
+    for (let tab of brwsTabs) {
+      geomData = await getBrwsWndGeometry(tab.id);
+      log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data for tab ${tab.id} (${tab.title}):`);
+      log(geomData);
+
+      if (geomData && geomData[0] != null) {
+        break;
+      }
     }
-    catch (e) {}
-      
+
     let width = 404;
     let height = 272;
     let left, top;
 
-    if (result == null || result[0] == null) {
-      // Handle inability to get browser window geometry if current tab is in
-      // Reader Mode, or if its URL is restricted (e.g., any "about:" URL).
-      // TO DO: If unable to get browser window geometry from the current tab,
-      // try another tab in the same window.
+    if (geomData == null || geomData[0] == null) {
+      // Reached here if unable to calculate window geometry from any of the
+      // browser tabs in the current window. Fall back on default values.
       left = null;
       top = null;
     }
     else {
-      let wndGeom = result[0].split(",");
+      let wndGeom = geomData[0].split(",");
       let wndWidth = Number(wndGeom[0]);
       let wndLeft = Number(wndGeom[1]);
       let wndTop = Number(wndGeom[2]);
@@ -866,7 +884,7 @@ async function openChangeIconDlg()
     // `browser.windows.create()`
     browser.windows.update(wnd.id, { left, top });
   }
-  // END nested function
+  // END nested functions
 
   if (gChangeIconWndID) {
     try {

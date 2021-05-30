@@ -880,8 +880,9 @@ async function openChangeIconDlg()
       if ((wndHeight + topOffset) < height) {
         top = null;
       }
-      
-      top = wndTop + topOffset;
+      else {
+        top = wndTop + topOffset;
+      }
     }
 
     let wnd = await browser.windows.create({

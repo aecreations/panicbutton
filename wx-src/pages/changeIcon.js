@@ -51,6 +51,15 @@ async function init()
     await browser.runtime.openOptionsPage();
   });
   $("btn-accept").addEventListener("click", aEvent => { closeDlg() });
+
+  // Fix for Fx57 bug where bundled page loaded using
+  // browser.windows.create won't show contents unless resized.
+  // See <https://bugzilla.mozilla.org/show_bug.cgi?id=1402110>
+  let wnd = await browser.windows.getCurrent();
+  browser.windows.update(wnd.id, {
+    width: wnd.width + 1,
+    focused: true,
+  });
 }
 
 
@@ -71,6 +80,8 @@ function log(aMessage)
 // Event handlers
 //
 
+document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
+
 document.addEventListener("click", aEvent => {
   if (aEvent.target.tagName == "INPUT"
       && aEvent.target.getAttribute("type") == "radio"
@@ -80,7 +91,15 @@ document.addEventListener("click", aEvent => {
 });
 
 
-document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
+window.addEventListener("keydown", aEvent => {
+  if (aEvent.key == "Enter" || aEvent.key == "Escape") {
+    closeDlg();
+  }
+  else {
+    aeInterxn.suppressBrowserShortcuts(aEvent);
+  }
+});
+
 
 document.addEventListener("contextmenu", aEvent => {
   if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {

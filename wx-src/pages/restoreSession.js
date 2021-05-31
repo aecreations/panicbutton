@@ -70,4 +70,7 @@ window.addEventListener("keydown", aEvent => {
     let helpDlg = new aeDialog("#hlp-dlg");
     helpDlg.showModal();
   }
+  else {
+    aeInterxn.suppressBrowserShortcuts(aEvent);
+  }
 });

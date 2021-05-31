@@ -466,6 +466,9 @@ window.addEventListener("keydown", aEvent => {
   else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
     aeDialog.cancelDlgs();
   }
+  else {
+    aeInterxn.suppressBrowserShortcuts(aEvent);
+  }
 });
 
 

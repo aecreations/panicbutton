@@ -480,6 +480,7 @@ async function setSanNicolasPrefs()
 {
   let newPrefs = {
     restoreSessInactvTabsZzz: true,
+    autoAdjustWndPos: null,
   };
 
   for (let pref in newPrefs) {
@@ -526,6 +527,11 @@ async function init()
 
     gOS = platform.os;
     log("Panic Button/wx: OS: " + gOS);
+
+    if (gPrefs.autoAdjustWndPos === null) {
+      let autoAdjustWndPos = gOS == "win" ? true : false;
+      await aePrefs.setPrefs({ autoAdjustWndPos });
+    }
 
     await setPanicButtonCustomizations();
     
@@ -835,54 +841,60 @@ async function openChangeIconDlg()
       browser.runtime.sendMessage({ msgID: "ext-prefs-customize" });
       return;
     }
-
-    // Get browser window geometry by calculating it from any loaded browser tab
-    // in the current window. If the tab URL is restricted (e.g. any "about:"
-    // URL), then try again with another tab in the same window.
-    let brwsTabs = await browser.tabs.query({ currentWindow: true, discarded: false });
-    let geomData = "";
-
-    for (let tab of brwsTabs) {
-      geomData = await getBrwsWndGeometry(tab.id);
-      log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from tab ${tab.id} (${tab.title}):`);
-      log(geomData);
-
-      if ((geomData instanceof Array) && (typeof geomData[0] == "string")) {
-        break;
-      }
-    }
-
+    
     let width = 404;
     let height = 272;
-    let topOffset = (gOS == "mac" ? 96 : 128);
-    let left, top;
+    let left, top, geomData;
 
-    if (geomData == null || geomData[0] == null) {
-      // Reached here if unable to calculate window geometry from any of the
-      // browser tabs in the current window. Fall back on default values.
-      left = null;
-      top = null;
-    }
-    else {
-      let wndGeom = geomData[0].split(",");
-      let wndWidth = Number(wndGeom[0]);
-      let wndHeight = Number(wndGeom[1]);
-      let wndLeft = Number(wndGeom[2]);
-      let wndTop = Number(wndGeom[3]);
+    if (gPrefs.autoAdjustWndPos) {
+      // Get browser window geometry by calculating it from any loaded browser
+      // tab in the current window. If the tab URL is restricted (e.g. any
+      // "about:" URL), then try again with another tab in the same window.
+      let brwsTabs = await browser.tabs.query({currentWindow: true, discarded: false});
 
-      if (wndWidth < width) {
+      for (let tab of brwsTabs) {
+        geomData = await getBrwsWndGeometry(tab.id);
+        log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from tab ${tab.id} (${tab.title}):`);
+        log(geomData);
+
+        if ((geomData instanceof Array) && (typeof geomData[0] == "string")) {
+          break;
+        }
+      }
+
+      let topOffset = (gOS == "mac" ? 96 : 128);
+
+      if (geomData == null || geomData[0] == null) {
+        // Reached here if unable to calculate window geometry from any of the
+        // browser tabs in the current window. Fall back on default values.
         left = null;
-      }
-      else {
-        left = Math.ceil((wndWidth - width) / 2) + wndLeft;
-      }
-
-      if ((wndHeight + topOffset) < height) {
         top = null;
       }
       else {
-        top = wndTop + topOffset;
+        let wndGeom = geomData[0].split(",");
+        let wndWidth = Number(wndGeom[0]);
+        let wndHeight = Number(wndGeom[1]);
+        let wndLeft = Number(wndGeom[2]);
+        let wndTop = Number(wndGeom[3]);
+
+        if (wndWidth < width) {
+          left = null;
+        }
+        else {
+          left = Math.ceil((wndWidth - width) / 2) + wndLeft;
+        }
+
+        if ((wndHeight + topOffset) < height) {
+          top = null;
+        }
+        else {
+          top = wndTop + topOffset;
+        }
       }
+    }
+    else {
+      left = 128;
+      top = 96;
     }
 
     let wnd = await browser.windows.create({
@@ -896,7 +908,9 @@ async function openChangeIconDlg()
 
     // Workaround to bug where window position isn't set when calling
     // `browser.windows.create()`
-    browser.windows.update(wnd.id, { left, top });
+    if (geomData) {
+      browser.windows.update(wnd.id, { left, top });
+    }
   }
   // END nested functions
 

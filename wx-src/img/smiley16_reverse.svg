@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +11,7 @@
    height="18"
    id="svg3763"
    version="1.1"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
    sodipodi:docname="smiley16_reverse.svg"
    inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/Export/smiley16.png"
    inkscape:export-xdpi="80"
@@ -22,12 +20,12 @@
      id="defs3765" />
   <sodipodi:namedview
      id="base"
-     pagecolor="#ffffff"
+     pagecolor="#808080"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.395604"
+     inkscape:zoom="31.672167"
      inkscape:cx="5.3831715"
      inkscape:cy="8.6048794"
      inkscape:current-layer="layer1"
@@ -38,8 +36,9 @@
      inkscape:window-width="2048"
      inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="1"
-     inkscape:window-maximized="1">
+     inkscape:window-y="23"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid3771"
@@ -67,7 +66,7 @@
      transform="translate(0,-14)">
     <path
        sodipodi:type="arc"
-       style="fill:#f9f9f9;fill-opacity:0.00313725;fill-rule:nonzero;stroke:#d7d7db;stroke-width:2.45091891;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f9f9f9;fill-opacity:0.00313725;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.45091891;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path3773"
        sodipodi:cx="17.190874"
        sodipodi:cy="16.773798"
@@ -77,7 +76,7 @@
        transform="matrix(0.55864099,0,0,0.55864099,-0.57021059,13.636861)" />
     <path
        sodipodi:type="arc"
-       style="fill:#d7d7db;fill-opacity:1;fill-rule:nonzero;stroke:#d7d7db;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path5429"
        sodipodi:cx="11.921983"
        sodipodi:cy="11.236997"
@@ -93,10 +92,10 @@
        sodipodi:cy="11.236997"
        sodipodi:cx="11.921983"
        id="path5431"
-       style="fill:#d7d7db;fill-opacity:1;fill-rule:nonzero;stroke:#d7d7db;stroke-width:2.06035733;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.06035733;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        sodipodi:type="arc" />
     <path
-       style="fill:none;stroke:#d7d7db;stroke-width:0.9634667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#ffffff;stroke-width:0.9634667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 4.5427169,24.007737 c 0.072208,0.849261 0.2472781,1.443124 0.6771495,2.118331 0.5724955,0.721818 0.6047094,0.620606 1.0360566,0.990163 0.9550185,0.663728 1.5897564,0.785461 2.996463,0.846093"
        id="path5433"
        inkscape:connector-curvature="0"
@@ -106,6 +105,6 @@
        inkscape:connector-curvature="0"
        id="path6091"
        d="m 13.512366,24.003941 c -0.07072,0.85089 -0.242168,1.445895 -0.663159,2.122397 -0.560666,0.723205 -0.516455,0.6218 -0.938891,0.992067 -0.935286,0.665003 -1.785121,0.817955 -2.9345513,0.847716"
-       style="fill:none;stroke:#d7d7db;stroke-width:0.96373731;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-mid:none;marker-end:none" />
+       style="fill:none;stroke:#ffffff;stroke-width:0.96373731;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-mid:none;marker-end:none" />
   </g>
 </svg>

@@ -384,7 +384,7 @@
   },
 
   "upgrade": {
-    "message": "Panic Button has been upgraded to version 4.3."
+    "message": "Panic Button has been upgraded to version 4.4."
   },
 
   "whatsNew": {
@@ -392,19 +392,15 @@
   },
 
   "whatsNew1": {
-    "message": "Panic Button can now restore multiple browser windows that were hidden by the Hide and Replace action"
+    "message": "New menu options added to the Panic Button toolbar button context menu, allowing you to change the toolbar button in just a few clicks, or go to the extension preferences page"
   },
 
   "whatsNew2": {
-    "message": "New action: Minimize Current Window"
+    "message": "New option in extension preferences for snoozing inactive browser tabs when restoring the browser session after invoking the Hide and Replace action"
   },
 
   "whatsNew3": {
-    "message": "Improvements to Dark Mode icons"
-  },
-
-  "whatsNew4": {
-    "message": "The default keyboard shortcut is changed to F8 to avoid a conflict with toggling Reader Mode"
+    "message": "The reverse contrast toolbar button icons now blends in better with the Dark theme in Firefox 89 and newer"
   },
 
   "donateHdg": {

@@ -376,119 +376,30 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
 
     gPrefs = await aePrefs.getAllPrefs();
 
-    if (! hasSantaCruzPrefs()) {
+    if (! aePrefs.hasSantaCruzPrefs(gPrefs)) {
       log("Initializing 4.1 user preferences");
-      await setSantaCruzPrefs();
+      await aePrefs.setSantaCruzPrefs(gPrefs);
     }
 
-    if (! hasSantaRosaPrefs()) {
+    if (! aePrefs.hasSantaRosaPrefs(gPrefs)) {
       log("Initializing 4.2 user preferences.");
-      await setSantaRosaPrefs();
+      await aePrefs.setSantaRosaPrefs(gPrefs);
     }
 
-    if (! hasSantaCatalinaPrefs()) {
+    if (! aePrefs.hasSantaCatalinaPrefs(gPrefs)) {
       log("Initializing 4.3 user preferences.");
-      await setSantaCatalinaPrefs();
+      await aePrefs.setSantaCatalinaPrefs(gPrefs);
     }
 
-    if (! hasSanNicolasPrefs()) {
+    if (! aePrefs.hasSanNicolasPrefs(gPrefs)) {
       log("Initializing 4.4 user preferences.");
-      await setSanNicolasPrefs();
+      await aePrefs.setSanNicolasPrefs(gPrefs);
       browser.tabs.create({ url: "pages/whatsnew.html" });
     }
 
     await init();
   }
 });
-
-
-function hasSantaCruzPrefs()
-{
-  // Version 4.1
-  return gPrefs.hasOwnProperty("restoreSessPswdEnabled");
-}
-
-
-async function setSantaCruzPrefs()
-{
-  let newPrefs = {
-    panicButtonKey: "F9",  // Old default keyboard shortcut until version 4.3
-    panicButtonKeyMod: "",
-    restoreSessPswdEnabled: false,
-    restoreSessPswd: null,
-  };
-
-  for (let pref in newPrefs) {
-    gPrefs[pref] = newPrefs[pref];
-  }
-
-  await aePrefs.setPrefs(newPrefs);
-}
-
-
-function hasSantaRosaPrefs()
-{
-  // Version 4.2
-  return gPrefs.hasOwnProperty("showCamouflageWebPg");
-}
-
-
-async function setSantaRosaPrefs()
-{
-  let newPrefs = {
-    showCamouflageWebPg: false,
-    camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-  };
-
-  for (let pref in newPrefs) {
-    gPrefs[pref] = newPrefs[pref];
-  }
-
-  await aePrefs.setPrefs(newPrefs);
-}
-
-
-function hasSantaCatalinaPrefs()
-{
-  // Version 4.3
-  return gPrefs.hasOwnProperty("minimizeCurrOpt");
-}
-
-
-async function setSantaCatalinaPrefs()
-{
-  let newPrefs = {
-    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
-  };
-
-  for (let pref in newPrefs) {
-    gPrefs[pref] = newPrefs[pref];
-  }
-
-  await aePrefs.setPrefs(newPrefs);
-}
-
-
-function hasSanNicolasPrefs()
-{
-  // Version 4.4
-  return gPrefs.hasOwnProperty("restoreSessInactvTabsZzz");
-}
-
-
-async function setSanNicolasPrefs()
-{
-  let newPrefs = {
-    restoreSessInactvTabsZzz: true,
-    autoAdjustWndPos: null,
-  };
-
-  for (let pref in newPrefs) {
-    gPrefs[pref] = newPrefs[pref];
-  }
-
-  await aePrefs.setPrefs(newPrefs);
-}
 
 
 async function setDefaultPrefs()

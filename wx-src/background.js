@@ -491,8 +491,7 @@ async function setToolbarButtonIcon(aIconIndex, isReverseContrast)
 
 async function setCustomToolbarButtonIcon()
 {
-  let prefs = await aePrefs.getPref("toolbarBtnData");
-  let iconDataURL = prefs.toolbarBtnData;
+  let iconDataURL = await aePrefs.getPref("toolbarBtnData");
 
   browser.browserAction.setIcon({
     path: {

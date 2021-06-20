@@ -40,8 +40,6 @@ async function init()
       canvasCtx.drawImage(this, 0, 0, 36, 36);
     };
     img.src = prefs.toolbarBtnData;
-    
-    revContrastChbox.disabled = true;
   }
   else {
     $(toolbarBtnIconID).checked = true;

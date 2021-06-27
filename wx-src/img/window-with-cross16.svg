@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +11,7 @@
    height="16"
    id="svg2987"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
    sodipodi:docname="window-with-cross16.svg"
    inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/window32.png"
    inkscape:export-xdpi="90"
@@ -27,7 +25,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="20.85965"
+     inkscape:zoom="29.5"
      inkscape:cx="7.2470613"
      inkscape:cy="8.1730438"
      inkscape:current-layer="layer1"
@@ -37,11 +35,12 @@
      objecttolerance="20"
      gridtolerance="10"
      inkscape:snap-global="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="667"
+     inkscape:window-width="2048"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1">
+     inkscape:window-y="23"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2995"
@@ -68,7 +67,7 @@
      inkscape:groupmode="layer"
      transform="translate(0,-16)">
     <rect
-       style="fill:#f8f8f8;fill-opacity:0.78431373;stroke:#363636;stroke-width:1.5029403;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f8f8f8;fill-opacity:0.78431373;stroke:#625e5e;stroke-width:1.5029403;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3765"
        width="14.497061"
        height="13.503789"
@@ -77,7 +76,7 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
-       style="fill:#404040;fill-opacity:1;fill-rule:nonzero;stroke:#404040;stroke-width:0.54494774000000001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#625e5e;fill-opacity:1;fill-rule:nonzero;stroke:#625e5e;stroke-width:0.54494774;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3791"
        width="11.455052"
        height="2.4550521"
@@ -94,7 +93,7 @@
        inkscape:transform-center-x="42.680627"
        inkscape:transform-center-y="-5.4584341" />
     <path
-       style="fill:none;stroke:#323232;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#4c4c4c;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 6.0432346,24.099877 3.9010883,3.899158"
        id="path3773"
        inkscape:connector-curvature="0" />
@@ -102,6 +101,6 @@
        inkscape:connector-curvature="0"
        id="path3799"
        d="M 9.9433574,24.098912 6.0442,28"
-       style="fill:none;stroke:#323232;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       style="fill:none;stroke:#4c4c4c;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
   </g>
 </svg>

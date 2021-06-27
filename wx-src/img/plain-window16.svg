@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,13 +11,27 @@
    height="16"
    id="svg2987"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
    sodipodi:docname="plain-window16.svg"
    inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/window32.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
-     id="defs2989" />
+     id="defs2989">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter1424"
+       x="-0.0017880287"
+       width="1.0035761"
+       y="-0.0020730049"
+       height="1.004146">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.010838892"
+         id="feGaussianBlur1426" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -37,11 +49,12 @@
      objecttolerance="20"
      gridtolerance="10"
      inkscape:snap-global="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="667"
+     inkscape:window-width="2048"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1">
+     inkscape:window-y="23"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2995"
@@ -68,7 +81,7 @@
      inkscape:groupmode="layer"
      transform="translate(0,-16)">
     <rect
-       style="fill:#f8f8f8;fill-opacity:0.78431373000000004;stroke:#363636;stroke-width:1.45138513999999996;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f8f8f8;fill-opacity:0.78431373;stroke:#625e5e;stroke-width:1.45138514;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;filter:url(#filter1424)"
        id="rect3765"
        width="14.548615"
        height="12.548615"
@@ -77,7 +90,7 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
-       style="fill:#404040;fill-opacity:1;fill-rule:nonzero;stroke:#404040;stroke-width:0.57311869000000004;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#625e5e;fill-opacity:1;fill-rule:nonzero;stroke:#625e5e;stroke-width:0.57311869;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3791"
        width="11.426881"
        height="2.4268813"

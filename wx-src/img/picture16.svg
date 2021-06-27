@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +11,7 @@
    height="16"
    id="svg2988"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
    sodipodi:docname="picture16.svg"
    style="enable-background:new">
   <defs
@@ -25,22 +23,23 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="15.696216"
-     inkscape:cx="7.2610854"
-     inkscape:cy="8.362564"
+     inkscape:zoom="26.520227"
+     inkscape:cx="7.9952648"
+     inkscape:cy="8.0705631"
      inkscape:current-layer="layer2"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:snap-global="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="667"
+     inkscape:window-width="2048"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="23"
      inkscape:window-maximized="1"
      borderlayer="true"
      showguides="true"
-     inkscape:guide-bbox="true">
+     inkscape:guide-bbox="true"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2996"
@@ -83,13 +82,13 @@
      style="display:inline"
      transform="translate(0,-2)">
     <path
-       style="fill:#ffffff;stroke:#404040;stroke-width:1.31385325999999991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:0.70588237"
+       style="fill:#ffffff;stroke:#625e5e;stroke-width:1.31385326;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:0.70588237"
        d="m 0.65692658,2.6958843 14.67667642,0 0,14.6471887 -14.67667642,0 z"
        id="path3804"
        inkscape:connector-curvature="0" />
     <path
        sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#404040;stroke-width:0.80000000999999998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#625e5e;stroke-width:0.80000001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path3848"
        sodipodi:cx="5.2482672"
        sodipodi:cy="5.1383662"
@@ -112,11 +111,11 @@
        sodipodi:cx="3"
        sodipodi:sides="3"
        id="path3792"
-       style="fill:#505050;fill-opacity:1;fill-rule:nonzero;stroke:#404040;stroke-width:1.54900002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#747474;fill-opacity:1;fill-rule:nonzero;stroke:#625e5e;stroke-width:1.54900002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        sodipodi:type="star" />
     <path
        sodipodi:type="star"
-       style="fill:#505050;fill-opacity:1;fill-rule:nonzero;stroke:#404040;stroke-width:1.54892683;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       style="fill:#747474;fill-opacity:1;fill-rule:nonzero;stroke:#625e5e;stroke-width:1.54892683;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
        id="path3768"
        sodipodi:sides="3"
        sodipodi:cx="3"

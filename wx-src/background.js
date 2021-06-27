@@ -237,6 +237,7 @@ let gBrowserSession = {
         let tabPpty = {
           windowId: wndID,
           discarded: gPrefs.restoreSessInactvTabsZzz,
+          cookieStoreId: aTab.cookieStoreId,
         };
         if (aTab.isInReaderMode) {
           tabPpty.url = this._sanitizeReaderModeURL(aTab.url);

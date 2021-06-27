@@ -133,6 +133,8 @@ let gBrowserWindows = {
 
 
 let gBrowserSession = {
+  CHANGE_ICON_EXT_PG_URL: browser.runtime.getURL("pages/changeIcon.html"),
+  
   _replaceSession: false,
   _replacemtWndID: null,
   _savedWnds: [],
@@ -151,6 +153,12 @@ let gBrowserSession = {
     for (let wnd of wnds) {
       if (wnd.id == this._replacemtWndID) {
 	continue;
+      }
+
+      // Don't save the Change Icon popup window.
+      if (wnd.tabs[0].url == this.CHANGE_ICON_EXT_PG_URL) {
+        browser.windows.remove(wnd.id);
+        continue;
       }
 
       log("Panic Button/wx: gBrowserSession.saveAndClose(): Saving browser window:");
@@ -440,7 +448,7 @@ async function init()
     log("Panic Button/wx: OS: " + gOS);
 
     if (gPrefs.autoAdjustWndPos === null) {
-      let autoAdjustWndPos = gOS == "win" ? true : false;
+      let autoAdjustWndPos = gOS == "win";
       await aePrefs.setPrefs({ autoAdjustWndPos });
     }
 

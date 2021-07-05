@@ -275,6 +275,13 @@ async function init(aEvent)
   panicActionRadio.checked = true;
   switchSelectedActionRadioPanel(prefs.action);
 
+  let panicActionRadioBtns = document.querySelectorAll("input[name='panic-action']");
+  panicActionRadioBtns.forEach(aElt => {
+    aElt.addEventListener("click", aEvent => {
+      browser.runtime.sendMessage({msgID: "unsave-minimized-wnd"});
+    });
+  });
+
   $("webpg-url").value = prefs.replacementWebPgURL;
 
   let setPswd = $("hide-and-replc-set-pswd");

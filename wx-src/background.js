@@ -106,6 +106,11 @@ let gBrowserWindows = {
     return (this._minzWndID != null);
   },
 
+  unsaveMinimizedWnd()
+  {
+    this._minzWndID = null;
+  },
+
 
   //
   // Private helper methods
@@ -581,36 +586,51 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     
   let resp = null;
 
-  if (aRequest.msgID == "get-system-info") {
-    resp = {
-      os: getOS(),
-    };
-  }
-  else if (aRequest.msgID == "get-toolbar-btn-icons-map") {
+  switch (aRequest.msgID) {
+  case "get-system-info":
+    resp = { os: getOS() };
+    break;
+
+  case "get-toolbar-btn-icons-map":
     resp = { toolbarBtnIconsMap: getToolbarButtonIconsMap() };
-  }
-  else if (aRequest.msgID == "restore-brws-sess") {
+    break;
+
+  case "restore-brws-sess":
     gBrowserSession.restore();
-  }
-  else if (aRequest.msgID == "get-restore-sess-passwd") {
+    break;
+
+  case "get-restore-sess-passwd":
     resp = { restoreSessPwd: getRestoreSessPasswd() };
-  }
-  else if (aRequest.msgID == "set-restore-sess-passwd") {
+    break;
+
+  case "set-restore-sess-passwd":
     await setRestoreSessPasswd(aRequest.passwd);
     resp = { status: "ok" };
-  }
-  else if (aRequest.msgID == "rm-restore-sess-passwd") {
+    break;
+
+  case "rm-restore-sess-passwd":
     await removeRestoreSessPasswd();
     resp = { status: "ok" };
-  }
-  else if (aRequest.msgID == "get-panic-action-str-key") {
+    break;
+
+  case "get-panic-action-str-key":
     resp = { stringKey: getPanicActionUIStringKey() };
-  }
-  else if (aRequest.msgID == "close-change-icon-dlg") {
+    break;
+
+  case "close-change-icon-dlg":
     gChangeIconWndID = null;
-  }
-  else if (aRequest.msgID == "ping-change-icon-dlg") {
+    break;
+
+  case "ping-change-icon-dlg":
     resp = { isChangeIconDlgOpen: !!gChangeIconWndID };
+    break;
+
+  case "unsave-minimized-wnd":
+    gBrowserWindows.unsaveMinimizedWnd();
+    break;
+
+  default:
+    break;
   }
 
   if (resp) {

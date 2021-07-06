@@ -605,12 +605,12 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
 
   case "set-restore-sess-passwd":
     await setRestoreSessPasswd(aRequest.passwd);
-    resp = { status: "ok" };
+    resp = {};
     break;
 
   case "rm-restore-sess-passwd":
     await removeRestoreSessPasswd();
-    resp = { status: "ok" };
+    resp = {};
     break;
 
   case "get-panic-action-str-key":

@@ -253,6 +253,8 @@ async function init(aEvent)
     gDialogs.about.showModal();
   });
 
+  $("about-dlg").dataset["locale"] = locale;
+
   let usrContribCTA = $("usr-contrib-cta");
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-hdg", "aboutContribHdg"));
   usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());

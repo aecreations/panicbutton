@@ -613,10 +613,6 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     resp = {};
     break;
 
-  case "get-panic-action-str-key":
-    resp = { stringKey: getPanicActionUIStringKey() };
-    break;
-
   case "close-change-icon-dlg":
     gChangeIconWndID = null;
     break;
@@ -867,35 +863,6 @@ async function openChangeIconDlg()
   else {
     openChgIconDlgHelper();
   }
-}
-
-
-function getPanicActionUIStringKey()
-{
-  let rv = "";
-  
-  switch (Number(gPrefs.action)) {
-  case aeConst.PANICBUTTON_ACTION_REPLACE:
-    rv = "actHideAndReplace";
-    break;
-
-  case aeConst.PANICBUTTON_ACTION_MINIMIZE:
-    rv = "actMinimizeAll";
-    break;
-
-  case aeConst.PANICBUTTON_ACTION_QUIT:
-    rv = "actCloseAll";
-    break;
-
-  case aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR:
-    rv = "actMinimizeCurr";
-    break;
-
-  default:
-    break;
-  }
-
-  return rv;
 }
 
 

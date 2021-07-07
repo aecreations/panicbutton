@@ -277,6 +277,12 @@ fieldset select.browser-style {
     letter-spacing: -0.5px;
 }
 
+#reset-url[data-locale|="pt"],
+#minz-all-camouflage-reset-url[data-locale|="pt"] {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
 #hide-and-replace-pswd {
     margin-top: 12px;
     margin-bottom: 0;
@@ -415,7 +421,7 @@ input[type="file"] {
 }
 
 #rev-contrast-icon {
-    margin-left: -22px;
+    margin-left: -20px;
 }
 
 #rev-contrast-icon + label {
@@ -566,6 +572,10 @@ body[dataset-os="mac"] #remove-password-dlg .msgbox-icon {
     top: 72px;
     --width: 410px;
     --height: 280px;
+}
+
+#about-dlg[data-locale|="pt"] {
+    height: 298px;
 }
 
 #about-dlg #ext-icon {

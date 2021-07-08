@@ -90,6 +90,7 @@ async function init(aEvent)
   buttons.forEach(aBtn => { aBtn.dataset["locale"] = locale });
   [
     "webpg-url",
+    "minz-all-camouflage-label",
     "minz-all-camouflage-webpg-url",
     "custom-icon-upload-btn",
     "set-password-dlg",

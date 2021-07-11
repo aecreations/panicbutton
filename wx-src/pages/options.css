@@ -93,10 +93,6 @@ label {
     font-size: 13px;
 }
 
-body[data-os="win"] input[type="checkbox"] + label {
-    vertical-align: text-top;
-}
-
 input[type="text"] {
     height: 26px;
 }

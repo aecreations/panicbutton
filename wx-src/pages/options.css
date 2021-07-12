@@ -579,7 +579,7 @@ body[dataset-os="mac"] #remove-password-dlg .msgbox-icon {
 #about-dlg {
     top: 72px;
     --width: 410px;
-    --height: 280px;
+    --height: 284px;
 }
 
 #about-dlg[data-locale|="pt"] {

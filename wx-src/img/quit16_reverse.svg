@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +11,7 @@
    height="18"
    id="svg2995"
    version="1.1"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
    sodipodi:docname="quit16_reverse.svg"
    inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/Export/quit16.png"
    inkscape:export-xdpi="80"
@@ -22,10 +20,10 @@
      id="defs2997" />
   <sodipodi:namedview
      id="base"
-     pagecolor="#ffffff"
+     pagecolor="#808080"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="22.395603"
      inkscape:cx="1.018883"
@@ -38,8 +36,9 @@
      inkscape:window-width="2048"
      inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="1"
-     inkscape:window-maximized="1">
+     inkscape:window-y="23"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid3003"
@@ -67,7 +66,7 @@
      transform="translate(0,-14)">
     <path
        sodipodi:type="arc"
-       style="fill:#f9f9f9;fill-opacity:0.00313725;stroke:#d7d7db;stroke-width:6.25045204;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f9f9f9;fill-opacity:0.00313725;stroke:#ffffff;stroke-width:6.25045204;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path3773"
        sodipodi:cx="17.414131"
        sodipodi:cy="22.533857"
@@ -76,7 +75,7 @@
        d="M 32.149166,22.533857 A 14.735035,14.735035 0 0 1 17.414131,37.268892 14.735035,14.735035 0 0 1 2.6790962,22.533857 14.735035,14.735035 0 0 1 17.414131,7.7988224 14.735035,14.735035 0 0 1 32.149166,22.533857 Z"
        transform="matrix(0.49808255,0,0,0.49808255,0.35820947,11.771574)" />
     <path
-       style="fill:none;stroke:#d7d7db;stroke-width:3.31411505;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#ffffff;stroke-width:3.31411505;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none"
        d="M 9,20.802144 9,25.32415"
        id="path3775"
        inkscape:connector-curvature="0" />

@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
-let gPanicButton;
+let gOS;
 let gActionDescs = [];
 let gRadioPanels = [];
 let gShctKeyModSelected = false;
@@ -39,14 +39,6 @@ async function init(aEvent)
   $("preftab-options-btn").addEventListener("click", switchPrefsPanel);
   $("preftab-customize-btn").addEventListener("click", switchPrefsPanel);
   
-  gPanicButton = await browser.runtime.getBackgroundPage();
-
-  if (! gPanicButton) {
-    window.alert(browser.i18n.getMessage("errPrefPgFailed"));
-    closePage();
-    return;
-  }
-  
   browser.history.deleteUrl({ url: window.location.href });
 
   gRadioPanels = [
@@ -74,12 +66,13 @@ async function init(aEvent)
 
   initDialogs();
 
-  let os = gPanicButton.getOS();
-  document.body.dataset.os = os;
+  let resp = await browser.runtime.sendMessage({ msgID: "get-system-info" });
+  gOS = resp.os;
+  document.body.dataset.os = gOS;
   
   let keyModAccelShift, keyModAltShift;
 
-  if (os == "mac") {
+  if (gOS == "mac") {
     keyModAccelShift = "keyModAccelShiftMac";
     keyModAltShift = "keyModAltShiftMac";
     $("panicbutton-key-del").innerText = chrome.i18n.getMessage("keyMacDel");
@@ -94,14 +87,16 @@ async function init(aEvent)
 
   let locale = browser.i18n.getUILanguage();
   let buttons = document.querySelectorAll("button");
-  buttons.forEach(aBtn => { aBtn.setAttribute("locale", locale) });
+  buttons.forEach(aBtn => { aBtn.dataset["locale"] = locale });
   [
     "webpg-url",
+    "minz-all-camouflage-label",
     "minz-all-camouflage-webpg-url",
     "custom-icon-upload-btn",
     "set-password-dlg",
+    "translations-ack",
     "usr-contrib-cta",
-  ].forEach(aID => { $(aID).setAttribute("locale", locale) });
+  ].forEach(aID => { $(aID).dataset["locale"] = locale });
 
   $("reset-url").addEventListener("click", resetReplacemtWebPageURL, false);
   $("minz-all-camouflage-reset-url").addEventListener("click", resetMinzAllCamouflageWebPageURL, false);
@@ -117,9 +112,13 @@ async function init(aEvent)
       return;
     }
     validateURLTextbox(aEvent.target);
-    setPref({ replacementWebPgURL: aEvent.target.value });
+    aePrefs.setPrefs({ replacementWebPgURL: aEvent.target.value });
   });
   
+  $("restore-sess-snooze-tabs").addEventListener("click", aEvent => {
+    aePrefs.setPrefs({ restoreSessInactvTabsZzz: aEvent.target.checked });
+  });
+
   $("panic-action-minimize-all").addEventListener("click", selectPanicAction);
 
   $("minz-all-camouflage").addEventListener("click", aEvent => {
@@ -136,7 +135,7 @@ async function init(aEvent)
     }
     $("minz-all-restore-from-camo-instr").style.display = isMinzAllCamo ? "block" : "none";
 
-    setPref({ showCamouflageWebPg: isMinzAllCamo });
+    aePrefs.setPrefs({ showCamouflageWebPg: isMinzAllCamo });
   });
 
   $("minz-all-camouflage-webpg-url").addEventListener("blur", aEvent => {
@@ -146,13 +145,13 @@ async function init(aEvent)
       return;
     }
     validateURLTextbox(aEvent.target);
-    setPref({ camouflageWebPgURL: aEvent.target.value });
+    aePrefs.setPrefs({ camouflageWebPgURL: aEvent.target.value });
   });
 
   $("panic-action-minimize-current").addEventListener("click", selectPanicAction);
   $("minz-curr-action-opt").addEventListener("change", aEvent => {
     let selectedOpt = aEvent.target.value;
-    setPref({ minimizeCurrOpt: selectedOpt });
+    aePrefs.setPrefs({ minimizeCurrOpt: selectedOpt });
     toggleRestoreMinimizedWndNote(selectedOpt);
   });
   
@@ -160,7 +159,7 @@ async function init(aEvent)
 
   $("shortcut-key").addEventListener("click", aEvent => {
     let isKeybShct = aEvent.target.checked;
-    setPref({ shortcutKey: isKeybShct });
+    aePrefs.setPrefs({ shortcutKey: isKeybShct });
 
     $("panicbutton-key").disabled = !isKeybShct;
     $("panicbutton-key-modifiers").disabled = !isKeybShct;
@@ -235,12 +234,12 @@ async function init(aEvent)
   });
 
   $("toolbar-button-caption").addEventListener("blur", aEvent => {
-    setPref({ toolbarBtnLabel: aEvent.target.value });
+    aePrefs.setPrefs({ toolbarBtnLabel: aEvent.target.value });
   });
 
   $("rev-contrast-icon").addEventListener("click", aEvent => {
     let isRevContrast = aEvent.target.checked;   
-    setPref({ toolbarBtnRevContrastIco: isRevContrast });
+    aePrefs.setPrefs({ toolbarBtnRevContrastIco: isRevContrast });
 
     let toolbarIconPicker = $("toolbar-button-icon");
     if (isRevContrast) {
@@ -254,6 +253,8 @@ async function init(aEvent)
   $("about-btn").addEventListener("click", aEvent => {
     gDialogs.about.showModal();
   });
+
+  $("about-dlg").dataset["locale"] = locale;
 
   let usrContribCTA = $("usr-contrib-cta");
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-hdg", "aboutContribHdg"));
@@ -271,39 +272,18 @@ async function init(aEvent)
     });
   });
 
-  // Catch-all click event listener
-  document.addEventListener("click", aEvent => {
-    if (aEvent.target.tagName == "INPUT"
-        && aEvent.target.getAttribute("type") == "radio"
-        && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
-      setPref({ toolbarBtnIcon: aEvent.target.value });
-
-      let revContrastChbox = $("rev-contrast-icon");
-      
-      if (aEvent.target.id == "custom-icon") {
-        revContrastChbox.setAttribute("disabled", "true");
-      }
-      else {
-        revContrastChbox.removeAttribute("disabled");
-      }
-    }
-  }, false);
-
-  // Handle key events when a dialog is open.
-  window.addEventListener("keydown", aEvent => {
-    if (aEvent.key == "Enter" && aeDialog.isOpen()) {
-      aeDialog.acceptDlgs();
-    }
-    else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
-      aeDialog.cancelDlgs();
-    }
-  });
-
-  let prefs = await browser.storage.local.get();
+  let prefs = await aePrefs.getAllPrefs();
   let panicActions = Array.from(document.getElementsByName("panic-action"));
   let panicActionRadio = panicActions.find(aRadioOpt => aRadioOpt.value == prefs.action);
   panicActionRadio.checked = true;
   switchSelectedActionRadioPanel(prefs.action);
+
+  let panicActionRadioBtns = document.querySelectorAll("input[name='panic-action']");
+  panicActionRadioBtns.forEach(aElt => {
+    aElt.addEventListener("click", aEvent => {
+      browser.runtime.sendMessage({msgID: "unsave-minimized-wnd"});
+    });
+  });
 
   $("webpg-url").value = prefs.replacementWebPgURL;
 
@@ -318,9 +298,9 @@ async function init(aEvent)
     rmPswd.style.visibility = "hidden";
   }
 
-  setPswd.addEventListener("click", aEvent => {
-    let prefs = gPanicButton.getPrefs();
-    if (prefs.restoreSessPswdEnabled) {
+  setPswd.addEventListener("click", async (aEvent) => {
+    let restoreSessPswdEnabled = await aePrefs.getPref("restoreSessPswdEnabled");
+    if (restoreSessPswdEnabled) {
       gDialogs.changeRestoreSessPswd.showModal();
     }
     else {
@@ -331,6 +311,8 @@ async function init(aEvent)
   rmPswd.addEventListener("click", aEvent => {
     gDialogs.removeRestoreSessPswd.showModal();
   });
+
+  $("restore-sess-snooze-tabs").checked = prefs.restoreSessInactvTabsZzz;
 
   $("minz-all-camouflage").checked = prefs.showCamouflageWebPg;
   $("minz-all-camouflage-webpg-url").value = prefs.camouflageWebPgURL;
@@ -350,7 +332,10 @@ async function init(aEvent)
 
   $("toolbar-button-caption").value = prefs.toolbarBtnLabel;
 
-  let toolbarBtnIcons = gPanicButton.getToolbarButtonIconLookup();
+  resp = await browser.runtime.sendMessage({
+    msgID: "get-toolbar-btn-icons-map"
+  });
+  let toolbarBtnIcons = resp.toolbarBtnIconsMap;
   let toolbarBtnIconID = toolbarBtnIcons[prefs.toolbarBtnIcon];
   let revContrastChbox = $("rev-contrast-icon");
   
@@ -408,7 +393,7 @@ async function init(aEvent)
   if (shctArr.length > 1) {
     panicButtonKeyMod = keybShct.substring(0, keybShct.lastIndexOf("+"));
     // On macOS, the CTRL key is "MacCtrl".
-    if (gPanicButton.getOS() == "mac") {
+    if (gOS == "mac") {
       panicButtonKeyMod = panicButtonKeyMod.replace(/Command/, "Ctrl");
     }
   }
@@ -453,7 +438,65 @@ async function init(aEvent)
     // Don't allow selection of a non-function key without a modifier.
     keyModNoneOptElt.style.display = "none";
   }
+
+  // Close the Change Icon dialog if it is open.
+  resp = await browser.runtime.sendMessage({ msgID: "ping-change-icon-dlg" });
+  if (resp.isChangeIconDlgOpen) {
+    $("preftab-customize-btn").click();
+    browser.runtime.sendMessage({ msgID: "auto-close-change-icon-dlg" }); 
+  }
 }
+
+
+//
+// Event handlers
+//
+
+document.addEventListener("click", aEvent => {
+  if (aEvent.target.tagName == "INPUT"
+      && aEvent.target.getAttribute("type") == "radio"
+      && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
+    aePrefs.setPrefs({ toolbarBtnIcon: aEvent.target.value });
+
+    let revContrastChbox = $("rev-contrast-icon");
+    
+    if (aEvent.target.id == "custom-icon") {
+      revContrastChbox.setAttribute("disabled", "true");
+    }
+    else {
+      revContrastChbox.removeAttribute("disabled");
+    }
+  }
+});
+
+window.addEventListener("keydown", aEvent => {
+  if (aEvent.key == "Enter" && aeDialog.isOpen()) {
+    aeDialog.acceptDlgs();
+  }
+  else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
+    aeDialog.cancelDlgs();
+  }
+  else {
+    aeInterxn.suppressBrowserShortcuts(aEvent);
+  }
+});
+
+
+browser.runtime.onMessage.addListener(async (aRequest) => {
+  log(`Panic Button/wx::options.js: Received message "${aRequest.msgID}"`);
+
+  if (aRequest.msgID == "ext-prefs-customize") {
+    $("preftab-customize-btn").click();
+
+    let prefsPgTab = await browser.tabs.getCurrent();
+    browser.windows.update(prefsPgTab.windowId, { focused: true });
+    browser.tabs.update(prefsPgTab.id, { active: true });
+  }
+  else if (aRequest.msgID == "ping-ext-prefs-pg") {
+    let resp = { isExtPrefsPgOpen: true };
+    return Promise.resolve(resp);
+  }
+});
 
 
 function switchPrefsPanel(aEvent)
@@ -491,7 +534,7 @@ function initDialogs()
   gDialogs.setRestoreSessPswd.onShow = () => {
     $("enter-password").focus();
   };
-  gDialogs.setRestoreSessPswd.onAccept = () => {
+  gDialogs.setRestoreSessPswd.onAccept = async () => {
     let that = gDialogs.setRestoreSessPswd;
     
     let passwd = $("enter-password").value;
@@ -507,15 +550,18 @@ function initDialogs()
       return;
     }
 
-    gPanicButton.setRestoreSessPasswd(passwd).then(() => {
-      // Add a short delay so that user can see resulting prefs UI changes.
-      window.setTimeout(() => {
-        $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("chgPswd");
-        $("hide-and-replc-rm-pswd").style.visibility = "visible";
-      }, 500);
-      
-      that.close();
+    let resp = await browser.runtime.sendMessage({
+      msgID: "set-restore-sess-passwd",
+      passwd,
     });
+
+    // Add a short delay so that user can see resulting prefs UI changes.
+    window.setTimeout(() => {
+      $("hide-and-replc-set-pswd").innerText = browser.i18n.getMessage("chgPswd");
+      $("hide-and-replc-rm-pswd").style.visibility = "visible";
+    }, 500);
+    
+    that.close();
   };
 
   gDialogs.changeRestoreSessPswd = new aeDialog("#change-password-dlg");
@@ -528,7 +574,7 @@ function initDialogs()
   gDialogs.changeRestoreSessPswd.onShow = () => {
     $("old-pswd").focus();
   };
-  gDialogs.changeRestoreSessPswd.onAccept = () => {
+  gDialogs.changeRestoreSessPswd.onAccept = async () => {
     let that = gDialogs.changeRestoreSessPswd;
 
     let oldPswdElt = $("old-pswd");
@@ -543,8 +589,11 @@ function initDialogs()
       return;
     }
 
+    let resp = await browser.runtime.sendMessage({
+      msgID: "get-restore-sess-passwd"
+    });
+    let currentPswd = resp.restoreSessPwd;
     let enteredOldPswd = oldPswdElt.value;
-    let currentPswd = gPanicButton.getRestoreSessPasswd();
     
     if (enteredOldPswd != currentPswd) {
       $("chg-pswd-error").innerText = browser.i18n.getMessage("pswdWrong");
@@ -556,16 +605,19 @@ function initDialogs()
     if (passwd == "" && confirmPasswd == "") {
       // If both password fields are empty, clear the password as if the user
       // had clicked "Remove Password"
-      gPanicButton.removeRestoreSessPasswd().then(() => {
-        resetPasswdPrefs();
-        that.close();
-      });
+      await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
+
+      resetPasswdPrefs();
+      that.close();
       return;
     }
 
-    gPanicButton.setRestoreSessPasswd(passwd).then(() => {
-      that.close();
+    await browser.runtime.sendMessage({
+      msgID: "set-restore-sess-passwd",
+      passwd
     });
+
+    that.close();
   };
 
   gDialogs.removeRestoreSessPswd = new aeDialog("#remove-password-dlg");
@@ -576,12 +628,15 @@ function initDialogs()
   gDialogs.removeRestoreSessPswd.onShow = () => {
     $("pswd-for-removal").focus();
   };
-  gDialogs.removeRestoreSessPswd.onAccept = () => {
+  gDialogs.removeRestoreSessPswd.onAccept = async () => {
     let that = gDialogs.removeRestoreSessPswd;
 
     let enteredPswdElt = $("pswd-for-removal");
     let enteredPswd = enteredPswdElt.value;
-    let currPswd = gPanicButton.getRestoreSessPasswd();
+    let resp = await browser.runtime.sendMessage({
+      msgID: "get-restore-sess-passwd"
+    });
+    let currPswd = resp.restoreSessPwd;
 
     if (enteredPswd != currPswd) {
       $("rm-pswd-error").innerText = browser.i18n.getMessage("pswdWrong");
@@ -590,10 +645,9 @@ function initDialogs()
       return;
     }
     
-    gPanicButton.removeRestoreSessPasswd().then(() => {
-      resetPasswdPrefs();
-      that.close();
-    });
+    await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
+    resetPasswdPrefs();
+    that.close();
   };
   
   gDialogs.about = new aeDialog("#about-dlg");
@@ -623,7 +677,7 @@ function selectPanicAction(aEvent)
 {
   let selectedActionID = aEvent.target.value;
   switchSelectedActionRadioPanel(selectedActionID);
-  setPref({ action: selectedActionID });
+  aePrefs.setPrefs({ action: selectedActionID });
 }
 
 
@@ -668,7 +722,7 @@ function setCustomTBIcon(aEvent)
       canvasCtx.drawImage(this, 0, 0, 36, 36);
 
       let scaledImgData = canvas.toDataURL("image/png");
-      setPref({
+      aePrefs.setPrefs({
         toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,
         toolbarBtnData: scaledImgData,
         toolbarBtnRevContrastIco: false,
@@ -694,7 +748,7 @@ function setCustomTBIcon(aEvent)
 function getLocalizedKeybShct(aShortcutKeyModifiers, aShortcutKey)
 {
   let rv = "";
-  let isMacOS = gPanicButton.getOS() == "mac";
+  let isMacOS = gOS == "mac";
   let keys = [
     "Home", "End", "PageUp", "PageDown", "Space", "Insert", "Delete",
     "Up", "Down", "Left", "Right"
@@ -761,23 +815,17 @@ function getLocalizedKeybShct(aShortcutKeyModifiers, aShortcutKey)
 }
 
 
-function setPref(aPref)
-{
-  browser.storage.local.set(aPref);
-}
-
-
 function resetReplacemtWebPageURL(aEvent)
 {
   $("webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
-  setPref({ replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });  
+  aePrefs.setPrefs({ replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });  
 }
 
 
 function resetMinzAllCamouflageWebPageURL(aEvent)
 {
   $("minz-all-camouflage-webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
-  setPref({ camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });
+  aePrefs.setPrefs({ camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });
 }
 
 
@@ -798,7 +846,7 @@ function resetCustomizations(aEvent)
   $("default").checked = true;
   $("rev-contrast-icon").checked = false;
 
-  setPref({
+  aePrefs.setPrefs({
     toolbarBtnLabel: browser.i18n.getMessage("defaultBtnLabel"),
     toolbarBtnIcon: 0,
     toolbarBtnRevContrastIco: false,

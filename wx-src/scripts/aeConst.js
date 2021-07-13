@@ -29,6 +29,6 @@ let aeConst = {
 
   DEFAULT_KEYB_SHCT: "F8",
 
-  DONATE_URL: "https://www.paypal.me/aecreations88/5.99cad",
+  DONATE_URL: "https://www.paypal.me/aecreations88/7.99cad",
   L10N_URL: "https://crowdin.com/project/aecreations-panic-button",
 };

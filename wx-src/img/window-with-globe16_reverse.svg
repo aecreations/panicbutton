@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +11,7 @@
    height="16"
    id="svg2987"
    version="1.1"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
    sodipodi:docname="window-with-globe16_reverse.svg"
    inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/window32.png"
    inkscape:export-xdpi="90"
@@ -22,10 +20,10 @@
      id="defs2989" />
   <sodipodi:namedview
      id="base"
-     pagecolor="#ffffff"
+     pagecolor="#808080"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="41.7193"
      inkscape:cx="7.4320151"
@@ -40,8 +38,9 @@
      inkscape:window-width="2048"
      inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="1"
-     inkscape:window-maximized="1">
+     inkscape:window-y="23"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid2995"
@@ -58,7 +57,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -68,13 +67,13 @@
      inkscape:groupmode="layer"
      transform="translate(0,-16)">
     <path
-       style="fill:#f9f9fa;fill-opacity:0.00392157;stroke:#d7d7db;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:#f9f9fa;fill-opacity:0.00392157;stroke:#ffffff;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 3.5,22.244323 3.5,16.5 h 12 v 11 l -6.2952063,0.02397"
        id="rect3765"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
     <rect
-       style="fill:#d7d7db;fill-opacity:1;fill-rule:nonzero;stroke:#d7d7db;stroke-width:0.45099044;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.45099044;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3791"
        width="8.5490093"
        height="1.5490096"
@@ -82,7 +81,7 @@
        y="18.225498" />
     <path
        sodipodi:type="arc"
-       style="fill:#f9f9fa;fill-opacity:0.00392157;fill-rule:nonzero;stroke:#d7d7db;stroke-width:2.82952738;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#f9f9fa;fill-opacity:0.00392157;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.82952738;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="path4417-1"
        sodipodi:cx="16.5"
        sodipodi:cy="16.5"
@@ -91,25 +90,25 @@
        d="M 26,16.5 A 9.5,9.5 0 0 1 16.5,26 9.5,9.5 0 0 1 7,16.5 9.5,9.5 0 0 1 16.5,7 9.5,9.5 0 0 1 26,16.5 Z"
        transform="matrix(0.47105948,0,0,0.47105948,-2.4039785,18.944016)" />
     <path
-       style="fill:none;stroke:#d7d7db;stroke-width:0.61312282;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#ffffff;stroke-width:0.61312282;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 1.3108299,24.969202 0.7241833,0.37206 c 0.8065874,0.203574 0.9683171,0.11519 1.4320871,0.211722 0.4901767,0.102029 1.108353,0.110511 1.786263,0.108941 0,0 0.7379617,0.01228 1.6440154,-0.17353 0.9266807,-0.190022 1.0489662,-0.204619 1.0489662,-0.204619 l 1.0803973,-0.339991"
        id="path4946-6-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccscscc" />
     <path
-       style="fill:none;stroke:#d7d7db;stroke-width:0.7472989;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#ffffff;stroke-width:0.7472989;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 0.91914637,27.539609 1.61916233,0.331456 c 1.1766302,0.238603 1.5015385,0.03278 2.6900533,0.0887 1.2785293,0.0092 1.7652466,-0.03973 2.6906586,-0.189515 l 1.5809635,-0.452729"
        id="path4946-6-0-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
     <path
-       style="fill:none;stroke:#d7d7db;stroke-width:0.67887801;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#ffffff;stroke-width:0.67887801;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 4.440062,22.434219 c -0.1156888,0.846293 -0.2806198,1.373741 -0.3505817,2.640991 -0.1461827,0.822216 -0.1008087,1.007717 -0.1037439,2.124015 0.042759,1.01536 0.076266,1.546162 0.2064516,2.156407 0.095492,0.617868 0.155594,0.897324 0.2246852,1.739513"
        id="path4984-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
     <path
-       style="fill:none;stroke:#d7d7db;stroke-width:0.70464689;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#ffffff;stroke-width:0.70464689;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 6.2337751,22.536552 c 0.2895619,1.068463 0.3515559,1.656139 0.5904023,2.874671 0.1621374,0.819763 0.1521194,0.987845 0.1553766,1.876121 -0.00711,0.742696 -0.04427,1.22698 -0.2289838,2.19491 -0.1059174,0.616024 -0.2531991,0.984523 -0.4910788,1.689381"
        id="path4984-8-1"
        inkscape:connector-curvature="0"

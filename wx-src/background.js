@@ -3,43 +3,372 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-let gIsInitialized = false;
 let gOS;
 let gHostAppVer;
 let gPrefs;
-let gReplaceSession = false;
-let gReplacemtWndID = null;
-let gNumClosedWnds = 0;
-let gShowCamouflageWnd = false;
-let gCamouflageWndID = null;
-let gMinimizedWndID = null;
-let gMinimizedWndStates = [];
-let gClosedWndStates = [];
-let gClosedWndActiveTabIndexes = [];
-let gClosedWndNumPinnedTabs = [];
+let gChangeIconWndID = null;
 
-let gToolbarBtnIcons = [
-  "default",
-  "exclamation-in-ball",
-  "quit",
-  "exit-door",
-  "window-minimize",
-  "window-with-exclamation",
-  "window-with-exclamation-ball",
-  "window-with-cross",
-  "window-with-check",
-  "plain-window",
-  "dotted-window",
-  "window-with-globe",
-  "web-page",
-  "web-page-with-globe",
-  "web-document",
-  "smiley",
-  "picture",
-  "desktop",
-  "computer",
-  "letter-a"
-];
+let gBrowserWindows = {
+  _minzWndID: null,
+  _camoWndID: null,
+  _minzWndStates: [],
+  
+  async minimizeCurrent()
+  {
+    log("Panic Button/wx: gBrowserWindows.minimizeCurrent()");
+
+    let wnd = await browser.windows.getCurrent();
+
+    await browser.windows.update(wnd.id, { state: "minimized" });
+    log("Minimized window: " + wnd.id);
+
+    this._minzWndID = wnd.id;
+  },
+
+  async minimizeAll()
+  {
+    log("Panic Button/wx: gBrowserWindows.minimizeAll()");
+
+    let wnds = await browser.windows.getAll();
+    for (let wnd of wnds) {
+      this._minzWndStates.push({
+        id: wnd.id,
+        wndState: wnd.state,
+      });
+      await browser.windows.update(wnd.id, { state: "minimized" });
+      log("Minimized window: " + wnd.id);
+    }
+
+    if (gPrefs.showCamouflageWebPg) {
+      this._openCamouflageWnd(gPrefs.camouflageWebPgURL);
+    }    
+  },
+
+  async restoreAll()
+  {
+    if (this.isCamouflageWindowOpen()) {
+      this._closeCamouflageWnd();
+    }
+    
+    while (this._minzWndStates.length > 0) {
+      let minzWnd = this._minzWndStates.pop();
+
+      try {
+        await browser.windows.get(minzWnd.id);
+
+        // Confirm that the minimized window still exists.
+        await browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
+      }
+      catch (e) {
+        warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
+      };
+    }
+  },
+
+  async restoreMinimized()
+  {
+    let rv = false;
+    let wnd = null;
+
+    try {
+      wnd = await browser.windows.get(this._minzWndID);    
+    }
+    catch (e) {
+      warn("Panic Button/wx: gBrowserWindows.restoreMinimized(): Window ID no longer valid (was it just closed?)");
+    }
+
+    if (wnd.state == "minimized") {
+      // TO DO: Don't assume previous window state.
+      await browser.windows.update(this._minzWndID, { state: "normal" });
+      this._minzWndID = null;
+      rv = true;
+    }
+
+    return rv;
+  },
+  
+  async closeAll()
+  {
+    let wnds = await browser.windows.getAll({populate: true});
+
+    for (let wnd of wnds) {
+      browser.windows.remove(wnd.id);
+    }
+  },
+
+  isCamouflageWindowOpen()
+  {
+    return (this._camoWndID != null);
+  },
+
+  isMinimized()
+  {
+    return (this._minzWndID != null);
+  },
+
+  unsaveMinimizedWnd()
+  {
+    this._minzWndID = null;
+  },
+
+
+  //
+  // Private helper methods
+  //
+  
+  async _openCamouflageWnd(aCamouflageURL)
+  {
+    let wnd = await browser.windows.create({ url: aCamouflageURL });
+    info("Panic Button/wx: gBrowserWindows.openCamouflageWnd(): Camouflage window ID: " + wnd.id);
+    this._camoWndID = wnd.id;
+    
+    return this._camoWndID;
+  },
+
+  _closeCamouflageWnd()
+  {
+    if (this._camoWndID === null) {
+      throw new Error("Panic Button/wx: gBrowserWindows.closeCamouflageWnd(): Camouflage window ID is null");
+    }
+    
+    browser.windows.remove(this._camoWndID);
+    this._camoWndID = null;
+  }
+};
+
+
+let gBrowserSession = {
+  CHANGE_ICON_EXT_PG_URL: browser.runtime.getURL("pages/changeIcon.html"),
+  
+  _replaceSession: false,
+  _replacemtWndID: null,
+  _savedWnds: [],
+  _readerModeTabIDs: new Set(),
+
+  async saveAndClose(aReplacementURL)
+  {
+    let wnds = await browser.windows.getAll({ populate: true });
+
+    if (aReplacementURL) {
+      let replcWnd = await browser.windows.create({ url: aReplacementURL });
+      this._replacemtWndID = replcWnd.id;
+      this._replaceSession = true;
+    }
+
+    for (let wnd of wnds) {
+      if (wnd.id == this._replacemtWndID) {
+	continue;
+      }
+
+      // Don't save the Change Icon popup window.
+      if (wnd.tabs[0].url == this.CHANGE_ICON_EXT_PG_URL) {
+        browser.windows.remove(wnd.id);
+        continue;
+      }
+
+      log("Panic Button/wx: gBrowserSession.saveAndClose(): Saving browser window:");
+      log(wnd);
+
+      let activeTabIdx = wnd.tabs.findIndex(aTab => aTab.active);
+      let numPinnedTabs = 0;
+      for (let i = 0; i < wnd.tabs.length; i++) {
+        if (wnd.tabs[i].pinned) {
+	  numPinnedTabs++;
+        }
+        else {
+	  break;
+        }
+      };
+
+      let savedWnd = new aeSavedWindow(activeTabIdx, numPinnedTabs, wnd);
+      this._savedWnds.push(savedWnd);
+
+      browser.windows.remove(wnd.id);
+    }
+
+    this._readerModeTabIDs.clear();
+  },
+
+  async restore()
+  {
+    let focusedWndID = null;
+    
+    while (this._savedWnds.length > 0) {
+      let closedWnd = this._savedWnds.shift();
+      let wndPpty = {
+        type: "normal",
+        incognito: closedWnd.info.incognito,
+        state: closedWnd.info.state,
+      };
+
+      if (closedWnd.info.state == "normal") {
+        wndPpty.top = closedWnd.info.top;
+        wndPpty.left = closedWnd.info.left;
+        wndPpty.width = closedWnd.info.width;
+        wndPpty.height = closedWnd.info.height;
+      }
+
+      let savedTabs = [];
+      
+      if (closedWnd.info.tabs.length == 1) {
+        let savedTab = closedWnd.info.tabs[0];
+        let brwsTabURL = savedTab.url;
+
+        // Default to home page if URL is restricted.
+        brwsTabURL = this._isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
+
+        if (savedTab.isInReaderMode) {
+          wndPpty.url = this._sanitizeReaderModeURL(brwsTabURL);
+          this._readerModeTabIDs.add(savedTab.id);
+        }
+        else {
+          wndPpty.url = brwsTabURL;
+        }
+      }
+      else {
+        wndPpty.url = "about:blank";
+        savedTabs = closedWnd.info.tabs.filter(aTab => this._isNonRestrictedURL(aTab.url));
+
+        if (savedTabs.length == 0) {
+          wndPpty.url = null;
+        }
+      }
+
+      let createdWnd = await browser.windows.create(wndPpty);
+      let wndID = createdWnd.id;
+
+      savedTabs.forEach(async (aTab, aIndex, aArray) => {
+        let isReaderMode = false;
+        let tabPpty = {
+          windowId: wndID,
+          discarded: gPrefs.restoreSessInactvTabsZzz,
+          cookieStoreId: aTab.cookieStoreId,
+        };
+        if (aTab.isInReaderMode) {
+          tabPpty.url = this._sanitizeReaderModeURL(aTab.url);
+          isReaderMode = true;
+        }
+        else {
+          tabPpty.url = aTab.url;
+        }
+
+        let tab = await browser.tabs.create(tabPpty);
+        if (isReaderMode) {
+          this._readerModeTabIDs.add(tab.id);
+        }
+      });
+
+      if (savedTabs.length > 0) {
+        // Get rid of dummy browser tab.
+        let brwsTabs = await browser.tabs.query({
+          windowId: wndID,
+          index: 0,
+        });
+        await browser.tabs.remove(brwsTabs[0].id);
+      }
+      
+      let activeTabIdx = closedWnd.activeTabIdx;
+      let activeTabID = 0;
+
+      let wnd = await browser.windows.get(createdWnd.id, { populate: true });
+
+      log("Panic Button/wx: gBrowserSession.restore(): Restored browser window:");
+      log(wnd);
+
+      if (activeTabIdx >= wnd.tabs.length) {
+        // Some tabs may not be restored (e.g. "about:" pages), which would
+        // mess up the saved index of the active tab.
+        activeTabIdx = wnd.tabs.length - 1;
+        activeTabID = wnd.tabs[activeTabIdx].id;
+      }
+      else {
+        activeTabID = wnd.tabs[activeTabIdx].id;
+      }
+
+      log("Index of active browser tab: " + activeTabIdx + "; active browser tab ID: " + activeTabID);
+      await browser.tabs.update(activeTabID, {active: true});
+
+      let numPinnedTabs = closedWnd.numPinnedTabs;
+      for (let i = 0; i < numPinnedTabs; i++) {
+        browser.tabs.update(wnd.tabs[i].id, {pinned: true});
+      }
+
+      if (closedWnd.info.focused) {
+        focusedWndID = wnd.id;
+      }
+    }
+    // END while
+
+    let replacemtWnd = await browser.windows.get(this._replacemtWndID);
+    await browser.windows.remove(replacemtWnd.id);
+    this._replacemtWndID = null;
+    this._replaceSession = false;
+
+    if (focusedWndID) {
+      await browser.windows.update(focusedWndID, {focused: true});
+    }
+  },
+
+  isStashed()
+  {
+    return this._replaceSession;
+  },
+
+  isReaderModeTab(aTabID)
+  {
+    return this._readerModeTabIDs.has(aTabID);
+  },
+
+  async restoreReaderModeTab(aTabID)
+  {
+    let brwsTab = await browser.tabs.get(aTabID);
+    if (! brwsTab.isInReaderMode) {
+      try {
+        await browser.tabs.toggleReaderMode(aTabID);
+      }
+      catch (e) {
+        warn(`Panic Button/wx: gBrowserSession.restoreReaderModeTab(): Unable to turn on Reader Mode for tab ${aTabID}: ${e}`);
+        return;
+      }
+    }
+    this._readerModeTabIDs.delete(aTabID);
+  },
+  
+
+  //
+  // Private helper methods
+  //
+
+  _isNonRestrictedURL(aURL)
+  {
+    // The restricted URLs for browser.tabs.create() are described here:
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/create
+    let rv = true;
+
+    if (aURL.startsWith("about:reader")) {
+      rv = true;
+    }
+    else {
+      rv = !(aURL.startsWith("chrome:")
+	     || aURL.startsWith("file:")
+	     || aURL.startsWith("javascript:")
+	     || aURL.startsWith("data:")
+	     || aURL.startsWith("about:"));
+    }
+    return rv;
+  },
+
+  _sanitizeReaderModeURL(aURL)
+  {
+    // Reader Mode tabs have a special URL format: "about:reader?url=<Encoded URL>"
+    let rv = "";
+    let encURL = aURL.substr(17);
+
+    rv = decodeURIComponent(encURL);
+
+    return rv;
+  }
+};
 
 
 //
@@ -59,26 +388,27 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
     
     log(`Panic Button/wx: Upgrading from version ${oldVer} to ${currVer}`);
 
-    gPrefs = await browser.storage.local.get();
+    gPrefs = await aePrefs.getAllPrefs();
 
-    if (! hasSantaCruzPrefs()) {
+    if (! aePrefs.hasSantaCruzPrefs(gPrefs)) {
       log("Initializing 4.1 user preferences");
-      await setSantaCruzPrefs();
+      await aePrefs.setSantaCruzPrefs(gPrefs);
     }
 
-    if (! hasSantaRosaPrefs()) {
+    if (! aePrefs.hasSantaRosaPrefs(gPrefs)) {
       log("Initializing 4.2 user preferences.");
-      await setSantaRosaPrefs();
+      await aePrefs.setSantaRosaPrefs(gPrefs);
     }
 
-    if (! hasSantaCatalinaPrefs()) {
+    if (! aePrefs.hasSantaCatalinaPrefs(gPrefs)) {
       log("Initializing 4.3 user preferences.");
-      await setSantaCatalinaPrefs();
+      await aePrefs.setSantaCatalinaPrefs(gPrefs);
+    }
 
-      let cmds = await browser.commands.getAll();
-      if (cmds[0].shortcut == aeConst.DEFAULT_KEYB_SHCT) {
-        browser.tabs.create({ url: "pages/whatsnew.html" });
-      }
+    if (! aePrefs.hasSanNicolasPrefs(gPrefs)) {
+      log("Initializing 4.4 user preferences.");
+      await aePrefs.setSanNicolasPrefs(gPrefs);
+      browser.tabs.create({ url: "pages/whatsnew.html" });
     }
 
     await init();
@@ -86,93 +416,12 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
 });
 
 
-function hasSantaCruzPrefs()
-{
-  // Version 4.1
-  return gPrefs.hasOwnProperty("restoreSessPswdEnabled");
-}
-
-
-async function setSantaCruzPrefs()
-{
-  let newPrefs = {
-    panicButtonKey: "F9",
-    panicButtonKeyMod: "",
-    restoreSessPswdEnabled: false,
-    restoreSessPswd: null,
-  };
-
-  for (let pref in newPrefs) {
-    gPrefs[pref] = newPrefs[pref];
-  }
-
-  await browser.storage.local.set(newPrefs);
-}
-
-
-function hasSantaRosaPrefs()
-{
-  // Version 4.2
-  return gPrefs.hasOwnProperty("showCamouflageWebPg");
-}
-
-
-async function setSantaRosaPrefs()
-{
-  let newPrefs = {
-    showCamouflageWebPg: false,
-    camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-  };
-
-  for (let pref in newPrefs) {
-    gPrefs[pref] = newPrefs[pref];
-  }
-
-  await browser.storage.local.set(newPrefs);
-}
-
-
-function hasSantaCatalinaPrefs()
-{
-  // Version 4.3
-  return gPrefs.hasOwnProperty("minimizeCurrOpt");
-}
-
-
-async function setSantaCatalinaPrefs()
-{
-  let newPrefs = {
-    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
-  };
-
-  for (let pref in newPrefs) {
-    gPrefs[pref] = newPrefs[pref];
-  }
-
-  await browser.storage.local.set(newPrefs);
-}
-
-
 async function setDefaultPrefs()
 {
-  let aePanicButtonPrefs = {
-    action: aeConst.PANICBUTTON_ACTION_REPLACE,
-    toolbarBtnIcon: 0,
-    toolbarBtnLabel: browser.i18n.getMessage("defaultBtnLabel"),
-    toolbarBtnRevContrastIco: false,
-    shortcutKey: true,
-    panicButtonKey: "F9",
-    panicButtonKeyMod: "",
-    replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-    restoreSessPswdEnabled: false,
-    restoreSessPswd: null,
-    showCamouflageWebPg: false,
-    camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
-    minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
-  };
+  let defaultPrefs = aePrefs.getDefaultPrefs();
 
-  gPrefs = aePanicButtonPrefs;
-  await browser.storage.local.set(aePanicButtonPrefs);
+  gPrefs = defaultPrefs;
+  await aePrefs.setPrefs(defaultPrefs);
 }
 
 
@@ -184,17 +433,13 @@ async function setDefaultPrefs()
 browser.runtime.onStartup.addListener(async () => {
   log("Panic Button/wx: Initializing Panic Button during browser startup.");
 
-  gPrefs = await browser.storage.local.get();
+  gPrefs = await aePrefs.getAllPrefs();
   init();
 });
 
 
 async function init()
 {
-  if (gIsInitialized) {
-    return;
-  }
-
   let getBrwsInfo = browser.runtime.getBrowserInfo();
   let getPlatInfo = browser.runtime.getPlatformInfo();
 
@@ -208,49 +453,45 @@ async function init()
     gOS = platform.os;
     log("Panic Button/wx: OS: " + gOS);
 
-    browser.browserAction.onClicked.addListener(async (aTab) => {
-      await panic();
+    if (gPrefs.autoAdjustWndPos === null) {
+      let autoAdjustWndPos = gOS == "win";
+      await aePrefs.setPrefs({ autoAdjustWndPos });
+    }
+
+    await setPanicButtonCustomizations();
+    
+    browser.menus.create({
+      id: "ae-panicbutton-change-icon",
+      title: browser.i18n.getMessage("chgIconMenu"),
+      contexts: ["browser_action"],
+    });
+    browser.menus.create({
+      id: "ae-panicbutton-prefs",
+      title: browser.i18n.getMessage("prefsPgMenu"),
+      contexts: ["browser_action"],
     });
 
-    browser.commands.onCommand.addListener(async (aCmd) => {
-      if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
-        await panic();
-      }
-    });
-
-    browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
-      let changedPrefs = Object.keys(aChanges);
-      
-      for (let pref of changedPrefs) {
-        gPrefs[pref] = aChanges[pref].newValue;
-      }
-
-      setPanicButtonCustomizations();
-    });
-
-    setPanicButtonCustomizations();
-
-    gIsInitialized = true;
     log("Panic Button/wx: Initialization complete.");
   });
 }
 
 
-function setPanicButtonCustomizations()
+async function setPanicButtonCustomizations()
 {
-  setToolbarButtonIcon(gPrefs.toolbarBtnIcon, gPrefs.toolbarBtnRevContrastIco);
+  await setToolbarButtonIcon(gPrefs.toolbarBtnIcon, gPrefs.toolbarBtnRevContrastIco);
   browser.browserAction.setTitle({ title: gPrefs.toolbarBtnLabel });
 }
 
 
-function setToolbarButtonIcon(aIconIndex, isReverseContrast)
+async function setToolbarButtonIcon(aIconIndex, isReverseContrast)
 {
   if (aIconIndex == aeConst.CUSTOM_ICON_IDX) {
-    setCustomToolbarButtonIcon();
+    await setCustomToolbarButtonIcon();
     return;
   }
-  
-  let toolbarBtnIconName = gToolbarBtnIcons[aIconIndex];
+
+  let toolbarBtnIcons = getToolbarButtonIconsMap();
+  let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
   let revCntrst = isReverseContrast ? "_reverse" : "";
 
   browser.browserAction.setIcon({
@@ -258,324 +499,195 @@ function setToolbarButtonIcon(aIconIndex, isReverseContrast)
       16: "img/" + toolbarBtnIconName + "16" + revCntrst + ".svg",
       32: "img/" + toolbarBtnIconName + "16" + revCntrst + ".svg",
     }
-  }).catch(onError);
-}
-
-
-function setCustomToolbarButtonIcon()
-{
-  let getPrefs = browser.storage.local.get();
-  getPrefs.then(aResult => {
-    let iconDataURL = aResult.toolbarBtnData;
-
-    browser.browserAction.setIcon({
-      path: {
-        16: iconDataURL,
-        32: iconDataURL,
-        64: iconDataURL
-      }
-    });
   });
 }
 
 
-function getToolbarButtonIconLookup()
+async function setCustomToolbarButtonIcon()
 {
-  return gToolbarBtnIcons;
+  let iconDataURL = await aePrefs.getPref("toolbarBtnData");
+
+  browser.browserAction.setIcon({
+    path: {
+      16: iconDataURL,
+      32: iconDataURL,
+      64: iconDataURL
+    }
+  });
 }
 
 
-async function panic()
+function getToolbarButtonIconsMap()
 {
-  if (gReplaceSession) {
-    if (gPrefs.restoreSessPswdEnabled) {
-      browser.tabs.update({ url: "pages/restoreSession.html" });
-    }
-    else {
-      await restoreBrowserSession();
-    }
-  }
-  else if (gShowCamouflageWnd) {
-    await restoreBrowserWindowState();
-    gShowCamouflageWnd = false;
-  }
-  else if (gMinimizedWndID && gPrefs.minimizeCurrOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
-    if (await restoreMinimizedBrowserWindowState()) {
-      gMinimizedWndID = null;
-    }
-    else {
-      await minimizeCurrent();
-    }
-  }
-  else {
-    if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
-      let replacementURL = gPrefs.replacementWebPgURL;
-      await closeAll(true, replacementURL);
-    }
-    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
-      await minimizeAll();
-    }
-    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
-      await closeAll(false);
-    }
-    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR) {
-      await minimizeCurrent();
-    }
-  }
-}
-
-
-async function restoreBrowserWindowState()
-{
-  if (gShowCamouflageWnd) {
-    browser.windows.remove(gCamouflageWndID);
-    gCamouflageWndID = null;
-  }
-  
-  while (gMinimizedWndStates.length > 0) {
-    let minzWnd = gMinimizedWndStates.pop();
-
-    try {
-      await browser.windows.get(minzWnd.id);
-
-      // Confirm that the minimized window still exists.
-      await browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
-    }
-    catch (e) {
-      warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
-    };
-  }
-}
-
-
-async function restoreMinimizedBrowserWindowState()
-{
-  let rv = false;
-  let wnd = null;
-
-  try {
-    wnd = await browser.windows.get(gMinimizedWndID);    
-  }
-  catch (e) {
-    warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
-  }
-
-  if (wnd.state == "minimized") {
-    // TO DO: Don't assume previous window state.
-    await browser.windows.update(gMinimizedWndID, { state: "normal" });
-    rv = true;
-  }
+  let rv = [
+    "default",
+    "exclamation-in-ball",
+    "quit",
+    "exit-door",
+    "window-minimize",
+    "window-with-exclamation",
+    "window-with-exclamation-ball",
+    "window-with-cross",
+    "window-with-check",
+    "plain-window",
+    "dotted-window",
+    "window-with-globe",
+    "web-page",
+    "web-page-with-globe",
+    "web-document",
+    "smiley",
+    "picture",
+    "desktop",
+    "computer",
+    "letter-a"
+  ];
 
   return rv;
 }
 
 
-async function restoreBrowserSession()
-{
-  function isNonRestrictedURL(aURL)
-  {
-    // The restricted URLs for browser.tabs.create() are described here:
-    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/create
-    let rv = true;
+//
+// Event handlers
+//
 
-    if (aURL.startsWith("about:reader")) {
-      rv = true;
+browser.browserAction.onClicked.addListener(async (aTab) => {
+  await panic();
+});
+
+browser.commands.onCommand.addListener(async (aCmd) => {
+  if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
+    await panic();
+  }
+});
+
+browser.menus.onClicked.addListener((aInfo, aTab) => {
+  if (aInfo.menuItemId == "ae-panicbutton-change-icon") {
+    openChangeIconDlg();
+  }
+  else if (aInfo.menuItemId == "ae-panicbutton-prefs") {
+    browser.runtime.openOptionsPage();
+  }
+});
+
+
+browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
+  let changedPrefs = Object.keys(aChanges);
+  
+  for (let pref of changedPrefs) {
+    gPrefs[pref] = aChanges[pref].newValue;
+  }
+
+  await setPanicButtonCustomizations();
+});
+
+
+browser.runtime.onMessage.addListener(async (aRequest) => {
+  log(`Panic Button/wx: Received message "${aRequest.msgID}"`);
+    
+  let resp = null;
+
+  switch (aRequest.msgID) {
+  case "get-system-info":
+    resp = { os: getOS() };
+    break;
+
+  case "get-toolbar-btn-icons-map":
+    resp = { toolbarBtnIconsMap: getToolbarButtonIconsMap() };
+    break;
+
+  case "restore-brws-sess":
+    gBrowserSession.restore();
+    break;
+
+  case "get-restore-sess-passwd":
+    resp = { restoreSessPwd: getRestoreSessPasswd() };
+    break;
+
+  case "set-restore-sess-passwd":
+    await setRestoreSessPasswd(aRequest.passwd);
+    resp = {};
+    break;
+
+  case "rm-restore-sess-passwd":
+    await removeRestoreSessPasswd();
+    resp = {};
+    break;
+
+  case "close-change-icon-dlg":
+    gChangeIconWndID = null;
+    break;
+
+  case "ping-change-icon-dlg":
+    resp = { isChangeIconDlgOpen: !!gChangeIconWndID };
+    break;
+
+  case "unsave-minimized-wnd":
+    gBrowserWindows.unsaveMinimizedWnd();
+    break;
+
+  default:
+    break;
+  }
+
+  if (resp) {
+    return Promise.resolve(resp);
+  }
+});
+
+
+browser.tabs.onUpdated.addListener((aTabID, aChangeInfo, aTab) => {
+  if (aChangeInfo.status == "complete") {
+    if (gBrowserSession.isStashed()) {
+      // Don't do anything for the temporary replacement browser window that was
+      // opened when Hide And Replace was invoked.
+      return;
+    }
+
+    if (gBrowserSession.isReaderModeTab(aTabID)) {
+      log(`Attempting to restore Reader Mode on tab ${aTabID}\nstatus: ${aTab.status}\nURL: ${aTab.url}\ndiscarded: ${aTab.discarded}\nisArticle: ${aTab.isArticle}\nisInReaderMode: ${aTab.isInReaderMode}`);
+      gBrowserSession.restoreReaderModeTab(aTabID);
+    }
+  }
+}, { properties: ["status"] });
+
+
+//
+// Browser action
+//
+
+async function panic()
+{
+  if (gBrowserSession.isStashed()) {
+    if (gPrefs.restoreSessPswdEnabled) {
+      browser.tabs.update({ url: "pages/restoreSession.html" });
     }
     else {
-      rv = !(aURL.startsWith("chrome:")
-	     || aURL.startsWith("file:")
-	     || aURL.startsWith("javascript:")
-	     || aURL.startsWith("data:")
-	     || aURL.startsWith("about:"));
-    }
-    return rv;
-  }
-
-  function sanitizeURL(aURL)
-  {
-    let rv = "";
-
-    if (aURL === null) {
-      rv = null;
-    }
-    // Reader Mode tabs have a special URL format: "about:reader?url=<Encoded URL>"
-    else if (aURL.startsWith("about:reader")) {
-      let encURL = aURL.substr(17);
-      rv = decodeURIComponent(encURL);
-    }
-    else {
-      rv = aURL;
-    }
-    
-    return rv;
-  }
-  // END nested functions
-
-  if (gReplaceSession) {
-    log("Panic Button/wx::restoreBrowserSession(): Number of windows to restore: " + gClosedWndStates.length);
-
-    let focusedWndID = null;
-    
-    while (gClosedWndStates.length > 0) {   
-      let closedWnd = gClosedWndStates.shift();
-      let wndPpty = {
-        type: "normal",
-        incognito: closedWnd.incognito,
-        state: closedWnd.state,
-      };
-
-      if (closedWnd.state == "normal") {
-        wndPpty.top = closedWnd.top;
-        wndPpty.left = closedWnd.left;
-        wndPpty.width = closedWnd.width;
-        wndPpty.height = closedWnd.height;
-      }
-
-      if (closedWnd.tabs.length == 1) {
-        let brwsTabURL = closedWnd.tabs[0].url;
-
-        // Default to home page if URL is restricted.
-        let safeTabURL = isNonRestrictedURL(brwsTabURL) ? brwsTabURL : null;
-        wndPpty.url = sanitizeURL(safeTabURL);
-      }
-      else {
-        let safeBrwsTabs = closedWnd.tabs.filter(aTab => isNonRestrictedURL(aTab.url));
-
-        if (safeBrwsTabs.length == 0) {
-          wndPpty.url = null;
-        }
-        else {
-          wndPpty.url = safeBrwsTabs.map(aTab => {
-            return sanitizeURL(aTab.url);
-          });
-        }
-      }
-
-      log("Panic Button/wx::restoreBrowserSession(): Info about window being restored: ");
-      log(wndPpty);
-
-      let createdWnd = await browser.windows.create(wndPpty);
-      let activeTabIdx = gClosedWndActiveTabIndexes.shift();
-      let activeTabID = 0;
-
-      if (activeTabIdx >= createdWnd.tabs.length) {
-        // Some tabs may not be restored (e.g. "about:" pages), which would
-        // mess up the saved index of the active tab.
-        log(`Setting last tab for window (id = ${createdWnd.id}) to be active.`);
-        activeTabIdx = createdWnd.tabs.length - 1;
-        activeTabID = createdWnd.tabs[activeTabIdx].id;
-      }
-      else {
-        log(`Setting tab[${activeTabIdx}] for window (id = ${createdWnd.id}) to be active.`);
-        activeTabID = createdWnd.tabs[activeTabIdx].id;
-      }
-      await browser.tabs.update(activeTabID, {active: true});
-
-      let numPinnedTabs = gClosedWndNumPinnedTabs.shift();
-      for (let i = 0; i < numPinnedTabs; i++) {
-        browser.tabs.update(createdWnd.tabs[i].id, {pinned: true});
-      }
-      
-      if (closedWnd.focused) {
-        focusedWndID = createdWnd.id;
-      }
-      
-      log(`Panic Button/wx: Finished restoring window (ID = ${createdWnd.id})`);
-    }
-
-    info(`Panic Button/wx: Closing replacement browser window (window ID: ${gReplacemtWndID})`);
-    
-    let replacemtWnd = await browser.windows.get(gReplacemtWndID);
-    await browser.windows.remove(replacemtWnd.id);
-    gReplacemtWndID = null;
-    gReplaceSession = false;
-
-    if (focusedWndID) {
-      let updWnd = await browser.windows.update(focusedWndID, {focused: true});
-      log(`Panic Button/wx: Focusing window ${updWnd.id}`);
+      await gBrowserSession.restore();
     }
   }
-}
-
-
-async function minimizeAll()
-{
-  log("Panic Button/wx: Invoked function minimizeAll()");
-
-  let wnds = await browser.windows.getAll();
-  for (let wnd of wnds) {
-    gMinimizedWndStates.push({
-      id: wnd.id,
-      wndState: wnd.state,
-    });
-    await browser.windows.update(wnd.id, { state: "minimized" });
-    log("Minimized window: " + wnd.id);
+  else if (gBrowserWindows.isCamouflageWindowOpen()) {
+    await gBrowserWindows.restoreAll();
   }
-
-  if (gPrefs.showCamouflageWebPg) {
-    let camoWnd = await browser.windows.create({ url: gPrefs.camouflageWebPgURL });
-    info("Panic Button/wx: Camouflage window: ID: " + camoWnd.id);
-    gCamouflageWndID = camoWnd.id;
-    gShowCamouflageWnd = true;
-  }
-}
-
-
-async function minimizeCurrent()
-{
-  log("Panic Button/wx: Invoked function minimizeCurrent()");
-
-  let wnd = await browser.windows.getCurrent();
-
-  await browser.windows.update(wnd.id, { state: "minimized" });
-  log("Minimized window: " + wnd.id);
-
-  gMinimizedWndID = wnd.id;
-}
-
-
-async function closeAll(aSaveSession, aReplacementURL)
-{
-  log("Panic Button/wx: Invoked function closeAll()");
-  log(`aSaveSession = ${aSaveSession}, aReplacementURL = ${aReplacementURL}`);
-
-  let wnds = await browser.windows.getAll({populate: true});
-  log("Panic Button/wx: Total number of windows currently open: " + wnds.length);
-
-  if (aSaveSession && aReplacementURL) {
-    gReplaceSession = true;
-    gClosedWndStates = wnds;
-    
-    log("Opening temporary replacement window.");
-    
-    let wnd = await browser.windows.create({ url: aReplacementURL });
-    gReplacemtWndID = wnd.id;
-    info("Window ID of temporary replacement window: " + gReplacemtWndID);
-  }
-
-  for (let wnd of wnds) {
-    if (wnd.id == gReplacemtWndID) {
-      log(`Panic Button/wx: Skipping over replacement window (ID = ${gReplacemtWndID})`);
-      continue;
+  else if (gBrowserWindows.isMinimized()
+           && gPrefs.minimizeCurrOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
+    if (! await gBrowserWindows.restoreMinimized()) {
+      await gBrowserWindows.minimizeCurrent();
     }
-
-    if (aSaveSession) {
-      gClosedWndActiveTabIndexes.push(wnd.tabs.findIndex(aTab => aTab.active));
-
-      let numPinnedTabs = 0;
-      for (let i = 0; i < wnd.tabs.length; i++) {
-        if (wnd.tabs[i].pinned) {
-          numPinnedTabs++;
-        }
-        else {
-          break;
-        }
-      };
-      gClosedWndNumPinnedTabs.push(numPinnedTabs);
+  }
+  else {
+    if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
+      let replacemtURL = gPrefs.replacementWebPgURL;
+      await gBrowserSession.saveAndClose(replacemtURL);
     }
-    
-    log("Panic Button/wx::closeAll(): Closing window " + wnd.id);
-    browser.windows.remove(wnd.id);
+    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
+      await gBrowserWindows.minimizeAll();
+    }
+    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
+      await gBrowserWindows.closeAll();
+    }
+    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR) {
+      await gBrowserWindows.minimizeCurrent();
+    }
   }
 }
 
@@ -598,7 +710,7 @@ async function setRestoreSessPasswd(aPswd)
   }
 
   let encPwd = b64EncodeUnicode(aPswd);
-  await browser.storage.local.set({
+  await aePrefs.setPrefs({
     restoreSessPswdEnabled: true,
     restoreSessPswd: encPwd,
   });
@@ -630,36 +742,127 @@ async function removeRestoreSessPasswd()
     restoreSessPswd: null,
   };
   
-  await browser.storage.local.set(pswdPrefs);
+  await aePrefs.setPrefs(pswdPrefs);
 }
 
 
-function getPanicActionUIStringKey()
+async function openChangeIconDlg()
 {
-  let rv = "";
-  
-  switch (Number(gPrefs.action)) {
-  case aeConst.PANICBUTTON_ACTION_REPLACE:
-    rv = "actHideAndReplace";
-    break;
+  let url = browser.runtime.getURL("pages/changeIcon.html");
 
-  case aeConst.PANICBUTTON_ACTION_MINIMIZE:
-    rv = "actMinimizeAll";
-    break;
+  async function getBrwsWndGeometry(aTabID)
+  {
+    let rv = null;   
+    try {
+      rv = await browser.tabs.executeScript(aTabID, {
+        code: "`${window.outerWidth},${window.outerHeight},${window.screenX},${window.screenY}`;"
+      });
+    }
+    catch (e) {}
 
-  case aeConst.PANICBUTTON_ACTION_QUIT:
-    rv = "actCloseAll";
-    break;
-
-  case aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR:
-    rv = "actMinimizeCurr";
-    break;
-
-  default:
-    break;
+    return rv;
   }
 
-  return rv;
+  async function openChgIconDlgHelper()
+  {
+    // Don't open the Change Icon dialog if the extension preferences page is
+    // already open.
+    let resp = null;
+    try {
+      resp = await browser.runtime.sendMessage({ msgID: "ping-ext-prefs-pg" });
+    }
+    catch (e) {}
+    if (resp) {
+      browser.runtime.sendMessage({ msgID: "ext-prefs-customize" });
+      return;
+    }
+    
+    let width = 404;
+    let height = 272;
+    let left, top, geomData;
+
+    if (gPrefs.autoAdjustWndPos) {
+      // Get browser window geometry by calculating it from any loaded browser
+      // tab in the current window. If the tab URL is restricted (e.g. any
+      // "about:" URL), then try again with another tab in the same window.
+      let brwsTabs = await browser.tabs.query({currentWindow: true, discarded: false});
+
+      for (let tab of brwsTabs) {
+        geomData = await getBrwsWndGeometry(tab.id);
+        log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from tab ${tab.id} (${tab.title}):`);
+        log(geomData);
+
+        if ((geomData instanceof Array) && (typeof geomData[0] == "string")) {
+          break;
+        }
+      }
+
+      let topOffset = (gOS == "mac" ? 96 : 128);
+
+      if (geomData == null || geomData[0] == null) {
+        // Reached here if unable to calculate window geometry from any of the
+        // browser tabs in the current window. Fall back on default values.
+        left = null;
+        top = null;
+      }
+      else {
+        let wndGeom = geomData[0].split(",");
+        let wndWidth = Number(wndGeom[0]);
+        let wndHeight = Number(wndGeom[1]);
+        let wndLeft = Number(wndGeom[2]);
+        let wndTop = Number(wndGeom[3]);
+
+        if (wndWidth < width) {
+          left = null;
+        }
+        else {
+          left = Math.ceil((wndWidth - width) / 2) + wndLeft;
+        }
+
+        if ((wndHeight + topOffset) < height) {
+          top = null;
+        }
+        else {
+          top = wndTop + topOffset;
+        }
+      }
+    }
+    else {
+      left = 128;
+      top = 96;
+    }
+
+    let wnd = await browser.windows.create({
+      url, type: "detached_panel",
+      width, height,
+      left, top
+    });
+
+    gChangeIconWndID = wnd.id;
+    browser.history.deleteUrl({ url });
+
+    // Workaround to bug where window position isn't set when calling
+    // `browser.windows.create()`
+    if (geomData) {
+      browser.windows.update(wnd.id, { left, top });
+    }
+  }
+  // END nested functions
+
+  if (gChangeIconWndID) {
+    try {
+      let wnd = await browser.windows.get(gChangeIconWndID);
+      browser.windows.update(gChangeIconWndID, { focused: true });
+    }
+    catch (e) {
+      // Handle dangling ref
+      gChangeIconWndID = null;
+      openChgIconDlgHelper();
+    }
+  }
+  else {
+    openChgIconDlgHelper();
+  }
 }
 
 
@@ -675,41 +878,9 @@ function getPrefs()
 }
 
 
-function versionCompare(aVer1, aVer2)
-{
-  if (typeof aVer1 != "string" || typeof aVer2 != "string") {
-    return false;
-  }
-
-  let v1 = aVer1.split(".");
-  let v2 = aVer2.split(".");
-  const k = Math.min(v1.length, v2.length);
-  
-  for (let i = 0; i < k; ++ i) {
-    v1[i] = parseInt(v1[i], 10);
-    v2[i] = parseInt(v2[i], 10);
-    
-    if (v1[i] > v2[i]) {
-      return 1;
-    }
-    if (v1[i] < v2[i]) {
-      return -1;
-    }
-  }
-  
-  return (v1.length == v2.length ? 0: (v1.length < v2.length ? -1 : 1));
-}
-
-
 //
 // Error reporting and debugging output
 //
-
-function onError(aError)
-{
-  console.error("Panic Button/wx: " + aError);
-}
-
 
 function log(aMessage)
 {

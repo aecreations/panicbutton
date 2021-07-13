@@ -42,13 +42,16 @@
 		<button id="hide-and-replc-set-pswd" data-i18n="setPswd"></button>
 		<button id="hide-and-replc-rm-pswd" data-i18n="removePswd"></button>
 	      </div>
+              <div id="restore-sess-options" class="browser-style">
+                <input type="checkbox" id="restore-sess-snooze-tabs" class="checkbox-s"/><label for="restore-sess-snooze-tabs" data-i18n="labelSnoozeInactTabs"></label>
+              </div>
 	    </div>
 	  </div>
 	  <div id="panic-action-minimize-all-radio-panel" class="action-radio-panel browser-style">
 	    <input type="radio" id="panic-action-minimize-all" name="panic-action" value="1"/><label for="panic-action-minimize-all" data-i18n="actMinimizeAll"></label>
 	    <div class="panic-action-desc" data-i18n="actDescMinimizeAll"></div>
 	    <div class="panic-action-options indent browser-style">
-	      <input type="checkbox" id="minz-all-camouflage" class="checkbox-s"><label for="minz-all-camouflage" data-i18n="labelMinzAllCamoWebPg"></label>
+	      <input type="checkbox" id="minz-all-camouflage" class="checkbox-s"><label id="minz-all-camouflage-label" for="minz-all-camouflage" data-i18n="labelMinzAllCamoWebPg"></label>
 	      <div id="minz-all-camouflage-webpg" class="indent">
 		<label id="minz-all-camouflage-webpg-url-label" for="minz-all-camouflage-webpg-url" data-i18n="labelWebPgURL"></label>
 		<input type="text" id="minz-all-camouflage-webpg-url">
@@ -270,10 +273,12 @@
     </div>
     <div id="lightbox-bkgrd-ovl" class="lightbox-bkgrd"></div>
     
-    <script src="../modules/aeI18n.js"></script>
-    <script src="../modules/aeConst.js"></script>
-    <script src="../modules/aeDialog.js"></script>
-    <script src="../modules/aeDOM.js"></script>
+    <script src="../scripts/aeI18n.js"></script>
+    <script src="../scripts/aeConst.js"></script>
+    <script src="../scripts/aeDialog.js"></script>
+    <script src="../scripts/aeDOM.js"></script>
+    <script src="../scripts/aePrefs.js"></script>
+    <script src="../scripts/aeInterxn.js"></script>
     <script src="options.js"></script>
   </body>
 </html>

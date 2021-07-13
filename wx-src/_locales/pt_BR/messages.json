@@ -1,0 +1,326 @@
+{
+  "extName": {
+    "message": "Botão Pânico"
+  },
+  "extDesc": {
+    "message": "Esconda rapidamente todas as janelas do navegador com um clique num botão."
+  },
+  "btnOK": {
+    "message": "OK"
+  },
+  "btnCancel": {
+    "message": "Cancelar"
+  },
+  "btnDone": {
+    "message": "Concluído"
+  },
+  "defaultBtnLabel": {
+    "message": "Botão Pânico"
+  },
+  "cmdDesc": {
+    "message": "Acione o Botão Pânico",
+    "description": "Keyboard shortcut description in Manage Extension Shortcuts"
+  },
+  "chgIconMenu": {
+    "message": "Alterar ícone…",
+    "description": "Browser action (toolbar button) context menu"
+  },
+  "chgIconTitle": {
+    "message": "Alterar o Ícone",
+    "description": "Title of Change Icon popup window"
+  },
+  "labelSelIcon": {
+    "message": "Selecione um Ícone:"
+  },
+  "btnMoreCustomzns": {
+    "message": "Mais Personalizações…"
+  },
+  "prefsPgMenu": {
+    "message": "Opções do Botão Pânico…",
+    "description": "Browser action (toolbar button) context menu"
+  },
+  "prefsPgTitle": {
+    "message": "Preferências"
+  },
+  "prefsPgHdg": {
+    "message": "Preferências"
+  },
+  "prefTabOptions": {
+    "message": "Opções"
+  },
+  "prefTabCustomize": {
+    "message": "Personalizar"
+  },
+  "prefsAction": {
+    "message": "Ação do Botão Pânico"
+  },
+  "prefsKeybd": {
+    "message": "Atalho de Teclado"
+  },
+  "labelPanicBtnAction": {
+    "message": "Ação do Botão Pânico:"
+  },
+  "actHideAndReplace": {
+    "message": "Ocultar e Substituir"
+  },
+  "actDescHideAndReplace": {
+    "message": "Substitui a sessão do navegador por uma única janela exibindo uma página web de um local escolhido. Clique no Botão Pânico novamente para restaurar sua sessão no navegador."
+  },
+  "actMinimizeAll": {
+    "message": "Minimizar Todas Janelas"
+  },
+  "actDescMinimizeAll": {
+    "message": "Minimiza todas as janelas do navegador. Opcionalmente, abre uma única janela exibindo uma página web de um local escolhido."
+  },
+  "actMinimizeCurr": {
+    "message": "Minimizar Janela Atual"
+  },
+  "actDescMinimizeCurr": {
+    "message": "Minimiza a janela atual do navegador."
+  },
+  "minzCurrOpt": {
+    "message": "Clicando o Botão Pânico em outra janela do navegador, deve:"
+  },
+  "minzCurrOptMinz": {
+    "message": "Minimize isso"
+  },
+  "minzCurrOptRstMinzed": {
+    "message": "Restaurar a janela minimizada"
+  },
+  "rstMinzedWndNote": {
+    "message": "Esta opção aplica-se apenas à janela que foi minimizada pelo Botão Pânico."
+  },
+  "actCloseAll": {
+    "message": "Feche Todas Janelas"
+  },
+  "actDescCloseAll": {
+    "message": "Fecha todas janelas do navegador."
+  },
+  "labelWebPgURL": {
+    "message": "Endereço da Web (URL):"
+  },
+  "setPswd": {
+    "message": "Definir Senha…"
+  },
+  "setPswdHdr": {
+    "message": "Definir Senha",
+    "description": "Dialog heading"
+  },
+  "setPswdDesc": {
+    "message": "Você pode definir uma senha para restaurar a sessão do navegador quando a ação do Botão Pânico é Ocultar e Substituir."
+  },
+  "oldPswd": {
+    "message": "Senha antiga:"
+  },
+  "newPswd": {
+    "message": "Nova senha:"
+  },
+  "confPswd": {
+    "message": "Confirme a senha:"
+  },
+  "chgPswd": {
+    "message": "Alterar Senha…"
+  },
+  "removePswd": {
+    "message": "Remover Senha…"
+  },
+  "chgPswdHdr": {
+    "message": "Alterar Senha",
+    "description": "Dialog heading"
+  },
+  "pswdPrmptHdr": {
+    "message": "Senha Obrigatória",
+    "description": "Password dialog header."
+  },
+  "pswdPrmpt": {
+    "message": "Insira a senha:"
+  },
+  "pswdWrong": {
+    "message": "Senha incorreta."
+  },
+  "pswdMismatch": {
+    "message": "Senhas não iguais."
+  },
+  "labelSnoozeInactTabs": {
+    "message": "Ao restaurar a sessão do navegador, suspenda as abas inativas"
+  },
+  "labelMinzAllCamoWebPg": {
+    "message": "Abrir uma nova janela depois que todas as janelas do navegador estiverem minimizadas"
+  },
+  "descRstFrmCamoWnd": {
+    "message": "Para restaurar a sessão do seu navegador, clique no Botão Pânico novamente."
+  },
+  "labelShortcutKey": {
+    "message": "Pressione essas teclas para ativar a ação do Botão Pânico:"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Legenda do botão na Toolbar:"
+  },
+  "labelCustomIcon": {
+    "message": "Ícones:"
+  },
+  "btnCustomIcon": {
+    "message": "Ícone Personalizado…"
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Inverter contraste do ícone da barra de ferramentas"
+  },
+  "btnReset": {
+    "message": "Redefinir"
+  },
+  "prefsShortcutKeyNote": {
+    "message": "Alguns dos atalhos de teclado disponíveis já podem terem sido atribuídos a comandos do Firefox ou outros complementos."
+  },
+  "prefsOutsideShct": {
+    "message": "Para alterar atalhos de teclado, vá para Gerenciar Atalhos da Extensão no Gerenciador de Complementos."
+  },
+  "keyModAccelShift": {
+    "message": "Ctrl + Shift +"
+  },
+  "keyModAccelShiftMac": {
+    "message": "⇧ + ⌘ +"
+  },
+  "keyModAltShift": {
+    "message": "Alt + Shift +"
+  },
+  "keyModAltShiftMac": {
+    "message": "⇧ + ⌥ +"
+  },
+  "keySpace": {
+    "message": "Espaço"
+  },
+  "keyPageUp": {
+    "message": "Página Acima"
+  },
+  "keyPageDown": {
+    "message": "Página Abaixo"
+  },
+  "keyHome": {
+    "message": "Inicial"
+  },
+  "keyEnd": {
+    "message": "Fim"
+  },
+  "keyLeft": {
+    "message": "Esquerda"
+  },
+  "keyRight": {
+    "message": "Direita"
+  },
+  "keyUp": {
+    "message": "Acima"
+  },
+  "keyDown": {
+    "message": "Abaixo"
+  },
+  "keyIns": {
+    "message": "Inserir"
+  },
+  "keyDel": {
+    "message": "Deletar"
+  },
+  "keyMacDel": {
+    "message": "Deletar ⌦"
+  },
+  "keyShift": {
+    "message": "Shift"
+  },
+  "keyMacShift": {
+    "message": "⇧"
+  },
+  "keyCtrl": {
+    "message": "Ctrl"
+  },
+  "keyCommand": {
+    "message": "⌘"
+  },
+  "keyMacCtrl": {
+    "message": "⌃"
+  },
+  "keyAlt": {
+    "message": "Alt"
+  },
+  "keyOption": {
+    "message": "⌥"
+  },
+  "aboutBtn": {
+    "message": "Sobre…"
+  },
+  "aboutExtVer": {
+    "message": "versão $1",
+    "description": "Extension version number"
+  },
+  "aboutAuthor": {
+    "message": "Criado por AE Creations."
+  },
+  "aboutHomePgLink": {
+    "message": "Visite nosso Site"
+  },
+  "aboutLicLink": {
+    "message": "Informação da licença"
+  },
+  "aboutTrans": {
+    "message": "Localizações contribuídas por tradutores Crowdin."
+  },
+  "aboutContribHdg": {
+    "message": "Quer ajudar?",
+    "description": "About dialog text for encouraging users to donate or help with translation"
+  },
+  "aboutDonate": {
+    "message": "Faça uma Doação"
+  },
+  "aboutContribConj": {
+    "message": "ou",
+    "description": "Conjunction connecting the CTA hyperlinks for donating or supplying a translation"
+  },
+  "aboutL10n": {
+    "message": "adicione uma tradução."
+  },
+  "errPrefPgFailed": {
+    "message": "Não foi possível carregar a página de preferências da extensão. Reinicie o Firefox e tente novamente."
+  },
+  "restrSessCancel": {
+    "message": "Voltar",
+    "description": "Cancel button in the Restore Session Password page"
+  },
+  "restrSessAccept": {
+    "message": "Restaurar Sessão",
+    "description": "Accept button in the Restore Session Password page"
+  },
+  "newVerHdg": {
+    "message": "Nova Versão Instalada!"
+  },
+  "upgrade": {
+    "message": "Botão Pânico foi atualizado para versão 4.4."
+  },
+  "whatsNew": {
+    "message": "Novidades"
+  },
+  "whatsNew1": {
+    "message": "Novas opções de menu adicionadas ao menu de contexto da Barra de Ferramentas do Botão Pânico, permitindo que você altere o botão da barra de ferramentas em apenas alguns cliques, ou vá para a página de preferências da extensão"
+  },
+  "whatsNew2": {
+    "message": "Nova opção nas preferências de extensão para adiar abas inativas do navegador ao restaurar a sessão do navegador após invocar a ação de Ocultar e Substituir"
+  },
+  "whatsNew3": {
+    "message": "O ícone de Contraste Reverso da Barra de Ferramentas agora combina melhor com o tema Escuro no Firefox 89 e o mais recente"
+  },
+  "donateHdg": {
+    "message": "Faça Uma Doação!"
+  },
+  "donateCta1": {
+    "message": "Apoie o desenvolvimento do Botão Pânico por"
+  },
+  "donateLink": {
+    "message": "fazendo uma pequena contribuição"
+  },
+  "donateCta2": {
+    "message": "."
+  },
+  "btnClosePg": {
+    "message": "Feche Esta Página"
+  },
+  "msgUnknown": {
+    "message": "Nenhuma ajuda está disponível (então deixe pra lá)."
+  }
+}

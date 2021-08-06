@@ -166,6 +166,13 @@ let gBrowserSession = {
         continue;
       }
 
+      // Also discard other WebExtension popup windows.
+      if (wnd.tabs[0].url.startsWith("moz-extension://")) {
+        log(`Discarding WebExtension popup window - URL: ${wnd.tabs[0].url}`);
+        browser.windows.remove(wnd.id);
+        continue;
+      }
+
       log("Panic Button/wx: gBrowserSession.saveAndClose(): Saving browser window:");
       log(wnd);
 
@@ -196,7 +203,7 @@ let gBrowserSession = {
     while (this._savedWnds.length > 0) {
       let closedWnd = this._savedWnds.shift();
       let wndPpty = {
-        type: "normal",
+        type: closedWnd.info.type,
         incognito: closedWnd.info.incognito,
         state: closedWnd.info.state,
       };

@@ -559,8 +559,8 @@ input[type="file"] {
     background-size: contain;
 }
 
-body[dataset-os="mac"] #remove-password-dlg .msgbox-icon {
-    background-image: url("chrome://global/skin/icons/question-64-mac.png");
+body[data-os="mac"] #remove-password-dlg .msgbox-icon {
+    background-image: url("../img/question-64-mac.png");
 }
 
 #remove-password-dlg .dlg-content {

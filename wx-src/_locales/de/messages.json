@@ -11,12 +11,33 @@
   "btnCancel": {
     "message": "Abbrechen"
   },
+  "btnDone": {
+    "message": "Fertig"
+  },
   "defaultBtnLabel": {
     "message": "Panic Button"
   },
   "cmdDesc": {
     "message": "Ausführen der Panic Button Aktion",
     "description": "Keyboard shortcut description in Manage Extension Shortcuts"
+  },
+  "chgIconMenu": {
+    "message": "Symbol ändern …",
+    "description": "Browser action (toolbar button) context menu"
+  },
+  "chgIconTitle": {
+    "message": "Symbol ändern",
+    "description": "Title of Change Icon popup window"
+  },
+  "labelSelIcon": {
+    "message": "Wähle ein Symbol:"
+  },
+  "btnMoreCustomzns": {
+    "message": "Weitere Anpassungen …"
+  },
+  "prefsPgMenu": {
+    "message": "Panik Button Optionen …",
+    "description": "Browser action (toolbar button) context menu"
   },
   "prefsPgTitle": {
     "message": "Einstellungen"
@@ -119,6 +140,9 @@
   },
   "pswdMismatch": {
     "message": "Passwörter stimmen nicht überein."
+  },
+  "labelSnoozeInactTabs": {
+    "message": "Beim Wiederherstellen der Browsersitzung die inaktiven Tabs schlummern lassen."
   },
   "labelMinzAllCamoWebPg": {
     "message": "Ein neues Fenster öffnen, nachdem alle Browser-Fenster minimiert wurden"
@@ -267,22 +291,19 @@
     "message": "Neue Version installiert!"
   },
   "upgrade": {
-    "message": "Panic Button wurde auf Version 4.3 aktualisiert."
+    "message": "Panic Button wurde auf Version 4.4 aktualisiert."
   },
   "whatsNew": {
     "message": "Neues"
   },
   "whatsNew1": {
-    "message": "Panic Button kann nun mehrere Browser-Fenster wiederherstellen, die durch die Aktion Ausblenden und Ersetzen versteckt wurden"
+    "message": "Neue Menüoptionen wurden zum Kontextmenü des Panic Button in der Symbolleiste hinzugefügt, womit Änderungen der Schaltfläche in der Symbolleiste mit nur wenigen Klicks ermöglicht werden, oder zur Seite mit den Erweiterungseinstellungen gewechselt werden kann."
   },
   "whatsNew2": {
-    "message": "Neue Aktion: Aktuelles Fenster minimieren"
+    "message": "Neue Option in den Einstellungen für das Schlummern inaktiver Browser-Tabs beim Wiederherstellen der Browsersitzung nach dem Aufruf der Aktion Ausblenden und Ersetzen"
   },
   "whatsNew3": {
-    "message": "Verbesserte Symbole für die dunkle Ansicht"
-  },
-  "whatsNew4": {
-    "message": "Das Standard-Tastaturkürzel ist auf F8 geändert, um einen Konflikt mit dem Lesemodus zu vermeiden"
+    "message": "Die Symbole mit umgekehrtem Kontrast passen jetzt besser zum Dunklen Stil ab Firefox 89"
   },
   "donateHdg": {
     "message": "Spenden!"

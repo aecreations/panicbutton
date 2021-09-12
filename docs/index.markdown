@@ -6,4 +6,8 @@ layout: home
 title: Help Topics
 ---
 
-This page is under construction.  Please check back again soon!
+Click on any of the following links to learn more about Panic Button.
+
+* [Using Panic Button](userguide.md) - Learn the basics of using Panic Button
+
+* [Settings and Customizations](customize.md) - Make Panic Button work for you

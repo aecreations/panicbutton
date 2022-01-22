@@ -1,5 +1,5 @@
 # Panic Button
-**Quickly hide all browser windows with a click of a button.**
+### Quickly hide all browser windows with a click of a button.
 
 Don't want the boss to catch you surfing the web on company time?  Don't want your teacher, classmates, roommate or significant other to see the Web sites you're viewing?  With Panic Button, a single click of a toolbar button will quickly hide all Firefox windows -- bring them back by clicking a button on the Restore Session toolbar.  The Panic Button action can also be invoked by pressing F8.
 

@@ -101,7 +101,7 @@ class aeDialog
   
   static acceptDlgs()
   {
-    let openDlgElts = document.querySelectorAll(".lightbox-show");
+    let openDlgElts = document.querySelectorAll(".lightbox.lightbox-show");
 
     if (openDlgElts.length > 0) {
       // Normally there should just be 1 dialog open at a time.
@@ -112,11 +112,19 @@ class aeDialog
 
   static cancelDlgs()
   {
-    let openDlgElts = document.querySelectorAll(".lightbox-show");
+    let openDlgElts = document.querySelectorAll(".lightbox.lightbox-show");
 
     if (openDlgElts.length > 0) {
+      // Normally there should just be 1 dialog open at a time.
       let cancelBtns = document.querySelectorAll(".lightbox-show .dlg-cancel:not(:disabled)");
-      cancelBtns.forEach(aBtn => { aBtn.click() });
+      if (cancelBtns.length > 0) {
+        cancelBtns.forEach(aBtn => { aBtn.click() });
+      }
+      else {
+        // Dialog only has an OK, Close or Done button.
+        let acceptBtns = document.querySelectorAll(".lightbox-show .dlg-accept");
+        acceptBtns.forEach(aBtn => { aBtn.click() });
+      }
     }
   }
 }

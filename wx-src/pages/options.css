@@ -73,6 +73,10 @@ main {
     background-color: var(--color-main-bkgd);
 }
 
+body[data-os="mac"] main {
+    width: 644px;
+}
+
 #addon-icon {
     vertical-align: -14px;
     margin-right: 8px;
@@ -530,6 +534,11 @@ input[type="file"] {
     --height: 346px;
 }
 
+body[data-os="mac"] #set-password-dlg,
+body[data-os="mac"] #change-password-dlg {
+    --width: 410px;
+}
+
 #set-password-dlg label,
 #change-password-dlg label {
     display: block;
@@ -580,6 +589,10 @@ body[data-os="mac"] #remove-password-dlg .msgbox-icon {
     top: 72px;
     --width: 410px;
     --height: 284px;
+}
+
+body[data-os="mac"] #about-dlg {
+    --width: 414px;
 }
 
 #about-dlg[data-locale|="pt"] {

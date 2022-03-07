@@ -472,6 +472,10 @@ document.addEventListener("click", aEvent => {
 window.addEventListener("keydown", aEvent => {
   if (aEvent.key == "Enter" && aeDialog.isOpen()) {
     aeDialog.acceptDlgs();
+
+    // Don't trigger any further actions that would have occurred if the
+    // ENTER key was pressed.
+    aEvent.preventDefault();
   }
   else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
     aeDialog.cancelDlgs();

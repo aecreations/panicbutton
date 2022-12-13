@@ -2,8 +2,8 @@
     "manifest_version": 2,
     "name": "__MSG_extName__",
     "description": "__MSG_extDesc__",
-    "version": "4.4.2",
-    "homepage_url": "https://aecreations.sourceforge.io/panicbutton/index.php",
+    "version": "4.4.3",
+    "homepage_url": "https://aecreations.io/panicbutton/index.php",
     "author": "AE Creations",
 
     "browser_specific_settings": {

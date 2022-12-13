@@ -27,11 +27,6 @@ let aePrefs = {
     panicButtonKeyMod: "",
   },
   
-  getDefaultPrefs()
-  {
-    return this._defaultPrefs;
-  },
-  
   getPrefKeys()
   {
     return Object.keys(this._defaultPrefs);
@@ -60,6 +55,25 @@ let aePrefs = {
   //
   // Version upgrade handling
   //
+
+  hasUserPrefs(aPrefs)
+  {
+    return aPrefs.hasOwnProperty("action");
+  },
+
+  async setUserPrefs(aPrefs) {
+    let prefs = {
+      action: aeConst.PANICBUTTON_ACTION_REPLACE,
+      toolbarBtnIcon: 0,
+      toolbarBtnLabel: browser.i18n.getMessage("defaultBtnLabel"),
+      toolbarBtnRevContrastIco: false,
+      toolbarBtnData: "",
+      shortcutKey: true,
+      replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL,
+    };
+    
+    await this._addPrefs(aPrefs, prefs);
+  },
 
   hasSantaCruzPrefs(aPrefs)
   {

@@ -6,6 +6,8 @@
 let gOS;
 let gHostAppVer;
 let gPrefs;
+let gIsFirstRun = false;
+let gIsMajorVerUpdate = false;
 let gChangeIconWndID = null;
 
 let gBrowserWindows = {
@@ -378,108 +380,97 @@ let gBrowserSession = {
 };
 
 
-//
-// First-run initialization
-//
-
 browser.runtime.onInstalled.addListener(async (aInstall) => {
   if (aInstall.reason == "install") {
     log("Panic Button/wx: Extension installed");
-
-    await setDefaultPrefs();
-    await init();
   }
   else if (aInstall.reason == "update") {
     let oldVer = aInstall.previousVersion;
-    let currVer = browser.runtime.getManifest().version;
-    
+    let currVer = browser.runtime.getManifest().version;   
     log(`Panic Button/wx: Upgrading from version ${oldVer} to ${currVer}`);
-
-    gPrefs = await aePrefs.getAllPrefs();
-
-    if (! aePrefs.hasSantaCruzPrefs(gPrefs)) {
-      log("Initializing 4.1 user preferences");
-      await aePrefs.setSantaCruzPrefs(gPrefs);
-    }
-
-    if (! aePrefs.hasSantaRosaPrefs(gPrefs)) {
-      log("Initializing 4.2 user preferences.");
-      await aePrefs.setSantaRosaPrefs(gPrefs);
-    }
-
-    if (! aePrefs.hasSantaCatalinaPrefs(gPrefs)) {
-      log("Initializing 4.3 user preferences.");
-      await aePrefs.setSantaCatalinaPrefs(gPrefs);
-    }
-
-    if (! aePrefs.hasSanNicolasPrefs(gPrefs)) {
-      log("Initializing 4.4 user preferences.");
-      await aePrefs.setSanNicolasPrefs(gPrefs);
-      browser.tabs.create({ url: "pages/whatsnew.html" });
-    }
-
-    await init();
   }
 });
-
-
-async function setDefaultPrefs()
-{
-  let defaultPrefs = aePrefs.getDefaultPrefs();
-
-  gPrefs = defaultPrefs;
-  await aePrefs.setPrefs(defaultPrefs);
-}
-
 
 
 //
 // Initializing integration with host application
 //
 
-browser.runtime.onStartup.addListener(async () => {
-  log("Panic Button/wx: Initializing Panic Button during browser startup.");
+void async function ()
+{
+  log("Panic Button/wx: WebExtension startup initiated.");
 
   gPrefs = await aePrefs.getAllPrefs();
+  
+  if (! aePrefs.hasUserPrefs(gPrefs)) {
+    log("Initializing Panic Button user preferences.");
+    gIsFirstRun = true;
+    await aePrefs.setUserPrefs(gPrefs);
+  }
+
+  if (! aePrefs.hasSantaCruzPrefs(gPrefs)) {
+    log("Initializing 4.1 user preferences");
+    await aePrefs.setSantaCruzPrefs(gPrefs);
+  }
+
+  if (! aePrefs.hasSantaRosaPrefs(gPrefs)) {
+    log("Initializing 4.2 user preferences.");
+    await aePrefs.setSantaRosaPrefs(gPrefs);
+  }
+
+  if (! aePrefs.hasSantaCatalinaPrefs(gPrefs)) {
+    log("Initializing 4.3 user preferences.");
+    await aePrefs.setSantaCatalinaPrefs(gPrefs);
+  }
+
+  if (! aePrefs.hasSanNicolasPrefs(gPrefs)) {
+    // This should be set when updating to the latest release.
+    gIsMajorVerUpdate = true;
+
+    log("Initializing 4.4 user preferences.");
+    await aePrefs.setSanNicolasPrefs(gPrefs);
+  }
+  
   init();
-});
+}();
 
 
 async function init()
 {
-  let getBrwsInfo = browser.runtime.getBrowserInfo();
-  let getPlatInfo = browser.runtime.getPlatformInfo();
+  let [brws, platform] = await Promise.all([
+    browser.runtime.getBrowserInfo(),
+    browser.runtime.getPlatformInfo(),
+  ]);
 
-  Promise.all([getBrwsInfo, getPlatInfo]).then(async (aResults) => {
-    let brws = aResults[0];
-    let platform = aResults[1];
-    
-    gHostAppVer = brws.version;
-    log(`Panic Button/wx: Host app: ${brws.name} (version ${gHostAppVer})`);
+  gHostAppVer = brws.version;
+  log(`Panic Button/wx: Host app: ${brws.name} (version ${gHostAppVer})`);
 
-    gOS = platform.os;
-    log("Panic Button/wx: OS: " + gOS);
+  gOS = platform.os;
+  log("Panic Button/wx: OS: " + gOS);
 
-    if (gPrefs.autoAdjustWndPos === null) {
-      let autoAdjustWndPos = gOS == "win";
-      await aePrefs.setPrefs({ autoAdjustWndPos });
-    }
+  if (gPrefs.autoAdjustWndPos === null) {
+    let autoAdjustWndPos = gOS == "win";
+    await aePrefs.setPrefs({ autoAdjustWndPos });
+  }
 
-    await setPanicButtonCustomizations();
-    
-    browser.menus.create({
-      id: "ae-panicbutton-change-icon",
-      title: browser.i18n.getMessage("chgIconMenu"),
-      contexts: ["browser_action"],
-    });
-    browser.menus.create({
-      id: "ae-panicbutton-prefs",
-      title: browser.i18n.getMessage("prefsPgMenu"),
-      contexts: ["browser_action"],
-    });
-
-    log("Panic Button/wx: Initialization complete.");
+  await setPanicButtonCustomizations();
+  
+  browser.menus.create({
+    id: "ae-panicbutton-change-icon",
+    title: browser.i18n.getMessage("chgIconMenu"),
+    contexts: ["browser_action"],
   });
+  browser.menus.create({
+    id: "ae-panicbutton-prefs",
+    title: browser.i18n.getMessage("prefsPgMenu"),
+    contexts: ["browser_action"],
+  });
+
+  if (gIsMajorVerUpdate && !gIsFirstRun) {
+    browser.tabs.create({ url: "pages/whatsnew.html" });
+  }
+
+  log("Panic Button/wx: Initialization complete.");
 }
 
 

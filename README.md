@@ -3,7 +3,7 @@
 
 Don't want the boss to catch you surfing the web on company time?  Don't want your teacher, classmates, roommate or significant other to see the Web sites you're viewing?  With Panic Button, a single click of a toolbar button will quickly hide all Firefox windows -- bring them back by clicking a button on the Restore Session toolbar.  The Panic Button action can also be invoked by pressing F8.
 
-Learn more and install the Firefox extension from the [AE Creations website](https://aecreations.sourceforge.io/panicbutton/).  Panic Button is also available from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/panic-button/).
+Learn more and install the Firefox extension from the [AE Creations website](https://aecreations.io/panicbutton/).  Panic Button is also available from [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/panic-button/).
 
 ## Contribute!
 

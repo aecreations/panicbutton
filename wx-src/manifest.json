@@ -41,6 +41,7 @@
             "32": "img/default32.svg",
             "64": "img/default32.svg"
         },
+        "default_area": "navbar",
         "default_title": "__MSG_defaultBtnLabel__"
     },
 

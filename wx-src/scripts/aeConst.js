@@ -3,8 +3,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-let aeConst = {
-  DEBUG: false,
+const aeConst = Object.freeze({
+  DEBUG: true,
   
   // Extension GUID
   EXTENSION_ID: "{24cea704-946d-11da-a72b-0800200c9a66}",
@@ -31,4 +31,4 @@ let aeConst = {
 
   DONATE_URL: "https://www.paypal.me/aecreations88/7.99cad",
   L10N_URL: "https://crowdin.com/project/aecreations-panic-button",
-};
+});

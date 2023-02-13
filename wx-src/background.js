@@ -8,6 +8,8 @@ let gHostAppVer;
 let gPrefs;
 let gIsFirstRun = false;
 let gIsMajorVerUpdate = false;
+
+// TO DO: Save and load from storage, not in global var.
 let gChangeIconWndID = null;
 
 let gBrowserWindows = {
@@ -398,7 +400,7 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
 
 void async function ()
 {
-  log("Panic Button/wx: WebExtension startup initiated.");
+  log("Panic Button/wx: Extension startup initiated.");
 
   gPrefs = await aePrefs.getAllPrefs();
   
@@ -748,15 +750,19 @@ async function openChangeIconDlg()
 {
   let url = browser.runtime.getURL("pages/changeIcon.html");
 
-  async function getBrwsWndGeometry(aTabID)
+  async function getBrwsWndGeometry()
   {
-    let rv = null;   
-    try {
-      rv = await browser.tabs.executeScript(aTabID, {
-        code: "`${window.outerWidth},${window.outerHeight},${window.screenX},${window.screenY}`;"
-      });
+    let rv = null;
+    let wnd = await browser.windows.getCurrent();
+    
+    if (wnd) {
+      rv = {
+        width: wnd.width,
+        height: wnd.height,
+        left: wnd.left,
+        top: wnd.top,
+      };
     }
-    catch (e) {}
 
     return rv;
   }
@@ -767,61 +773,45 @@ async function openChangeIconDlg()
     // already open.
     let resp = null;
     try {
-      resp = await browser.runtime.sendMessage({ msgID: "ping-ext-prefs-pg" });
+      resp = await browser.runtime.sendMessage({msgID: "ping-ext-prefs-pg"});
     }
-    catch (e) {}
+    catch {}
     if (resp) {
-      browser.runtime.sendMessage({ msgID: "ext-prefs-customize" });
+      browser.runtime.sendMessage({msgID: "ext-prefs-customize"});
       return;
     }
     
     let width = 404;
     let height = 272;
-    let left, top, geomData;
+    let left, top, wndGeom;
 
     if (gPrefs.autoAdjustWndPos) {
-      // Get browser window geometry by calculating it from any loaded browser
-      // tab in the current window. If the tab URL is restricted (e.g. any
-      // "about:" URL), then try again with another tab in the same window.
-      let brwsTabs = await browser.tabs.query({currentWindow: true, discarded: false});
+      wndGeom = await getBrwsWndGeometry();
 
-      for (let tab of brwsTabs) {
-        geomData = await getBrwsWndGeometry(tab.id);
-        log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from tab ${tab.id} (${tab.title}):`);
-        log(geomData);
-
-        if ((geomData instanceof Array) && (typeof geomData[0] == "string")) {
-          break;
-        }
-      }
-
+      log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from currently focused window:`);
+      log(wndGeom);
+      
       let topOffset = (gOS == "mac" ? 96 : 128);
 
-      if (geomData == null || geomData[0] == null) {
-        // Reached here if unable to calculate window geometry from any of the
-        // browser tabs in the current window. Fall back on default values.
+      if (wndGeom === null) {
+        // Reached here if unable to calculate window geometry.
+        // Fall back on default values.
         left = null;
         top = null;
       }
       else {
-        let wndGeom = geomData[0].split(",");
-        let wndWidth = Number(wndGeom[0]);
-        let wndHeight = Number(wndGeom[1]);
-        let wndLeft = Number(wndGeom[2]);
-        let wndTop = Number(wndGeom[3]);
-
-        if (wndWidth < width) {
+        if (wndGeom.width < width) {
           left = null;
         }
         else {
-          left = Math.ceil((wndWidth - width) / 2) + wndLeft;
+          left = Math.ceil((wndGeom.width - width) / 2) + wndGeom.left;
         }
 
-        if ((wndHeight + topOffset) < height) {
+        if ((wndGeom.height + topOffset) < height) {
           top = null;
         }
         else {
-          top = wndTop + topOffset;
+          top = wndGeom.top + topOffset;
         }
       }
     }
@@ -837,20 +827,16 @@ async function openChangeIconDlg()
     });
 
     gChangeIconWndID = wnd.id;
-    browser.history.deleteUrl({ url });
 
-    // Workaround to bug where window position isn't set when calling
-    // `browser.windows.create()`
-    if (geomData) {
-      browser.windows.update(wnd.id, { left, top });
-    }
+    // TO DO: This might not be needed anymore?
+    browser.history.deleteUrl({ url });
   }
   // END nested functions
 
   if (gChangeIconWndID) {
     try {
       let wnd = await browser.windows.get(gChangeIconWndID);
-      browser.windows.update(gChangeIconWndID, { focused: true });
+      browser.windows.update(gChangeIconWndID, {focused: true});
     }
     catch (e) {
       // Handle dangling ref

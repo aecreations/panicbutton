@@ -5,7 +5,6 @@
 
 let gOS;
 let gHostAppVer;
-let gPrefs;
 let gIsFirstRun = false;
 let gIsMajorVerUpdate = false;
 
@@ -43,8 +42,9 @@ let gBrowserWindows = {
       log("Minimized window: " + wnd.id);
     }
 
-    if (gPrefs.showCamouflageWebPg) {
-      this._openCamouflageWnd(gPrefs.camouflageWebPgURL);
+    let {showCamouflageWebPg, camouflageWebPgURL} = await aePrefs.getAllPrefs();
+    if (showCamouflageWebPg) {
+      this._openCamouflageWnd(camouflageWebPgURL);
     }    
   },
 
@@ -203,6 +203,7 @@ let gBrowserSession = {
   async restore()
   {
     let focusedWndID = null;
+    let restoreSessInactvTabsZzz = await aePrefs.getPref("restoreSessInactvTabsZzz");
     
     while (this._savedWnds.length > 0) {
       let closedWnd = this._savedWnds.shift();
@@ -252,7 +253,7 @@ let gBrowserSession = {
         let isReaderMode = false;
         let tabPpty = {
           windowId: wndID,
-          discarded: gPrefs.restoreSessInactvTabsZzz,
+          discarded: restoreSessInactvTabsZzz,
           cookieStoreId: aTab.cookieStoreId,
         };
         if (aTab.isInReaderMode) {
@@ -402,42 +403,42 @@ void async function ()
 {
   log("Panic Button/wx: Extension startup initiated.");
 
-  gPrefs = await aePrefs.getAllPrefs();
+  let prefs = await aePrefs.getAllPrefs();
   
-  if (! aePrefs.hasUserPrefs(gPrefs)) {
+  if (! aePrefs.hasUserPrefs(prefs)) {
     log("Initializing Panic Button user preferences.");
     gIsFirstRun = true;
-    await aePrefs.setUserPrefs(gPrefs);
+    await aePrefs.setUserPrefs(prefs);
   }
 
-  if (! aePrefs.hasSantaCruzPrefs(gPrefs)) {
+  if (! aePrefs.hasSantaCruzPrefs(prefs)) {
     log("Initializing 4.1 user preferences");
-    await aePrefs.setSantaCruzPrefs(gPrefs);
+    await aePrefs.setSantaCruzPrefs(prefs);
   }
 
-  if (! aePrefs.hasSantaRosaPrefs(gPrefs)) {
+  if (! aePrefs.hasSantaRosaPrefs(prefs)) {
     log("Initializing 4.2 user preferences.");
-    await aePrefs.setSantaRosaPrefs(gPrefs);
+    await aePrefs.setSantaRosaPrefs(prefs);
   }
 
-  if (! aePrefs.hasSantaCatalinaPrefs(gPrefs)) {
+  if (! aePrefs.hasSantaCatalinaPrefs(prefs)) {
     log("Initializing 4.3 user preferences.");
-    await aePrefs.setSantaCatalinaPrefs(gPrefs);
+    await aePrefs.setSantaCatalinaPrefs(prefs);
   }
 
-  if (! aePrefs.hasSanNicolasPrefs(gPrefs)) {
+  if (! aePrefs.hasSanNicolasPrefs(prefs)) {
     // This should be set when updating to the latest release.
     gIsMajorVerUpdate = true;
 
     log("Initializing 4.4 user preferences.");
-    await aePrefs.setSanNicolasPrefs(gPrefs);
+    await aePrefs.setSanNicolasPrefs(prefs);
   }
   
-  init();
+  init(prefs);
 }();
 
 
-async function init()
+async function init(aPrefs)
 {
   let [brws, platform] = await Promise.all([
     browser.runtime.getBrowserInfo(),
@@ -450,12 +451,12 @@ async function init()
   gOS = platform.os;
   log("Panic Button/wx: OS: " + gOS);
 
-  if (gPrefs.autoAdjustWndPos === null) {
+  if (aPrefs.autoAdjustWndPos === null) {
     let autoAdjustWndPos = gOS == "win";
-    await aePrefs.setPrefs({ autoAdjustWndPos });
+    await aePrefs.setPrefs({autoAdjustWndPos});
   }
 
-  await setPanicButtonCustomizations();
+  await setPanicButtonCustomizations(aPrefs);
   
   browser.menus.create({
     id: "ae-panicbutton-change-icon",
@@ -476,10 +477,10 @@ async function init()
 }
 
 
-async function setPanicButtonCustomizations()
+async function setPanicButtonCustomizations(aPrefs)
 {
-  await setToolbarButtonIcon(gPrefs.toolbarBtnIcon, gPrefs.toolbarBtnRevContrastIco);
-  browser.browserAction.setTitle({ title: gPrefs.toolbarBtnLabel });
+  await setToolbarButtonIcon(aPrefs.toolbarBtnIcon, aPrefs.toolbarBtnRevContrastIco);
+  browser.browserAction.setTitle({title: aPrefs.toolbarBtnLabel});
 }
 
 
@@ -555,7 +556,8 @@ browser.browserAction.onClicked.addListener(async (aTab) => {
 });
 
 browser.commands.onCommand.addListener(async (aCmd) => {
-  if (aCmd == "ae-panicbutton" && gPrefs.shortcutKey) {
+  let shortcutKey = await aePrefs.getPref("shortcutKey");
+  if (aCmd == "ae-panicbutton" && shortcutKey) {
     await panic();
   }
 });
@@ -571,13 +573,8 @@ browser.menus.onClicked.addListener((aInfo, aTab) => {
 
 
 browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
-  let changedPrefs = Object.keys(aChanges);
-  
-  for (let pref of changedPrefs) {
-    gPrefs[pref] = aChanges[pref].newValue;
-  }
-
-  await setPanicButtonCustomizations();
+  let prefs = await aePrefs.getAllPrefs();
+  await setPanicButtonCustomizations(prefs);
 });
 
 
@@ -588,11 +585,11 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
 
   switch (aRequest.msgID) {
   case "get-system-info":
-    resp = { os: getOS() };
+    resp = {os: getOS()};
     break;
 
   case "get-toolbar-btn-icons-map":
-    resp = { toolbarBtnIconsMap: getToolbarButtonIconsMap() };
+    resp = {toolbarBtnIconsMap: getToolbarButtonIconsMap()};
     break;
 
   case "restore-brws-sess":
@@ -600,7 +597,8 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     break;
 
   case "get-restore-sess-passwd":
-    resp = { restoreSessPwd: getRestoreSessPasswd() };
+    let restoreSessPwd = await getRestoreSessPasswd();
+    resp = {restoreSessPwd};
     break;
 
   case "set-restore-sess-passwd":
@@ -618,7 +616,7 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     break;
 
   case "ping-change-icon-dlg":
-    resp = { isChangeIconDlgOpen: !!gChangeIconWndID };
+    resp = {isChangeIconDlgOpen: !!gChangeIconWndID};
     break;
 
   case "unsave-minimized-wnd":
@@ -657,8 +655,10 @@ browser.tabs.onUpdated.addListener((aTabID, aChangeInfo, aTab) => {
 
 async function panic()
 {
+  let prefs = await aePrefs.getAllPrefs();
+  
   if (gBrowserSession.isStashed()) {
-    if (gPrefs.restoreSessPswdEnabled) {
+    if (prefs.restoreSessPswdEnabled) {
       browser.tabs.update({ url: "pages/restoreSession.html" });
     }
     else {
@@ -669,23 +669,23 @@ async function panic()
     await gBrowserWindows.restoreAll();
   }
   else if (gBrowserWindows.isMinimized()
-           && gPrefs.minimizeCurrOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
+           && prefs.minimizeCurrOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
     if (! await gBrowserWindows.restoreMinimized()) {
       await gBrowserWindows.minimizeCurrent();
     }
   }
   else {
-    if (gPrefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
-      let replacemtURL = gPrefs.replacementWebPgURL;
+    if (prefs.action == aeConst.PANICBUTTON_ACTION_REPLACE) {
+      let replacemtURL = prefs.replacementWebPgURL;
       await gBrowserSession.saveAndClose(replacemtURL);
     }
-    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
+    else if (prefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE) {
       await gBrowserWindows.minimizeAll();
     }
-    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
+    else if (prefs.action == aeConst.PANICBUTTON_ACTION_QUIT) {
       await gBrowserWindows.closeAll();
     }
-    else if (gPrefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR) {
+    else if (prefs.action == aeConst.PANICBUTTON_ACTION_MINIMIZE_CURR) {
       await gBrowserWindows.minimizeCurrent();
     }
   }
@@ -717,7 +717,7 @@ async function setRestoreSessPasswd(aPswd)
 }
 
 
-function getRestoreSessPasswd()
+async function getRestoreSessPasswd()
 {
   // The following helper function is adapted from:
   // <https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem>
@@ -728,7 +728,7 @@ function getRestoreSessPasswd()
   }
 
   let rv = "";
-  let encPwd = gPrefs.restoreSessPswd;
+  let encPwd = await aePrefs.getPref("restoreSessPswd");
   rv = b64DecodeUnicode(encPwd);
 
   return rv;
@@ -781,11 +781,12 @@ async function openChangeIconDlg()
       return;
     }
     
+    let {autoAdjustWndPos} = await aePrefs.getAllPrefs();
     let width = 404;
     let height = 272;
     let left, top, wndGeom;
 
-    if (gPrefs.autoAdjustWndPos) {
+    if (autoAdjustWndPos) {
       wndGeom = await getBrwsWndGeometry();
 
       log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from currently focused window:`);
@@ -853,12 +854,6 @@ async function openChangeIconDlg()
 function getOS()
 {
   return gOS;
-}
-
-
-function getPrefs()
-{
-  return gPrefs;
 }
 
 

@@ -540,12 +540,12 @@ async function init(aPrefs)
   browser.menus.create({
     id: "ae-panicbutton-change-icon",
     title: browser.i18n.getMessage("chgIconMenu"),
-    contexts: ["browser_action"],
+    contexts: ["action"],
   });
   browser.menus.create({
     id: "ae-panicbutton-prefs",
     title: browser.i18n.getMessage("prefsPgMenu"),
-    contexts: ["browser_action"],
+    contexts: ["action"],
   });
 
   if (gIsMajorVerUpdate && !gIsFirstRun) {
@@ -559,7 +559,7 @@ async function init(aPrefs)
 async function setPanicButtonCustomizations(aPrefs)
 {
   await setToolbarButtonIcon(aPrefs.toolbarBtnIcon, aPrefs.toolbarBtnRevContrastIco);
-  browser.browserAction.setTitle({title: aPrefs.toolbarBtnLabel});
+  browser.action.setTitle({title: aPrefs.toolbarBtnLabel});
 }
 
 
@@ -574,7 +574,7 @@ async function setToolbarButtonIcon(aIconIndex, isReverseContrast)
   let toolbarBtnIconName = toolbarBtnIcons[aIconIndex];
   let revCntrst = isReverseContrast ? "_reverse" : "";
 
-  browser.browserAction.setIcon({
+  browser.action.setIcon({
     path: {
       16: "img/" + toolbarBtnIconName + "16" + revCntrst + ".svg",
       32: "img/" + toolbarBtnIconName + "16" + revCntrst + ".svg",
@@ -587,7 +587,7 @@ async function setCustomToolbarButtonIcon()
 {
   let iconDataURL = await aePrefs.getPref("toolbarBtnData");
 
-  browser.browserAction.setIcon({
+  browser.action.setIcon({
     path: {
       16: iconDataURL,
       32: iconDataURL,
@@ -630,7 +630,7 @@ function getToolbarButtonIconsMap()
 // Event handlers
 //
 
-browser.browserAction.onClicked.addListener(async (aTab) => {
+browser.action.onClicked.addListener(async (aTab) => {
   await panic();
 });
 

@@ -31,11 +31,6 @@ let aePrefs = {
     minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
     restoreSessInactvTabsZzz: true,
     autoAdjustWndPos: null,
-
-    // DEPRECATED - Default keyboard shortcuts are now set in the
-    // extension manifest.
-    panicButtonKey: "F9",
-    panicButtonKeyMod: "",
   },
   
   getPrefKeys()
@@ -95,8 +90,6 @@ let aePrefs = {
   async setSantaCruzPrefs(aPrefs)
   {
     let newPrefs = {
-      panicButtonKey: "F9",  // Old default keyboard shortcut until version 4.3
-      panicButtonKeyMod: "",
       restoreSessPswdEnabled: false,
       restoreSessPswd: null,
     };

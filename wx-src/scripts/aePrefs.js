@@ -6,6 +6,17 @@
 
 let aePrefs = {
   _defaultPrefs: {
+    // Background script state persistence
+    _minzWndID: null,
+    _camoWndID: null,
+    _minzWndStates: [],
+    _replaceSession: false,
+    _replacemtWndID: null,
+    _savedWnds: [],
+    _readerModeTabIDs: [],
+    _changeIconWndID: null,
+
+    // User preferences and customizations
     action: aeConst.PANICBUTTON_ACTION_REPLACE,
     toolbarBtnIcon: 0,
     toolbarBtnLabel: browser.i18n.getMessage("defaultBtnLabel"),
@@ -58,7 +69,7 @@ let aePrefs = {
 
   hasUserPrefs(aPrefs)
   {
-    return aPrefs.hasOwnProperty("action");
+    return ("action" in aPrefs);
   },
 
   async setUserPrefs(aPrefs) {
@@ -78,7 +89,7 @@ let aePrefs = {
   hasSantaCruzPrefs(aPrefs)
   {
     // Version 4.1
-    return aPrefs.hasOwnProperty("restoreSessPswdEnabled");
+    return ("restoreSessPswdEnabled" in aPrefs);
   },
 
   async setSantaCruzPrefs(aPrefs)
@@ -96,7 +107,7 @@ let aePrefs = {
   hasSantaRosaPrefs(aPrefs)
   {
     // Version 4.2
-    return aPrefs.hasOwnProperty("showCamouflageWebPg");
+    return ("showCamouflageWebPg" in aPrefs);
   },
 
   async setSantaRosaPrefs(aPrefs)
@@ -112,7 +123,7 @@ let aePrefs = {
   hasSantaCatalinaPrefs(aPrefs)
   {
     // Version 4.3
-    return aPrefs.hasOwnProperty("minimizeCurrOpt");
+    return ("minimizeCurrOpt" in aPrefs);
   },
 
   async setSantaCatalinaPrefs(aPrefs)
@@ -127,7 +138,7 @@ let aePrefs = {
   hasSanNicolasPrefs(aPrefs)
   {
     // Version 4.4
-    return aPrefs.hasOwnProperty("restoreSessInactvTabsZzz");
+    return ("restoreSessInactvTabsZzz" in aPrefs);
   },
 
   async setSanNicolasPrefs(aPrefs)
@@ -138,6 +149,30 @@ let aePrefs = {
     };
 
     await this._addPrefs(aPrefs, newPrefs);
+  },
+
+  hasFarallonPrefs(aPrefs)
+  {
+    // Version 5.0
+    return ("_replaceSession" in aPrefs);
+  },
+
+  async setFarallonPrefs(aPrefs)
+  {
+    let newPrefs = {
+      _minzWndID: null,
+      _camoWndID: null,
+      _minzWndStates: [],
+      _replaceSession: false,
+      _replacemtWndID: null,
+      _savedWnds: [],
+      _readerModeTabIDs: [],
+      _changeIconWndID: null,
+    };
+
+    await this._addPrefs(aPrefs, newPrefs);
+
+    // TO DO: Get rid of deprecated prefs if they still exist in storage.
   },
 
   

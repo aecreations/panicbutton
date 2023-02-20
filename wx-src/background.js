@@ -8,39 +8,35 @@ let gHostAppVer;
 let gIsFirstRun = false;
 let gIsMajorVerUpdate = false;
 
-// TO DO: Save and load from storage, not in global var.
-let gChangeIconWndID = null;
-
 let gBrowserWindows = {
-  _minzWndID: null,
-  _camoWndID: null,
-  _minzWndStates: [],
-  
   async minimizeCurrent()
   {
     log("Panic Button/wx: gBrowserWindows.minimizeCurrent()");
 
     let wnd = await browser.windows.getCurrent();
 
-    await browser.windows.update(wnd.id, { state: "minimized" });
+    await browser.windows.update(wnd.id, {state: "minimized"});
     log("Minimized window: " + wnd.id);
 
-    this._minzWndID = wnd.id;
+    aePrefs.setPrefs({_minzWndID: wnd.id});
   },
 
   async minimizeAll()
   {
     log("Panic Button/wx: gBrowserWindows.minimizeAll()");
 
+    let minzWndStates = [];
     let wnds = await browser.windows.getAll();
     for (let wnd of wnds) {
-      this._minzWndStates.push({
+      minzWndStates.push({
         id: wnd.id,
         wndState: wnd.state,
       });
-      await browser.windows.update(wnd.id, { state: "minimized" });
+      await browser.windows.update(wnd.id, {state: "minimized"});
       log("Minimized window: " + wnd.id);
     }
+
+    await aePrefs.setPrefs({_minzWndStates: minzWndStates});
 
     let {showCamouflageWebPg, camouflageWebPgURL} = await aePrefs.getAllPrefs();
     if (showCamouflageWebPg) {
@@ -50,41 +46,49 @@ let gBrowserWindows = {
 
   async restoreAll()
   {
-    if (this.isCamouflageWindowOpen()) {
-      this._closeCamouflageWnd();
+    if (await this.isCamouflageWindowOpen()) {
+      await this._closeCamouflageWnd();
     }
     
-    while (this._minzWndStates.length > 0) {
-      let minzWnd = this._minzWndStates.pop();
+    let minzWndStates = await aePrefs.getPref("_minzWndStates");
+    if (! (minzWndStates instanceof Array)) {
+      throw new TypeError("minzWndStates not an Array");
+    }
+
+    while (minzWndStates.length > 0) {
+      let minzWnd = minzWndStates.pop();
 
       try {
         await browser.windows.get(minzWnd.id);
 
         // Confirm that the minimized window still exists.
-        await browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
+        await browser.windows.update(minzWnd.id, {state: minzWnd.wndState});
       }
-      catch (e) {
+      catch {
         warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");
       };
     }
+
+    aePrefs.setPrefs({_minzWndStates: []});
   },
 
   async restoreMinimized()
   {
     let rv = false;
     let wnd = null;
+    let minzWndID = await aePrefs.getPref("_minzWndID");
 
     try {
-      wnd = await browser.windows.get(this._minzWndID);    
+      wnd = await browser.windows.get(minzWndID);
     }
-    catch (e) {
+    catch {
       warn("Panic Button/wx: gBrowserWindows.restoreMinimized(): Window ID no longer valid (was it just closed?)");
     }
 
     if (wnd.state == "minimized") {
       // TO DO: Don't assume previous window state.
-      await browser.windows.update(this._minzWndID, { state: "normal" });
-      this._minzWndID = null;
+      await browser.windows.update(minzWndID, {state: "normal"});
+      await aePrefs.setPrefs({_minzWndID: null});
       rv = true;
     }
 
@@ -100,19 +104,27 @@ let gBrowserWindows = {
     }
   },
 
-  isCamouflageWindowOpen()
+  async isCamouflageWindowOpen()
   {
-    return (this._camoWndID != null);
+    let rv;
+    let camoWndID = await aePrefs.getPref("_camoWndID");
+    rv = (camoWndID != null);
+    
+    return rv;
   },
 
-  isMinimized()
+  async isMinimized()
   {
-    return (this._minzWndID != null);
+    let rv;
+    let minzWndID = await aePrefs.getPref("_minzWndID");
+    rv = (minzWndID != null);
+    
+    return rv;
   },
 
   unsaveMinimizedWnd()
   {
-    this._minzWndID = null;
+    aePrefs.setPrefs({_minzWndID: null});
   },
 
 
@@ -122,21 +134,25 @@ let gBrowserWindows = {
   
   async _openCamouflageWnd(aCamouflageURL)
   {
-    let wnd = await browser.windows.create({ url: aCamouflageURL });
-    info("Panic Button/wx: gBrowserWindows.openCamouflageWnd(): Camouflage window ID: " + wnd.id);
-    this._camoWndID = wnd.id;
+    let rv;
+    let wnd = await browser.windows.create({url: aCamouflageURL});
+    let camoWndID = wnd.id;
+    info("Panic Button/wx: gBrowserWindows.openCamouflageWnd(): Camouflage window ID: " + camoWndID);
+    await aePrefs.setPrefs({_camoWndID: camoWndID});
+    rv = camoWndID;
     
-    return this._camoWndID;
+    return rv;
   },
 
-  _closeCamouflageWnd()
+  async _closeCamouflageWnd()
   {
-    if (this._camoWndID === null) {
+    let camoWndID = await aePrefs.getPref("_camoWndID");
+    if (camoWndID === null) {
       throw new Error("Panic Button/wx: gBrowserWindows.closeCamouflageWnd(): Camouflage window ID is null");
     }
     
-    browser.windows.remove(this._camoWndID);
-    this._camoWndID = null;
+    browser.windows.remove(camoWndID);
+    aePrefs.setPrefs({_camoWndID: null});
   }
 };
 
@@ -144,23 +160,23 @@ let gBrowserWindows = {
 let gBrowserSession = {
   CHANGE_ICON_EXT_PG_URL: browser.runtime.getURL("pages/changeIcon.html"),
   
-  _replaceSession: false,
-  _replacemtWndID: null,
-  _savedWnds: [],
-  _readerModeTabIDs: new Set(),
-
   async saveAndClose(aReplacementURL)
   {
-    let wnds = await browser.windows.getAll({ populate: true });
+    let wnds = await browser.windows.getAll({populate: true});
+    let replacemtWndID = null;
 
     if (aReplacementURL) {
-      let replcWnd = await browser.windows.create({ url: aReplacementURL });
-      this._replacemtWndID = replcWnd.id;
-      this._replaceSession = true;
+      let replcWnd = await browser.windows.create({url: aReplacementURL});
+      replacemtWndID = replcWnd.id;
+      
+      await aePrefs.setPrefs({
+        _replacemtWndID: replacemtWndID,
+        _replaceSession: true,
+      });
     }
 
     for (let wnd of wnds) {
-      if (wnd.id == this._replacemtWndID) {
+      if (wnd.id == replacemtWndID) {
 	continue;
       }
 
@@ -191,22 +207,40 @@ let gBrowserSession = {
         }
       };
 
+      let savedWnds = await aePrefs.getPref("_savedWnds");
+      if (! (savedWnds instanceof Array)) {
+        throw new TypeError("savedWnds not an Array");
+      }
+      
       let savedWnd = new aeSavedWindow(activeTabIdx, numPinnedTabs, wnd);
-      this._savedWnds.push(savedWnd);
+      savedWnds.push(savedWnd);
+      await aePrefs.setPrefs({_savedWnds: savedWnds});
 
       browser.windows.remove(wnd.id);
     }
 
-    this._readerModeTabIDs.clear();
+    await aePrefs.setPrefs({_readerModeTabIDs: []});
   },
 
   async restore()
   {
     let focusedWndID = null;
     let restoreSessInactvTabsZzz = await aePrefs.getPref("restoreSessInactvTabsZzz");
+
+    let savedWnds = await aePrefs.getPref("_savedWnds");
+    if (! (savedWnds instanceof Array)) {
+      throw new TypeError("savedWnds not an Array");
+    }
+
+    let readerModeTabIDs = await aePrefs.getPref("_readerModeTabIDs");
+    if (! (readerModeTabIDs instanceof Array)) {
+      throw new TypeError("readerModeTabIDs not an Array");
+    }   
+
+    readerModeTabIDs = new Set(readerModeTabIDs);
     
-    while (this._savedWnds.length > 0) {
-      let closedWnd = this._savedWnds.shift();
+    while (savedWnds.length > 0) {
+      let closedWnd = savedWnds.shift();
       let wndPpty = {
         type: closedWnd.info.type,
         incognito: closedWnd.info.incognito,
@@ -231,7 +265,7 @@ let gBrowserSession = {
 
         if (savedTab.isInReaderMode) {
           wndPpty.url = this._sanitizeReaderModeURL(brwsTabURL);
-          this._readerModeTabIDs.add(savedTab.id);
+          readerModeTabIDs.add(savedTab.id);
         }
         else {
           wndPpty.url = brwsTabURL;
@@ -249,7 +283,7 @@ let gBrowserSession = {
       let createdWnd = await browser.windows.create(wndPpty);
       let wndID = createdWnd.id;
 
-      savedTabs.forEach(async (aTab, aIndex, aArray) => {
+      savedTabs.forEach(async (aTab) => {
         let isReaderMode = false;
         let tabPpty = {
           windowId: wndID,
@@ -266,7 +300,7 @@ let gBrowserSession = {
 
         let tab = await browser.tabs.create(tabPpty);
         if (isReaderMode) {
-          this._readerModeTabIDs.add(tab.id);
+          readerModeTabIDs.add(tab.id);
         }
       });
 
@@ -282,7 +316,7 @@ let gBrowserSession = {
       let activeTabIdx = closedWnd.activeTabIdx;
       let activeTabID = 0;
 
-      let wnd = await browser.windows.get(createdWnd.id, { populate: true });
+      let wnd = await browser.windows.get(createdWnd.id, {populate: true});
 
       log("Panic Button/wx: gBrowserSession.restore(): Restored browser window:");
       log(wnd);
@@ -297,7 +331,7 @@ let gBrowserSession = {
         activeTabID = wnd.tabs[activeTabIdx].id;
       }
 
-      log("Index of active browser tab: " + activeTabIdx + "; active browser tab ID: " + activeTabID);
+      log(`Index of active browser tab: ${activeTabIdx}; active browser tab ID: ${activeTabID}`);
       await browser.tabs.update(activeTabID, {active: true});
 
       let numPinnedTabs = closedWnd.numPinnedTabs;
@@ -311,24 +345,39 @@ let gBrowserSession = {
     }
     // END while
 
-    let replacemtWnd = await browser.windows.get(this._replacemtWndID);
+    let replacemtWndID = await aePrefs.getPref("_replacemtWndID");
+    let replacemtWnd = await browser.windows.get(replacemtWndID);
     await browser.windows.remove(replacemtWnd.id);
-    this._replacemtWndID = null;
-    this._replaceSession = false;
+
+    await aePrefs.setPrefs({
+      _savedWnds: savedWnds,
+      _readerModeTabIDs: Array.from(readerModeTabIDs),
+      _replacemtWndID: null,
+      _replaceSession: false,
+    });
 
     if (focusedWndID) {
       await browser.windows.update(focusedWndID, {focused: true});
     }
   },
 
-  isStashed()
+  async isStashed()
   {
-    return this._replaceSession;
+    let rv = await aePrefs.getPref("_replaceSession");
+    return rv;
   },
 
-  isReaderModeTab(aTabID)
+  async isReaderModeTab(aTabID)
   {
-    return this._readerModeTabIDs.has(aTabID);
+    let rv;
+    let readerModeTabIDs = await aePrefs.getPref("_readerModeTabIDs");
+    if (! (readerModeTabIDs instanceof Array)) {
+      throw new TypeError("readerModeTabIDs not an Array");
+    }   
+
+    readerModeTabIDs = new Set(readerModeTabIDs);
+    rv = readerModeTabIDs.has(aTabID);
+    return rv;
   },
 
   async restoreReaderModeTab(aTabID)
@@ -343,7 +392,17 @@ let gBrowserSession = {
         return;
       }
     }
-    this._readerModeTabIDs.delete(aTabID);
+
+    let readerModeTabIDs = await aePrefs.getPref("_readerModeTabIDs");
+    if (! (readerModeTabIDs instanceof Array)) {
+      throw new TypeError("readerModeTabIDs not an Array");
+    }   
+
+    readerModeTabIDs = new Set(readerModeTabIDs);
+    readerModeTabIDs.delete(aTabID);
+    aePrefs.setPrefs({
+      _readerModeTabIDs: Array.from(readerModeTabIDs),
+    });
   },
   
 
@@ -395,6 +454,21 @@ browser.runtime.onInstalled.addListener(async (aInstall) => {
 });
 
 
+browser.runtime.onStartup.addListener(() => {
+  log("Panic Button/wx: Resetting persistent background script data during browser startup.");
+  aePrefs.setPrefs({
+    _minzWndID: null,
+    _camoWndID: null,
+    _minzWndStates: [],
+    _replaceSession: false,
+    _replacemtWndID: null,
+    _savedWnds: [],
+    _readerModeTabIDs: [],
+    _changeIconWndID: null,
+  });
+});
+
+
 //
 // Initializing integration with host application
 //
@@ -427,11 +501,16 @@ void async function ()
   }
 
   if (! aePrefs.hasSanNicolasPrefs(prefs)) {
+    log("Initializing 4.4 user preferences.");
+    await aePrefs.setSanNicolasPrefs(prefs);
+  }
+
+  if (! aePrefs.hasFarallonPrefs(prefs)) {
     // This should be set when updating to the latest release.
     gIsMajorVerUpdate = true;
 
-    log("Initializing 4.4 user preferences.");
-    await aePrefs.setSanNicolasPrefs(prefs);
+    log("Initializing 5.0 user preferences.");
+    await aePrefs.setFarallonPrefs(prefs);
   }
   
   init(prefs);
@@ -574,6 +653,8 @@ browser.menus.onClicked.addListener((aInfo, aTab) => {
 
 browser.storage.onChanged.addListener(async (aChanges, aAreaName) => {
   let prefs = await aePrefs.getAllPrefs();
+
+  // TO DO: Call function only if customizations were changed.
   await setPanicButtonCustomizations(prefs);
 });
 
@@ -597,8 +678,7 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     break;
 
   case "get-restore-sess-passwd":
-    let restoreSessPwd = await getRestoreSessPasswd();
-    resp = {restoreSessPwd};
+    resp = {restoreSessPwd: await getRestoreSessPasswd()};
     break;
 
   case "set-restore-sess-passwd":
@@ -612,11 +692,12 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     break;
 
   case "close-change-icon-dlg":
-    gChangeIconWndID = null;
+    aePrefs.setPrefs({_changeIconWndID: null});
     break;
 
   case "ping-change-icon-dlg":
-    resp = {isChangeIconDlgOpen: !!gChangeIconWndID};
+    let changeIconWndID = await aePrefs.getPref("_changeIconWndID");
+    resp = {isChangeIconDlgOpen: !!changeIconWndID};
     break;
 
   case "unsave-minimized-wnd":
@@ -633,15 +714,15 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
 });
 
 
-browser.tabs.onUpdated.addListener((aTabID, aChangeInfo, aTab) => {
+browser.tabs.onUpdated.addListener(async (aTabID, aChangeInfo, aTab) => {
   if (aChangeInfo.status == "complete") {
-    if (gBrowserSession.isStashed()) {
+    if (await gBrowserSession.isStashed()) {
       // Don't do anything for the temporary replacement browser window that was
       // opened when Hide And Replace was invoked.
       return;
     }
 
-    if (gBrowserSession.isReaderModeTab(aTabID)) {
+    if (await gBrowserSession.isReaderModeTab(aTabID)) {
       log(`Attempting to restore Reader Mode on tab ${aTabID}\nstatus: ${aTab.status}\nURL: ${aTab.url}\ndiscarded: ${aTab.discarded}\nisArticle: ${aTab.isArticle}\nisInReaderMode: ${aTab.isInReaderMode}`);
       gBrowserSession.restoreReaderModeTab(aTabID);
     }
@@ -657,7 +738,7 @@ async function panic()
 {
   let prefs = await aePrefs.getAllPrefs();
   
-  if (gBrowserSession.isStashed()) {
+  if (await gBrowserSession.isStashed()) {
     if (prefs.restoreSessPswdEnabled) {
       browser.tabs.update({ url: "pages/restoreSession.html" });
     }
@@ -665,10 +746,10 @@ async function panic()
       await gBrowserSession.restore();
     }
   }
-  else if (gBrowserWindows.isCamouflageWindowOpen()) {
+  else if (await gBrowserWindows.isCamouflageWindowOpen()) {
     await gBrowserWindows.restoreAll();
   }
-  else if (gBrowserWindows.isMinimized()
+  else if (await gBrowserWindows.isMinimized()
            && prefs.minimizeCurrOpt == aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND) {
     if (! await gBrowserWindows.restoreMinimized()) {
       await gBrowserWindows.minimizeCurrent();
@@ -827,21 +908,22 @@ async function openChangeIconDlg()
       left, top
     });
 
-    gChangeIconWndID = wnd.id;
+    await aePrefs.setPrefs({_changeIconWndID: wnd.id});
 
     // TO DO: This might not be needed anymore?
     browser.history.deleteUrl({ url });
   }
   // END nested functions
 
-  if (gChangeIconWndID) {
+  let changeIconWndID = await aePrefs.getPref("_changeIconWndID");
+  if (changeIconWndID) {
     try {
-      let wnd = await browser.windows.get(gChangeIconWndID);
-      browser.windows.update(gChangeIconWndID, {focused: true});
+      let wnd = await browser.windows.get(changeIconWndID);
+      browser.windows.update(changeIconWndID, {focused: true});
     }
-    catch (e) {
+    catch {
       // Handle dangling ref
-      gChangeIconWndID = null;
+      await aePrefs.setPrefs({_changeIconWndID: null});
       openChgIconDlgHelper();
     }
   }

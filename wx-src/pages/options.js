@@ -663,7 +663,7 @@ function initDialogs()
       let extManifest = chrome.runtime.getManifest();
       that.extInfo = {
         name: extManifest.name,
-        version: extManifest.version,
+        version: aeMozVersion.getExtendedVersion(extManifest.version),
         description: extManifest.description,
         homePgURL: extManifest.homepage_url,
       };

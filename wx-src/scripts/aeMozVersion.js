@@ -34,6 +34,9 @@
 // 4.99        5.0b1
 // 5.0.999     5.1rc1
 //
+// For development builds (e.g. 5.0b1+), set `aeConst.DEV_BUILD` to `true`.
+// Mozilla version numbers such as 5.0+ or 5.0.1+ are not supported.
+//
 let aeMozVersion = {
   RELEASETYPE_STABLE: 0,
   RELEASETYPE_PRE_MAJOR: 1,
@@ -57,26 +60,31 @@ let aeMozVersion = {
       rv = aVersion;
     }
     else {
+      let devBuildSfx = "";
+      if (aeConst?.DEV_BUILD) {
+        devBuildSfx = "+";
+      }
+
       let mozMajor, mozMinor;
       let mozVerSfx = "";
       if (parsedVer.releaseType == this.RELEASETYPE_PRE_MAJOR) {
 	mozMajor = Number(parsedVer.major) + 1;
 	mozMinor = 0;
 	mozVerSfx = this._getMozVersionSuffix(parsedVer.minor, parsedVer.revision);
-	rv = `${mozMajor}.${mozMinor}${mozVerSfx}`;
+	rv = `${mozMajor}.${mozMinor}${mozVerSfx}${devBuildSfx}`;
       }
       else if (parsedVer.releaseType == this.RELEASETYPE_PRE_MINOR) {
 	mozMajor = parsedVer.major;
 	mozMinor = Number(parsedVer.minor) + 1;
 	mozVerSfx = this._getMozVersionSuffix(parsedVer.revision, parsedVer.patch);
-	rv = `${mozMajor}.${mozMinor}${mozVerSfx}`;
+	rv = `${mozMajor}.${mozMinor}${mozVerSfx}${devBuildSfx}`;
       }
       else if (parsedVer.releaseType == this.RELEASETYPE_PRE_REVISION) {
 	mozMajor = parsedVer.major;
 	mozMinor = parsedVer.minor;
 	let mozRev = Number(parsedVer.revision) + 1;
 	mozVerSfx = this._getMozVersionSuffix(parsedVer.patch, 1);
-	rv = `${mozMajor}.${mozMinor}.${mozRev}${mozVerSfx}`;
+	rv = `${mozMajor}.${mozMinor}.${mozRev}${mozVerSfx}${devBuildSfx}`;
       }
     }
 
@@ -101,8 +109,8 @@ let aeMozVersion = {
       rv = aVersion;
     }
     else {
-      let mozPreVer = this.getMozVersion(aVersion);
-      rv = `${aVersion} (${mozPreVer})`;
+      let mozVer = this.getMozVersion(aVersion);
+      rv = `${mozVer} (${aVersion})`;
     }
     
     return rv;
@@ -135,27 +143,23 @@ let aeMozVersion = {
   },
 
   
-  _getMozVersionSuffix(aMozSubversion, aPreReleaseVer)
+  _getMozVersionSuffix(aSubversion, aPreReleaseVer=1)
   {
     let rv = "";
 
-    if (! aPreReleaseVer) {
-      aPreReleaseVer = 1;
-    }
-
-    if (aMozSubversion == 97) {  // pre-alpha
+    if (aSubversion == 97) {  // pre-alpha
       rv = "a0";
     }
-    else if (aMozSubversion == 98) {  // alpha
+    else if (aSubversion == 98) {  // alpha
       rv = `a${aPreReleaseVer}`;
     }
-    else if (aMozSubversion == 99) {  // beta
+    else if (aSubversion == 99) {  // beta
       rv = `b${aPreReleaseVer}`;
     }
-    else if (aMozSubversion == 998) {  // technical preview
+    else if (aSubversion == 998) {  // technical preview
       rv = `pre${aPreReleaseVer}`;
     }
-    else if (aMozSubversion == 999) {  // release candidate
+    else if (aSubversion == 999) {  // release candidate
       rv = `rc${aPreReleaseVer}`;
     }
 

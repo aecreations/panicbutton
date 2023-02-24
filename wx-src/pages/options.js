@@ -75,15 +75,15 @@ async function init(aEvent)
   if (gOS == "mac") {
     keyModAccelShift = "keyModAccelShiftMac";
     keyModAltShift = "keyModAltShiftMac";
-    $("panicbutton-key-del").innerText = chrome.i18n.getMessage("keyMacDel");
+    $("panicbutton-key-del").innerText = browser.i18n.getMessage("keyMacDel");
   }
   else {
     keyModAccelShift = "keyModAccelShift";
     keyModAltShift = "keyModAltShift";
   }
 
-  $("key-modifiers-accelshift").innerText = chrome.i18n.getMessage(keyModAccelShift);
-  $("key-modifiers-altshift").innerText = chrome.i18n.getMessage(keyModAltShift);
+  $("key-modifiers-accelshift").innerText = browser.i18n.getMessage(keyModAccelShift);
+  $("key-modifiers-altshift").innerText = browser.i18n.getMessage(keyModAltShift);
 
   let locale = browser.i18n.getUILanguage();
   let buttons = document.querySelectorAll("button");
@@ -530,17 +530,20 @@ function initDialogs()
   }
 
   gDialogs.setRestoreSessPswd = new aeDialog("#set-password-dlg");
-  gDialogs.setRestoreSessPswd.onInit = () => {
+  gDialogs.setRestoreSessPswd.onInit = function ()
+  {
     $("set-pswd-error").innerText = "";
     $("enter-password").value = "";
     $("confirm-password").value = "";
   };
-  gDialogs.setRestoreSessPswd.onShow = () => {
+
+  gDialogs.setRestoreSessPswd.onShow = function ()
+  {
     $("enter-password").focus();
   };
-  gDialogs.setRestoreSessPswd.onAccept = async () => {
-    let that = gDialogs.setRestoreSessPswd;
-    
+
+  gDialogs.setRestoreSessPswd.onAccept = async function ()
+  {
     let passwd = $("enter-password").value;
     let confirmPasswd = $("confirm-password").value;
 
@@ -565,22 +568,25 @@ function initDialogs()
       $("hide-and-replc-rm-pswd").style.visibility = "visible";
     }, 500);
     
-    that.close();
+    this.close();
   };
 
   gDialogs.changeRestoreSessPswd = new aeDialog("#change-password-dlg");
-  gDialogs.changeRestoreSessPswd.onInit = () => {
+  gDialogs.changeRestoreSessPswd.onInit = function ()
+  {
     $("chg-pswd-error").innerText = "";
     $("old-pswd").value = "";
     $("new-pswd").value = "";
     $("confirm-new-pswd").value = "";
   };
-  gDialogs.changeRestoreSessPswd.onShow = () => {
+
+  gDialogs.changeRestoreSessPswd.onShow = function ()
+  {
     $("old-pswd").focus();
   };
-  gDialogs.changeRestoreSessPswd.onAccept = async () => {
-    let that = gDialogs.changeRestoreSessPswd;
 
+  gDialogs.changeRestoreSessPswd.onAccept = async function ()
+  {
     let oldPswdElt = $("old-pswd");
     let newPswdElt =  $("new-pswd");
     let passwd = $("new-pswd").value;
@@ -612,7 +618,7 @@ function initDialogs()
       await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
 
       resetPasswdPrefs();
-      that.close();
+      this.close();
       return;
     }
 
@@ -621,20 +627,21 @@ function initDialogs()
       passwd
     });
 
-    that.close();
+    this.close();
   };
 
   gDialogs.removeRestoreSessPswd = new aeDialog("#remove-password-dlg");
-  gDialogs.removeRestoreSessPswd.onInit = () => {
+  gDialogs.removeRestoreSessPswd.onInit = function ()
+  {
     $("pswd-for-removal").value = "";
     $("rm-pswd-error").innerText = "";
-  }
-  gDialogs.removeRestoreSessPswd.onShow = () => {
+  };
+  gDialogs.removeRestoreSessPswd.onShow = function ()
+  {
     $("pswd-for-removal").focus();
   };
-  gDialogs.removeRestoreSessPswd.onAccept = async () => {
-    let that = gDialogs.removeRestoreSessPswd;
-
+  gDialogs.removeRestoreSessPswd.onAccept = async function ()
+  {
     let enteredPswdElt = $("pswd-for-removal");
     let enteredPswd = enteredPswdElt.value;
     let resp = await browser.runtime.sendMessage({
@@ -651,17 +658,16 @@ function initDialogs()
     
     await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
     resetPasswdPrefs();
-    that.close();
+    this.close();
   };
   
   gDialogs.about = new aeDialog("#about-dlg");
   gDialogs.about.extInfo = null;
-  gDialogs.about.onInit = () => {
-    let that = gDialogs.about;
-    
-    if (! that.extInfo) {
-      let extManifest = chrome.runtime.getManifest();
-      that.extInfo = {
+  gDialogs.about.onInit = function ()
+  {
+    if (! this.extInfo) {
+      let extManifest = browser.runtime.getManifest();
+      this.extInfo = {
         name: extManifest.name,
         version: aeMozVersion.getExtendedVersion(extManifest.version),
         description: extManifest.description,
@@ -669,10 +675,10 @@ function initDialogs()
       };
     }
 
-    document.getElementById("ext-name").innerText = that.extInfo.name;
-    document.getElementById("ext-ver").innerText = chrome.i18n.getMessage("aboutExtVer", that.extInfo.version);
-    document.getElementById("ext-desc").innerText = that.extInfo.description;
-    document.getElementById("ext-home-pg-link").href = that.extInfo.homePgURL;
+    document.getElementById("ext-name").innerText = this.extInfo.name;
+    document.getElementById("ext-ver").innerText = browser.i18n.getMessage("aboutExtVer", this.extInfo.version);
+    document.getElementById("ext-desc").innerText = this.extInfo.description;
+    document.getElementById("ext-home-pg-link").href = this.extInfo.homePgURL;
   };  
 }
 

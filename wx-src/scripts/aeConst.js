@@ -5,7 +5,7 @@
 
 const aeConst = Object.freeze({
   DEBUG: true,
-  DEV_BUILD: false,
+  DEV_BUILD: true,
   
   // Extension GUID
   EXTENSION_ID: "{24cea704-946d-11da-a72b-0800200c9a66}",

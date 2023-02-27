@@ -89,7 +89,7 @@ sub getMozVersionSuffix() {
 
   my $rv = "";
 
-  if (! defined $preReleaseVer) {
+  unless (defined $preReleaseVer) {
     $preReleaseVer = 1;
   }
 

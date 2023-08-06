@@ -486,6 +486,11 @@ window.addEventListener("keydown", aEvent => {
 });
 
 
+$("custom-icon-upload-btn").addEventListener("click", aEvent => {
+  $("custom-icon-upload").showPicker();
+});
+
+
 browser.runtime.onMessage.addListener(async (aRequest) => {
   log(`Panic Button/wx::options.js: Received message "${aRequest.msgID}"`);
 

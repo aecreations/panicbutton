@@ -247,7 +247,7 @@
     "message": "Sobre…"
   },
   "aboutExtVer": {
-    "message": "versão $1",
+    "message": "Versão $1",
     "description": "Extension version number"
   },
   "aboutAuthor": {

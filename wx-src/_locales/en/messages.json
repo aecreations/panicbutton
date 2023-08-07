@@ -327,7 +327,7 @@
   },
 
   "aboutExtVer": {
-    "message": "version $1",
+    "message": "Version $1",
     "description": "Extension version number"
   },
 

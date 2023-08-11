@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient5296">
+   <stop stop-color="#97fbf6" offset="0"/>
+   <stop stop-color="#67918f" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient5302" x1="4.744" x2="12.352" y1="14.731" y2="14.731" gradientTransform="matrix(1 0 0 1.2688 5.0541e-7 -3.9249)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5296"/>
+  <linearGradient id="linearGradient5310" x1="12.596" x2="20.204" y1="20.344" y2="20.344" gradientTransform="matrix(1 0 0 1.2296 0 -5.1913)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5296"/>
+  <linearGradient id="linearGradient5318" x1="20.883" x2="28.491" y1="11.765" y2="11.765" gradientTransform="matrix(1 0 0 1.5023 0 -4.9985)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5296"/>
+  <linearGradient id="linearGradient3776" x1="16.033" x2="15.967" y1="4.6317" y2="27.94" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#e1e1ff" offset="0"/>
+   <stop stop-color="#bfb9ff" offset="1"/>
+  </linearGradient>
+  <filter id="filter3223" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="result6" stdDeviation="0.4"/>
+   <feComposite in="SourceGraphic" in2="result6" operator="in" result="result7"/>
+   <feComposite in="result7" in2="result7" operator="in" result="result8"/>
+  </filter>
+  <filter id="filter3231" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="result6" stdDeviation="0.4"/>
+   <feComposite in="SourceGraphic" in2="result6" operator="in" result="result7"/>
+   <feComposite in="result7" in2="result7" operator="in" result="result8"/>
+  </filter>
+  <filter id="filter3239" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="result6" stdDeviation="0.4"/>
+   <feComposite in="SourceGraphic" in2="result6" operator="in" result="result7"/>
+   <feComposite in="result7" in2="result7" operator="in" result="result8"/>
+  </filter>
+  <filter id="filter4039" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="result6" stdDeviation="0.4"/>
+   <feComposite in="SourceGraphic" in2="result6" operator="in" result="result7"/>
+   <feComposite in="result7" in2="result7" operator="in" result="result8"/>
+  </filter>
+  <filter id="filter3023" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="result6" stdDeviation="0.4"/>
+   <feComposite in="SourceGraphic" in2="result6" operator="in" result="result7"/>
+   <feComposite in="result7" in2="result7" operator="in" result="result8"/>
+  </filter>
+  <filter id="filter3031" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="result6" stdDeviation="0.4"/>
+   <feComposite in="SourceGraphic" in2="result6" operator="in" result="result7"/>
+   <feComposite in="result7" in2="result7" operator="in" result="result8"/>
+  </filter>
+  <filter id="filter3039" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="result6" stdDeviation="0.4"/>
+   <feComposite in="SourceGraphic" in2="result6" operator="in" result="result7"/>
+   <feComposite in="result7" in2="result7" operator="in" result="result8"/>
+  </filter>
+ </defs>
+ <g>
+  <rect x=".88575" y="2.8497" width="30.318" height="26.426" fill="url(#linearGradient3776)" filter="url(#filter4039)" stroke="#473a76" stroke-width="1.3"/>
+  <g stroke-linecap="square">
+   <rect transform="matrix(.99552 0 0 1.0394 .038909 -.92043)" x="7.6758" y="9.8767" width="2.0273" height="13.369" fill="#6a5ba5" filter="url(#filter3023)" stroke="#483c78" stroke-linejoin="round" stroke-width=".527"/>
+   <rect x="5.2671" y="13.038" width="6.5621" height="3.4537" fill="url(#linearGradient5302)" filter="url(#filter3223)" stroke="#303030" stroke-linejoin="bevel" stroke-width=".7"/>
+   <rect transform="matrix(.99626 0 0 1.0328 .061042 -.76407)" x="15.313" y="9.7874" width="2.0273" height="13.369" fill="#6b5ba5" filter="url(#filter3039)" stroke="#483c78" stroke-linejoin="round" stroke-width=".527"/>
+   <rect x="13.126" y="18.103" width="6.5487" height="3.4403" fill="url(#linearGradient5310)" filter="url(#filter3231)" stroke="#303030" stroke-linejoin="bevel" stroke-width=".7"/>
+   <rect transform="matrix(.99552 0 0 1.0394 .11028 -.91691)" x="23.615" y="9.7874" width="2.0273" height="13.369" fill="#6a5ba5" filter="url(#filter3031)" stroke="#483c78" stroke-linejoin="round" stroke-width=".527"/>
+   <rect x="21.371" y="10.914" width="6.6321" height="3.5236" fill="url(#linearGradient5318)" filter="url(#filter3239)" stroke="#303030" stroke-linejoin="bevel" stroke-width=".7"/>
+  </g>
+ </g>
+</svg>

@@ -39,7 +39,7 @@ async function init(aEvent)
   $("preftab-options-btn").addEventListener("click", switchPrefsPanel);
   $("preftab-customize-btn").addEventListener("click", switchPrefsPanel);
   
-  browser.history.deleteUrl({ url: window.location.href });
+  browser.history.deleteUrl({url: window.location.href});
 
   gRadioPanels = [
     {
@@ -66,7 +66,7 @@ async function init(aEvent)
 
   initDialogs();
 
-  let resp = await browser.runtime.sendMessage({ msgID: "get-system-info" });
+  let resp = await browser.runtime.sendMessage({msgID: "get-system-info"});
   gOS = resp.os;
   document.body.dataset.os = gOS;
   
@@ -112,11 +112,11 @@ async function init(aEvent)
       return;
     }
     validateURLTextbox(aEvent.target);
-    aePrefs.setPrefs({ replacementWebPgURL: aEvent.target.value });
+    aePrefs.setPrefs({replacementWebPgURL: aEvent.target.value});
   });
   
   $("restore-sess-snooze-tabs").addEventListener("click", aEvent => {
-    aePrefs.setPrefs({ restoreSessInactvTabsZzz: aEvent.target.checked });
+    aePrefs.setPrefs({restoreSessInactvTabsZzz: aEvent.target.checked});
   });
 
   $("panic-action-minimize-all").addEventListener("click", selectPanicAction);
@@ -135,7 +135,7 @@ async function init(aEvent)
     }
     $("minz-all-restore-from-camo-instr").style.display = isMinzAllCamo ? "block" : "none";
 
-    aePrefs.setPrefs({ showCamouflageWebPg: isMinzAllCamo });
+    aePrefs.setPrefs({showCamouflageWebPg: isMinzAllCamo});
   });
 
   $("minz-all-camouflage-webpg-url").addEventListener("blur", aEvent => {
@@ -145,7 +145,7 @@ async function init(aEvent)
       return;
     }
     validateURLTextbox(aEvent.target);
-    aePrefs.setPrefs({ camouflageWebPgURL: aEvent.target.value });
+    aePrefs.setPrefs({camouflageWebPgURL: aEvent.target.value});
   });
 
   $("panic-action-minimize-current").addEventListener("click", selectPanicAction);
@@ -159,7 +159,7 @@ async function init(aEvent)
 
   $("shortcut-key").addEventListener("click", aEvent => {
     let isKeybShct = aEvent.target.checked;
-    aePrefs.setPrefs({ shortcutKey: isKeybShct });
+    aePrefs.setPrefs({shortcutKey: isKeybShct});
 
     $("panicbutton-key").disabled = !isKeybShct;
     $("panicbutton-key-modifiers").disabled = !isKeybShct;
@@ -234,12 +234,12 @@ async function init(aEvent)
   });
 
   $("toolbar-button-caption").addEventListener("blur", aEvent => {
-    aePrefs.setPrefs({ toolbarBtnLabel: aEvent.target.value });
+    aePrefs.setPrefs({toolbarBtnLabel: aEvent.target.value});
   });
 
   $("rev-contrast-icon").addEventListener("click", aEvent => {
     let isRevContrast = aEvent.target.checked;   
-    aePrefs.setPrefs({ toolbarBtnRevContrastIco: isRevContrast });
+    aePrefs.setPrefs({toolbarBtnRevContrastIco: isRevContrast});
 
     let toolbarIconPicker = $("toolbar-button-icon");
     if (isRevContrast) {
@@ -440,10 +440,10 @@ async function init(aEvent)
   }
 
   // Close the Change Icon dialog if it is open.
-  resp = await browser.runtime.sendMessage({ msgID: "ping-change-icon-dlg" });
+  resp = await browser.runtime.sendMessage({msgID: "ping-change-icon-dlg"});
   if (resp.isChangeIconDlgOpen) {
     $("preftab-customize-btn").click();
-    browser.runtime.sendMessage({ msgID: "auto-close-change-icon-dlg" }); 
+    browser.runtime.sendMessage({msgID: "auto-close-change-icon-dlg"}); 
   }
 }
 
@@ -620,7 +620,7 @@ function initDialogs()
     if (passwd == "" && confirmPasswd == "") {
       // If both password fields are empty, clear the password as if the user
       // had clicked "Remove Password"
-      await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
+      await browser.runtime.sendMessage({msgID: "rm-restore-sess-passwd"});
 
       resetPasswdPrefs();
       this.close();
@@ -661,7 +661,7 @@ function initDialogs()
       return;
     }
     
-    await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
+    await browser.runtime.sendMessage({msgID: "rm-restore-sess-passwd"});
     resetPasswdPrefs();
     this.close();
   };
@@ -692,7 +692,7 @@ function selectPanicAction(aEvent)
 {
   let selectedActionID = aEvent.target.value;
   switchSelectedActionRadioPanel(selectedActionID);
-  aePrefs.setPrefs({ action: selectedActionID });
+  aePrefs.setPrefs({action: selectedActionID});
 }
 
 
@@ -833,14 +833,14 @@ function getLocalizedKeybShct(aShortcutKeyModifiers, aShortcutKey)
 function resetReplacemtWebPageURL(aEvent)
 {
   $("webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
-  aePrefs.setPrefs({ replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });  
+  aePrefs.setPrefs({replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL});  
 }
 
 
 function resetMinzAllCamouflageWebPageURL(aEvent)
 {
   $("minz-all-camouflage-webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
-  aePrefs.setPrefs({ camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });
+  aePrefs.setPrefs({camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL});
 }
 
 

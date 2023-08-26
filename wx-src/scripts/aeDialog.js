@@ -8,11 +8,18 @@ class aeDialog
 {
   constructor(aDlgEltSelector)
   {
+    this.FOCUSABLE_ELTS_STOR = "input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), a[href]";
+
+    this._dlgElt = document.querySelector(`${aDlgEltSelector}`);
     this._dlgEltStor = aDlgEltSelector;
     this._fnInit = function () {};
     this._fnDlgShow = function () {};
     this._fnUnload = function () {};
     this._fnAfterDlgAccept = function () {};
+    this._lastFocusedElt = null;
+    this._focusedElt = null;
+    this._firstTabStop = null;
+    this._lastTabStop = null;
 
     this._fnDlgAccept = function (aEvent) {
       this.close();
@@ -85,10 +92,50 @@ class aeDialog
     document.querySelector("#lightbox-bkgrd-ovl").classList.add("lightbox-show");
     document.querySelector(`${this._dlgEltStor}`).classList.add("lightbox-show");
     this._fnDlgShow();
+
+    this.initKeyboardNavigation();
+  }
+
+  initKeyboardNavigation()
+  {
+    this._lastFocusedElt = document.activeElement;
+
+    let focusableElts = this._dlgElt.querySelectorAll(`${this.FOCUSABLE_ELTS_STOR}`);
+    this._firstTabStop = focusableElts[0];
+    this._lastTabStop = focusableElts[focusableElts.length - 1];
+
+    this._dlgElt.addEventListener("keydown", aEvent => { this.handleKeyDownEvent(aEvent) });
+
+    if (this._focusedElt) {
+      this._focusedElt.focus();
+    }
+    else {
+      this._firstTabStop.focus();
+    }
+  }
+
+  handleKeyDownEvent(aEvent)
+  {
+    if (aEvent.key == "Tab") {
+      if (aEvent.shiftKey) {
+        if (document.activeElement == this._firstTabStop) {
+          aEvent.preventDefault();
+          this._lastTabStop.focus();
+        }
+      }
+      else {
+        if (document.activeElement == this._lastTabStop) {
+          aEvent.preventDefault();
+          this._firstTabStop.focus();
+        }
+      }
+    }
   }
 
   close()
   {
+    this._dlgElt.removeEventListener("keydown", aEvent => { this.handleKeyDownEvent(aEvent) });
+
     this._fnUnload();
     document.querySelector(`${this._dlgEltStor}`).classList.remove("lightbox-show");
     document.querySelector("#lightbox-bkgrd-ovl").classList.remove("lightbox-show");

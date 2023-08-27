@@ -336,14 +336,18 @@ async function init(aEvent)
     msgID: "get-toolbar-btn-icons-map"
   });
   let toolbarBtnIcons = resp.toolbarBtnIconsMap;
-  let toolbarBtnIconID = toolbarBtnIcons[prefs.toolbarBtnIcon];
   let revContrastChbox = $("rev-contrast-icon");
-  let isCustIconSet = false;
   
-  if (prefs.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
+  aeToolbarIconPicker.init(
+    "toolbar-button-icon",
+    toolbarBtnIcons,
+    $("toolbar-button-caption"),
+    $("custom-icon-upload-btn")
+  );
+
+  if (prefs.toolbarBtnIcon == aeToolbarIconPicker.CUSTOM_ICON_IDX) {
     let customIconRadio = $("custom-icon");
     customIconRadio.style.visibility = "visible";
-    customIconRadio.checked = true;
     $("custom-icon-label").style.visibility = "visible";
 
     let canvas = $("custom-icon-img");
@@ -355,21 +359,10 @@ async function init(aEvent)
     };
     img.src = prefs.toolbarBtnData;
     
+    aeToolbarIconPicker.hasCustomIcon = true;
     revContrastChbox.disabled = true;
-    isCustIconSet = true;
   }
-  else {
-    $(toolbarBtnIconID).checked = true;
-  }
-
-  aeToolbarIconPicker.init(
-    "toolbar-button-icon",
-    toolbarBtnIcons,
-    isCustIconSet,
-    prefs.toolbarBtnIcon,
-    $("toolbar-button-caption"),
-    $("custom-icon-upload-btn")
-  );
+  aeToolbarIconPicker.selectedIndex = prefs.toolbarBtnIcon;
 
   if (prefs.toolbarBtnRevContrastIco) {
     revContrastChbox.checked = true;
@@ -755,6 +748,7 @@ function setCustomTBIcon(aEvent)
       });
 
       aeToolbarIconPicker.hasCustomIcon = true;
+      aeToolbarIconPicker.selectedIndex = aeToolbarIconPicker.CUSTOM_ICON_IDX;
     };
     
     img.src = encImgData;   
@@ -762,7 +756,6 @@ function setCustomTBIcon(aEvent)
     $("custom-icon-label").style.visibility = "visible";
     let customIconRadio = $("custom-icon");
     customIconRadio.style.visibility = "visible";
-    customIconRadio.checked = true;
 
     let revContrastChbox = $("rev-contrast-icon");
     revContrastChbox.setAttribute("disabled", "true");

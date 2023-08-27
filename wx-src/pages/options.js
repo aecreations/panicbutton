@@ -151,7 +151,7 @@ async function init(aEvent)
   $("panic-action-minimize-current").addEventListener("click", selectPanicAction);
   $("minz-curr-action-opt").addEventListener("change", aEvent => {
     let selectedOpt = aEvent.target.value;
-    aePrefs.setPrefs({ minimizeCurrOpt: selectedOpt });
+    aePrefs.setPrefs({minimizeCurrOpt: selectedOpt});
     toggleRestoreMinimizedWndNote(selectedOpt);
   });
   
@@ -338,6 +338,7 @@ async function init(aEvent)
   let toolbarBtnIcons = resp.toolbarBtnIconsMap;
   let toolbarBtnIconID = toolbarBtnIcons[prefs.toolbarBtnIcon];
   let revContrastChbox = $("rev-contrast-icon");
+  let isCustIconSet = false;
   
   if (prefs.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
     let customIconRadio = $("custom-icon");
@@ -355,10 +356,20 @@ async function init(aEvent)
     img.src = prefs.toolbarBtnData;
     
     revContrastChbox.disabled = true;
+    isCustIconSet = true;
   }
   else {
     $(toolbarBtnIconID).checked = true;
   }
+
+  aeToolbarIconPicker.init(
+    "toolbar-button-icon",
+    toolbarBtnIcons,
+    isCustIconSet,
+    prefs.toolbarBtnIcon,
+    $("toolbar-button-caption"),
+    $("custom-icon-upload-btn")
+  );
 
   if (prefs.toolbarBtnRevContrastIco) {
     revContrastChbox.checked = true;
@@ -456,7 +467,7 @@ document.addEventListener("click", aEvent => {
   if (aEvent.target.tagName == "INPUT"
       && aEvent.target.getAttribute("type") == "radio"
       && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
-    aePrefs.setPrefs({ toolbarBtnIcon: aEvent.target.value });
+    aePrefs.setPrefs({toolbarBtnIcon: aEvent.target.value});
 
     let revContrastChbox = $("rev-contrast-icon");
     
@@ -742,6 +753,8 @@ function setCustomTBIcon(aEvent)
         toolbarBtnData: scaledImgData,
         toolbarBtnRevContrastIco: false,
       });
+
+      aeToolbarIconPicker.hasCustomIcon = true;
     };
     
     img.src = encImgData;   

@@ -97,6 +97,9 @@ let aeToolbarIconPicker = {
         }
         this._selectedIdx = newIdx = currIdx - 1;
       }
+      else {
+        return;
+      }
 
       let newToolbarBtnIco;
       if (newIdx == this.CUSTOM_ICON_IDX) {

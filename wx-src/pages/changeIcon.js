@@ -12,7 +12,7 @@ function $(aID)
 
 async function init()
 {
-  browser.history.deleteUrl({ url: window.location.href });
+  browser.history.deleteUrl({url: window.location.href});
 
   let prefs = await aePrefs.getAllPrefs();
   
@@ -24,12 +24,17 @@ async function init()
     msgID: "get-toolbar-btn-icons-map"
   });
   let toolbarBtnIcons = resp.toolbarBtnIconsMap;
-  let toolbarBtnIconID = toolbarBtnIcons[prefs.toolbarBtnIcon];
 
-  if (prefs.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
+  aeToolbarIconPicker.init(
+    "toolbar-button-icon",
+    toolbarBtnIcons,
+    $("btn-accept"),
+    $("more-customzns")
+  );
+
+  if (prefs.toolbarBtnIcon == aeToolbarIconPicker.CUSTOM_ICON_IDX) {
     let customIconRadio = $("custom-icon");
     customIconRadio.style.visibility = "visible";
-    customIconRadio.checked = true;
     $("custom-icon-label").style.visibility = "visible";
 
     let canvas = $("custom-icon-img");
@@ -40,10 +45,9 @@ async function init()
       canvasCtx.drawImage(this, 0, 0, 36, 36);
     };
     img.src = prefs.toolbarBtnData;
+    aeToolbarIconPicker.hasCustomIcon = true;
   }
-  else {
-    $(toolbarBtnIconID).checked = true;
-  }
+  aeToolbarIconPicker.selectedIndex = prefs.toolbarBtnIcon;
 
   $("more-customzns").addEventListener("click", async (aEvent) => {
     await browser.runtime.openOptionsPage();
@@ -63,7 +67,7 @@ async function init()
 
 async function closeDlg()
 {
-  await browser.runtime.sendMessage({ msgID: "close-change-icon-dlg" });
+  await browser.runtime.sendMessage({msgID: "close-change-icon-dlg"});
   browser.windows.remove(browser.windows.WINDOW_ID_CURRENT);
 }
 

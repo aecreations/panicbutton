@@ -5,16 +5,15 @@
 
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
     <title data-i18n="chgIconTitle"></title>
 
     <link rel="stylesheet" href="changeIcon.css"/>
   </head>
 
   <body>
-
     <label data-i18n="labelSelIcon"></label>
-    <div id="toolbar-button-icon">
+    <div id="toolbar-button-icon" tabindex="0">
       <input type="radio" name="toolbar-button-icon" id="default" value="0"/>
       <label for="default"><canvas/></label>
       <input type="radio" name="toolbar-button-icon" id="exclamation-in-ball" value="1"/>
@@ -71,6 +70,7 @@
     <script src="../scripts/aeI18n.js"></script>
     <script src="../scripts/aePrefs.js"></script>
     <script src="../scripts/aeInterxn.js"></script>
+    <script src="../scripts/aeToolbarIconPicker.js"></script>
     <script src="changeIcon.js"></script>
   </body>
 </html>

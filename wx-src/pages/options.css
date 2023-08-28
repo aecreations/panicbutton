@@ -387,6 +387,14 @@ fieldset select.browser-style {
     width: 192px;
 }
 
+#toolbar-button-icon:-moz-focusring {
+    outline-style: none;
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px #61b5ffbf;
+    transition-duration: 250ms;
+    transition-property: box-shadow;
+}
+
 #icon-options {
     align-self: stretch;
     margin-top: 3px;

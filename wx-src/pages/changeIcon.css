@@ -28,6 +28,14 @@ label {
     width: 100%;
 }
 
+#toolbar-button-icon:-moz-focusring {
+    outline-style: none;
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px #61b5ffbf;
+    transition-duration: 250ms;
+    transition-property: box-shadow;
+}
+
 #dlg-buttons {
     position: absolute;
     bottom: 18px;

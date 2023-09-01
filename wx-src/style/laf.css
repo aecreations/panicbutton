@@ -12,8 +12,10 @@
     --color-btn-bkgd: rgba(12, 12, 13, 0.1);
     --color-btn-hover-bkgd: rgba(12, 12, 13, 0.2);
     --color-btn-hover-border: rgba(12, 12, 13, 0.1);
+    --color-btn-default-hover-border: #001a55;
     --color-btn-active-bkgd: rgba(12, 12, 13, 0.3);
     --color-btn-border: rgba(12, 12, 13, 0.1);
+    --color-btn-default-border: #004888;
     --color-btn-text: black;
     --color-tb-bkgd: -moz-field;
     --color-tb-border: rgba(12, 12, 13, 0.2);
@@ -44,8 +46,10 @@
 	--color-btn-bkgd: #4a4a4f;
 	--color-btn-hover-bkgd: #606060;
 	--color-btn-hover-border: #606060;
+	--color-btn-default-hover-border: #003eaa;
 	--color-btn-active-bkgd: #737373;
 	--color-btn-border: #4a4a4f;
+	--color-btn-default-border: #0060df;
 	--color-btn-text: #f9f9fa;
 	--color-tb-bkgd: #0c0c0d;
 	--color-tb-border: #4a4a4f;
@@ -103,7 +107,7 @@ select.browser-style[disabled] {
 }
 
 button.default {
-    border: 1px solid #0060df;
+    border: 1px solid var(--color-btn-default-border);
     background-color: #0060df;
     color: #fff;
 }
@@ -120,7 +124,7 @@ button:hover {
 }
 
 button.default:hover {
-    border: 1px solid #003eaa;
+    border: 1px solid var(--color-btn-default-hover-border);
     background-color: #003eaa;
 }
 

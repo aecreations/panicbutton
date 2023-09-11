@@ -474,18 +474,32 @@ document.addEventListener("click", aEvent => {
 });
 
 window.addEventListener("keydown", aEvent => {
-  if (aEvent.key == "Enter" && aeDialog.isOpen()) {
-    aeDialog.acceptDlgs();
-
-    // Don't trigger any further actions that would have occurred if the
-    // ENTER key was pressed.
+  if (aEvent.key == "Enter") {
+    if (aeDialog.isOpen()) {
+      if (aEvent.target.tagName == "BUTTON" && !aEvent.target.classList.contains("default")) {
+        aEvent.target.click();
+      }
+      else {
+        aeDialog.acceptDlgs();
+      }
+    }
+    else {
+      if (aEvent.target.tagName == "BUTTON") {
+        aEvent.target.click();
+      }
+    }
     aEvent.preventDefault();
   }
   else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
     aeDialog.cancelDlgs();
   }
+  else if (aEvent.key == " ") {
+    if (aEvent.target.tagName == "A") {
+      aEvent.target.click();
+    }
+  }
   else {
-    aeInterxn.suppressBrowserShortcuts(aEvent);
+    aeInterxn.suppressBrowserShortcuts(aEvent, aeConst.DEBUG);
   }
 });
 
@@ -742,7 +756,7 @@ function setCustomTBIcon(aEvent)
 
       let scaledImgData = canvas.toDataURL("image/png");
       aePrefs.setPrefs({
-        toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,
+        toolbarBtnIcon: aeToolbarIconPicker.CUSTOM_ICON_IDX,
         toolbarBtnData: scaledImgData,
         toolbarBtnRevContrastIco: false,
       });

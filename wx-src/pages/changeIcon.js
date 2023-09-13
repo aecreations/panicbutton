@@ -54,6 +54,8 @@ async function init()
   });
   $("btn-accept").addEventListener("click", aEvent => { closeDlg() });
 
+  aeInterxn.initDialogButtonFocusHandlers();
+
   // Fix for Fx57 bug where bundled page loaded using
   // browser.windows.create won't show contents unless resized.
   // See <https://bugzilla.mozilla.org/show_bug.cgi?id=1402110>
@@ -94,7 +96,12 @@ document.addEventListener("click", aEvent => {
 
 
 window.addEventListener("keydown", aEvent => {
-  if (aEvent.key == "Enter" || aEvent.key == "Escape") {
+  if (aEvent.key == "Enter") {
+    // There should only be 1 default button.
+    let defaultBtn = document.querySelector(".default");
+    defaultBtn.click();
+  }
+  else if (aEvent.key == "Escape") {
     closeDlg();
   }
   else {

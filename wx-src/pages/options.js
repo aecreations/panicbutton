@@ -449,6 +449,8 @@ async function init(aEvent)
     $("preftab-customize-btn").click();
     browser.runtime.sendMessage({msgID: "auto-close-change-icon-dlg"}); 
   }
+
+  aeInterxn.initDialogButtonFocusHandlers();
 }
 
 
@@ -476,12 +478,7 @@ document.addEventListener("click", aEvent => {
 window.addEventListener("keydown", aEvent => {
   if (aEvent.key == "Enter") {
     if (aeDialog.isOpen()) {
-      if (aEvent.target.tagName == "BUTTON" && !aEvent.target.classList.contains("default")) {
-        aEvent.target.click();
-      }
-      else {
-        aeDialog.acceptDlgs();
-      }
+      aeDialog.acceptDlgs();
     }
     else {
       if (aEvent.target.tagName == "BUTTON") {

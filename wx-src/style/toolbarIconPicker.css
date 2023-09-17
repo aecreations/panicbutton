@@ -53,6 +53,7 @@
     margin-bottom: 12px;
     border: 1px solid #b1b1b1;
     background-color: #fefefe;
+    line-height: 0.80;
 }
 
 #toolbar-button-icon[colorscheme="dark"] {
@@ -64,14 +65,18 @@
     display: none;
 }
 
+#toolbar-button-icon label {
+    margin-right: -3px;
+}
+
 #toolbar-button-icon label > img,
 #toolbar-button-icon label > canvas {
-    padding: 4px;
-    width: 36px;
-    height: 36px;
+    padding: 0;
+    width: 42px;
+    height: 42px;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 28px 28px;
+    background-size: 32px 32px;
 }
 
 #toolbar-button-icon input[type="radio"]:checked + label img,

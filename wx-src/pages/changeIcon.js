@@ -105,7 +105,7 @@ window.addEventListener("keydown", aEvent => {
     closeDlg();
   }
   else {
-    aeInterxn.suppressBrowserShortcuts(aEvent);
+    aeInterxn.suppressBrowserShortcuts(aEvent, aeConst.DEBUG);
   }
 });
 

@@ -45,7 +45,7 @@ let aeToolbarIconPicker = {
   set hasCustomIcon(aHasCustomIcon)
   {
     if (aHasCustomIcon && this._toolbarBtnIcons.length == this.NUM_BUILTIN_ICONS) {
-      let custIcoInfo = new aeToolbarIconInfo("custom-icon", this.CUSTOM_ICON_X, this.CUSTOM_ICON_Y);
+      let custIcoInfo = new aeIconInfo("custom-icon", this.CUSTOM_ICON_X, this.CUSTOM_ICON_Y);
       this._toolbarBtnIcons.push(custIcoInfo);
 
       let custIcoRadioBtn = document.getElementById("custom-icon");
@@ -72,15 +72,15 @@ let aeToolbarIconPicker = {
 
     let pickerSty = window.getComputedStyle(document.getElementById("toolbar-button-icon"));
     let firstIcoSty = window.getComputedStyle(document.querySelector("#default ~ label > canvas"));
-    let pickerWidth = parseInt(pickerSty.width) - (parseInt(pickerSty.padding) * 2) - (parseInt(pickerSty.borderWidth) * 2);
+    let pickerWidth = parseInt(pickerSty.width);
     let iconWidth = parseInt(firstIcoSty.width);
     let row = 0;
     let leftOffsetIdx = 0;
     let leftOffsetPx = 0;
 
     for (let i = 0; i < aToolbarBtnIconIDs.length; i++) {
-      let tbIcoInfo = new aeToolbarIconInfo(aToolbarBtnIconIDs[i], leftOffsetIdx, row);
-      this._toolbarBtnIcons.push(tbIcoInfo);
+      let iconInfo = new aeIconInfo(aToolbarBtnIconIDs[i], leftOffsetIdx, row);
+      this._toolbarBtnIcons.push(iconInfo);
 
       let icoRadioBtn = document.getElementById(aToolbarBtnIconIDs[i]);
       icoRadioBtn.addEventListener("click", aEvent => {
@@ -190,7 +190,7 @@ let aeToolbarIconPicker = {
 };
 
 // Helper class
-class aeToolbarIconInfo
+class aeIconInfo
 {
   constructor(aID, aX, aY)
   {

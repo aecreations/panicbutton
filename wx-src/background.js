@@ -60,7 +60,7 @@ let gBrowserWindows = {
 
         // Confirm that the minimized window still exists.
         let state = minzWnd.wndState;
-        log("Panic Button: Restoring window state: " + state);
+        log(`Panic Button: Restoring window state to "${state}" for window ${minzWnd.id}`);
         if (gOS == "mac") {
           log("On macOS only, always restoring 'normal' window state.");
           state = "normal";

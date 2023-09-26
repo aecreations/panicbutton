@@ -229,8 +229,21 @@ async function init(aEvent)
   $("reset-shortcut").addEventListener("click", aEvent => {
     browser.commands.reset(aeConst.CMD_PANIC_BUTTON_ACTION);
 
-    $("panicbutton-key").selectedIndex = 7;
-    $("panicbutton-key-modifiers").selectedIndex = 0;
+    // Unhide the two drop-down menus for the keyboard shortcut if they
+    // were hidden because the old shortcut was set from Add-ons Manager.
+    let keySelectElt = $("panicbutton-key");
+    let keyModSelectElt = $("panicbutton-key-modifiers");
+
+    keySelectElt.style.display = "inline-block";
+    keySelectElt.selectedIndex = 7;
+    keyModSelectElt.style.display = "inline-block";
+    keyModSelectElt.selectedIndex = 0;
+
+    let externKeybShct = $("extern-keyb-shct");
+    externKeybShct.style.display = "none";
+    externKeybShct.innerText = "";
+
+    $("shct-note").innerText = browser.i18n.getMessage("prefsShortcutKeyNote");
   });
 
   $("toolbar-button-caption").addEventListener("blur", aEvent => {

@@ -59,7 +59,7 @@ let gBrowserWindows = {
         await browser.windows.get(minzWnd.id);
 
         // Confirm that the minimized window still exists.
-        await browser.windows.update(minzWnd.id, { state:  minzWnd.wndState });
+        await browser.windows.update(minzWnd.id, { state: minzWnd.wndState });
       }
       catch (e) {
         warn("Panic Button/wx: Window ID no longer valid (was it just closed?)");

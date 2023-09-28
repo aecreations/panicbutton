@@ -20,6 +20,7 @@ let aeToolbarIconPicker = {
   _customIconX: null,
   _customIconY: null,
 
+
   set selectedIndex(aIndex)
   {
     if (! this._toolbarBtnIcons) {
@@ -231,8 +232,8 @@ let aeToolbarIconPicker = {
       }
     });
 
-    // Also catch the "mouseup" event in the document in case the user releases
-    // the mouse button while dragging outside the icon picker.
+    // Also handle the "mouseup" event in the document in case the user
+    // releases the mouse button while dragging outside the icon picker.
     document.addEventListener("mouseup", aEvent => {
       if (aEvent.button != 0) {
         return;
@@ -248,6 +249,7 @@ let aeToolbarIconPicker = {
     });
   },
 };
+
 
 // Helper class
 class aeIconInfo

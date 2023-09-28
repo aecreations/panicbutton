@@ -8,11 +8,6 @@ let aeToolbarIconPicker = {
   CUSTOM_ICON_IDX: 20,
   NUM_BUILTIN_ICONS: 20,
 
-  // TO DO: Calculate the coordinates of the custom toolbar button icon
-  // rather than hardcoding it in a constant!
-  CUSTOM_ICON_X: 4,
-  CUSTOM_ICON_Y: 2,
-
   _id: null,
   _elt: null,
   _toolbarBtnIcons: null,
@@ -22,6 +17,8 @@ let aeToolbarIconPicker = {
   _currPos: null,
   _custIcon: false,
   _clickedElt: null,
+  _customIconX: null,
+  _customIconY: null,
 
   set selectedIndex(aIndex)
   {
@@ -48,8 +45,12 @@ let aeToolbarIconPicker = {
 
   set hasCustomIcon(aHasCustomIcon)
   {
+    if (! this._toolbarBtnIcons) {
+      throw new ReferenceError("aeToolbarIconPicker not initialized");
+    }
+
     if (aHasCustomIcon && this._toolbarBtnIcons.length == this.NUM_BUILTIN_ICONS) {
-      let custIcoInfo = new aeIconInfo("custom-icon", this.CUSTOM_ICON_X, this.CUSTOM_ICON_Y);
+      let custIcoInfo = new aeIconInfo("custom-icon", this._customIconX, this._customIconY);
       this._toolbarBtnIcons.push(custIcoInfo);
 
       let custIcoRadioBtn = document.getElementById("custom-icon");
@@ -103,6 +104,8 @@ let aeToolbarIconPicker = {
     }
 
     let maxRowIdx = row;
+    this._customIconX = leftOffsetIdx;
+    this._customIconY = maxRowIdx;
 
     this._elt.addEventListener("keydown", aEvent => {
       aEvent.preventDefault();

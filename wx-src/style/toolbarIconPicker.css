@@ -69,7 +69,6 @@
     margin-right: -3px;
 }
 
-#toolbar-button-icon label > img,
 #toolbar-button-icon label > canvas {
     padding: 0;
     width: 42px;
@@ -79,9 +78,20 @@
     background-size: 32px 32px;
 }
 
-#toolbar-button-icon input[type="radio"]:checked + label img,
 #toolbar-button-icon input[type="radio"]:checked + label canvas {
     background-color: highlight;
+}
+
+#toolbar-button-icon input[type="radio"].select + label canvas {
+    background-color: highlight;
+}
+
+#toolbar-button-icon input[type="radio"].select + label canvas {
+    border: 2px solid highlight;
+}
+
+#toolbar-button-icon input[type="radio"].deselect + label canvas {
+    /* TO DO: Styling for the icon that is being deselected. */
 }
 
 #toolbar-button-icon > #default + label > canvas {

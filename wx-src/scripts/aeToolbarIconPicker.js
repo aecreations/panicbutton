@@ -7,6 +7,9 @@
 let aeToolbarIconPicker = {
   CUSTOM_ICON_IDX: 20,
   NUM_BUILTIN_ICONS: 20,
+
+  // TO DO: Calculate the coordinates of the custom toolbar button icon
+  // rather than hardcoding it in a constant!
   CUSTOM_ICON_X: 4,
   CUSTOM_ICON_Y: 2,
 
@@ -18,6 +21,7 @@ let aeToolbarIconPicker = {
   _selectedIdx: null,
   _currPos: null,
   _custIcon: false,
+  _clickedElt: null,
 
   set selectedIndex(aIndex)
   {
@@ -185,6 +189,59 @@ let aeToolbarIconPicker = {
       }
       newToolbarBtnIco.checked = true;
       newToolbarBtnIco.click();
+    });
+
+    this._elt.addEventListener("mousedown", aEvent => {
+      if (aEvent.button != 0) {
+        return;
+      }
+
+      if (aEvent.target.tagName == "CANVAS") {
+        let labelElt = aEvent.target.parentNode;
+        let inputElt = labelElt.previousElementSibling;
+        let selectedElt = document.querySelector('#toolbar-button-icon input[type="radio"]:checked');
+
+        // Don't apply the deselect state if clicking on an icon that is
+        // already selected.
+        if (selectedElt.id != inputElt.id) {
+          selectedElt.classList.add("deselect");
+        }
+        
+        inputElt.classList.add("select");
+        this._clickedElt = inputElt;
+      }
+    });
+
+    this._elt.addEventListener("mouseup", aEvent => {
+      if (aEvent.button != 0) {
+        return;
+      }
+
+      if (aEvent.target.tagName == "CANVAS") {
+        let labelElt = aEvent.target.parentNode;
+        let inputElt = labelElt.previousElementSibling;
+        let deselectedElt = document.querySelector('#toolbar-button-icon input[type="radio"].deselect');
+
+        deselectedElt?.classList.remove("deselect");
+        this._clickedElt.classList.remove("select");
+        this._clickedElt = null;
+      }
+    });
+
+    // Also catch the "mouseup" event in the document in case the user releases
+    // the mouse button while dragging outside the icon picker.
+    document.addEventListener("mouseup", aEvent => {
+      if (aEvent.button != 0) {
+        return;
+      }
+
+      if (this._clickedElt) {
+        let deselectedElt = document.querySelector('#toolbar-button-icon input[type="radio"].deselect');
+
+        deselectedElt?.classList.remove("deselect");
+        this._clickedElt.classList.remove("select");
+        this._clickedElt = null;
+      }
     });
   },
 };

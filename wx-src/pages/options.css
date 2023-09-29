@@ -224,8 +224,16 @@ fieldset select.browser-style {
     background-image: url("../img/pref-general.svg");
 }
 
+#preftab-options-btn.active-tab {
+    background-image: url("../img/pref-general-checked.svg");
+}
+
 #preftab-customize-btn {
     background-image: url("../img/pref-customize.svg");
+}
+
+#preftab-customize-btn.active-tab {
+    background-image: url("../img/pref-customize-checked.svg");
 }
 
 .tab-panel {

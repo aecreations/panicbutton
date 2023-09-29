@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient9920" x1="17.95" x2="55.26" y1="27.159" y2="64.469" gradientTransform="matrix(.31547 0 0 .31545 1.9589 .11986)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#70b7ff" offset="0"/>
+   <stop stop-color="#5cadff" offset=".51232"/>
+   <stop stop-color="#007af5" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient4036" x1="17.958" x2="8.3102" y1="21.501" y2="7.9272" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#006fe0" offset="0"/>
+   <stop stop-color="#3398ff" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <rect x=".5" y="1.5" width="25" height="25" rx="4.2866" ry="4.2866" fill="#d6eaff" stroke="#007af5" stroke-linecap="round"/>
+  <ellipse cx="13" cy="14" rx="9.4641" ry="9.4636" fill="url(#linearGradient9920)" stroke="url(#linearGradient4036)" stroke-width="1.0724"/>
+  <text transform="scale(1.1392 .87784)" x="8.2638187" y="22.289959" fill="#000000" font-family="'Arial Rounded MT Bold'" font-size="12.233px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:0%" xml:space="preserve"><tspan x="8.2638187" y="22.289959" fill="#ffffff" font-size="18.48px" style="line-height:1.25">!</tspan></text>
+  <g stroke="#007af5">
+   <rect transform="rotate(-48.113)" x="-7.9703" y="28.059" width="18.671" height="4.3003" fill="#99cbff" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="m15.405 24.584-3.0023 6.4041 6.4869-3.2838z" fill="#fff" stroke-linejoin="round" stroke-width=".63184px"/>
+   <path d="m13.6 28.363-1.428 2.8565 2.9623-1.5333z" fill="#007af5" stroke-width=".59221px"/>
+  </g>
+  <path d="m-119.36 16.96v29.148h29.134z" fill="#9889f8" stroke="#625fcd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+  <path d="m-115.9 26.439v16.184h16.176z" fill="#fff" stroke="#625fcd" stroke-linecap="round" stroke-width="1.3906"/>
+ </g>
+</svg>

@@ -10,25 +10,21 @@
    <stop stop-color="#a597f9" offset="0"/>
    <stop stop-color="#3c327e" offset="1"/>
   </linearGradient>
-  <linearGradient id="linearGradient5737" x1="16.122" x2="26.686" y1="-14.906" y2="-14.906" gradientTransform="matrix(.49005 0 0 .49009 18.295 -4.0811)" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#fdfdff" offset="0"/>
-   <stop stop-color="#cdc9ff" offset="1"/>
-  </linearGradient>
  </defs>
- <rect x=".5" y="3.5" width="25" height="25" rx="4.2866" ry="4.2866" fill="#ececff" stroke="#6357ab" stroke-linecap="round"/>
- <g transform="matrix(1.0195 0 0 1.0194 -1.8324 -3.083)">
-  <circle transform="matrix(.30945 0 0 .30945 3.7189 5.1037)" cx="35" cy="44" r="30" fill="url(#linearGradient9920)" stroke="url(#linearGradient9922)" stroke-width="3.3996"/>
-  <text transform="scale(1.1391 .87786)" x="9.684083" y="27.544718" fill="#000000" font-family="'Arial Rounded MT Bold'" font-weight="bold" letter-spacing="0px" stroke-width=".98093" word-spacing="0px" style="line-height:0%" xml:space="preserve"><tspan x="9.684083" y="27.544718" fill="#ffffff" font-size="18.128px" stroke-width=".98093" style="line-height:1.25">!</tspan></text>
- </g>
- <g stroke="#6357ab">
-  <rect transform="matrix(.72348 .69034 -.75117 .66011 0 0)" x="26.488" y="-12.757" width="4.5935" height="2.74" rx="1.3483" ry="1.3483" fill="url(#linearGradient5737)" stroke-linecap="square" stroke-width=".83762"/>
-  <rect transform="rotate(-48.113)" x="-8.2592" y="28.138" width="17.543" height="4.1124" fill="#c8c8ff" stroke-linecap="round" stroke-width=".91961"/>
-  <path d="m26.924 11.902 3.2704 3.0149" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.536"/>
- </g>
  <g>
-  <path d="m15.405 24.584-3.0023 6.4041 6.3083-3.1945z" fill="#fff" stroke="#6357ab" stroke-linejoin="round" stroke-width=".63184px"/>
-  <path d="m13.6 28.363-1.428 2.8565 2.9623-1.5333z" fill="#6357ab" stroke="#6357ab" stroke-width=".59221px"/>
-  <path d="m-119.36 16.96v29.148h29.134z" fill="#9889f8" stroke="#625fcd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
-  <path d="m-115.9 26.439v16.184h16.176z" fill="#fff" stroke="#625fcd" stroke-linecap="round" stroke-width="1.3906"/>
+  <rect x=".5" y="1.5" width="25" height="25" rx="4.2866" ry="4.2866" fill="#ececff" stroke="#6357ab" stroke-linecap="round"/>
+  <g transform="matrix(1.0195 0 0 1.0194 -1.8324 -5.083)">
+   <circle transform="matrix(.30945 0 0 .30945 3.7189 5.1037)" cx="35" cy="44" r="30" fill="url(#linearGradient9920)" stroke="url(#linearGradient9922)" stroke-width="3.3996"/>
+   <text transform="scale(1.1391 .87786)" x="9.684083" y="27.544718" fill="#000000" font-family="'Arial Rounded MT Bold'" font-weight="bold" letter-spacing="0px" stroke-width=".98093" word-spacing="0px" style="line-height:0%" xml:space="preserve"><tspan x="9.684083" y="27.544718" fill="#ffffff" font-size="18.128px" stroke-width=".98093" style="line-height:1.25">!</tspan></text>
+  </g>
+  <g>
+   <g stroke="#6357ab">
+    <rect transform="rotate(-48.113)" x="-7.9703" y="28.059" width="18.671" height="4.3003" fill="#c8c8ff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".91843"/>
+    <path d="m15.405 24.584-3.0023 6.4041 6.4869-3.2838z" fill="#fff" stroke-linejoin="round" stroke-width=".63184px"/>
+    <path d="m13.6 28.363-1.428 2.8565 2.9623-1.5333z" fill="#6357ab" stroke-width=".59221px"/>
+   </g>
+   <path d="m-119.36 16.96v29.148h29.134z" fill="#9889f8" stroke="#625fcd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+   <path d="m-115.9 26.439v16.184h16.176z" fill="#fff" stroke="#625fcd" stroke-linecap="round" stroke-width="1.3906"/>
+  </g>
  </g>
 </svg>

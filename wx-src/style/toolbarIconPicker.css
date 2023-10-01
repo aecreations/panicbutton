@@ -44,7 +44,26 @@
     --url-icon-desktop-dk: url("../img/desktop32_reverse.svg");
     --url-icon-computer-dk: url("../img/computer16_reverse.svg");
     --url-icon-letter-a-dk: url("../img/letter-a32_reverse.svg");
+
+    --color-selected-icon: #cbe8f6;
+    --color-selected-icon-border: #26a0da;
+    --color-deselected-icon: #eff9fe;
+    --color-deselected-icon-border: #70c0e7;
+    --color-active-icon: #cbe8f6;
+    --color-active-icon-border: #26a0da;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+	--color-selected-icon: #0a84ff;
+	--color-selected-icon-border: #0060df;
+	--color-deselected-icon: #003eaa;
+	--color-deselected-icon-border: #002275;
+	--color-active-icon: #0060df;
+	--color-active-icon-border: #0a84ff;
+    }
+}
+
 
 #toolbar-button-icon {
     width: 354px;
@@ -79,20 +98,51 @@
 }
 
 #toolbar-button-icon input[type="radio"]:checked + label canvas {
-    background-color: highlight;
+    background-color: var(--color-selected-icon);
+    border: 1px solid var(--color-selected-icon-border);
 }
 
 #toolbar-button-icon input[type="radio"].select + label canvas {
-    background-color: highlight;
-}
-
-#toolbar-button-icon input[type="radio"].select + label canvas {
-    border: 2px solid highlight;
+    background-color: var(--color-active-icon);
+    border: 2px solid var(--color-active-icon-border);
 }
 
 #toolbar-button-icon input[type="radio"].deselect + label canvas {
-    /* TO DO: Styling for the icon that is being deselected. */
+    background-color: var(--color-deselected-icon);
+    border: 1px solid var(--color-deselected-icon-border);
 }
+
+#toolbar-button-icon[colorscheme="dark"] input[type="radio"]:checked + label canvas {
+    background-color: #0a84ff;
+    border: 1px solid #0060df;
+}
+
+#toolbar-button-icon[colorscheme="dark"] input[type="radio"].select + label canvas {
+    background-color: #0a84ff;
+    border: 2px solid #00b3f4;
+}
+
+#toolbar-button-icon[colorscheme="dark"] input[type="radio"].deselect + label canvas {
+    background-color: #003eaa;
+    border: 1px solid #002275;
+}
+
+@media (prefers-color-scheme: dark) {
+    #toolbar-button-icon input[type="radio"]:checked + label canvas {
+	background-color: #cbe8f6;
+	border: 1px solid #26a0da;
+    }
+
+    #toolbar-button-icon input[type="radio"].select + label canvas {
+	background-color: #cbe8f6;
+	border: 2px solid #26a0da;
+    }
+
+    #toolbar-button-icon input[type="radio"].deselect + label canvas {
+	background-color: #eff9fe;
+	border: 1px solid #70c0e7;
+    }
+}    
 
 #toolbar-button-icon > #default + label > canvas {
     background-image: var(--url-icon-default);

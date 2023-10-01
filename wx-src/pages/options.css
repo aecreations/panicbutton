@@ -178,7 +178,6 @@ fieldset select.browser-style {
 }
 
 .tab > button {
-    height: 64px;
     margin: 0;
     padding-top: 40px;
     padding-bottom: 6px;
@@ -186,14 +185,37 @@ fieldset select.browser-style {
     padding-right: 16px;
 
     border: unset;
-    border-top: 2px solid transparent;
     border-radius: 0;
 
     background-color: transparent;
     background-repeat: no-repeat;
-    background-position: center 4px;
+    background-position: center 8px;
 
     font-size: 13px;
+}
+
+.tab > button:-moz-focusring {
+    margin-top: -2px;
+    margin-bottom: -2px;
+    padding-left: 14px;
+    padding-right: 14px;
+    
+    outline: none;
+    border: 2px solid #45a1ff !important;
+    box-shadow: none;
+}
+
+.tab > button:-moz-focusring:active {
+    margin-top: -2px;
+    margin-bottom: -2px;
+    padding-left: 14px;
+    padding-right: 14px;
+    
+    outline: none;
+    border: 2px solid #45a1ff !important;
+    box-shadow: none;
+    
+    background-color: var(--color-tab-bkgd-active);
 }
 
 .tab > button.active-tab {
@@ -210,10 +232,10 @@ fieldset select.browser-style {
 }
 
 .tab > button:active {
-    padding-top: 42px;
+    padding-top: 40px;
     border: none !important;
     background-color: var(--color-tab-bkgd-active);
-    background-position: center 6px;
+    background-position: center 8px;
 }
 
 .tab > button.active-tab:active {

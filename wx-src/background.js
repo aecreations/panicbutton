@@ -863,7 +863,7 @@ async function openChangeIconDlg()
     }
     
     let {autoAdjustWndPos} = await aePrefs.getAllPrefs();
-    let width = 390;
+    let width = 404;
     let height = 272;
     let left, top, wndGeom;
 

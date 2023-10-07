@@ -14,21 +14,21 @@
 
   <body>
     <main id="ae-panicbutton-preferences">
-      <div id="pref-pg-hdr">
+      <div id="pref-pg-hdr" role="heading">
         <img id="addon-icon" src="../img/icon.svg"/>
         <h2 data-i18n="prefsPgHdg"></h2>
 	<button id="about-btn" data-i18n="aboutBtn"></button>
       </div>
 
-      <div class="tab-container">
+      <div class="tab-container" role="tablist">
 	<div id="preftab-options" class="tab">
-	  <button id="preftab-options-btn" class="active-tab" data-i18n="prefTabOptions"></button>
+	  <button id="preftab-options-btn" class="active-tab" role="tab" aria-controls="prefpane-options" data-i18n="prefTabOptions"></button>
 	</div><div id="preftab-customize" class="tab">
-	  <button id="preftab-customize-btn" data-i18n="prefTabCustomize"></button>
+	  <button id="preftab-customize-btn" role="tab" aria-controls="prefpane-customize" data-i18n="prefTabCustomize"></button>
 	</div>
       </div>
 
-      <div id="prefpane-options" class="tab-panel active-tab-panel">
+      <div id="prefpane-options" class="tab-panel active-tab-panel" role="tabpanel">
 	<fieldset id="prefs-action">
 	  <legend data-i18n="prefsAction"></legend>
 
@@ -80,59 +80,59 @@
 	</fieldset>
       </div>  <!-- /prefpane-options -->
  
-      <div id="prefpane-customize" class="tab-panel">
+      <div id="prefpane-customize" class="tab-panel" role="tabpanel">
 	<fieldset id="prefs-customize">
 	  <div class="row" style="margin-bottom:8px">
 	    <label for="toolbar-button-caption" data-i18n="labelToolbarBtnCaption"></label>
 	    <input type="text" id="toolbar-button-caption"/>
 	  </div>
 
-	  <label data-i18n="labelCustomIcon"></label>
+	  <label id="icon-picker-label" data-i18n="labelCustomIcon"></label>
 	  <div class="flex-row">
-	    <div id="toolbar-button-icon" class="sxs-left" tabindex="0">
+	    <div id="toolbar-button-icon" class="sxs-left" tabindex="0" role="radiogroup" aria-labelledby="icon-picker-label">
 	      <input type="radio" name="toolbar-button-icon" id="default" value="0"/>
-	      <label for="default"><canvas/></label>
+	      <label for="default"><canvas aria-label="Default"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="exclamation-in-ball" value="1"/>
-	      <label for="exclamation-in-ball"><canvas/></label>
+	      <label for="exclamation-in-ball"><canvas aria-label="Exclamation in ball"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="quit" value="2"/>
-	      <label for="quit"><canvas/></label>
+	      <label for="quit"><canvas aria-label="Quit"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="exit-door" value="3"/>
-	      <label for="exit-door"><canvas/></label>
+	      <label for="exit-door"><canvas aria-label="Exit"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="window-minimize" value="4"/>
-	      <label for="window-minimize"><canvas/></label>
+	      <label for="window-minimize"><canvas aria-label="Minimize window"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="window-with-exclamation" value="5"/>
-	      <label for="window-with-exclamation"><canvas/></label>
+	      <label for="window-with-exclamation"><canvas aria-label="Window with exclamation mark"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="window-with-exclamation-ball" value="6"/>
-	      <label for="window-with-exclamation-ball"><canvas/></label>
+	      <label for="window-with-exclamation-ball"><canvas aria-label="Window with exclamation mark in ball"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="window-with-cross" value="7"/>
-	      <label for="window-with-cross"><canvas/></label>
+	      <label for="window-with-cross"><canvas aria-label="Window with cross"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="window-with-check" value="8"/>
-	      <label for="window-with-check"><canvas/></label>
+	      <label for="window-with-check"><canvas aria-label="Window with check mark"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="plain-window" value="9"/>
-	      <label for="plain-window"><canvas/></label>
+	      <label for="plain-window"><canvas aria-label="Plain window"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="dotted-window" value="10"/>
-	      <label for="dotted-window"><canvas/></label>
+	      <label for="dotted-window"><canvas aria-label="Window with dotted border"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="window-with-globe" value="11"/>
-	      <label for="window-with-globe"><canvas/></label>
+	      <label for="window-with-globe"><canvas aria-label="Window with globe"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="web-page" value="12"/>
-	      <label for="web-page"><canvas/></label>
+	      <label for="web-page"><canvas aria-label="Web page"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="web-page-with-globe" value="13"/>
-	      <label for="web-page-with-globe"><canvas/></label>
+	      <label for="web-page-with-globe"><canvas aria-label="Web page with globe"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="web-document" value="14"/>
-	      <label for="web-document"><canvas/></label>
+	      <label for="web-document"><canvas aria-label="Web document"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="smiley" value="15"/>
-	      <label for="smiley"><canvas/></label>
+	      <label for="smiley"><canvas aria-label="Smiley face"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="picture" value="16"/>
-	      <label for="picture"><canvas/></label>
+	      <label for="picture"><canvas aria-label="Picture frame"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="desktop" value="17"/>
-	      <label for="desktop"><canvas/></label>
+	      <label for="desktop"><canvas aria-label="Desktop"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="computer" value="18"/>
-	      <label for="computer"><canvas/></label>
+	      <label for="computer"><canvas aria-label="Computer"/></label>
 	      <input type="radio" name="toolbar-button-icon" id="letter-a" value="19"/>
-	      <label for="letter-a"><canvas/></label>
+	      <label for="letter-a"><canvas aria-label="Letter A"/></label>
 
 	      <input type="radio" name="toolbar-button-icon" id="custom-icon" value="20"/>
-	      <label id="custom-icon-label" for="custom-icon"><canvas id="custom-icon-img" width="36" height="36"></canvas></label>
+	      <label id="custom-icon-label" for="custom-icon"><canvas id="custom-icon-img" width="36" height="36" aria-label="Custom icon"></canvas></label>
 	    </div> <!-- .sxs-left -->
 
 	    <div id="icon-options" class="sxs-right">
@@ -196,8 +196,8 @@
     </main>
 
     <!-- Dialog boxes -->
-    <div id="set-password-dlg" class="lightbox">
-      <p class="title" data-i18n="setPswdHdr"></p>
+    <div id="set-password-dlg" class="lightbox" role="dialog" aria-labelledby="set-password-title">
+      <p id="set-password-title" class="title" data-i18n="setPswdHdr"></p>
       <p class="body" data-i18n="setPswdDesc"></p>
 
       <div class="row browser-style">
@@ -212,8 +212,8 @@
 	<button class="dlg-btn dlg-cancel" data-i18n="btnCancel"></button>
       </div>
     </div>
-    <div id="change-password-dlg" class="lightbox">
-      <p class="title" data-i18n="chgPswdHdr"></p>
+    <div id="change-password-dlg" class="lightbox" role="dialog" aria-labelledby="change-password-title">
+      <p id="change-password-title" class="title" data-i18n="chgPswdHdr"></p>
       <div class="row browser-style">
 	<label for="old-pswd" data-i18n="oldPswd"></label>
 	<input type="password" id="old-pswd"/>
@@ -232,10 +232,10 @@
         <button class="dlg-btn dlg-cancel" data-i18n="btnCancel"></button>
       </div>
     </div>
-    <div id="remove-password-dlg" class="lightbox">
+    <div id="remove-password-dlg" class="lightbox" role="dialog" aria-labelledby="remove-password-title">
       <div class="msgbox-icon"></div>
       <div class="dlg-content">
-        <p class="title" data-i18n="pswdPrmptHdr"></p>
+        <p id="remove-password-title" class="title" data-i18n="pswdPrmptHdr"></p>
 	<label for="pswd-for-removal" data-i18n="pswdPrmpt"></label>
 	<input type="password" id="pswd-for-removal"/>
         <div id="rm-pswd-error" class="error"></div>
@@ -245,7 +245,7 @@
         <button class="dlg-btn dlg-cancel" data-i18n="btnCancel"></button>
       </div>
     </div>
-    <div id="about-dlg" class="lightbox">
+    <div id="about-dlg" class="lightbox" role="dialog" aria-label="About">
       <div class="dlg-content">
         <div id="ext-icon"></div>
 	<div id="ext-info">

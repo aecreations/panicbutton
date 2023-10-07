@@ -36,8 +36,13 @@ async function init(aEvent)
     browser.i18n.getMessage("actDescCloseAll")
   ];
 
-  $("preftab-options-btn").addEventListener("click", switchPrefsPanel);
-  $("preftab-customize-btn").addEventListener("click", switchPrefsPanel);
+  let tabOptions = $("preftab-options-btn");
+  tabOptions.addEventListener("click", switchPrefsPanel);
+  tabOptions.ariaSelected = true;
+  
+  let tabCustomize = $("preftab-customize-btn");
+  tabCustomize.addEventListener("click", switchPrefsPanel);
+  tabCustomize.ariaSelected = false;
   
   browser.history.deleteUrl({url: window.location.href});
 
@@ -526,11 +531,11 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     $("preftab-customize-btn").click();
 
     let prefsPgTab = await browser.tabs.getCurrent();
-    browser.windows.update(prefsPgTab.windowId, { focused: true });
-    browser.tabs.update(prefsPgTab.id, { active: true });
+    browser.windows.update(prefsPgTab.windowId, {focused: true});
+    browser.tabs.update(prefsPgTab.id, {active: true});
   }
   else if (aRequest.msgID == "ping-ext-prefs-pg") {
-    let resp = { isExtPrefsPgOpen: true };
+    let resp = {isExtPrefsPgOpen: true};
     return Promise.resolve(resp);
   }
 });
@@ -539,18 +544,23 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
 function switchPrefsPanel(aEvent)
 {
   let id = aEvent.target.id;
+  let tabOptions = $("preftab-options-btn");
+  let tabCustomize = $("preftab-customize-btn");
 
   if (id == "preftab-options-btn") {
-    $("preftab-customize-btn").classList.remove("active-tab");
+    tabCustomize.classList.remove("active-tab");
+    tabCustomize.ariaSelected = false;
     $("prefpane-customize").classList.remove("active-tab-panel");
     $("prefpane-options").classList.add("active-tab-panel");
   }
   else if (id == "preftab-customize-btn") {
-    $("preftab-options-btn").classList.remove("active-tab");
+    tabOptions.classList.remove("active-tab");
+    tabOptions.ariaSelected = false;
     $("prefpane-options").classList.remove("active-tab-panel");
     $("prefpane-customize").classList.add("active-tab-panel");
   }
   aEvent.target.classList.add("active-tab");
+  aEvent.target.ariaSelected = true;
 }
 
 

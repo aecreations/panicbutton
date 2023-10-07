@@ -12,53 +12,51 @@
   </head>
 
   <body>
-    <label data-i18n="labelSelIcon"></label>
-    <div id="toolbar-button-icon" tabindex="0">
+    <label id="icon-picker-label" data-i18n="labelSelIcon"></label>
+    <div id="toolbar-button-icon" class="sxs-left" tabindex="0" role="radiogroup" aria-labelledby="icon-picker-label">
       <input type="radio" name="toolbar-button-icon" id="default" value="0"/>
-      <label for="default"><canvas/></label>
+      <label for="default"><canvas aria-label="Default"/></label>
       <input type="radio" name="toolbar-button-icon" id="exclamation-in-ball" value="1"/>
-      <label for="exclamation-in-ball"><canvas/></label>
+      <label for="exclamation-in-ball"><canvas aria-label="Exclamation in ball"/></label>
       <input type="radio" name="toolbar-button-icon" id="quit" value="2"/>
-      <label for="quit"><canvas/></label>
+      <label for="quit"><canvas aria-label="Quit"/></label>
       <input type="radio" name="toolbar-button-icon" id="exit-door" value="3"/>
-      <label for="exit-door"><canvas/></label>
+      <label for="exit-door"><canvas aria-label="Exit"/></label>
       <input type="radio" name="toolbar-button-icon" id="window-minimize" value="4"/>
-      <label for="window-minimize"><canvas/></label>
+      <label for="window-minimize"><canvas aria-label="Minimize window"/></label>
       <input type="radio" name="toolbar-button-icon" id="window-with-exclamation" value="5"/>
-      <label for="window-with-exclamation"><canvas/></label>
+      <label for="window-with-exclamation"><canvas aria-label="Window with exclamation mark"/></label>
       <input type="radio" name="toolbar-button-icon" id="window-with-exclamation-ball" value="6"/>
-      <label for="window-with-exclamation-ball"><canvas/></label>
+      <label for="window-with-exclamation-ball"><canvas aria-label="Window with exclamation mark in ball"/></label>
       <input type="radio" name="toolbar-button-icon" id="window-with-cross" value="7"/>
-      <label for="window-with-cross"><canvas/></label>
+      <label for="window-with-cross"><canvas aria-label="Window with cross"/></label>
       <input type="radio" name="toolbar-button-icon" id="window-with-check" value="8"/>
-      <label for="window-with-check"><canvas/></label>
+      <label for="window-with-check"><canvas aria-label="Window with check mark"/></label>
       <input type="radio" name="toolbar-button-icon" id="plain-window" value="9"/>
-      <label for="plain-window"><canvas/></label>
+      <label for="plain-window"><canvas aria-label="Plain window"/></label>
       <input type="radio" name="toolbar-button-icon" id="dotted-window" value="10"/>
-      <label for="dotted-window"><canvas/></label>
+      <label for="dotted-window"><canvas aria-label="Window with dotted border"/></label>
       <input type="radio" name="toolbar-button-icon" id="window-with-globe" value="11"/>
-      <label for="window-with-globe"><canvas/></label>
+      <label for="window-with-globe"><canvas aria-label="Window with globe"/></label>
       <input type="radio" name="toolbar-button-icon" id="web-page" value="12"/>
-      <label for="web-page"><canvas/></label>
+      <label for="web-page"><canvas aria-label="Web page"/></label>
       <input type="radio" name="toolbar-button-icon" id="web-page-with-globe" value="13"/>
-      <label for="web-page-with-globe"><canvas/></label>
+      <label for="web-page-with-globe"><canvas aria-label="Web page with globe"/></label>
       <input type="radio" name="toolbar-button-icon" id="web-document" value="14"/>
-      <label for="web-document"><canvas/></label>
+      <label for="web-document"><canvas aria-label="Web document"/></label>
       <input type="radio" name="toolbar-button-icon" id="smiley" value="15"/>
-      <label for="smiley"><canvas/></label>
+      <label for="smiley"><canvas aria-label="Smiley face"/></label>
       <input type="radio" name="toolbar-button-icon" id="picture" value="16"/>
-      <label for="picture"><canvas/></label>
+      <label for="picture"><canvas aria-label="Picture frame"/></label>
       <input type="radio" name="toolbar-button-icon" id="desktop" value="17"/>
-      <label for="desktop"><canvas/></label>
+      <label for="desktop"><canvas aria-label="Desktop"/></label>
       <input type="radio" name="toolbar-button-icon" id="computer" value="18"/>
-      <label for="computer"><canvas/></label>
+      <label for="computer"><canvas aria-label="Computer"/></label>
       <input type="radio" name="toolbar-button-icon" id="letter-a" value="19"/>
-      <label for="letter-a"><canvas/></label>
+      <label for="letter-a"><canvas aria-label="Letter A"/></label>
 
       <input type="radio" name="toolbar-button-icon" id="custom-icon" value="20"/>
-      <label id="custom-icon-label" for="custom-icon">
-        <canvas id="custom-icon-img" width="36" height="36"></canvas>
-      </label>
+      <label id="custom-icon-label" for="custom-icon"><canvas id="custom-icon-img" width="36" height="36" aria-label="Custom icon"></canvas></label>
     </div>
 
     <div id="dlg-buttons">

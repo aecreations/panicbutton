@@ -1,0 +1,326 @@
+{
+  "extName": {
+    "message": "Panic Button"
+  },
+  "extDesc": {
+    "message": "Szybko ukryj wszystkie okna przeglądarki za pomocą jednego kliknięcia."
+  },
+  "btnOK": {
+    "message": "OK"
+  },
+  "btnCancel": {
+    "message": "Anuluj"
+  },
+  "btnDone": {
+    "message": "Zrobione"
+  },
+  "defaultBtnLabel": {
+    "message": "Panic Button"
+  },
+  "cmdDesc": {
+    "message": "Wywołaj akcję",
+    "description": "Keyboard shortcut description in Manage Extension Shortcuts"
+  },
+  "chgIconMenu": {
+    "message": "Zmień ikonę…",
+    "description": "Browser action (toolbar button) context menu"
+  },
+  "chgIconTitle": {
+    "message": "Zmień ikonę",
+    "description": "Title of Change Icon popup window"
+  },
+  "labelSelIcon": {
+    "message": "Wybierz ikonę:"
+  },
+  "btnMoreCustomzns": {
+    "message": "Więcej możliwości dostosowania…"
+  },
+  "prefsPgMenu": {
+    "message": "Opcje \"Panic Button\"…",
+    "description": "Browser action (toolbar button) context menu"
+  },
+  "prefsPgTitle": {
+    "message": "Ustawienia"
+  },
+  "prefsPgHdg": {
+    "message": "Ustawienia"
+  },
+  "prefTabOptions": {
+    "message": "Opcje"
+  },
+  "prefTabCustomize": {
+    "message": "Dostosuj"
+  },
+  "prefsAction": {
+    "message": "Akcje \"Panic Button\""
+  },
+  "prefsKeybd": {
+    "message": "Skróty klawiszowe"
+  },
+  "labelPanicBtnAction": {
+    "message": "Akcja \"Panic Button\":"
+  },
+  "actHideAndReplace": {
+    "message": "Ukryj i zastąp"
+  },
+  "actDescHideAndReplace": {
+    "message": "Zastępuje sesję przeglądarki pojedynczym oknem wyświetlającym stronę internetową w określonej lokalizacji. Ponowne kliknięcie \"Panic Button\" przywraca sesję przeglądarki."
+  },
+  "actMinimizeAll": {
+    "message": "Minimalizuj wszystkie okna"
+  },
+  "actDescMinimizeAll": {
+    "message": "Minimalizuje wszystkie okna przeglądarki. Opcjonalnie otwiera pojedyncze okno wyświetlające stronę internetową w wybranej lokalizacji."
+  },
+  "actMinimizeCurr": {
+    "message": "Minimalizuj bieżące okno"
+  },
+  "actDescMinimizeCurr": {
+    "message": "Minimalizuje bieżące okno przeglądarki."
+  },
+  "minzCurrOpt": {
+    "message": "Kliknięcie \"Panic Button\" na inne okno przeglądarki powinno:"
+  },
+  "minzCurrOptMinz": {
+    "message": "Zminimalizować je"
+  },
+  "minzCurrOptRstMinzed": {
+    "message": "Przywróć zminimalizowane okno"
+  },
+  "rstMinzedWndNote": {
+    "message": "Ta opcja dotyczy tylko okna, które zostało zminimalizowane przez \"Panic Button\"."
+  },
+  "actCloseAll": {
+    "message": "Zamknij wszystkie okna"
+  },
+  "actDescCloseAll": {
+    "message": "Zamyka wszystkie okna przeglądarki."
+  },
+  "labelWebPgURL": {
+    "message": "Lokalizacja strony (URL):"
+  },
+  "setPswd": {
+    "message": "Ustaw hasło…"
+  },
+  "setPswdHdr": {
+    "message": "Ustaw hasło",
+    "description": "Dialog heading"
+  },
+  "setPswdDesc": {
+    "message": "Możesz ustawić hasło do przywrócenia sesji przeglądarki, gdy akcja \"Panic Button\" ustawiona jest na \"ukryj i zastąp\"."
+  },
+  "oldPswd": {
+    "message": "Stare hasło:"
+  },
+  "newPswd": {
+    "message": "Nowe hasło:"
+  },
+  "confPswd": {
+    "message": "Potwierdź hasło:"
+  },
+  "chgPswd": {
+    "message": "Zmień hasło…"
+  },
+  "removePswd": {
+    "message": "Usuń hasło…"
+  },
+  "chgPswdHdr": {
+    "message": "Zmień hasło",
+    "description": "Dialog heading"
+  },
+  "pswdPrmptHdr": {
+    "message": "Hasło jest wymagane",
+    "description": "Password dialog header."
+  },
+  "pswdPrmpt": {
+    "message": "Wprowadź hasło:"
+  },
+  "pswdWrong": {
+    "message": "Hasło jest nieprawidłowe."
+  },
+  "pswdMismatch": {
+    "message": "Hasła nie są identyczne."
+  },
+  "labelSnoozeInactTabs": {
+    "message": "Podczas przywracania sesji przeglądarki, uśpij nieaktywne karty przeglądarki"
+  },
+  "labelMinzAllCamoWebPg": {
+    "message": "Otwórz nowe okno po zminimalizowaniu wszystkich okien przeglądarki"
+  },
+  "descRstFrmCamoWnd": {
+    "message": "Aby przywrócić sesję przeglądarki, kliknij ponownie \"Panic Button\"."
+  },
+  "labelShortcutKey": {
+    "message": "Naciśnij te klawisze, aby wywołać akcję \"Panic Button\":"
+  },
+  "labelToolbarBtnCaption": {
+    "message": "Podpis przycisku na pasku narzędzi:"
+  },
+  "labelCustomIcon": {
+    "message": "Ikona:"
+  },
+  "btnCustomIcon": {
+    "message": "Niestandardowa ikona…"
+  },
+  "labelRevContrastTbIcon": {
+    "message": "Odwróć kontrast ikony narzędziowej"
+  },
+  "btnReset": {
+    "message": "Zresetuj"
+  },
+  "prefsShortcutKeyNote": {
+    "message": "Niektóre z dostępnych skrótów klawiaturowych mogą być już przypisane do komend Firefoksa lub innych jego dodatków."
+  },
+  "prefsOutsideShct": {
+    "message": "Aby zmienić skrót klawiaturowy, przejdź do zarządzania skrótami rozszerzeń w menedżerze dodatków."
+  },
+  "keyModAccelShift": {
+    "message": "Ctrl + Shift +"
+  },
+  "keyModAccelShiftMac": {
+    "message": "⇧ + ⌘ +"
+  },
+  "keyModAltShift": {
+    "message": "Alt + Shift +"
+  },
+  "keyModAltShiftMac": {
+    "message": "⇧ + ⌥ +"
+  },
+  "keySpace": {
+    "message": "Spacja"
+  },
+  "keyPageUp": {
+    "message": "Page Up"
+  },
+  "keyPageDown": {
+    "message": "Page Down"
+  },
+  "keyHome": {
+    "message": "Home"
+  },
+  "keyEnd": {
+    "message": "End"
+  },
+  "keyLeft": {
+    "message": "Lewo"
+  },
+  "keyRight": {
+    "message": "Prawo"
+  },
+  "keyUp": {
+    "message": "Góra"
+  },
+  "keyDown": {
+    "message": "Dół"
+  },
+  "keyIns": {
+    "message": "Insert"
+  },
+  "keyDel": {
+    "message": "Delete"
+  },
+  "keyMacDel": {
+    "message": "Delete ⌦"
+  },
+  "keyShift": {
+    "message": "Shift"
+  },
+  "keyMacShift": {
+    "message": "⇧"
+  },
+  "keyCtrl": {
+    "message": "Ctrl"
+  },
+  "keyCommand": {
+    "message": "⌘"
+  },
+  "keyMacCtrl": {
+    "message": "⌃"
+  },
+  "keyAlt": {
+    "message": "Alt"
+  },
+  "keyOption": {
+    "message": "⌥"
+  },
+  "aboutBtn": {
+    "message": "O nas…"
+  },
+  "aboutExtVer": {
+    "message": "Wersja $1",
+    "description": "Extension version number"
+  },
+  "aboutAuthor": {
+    "message": "Stworzone przez AE Creations."
+  },
+  "aboutHomePgLink": {
+    "message": "Odwiedź stronę WWW"
+  },
+  "aboutLicLink": {
+    "message": "Informacje o licencji"
+  },
+  "aboutTrans": {
+    "message": "Lokalizacje dostarczone przez tłumaczy Crowdin."
+  },
+  "aboutContribHdg": {
+    "message": "Chcesz pomóc?",
+    "description": "About dialog text for encouraging users to donate or help with translation"
+  },
+  "aboutDonate": {
+    "message": "Przekaż darowiznę"
+  },
+  "aboutContribConj": {
+    "message": "lub",
+    "description": "Conjunction connecting the CTA hyperlinks for donating or supplying a translation"
+  },
+  "aboutL10n": {
+    "message": "dodaj tłumaczenie."
+  },
+  "errPrefPgFailed": {
+    "message": "Nie można załadować strony ustawień rozszerzeń. Uruchom ponownie Firefoksa i spróbuj raz jeszcze."
+  },
+  "restrSessCancel": {
+    "message": "Wstecz",
+    "description": "Cancel button in the Restore Session Password page"
+  },
+  "restrSessAccept": {
+    "message": "Przywróć sesję",
+    "description": "Accept button in the Restore Session Password page"
+  },
+  "newVerHdg": {
+    "message": "Nowa wersja zainstalowana!"
+  },
+  "upgrade": {
+    "message": "\"Panic Button\" został zaktualizowany do wersji 4.4."
+  },
+  "whatsNew": {
+    "message": "Co nowego?"
+  },
+  "whatsNew1": {
+    "message": "Nowe opcje menu zostały dodane do menu kontekstowego przycisku paska narzędziowego \"Panic Button\", pozwalając na zmianę przycisku paska narzędziowego za pomocą kilku kliknięć lub przejście do strony preferencji rozszerzenia"
+  },
+  "whatsNew2": {
+    "message": "Nowa opcja w preferencjach rozszerzenia dla usypiania nieaktywnych kart przeglądarki podczas przywracania sesji przeglądarki po wywołaniu akcji \"Ukryj i Zamień\""
+  },
+  "whatsNew3": {
+    "message": "Możliwość zmiany kontrastu ikony paska narzędziowego powoduje, że całość wygląda lepiej po zastosowaniu ciemnej skórki w Firefoksie 89 i nowszym"
+  },
+  "donateHdg": {
+    "message": "Wspomóż nas!"
+  },
+  "donateCta1": {
+    "message": "Wspomóż rozwój \"Panic Button\" poprzez"
+  },
+  "donateLink": {
+    "message": "wniesienie niewielkiego wkładu"
+  },
+  "donateCta2": {
+    "message": "."
+  },
+  "btnClosePg": {
+    "message": "Zamknij tę stronę"
+  },
+  "msgUnknown": {
+    "message": "Pomoc nie jest dostępna (więc zostaw mnie w spokoju)."
+  }
+}

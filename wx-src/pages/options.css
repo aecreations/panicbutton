@@ -317,6 +317,10 @@ fieldset select.browser-style {
     width: 290px;
 }
 
+#webpg-url[data-locale="pl"] {
+    width: 272px;
+}
+
 #reset-url[data-locale="de"],
 #minz-all-camouflage-reset-url[data-locale="de"] {
     letter-spacing: -0.5px;
@@ -363,6 +367,10 @@ fieldset select.browser-style {
 
 #minz-all-camouflage-webpg-url[data-locale|="pt"] {
     width: 262px;
+}
+
+#minz-all-camouflage-webpg-url[data-locale="pl"] {
+    width: 244px;
 }
 
 #minz-all-restore-from-camo-instr {
@@ -617,7 +625,8 @@ body[data-os="mac"] #about-dlg {
     --width: 414px;
 }
 
-#about-dlg[data-locale|="pt"] {
+#about-dlg[data-locale|="pt"],
+#about-dlg[data-locale="pl"] {
     height: 298px;
 }
 

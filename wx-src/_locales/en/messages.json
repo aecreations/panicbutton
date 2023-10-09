@@ -380,43 +380,60 @@
   },
 
   "newVerHdg": {
-    "message": "New Version Installed!"
+    "message": "New Version Installed!",
+    "description": "Header for the What's New page (appears after upgrading Panic Button)"
   },
 
   "upgrade": {
-    "message": "Panic Button has been upgraded to version 4.4."
+    "message": "Panic Button has been upgraded to the latest version.",
+    "description": "What's New page (appears after upgrading Panic Button)"
   },
 
   "whatsNew": {
-    "message": "What’s New"
+    "message": "What’s New",
+    "description": "What's New page (appears after upgrading Panic Button)"
   },
 
   "whatsNew1": {
-    "message": "New menu options added to the Panic Button toolbar button context menu, allowing you to change the toolbar button in just a few clicks, or go to the extension preferences page"
+    "message": "Improvements to some of the built-in Panic Button icons",
+    "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
 
   "whatsNew2": {
-    "message": "New option in extension preferences for snoozing inactive browser tabs when restoring the browser session after invoking the Hide and Replace action"
+    "message": "Enhanced keyboard navigation in the extension preferences page, Change Icon dialog, and the Restore Session page",
+    "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
 
   "whatsNew3": {
-    "message": "The reverse contrast toolbar button icons now blends in better with the Dark theme in Firefox 89 and newer"
+    "message": "Other behind-the-scenes improvements to ensure compatibility with future versions of Firefox",
+    "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
 
-  "donateHdg": {
-    "message": "Donate!"
+  "contribHdg": {
+    "message": "Contribute",
+    "description": "Contribution CTA in the What's New page"
   },
 
-  "donateCta1": {
-    "message": "Support the development of Panic Button by"
+  "contribCTA": {
+    "message": "Support the development of Panic Button by",
+    "description": "Call to action (CTA) message to contribute to the development of Panic Button"
   },
 
-  "donateLink": {
-    "message": "making a small contribution"
+  "contribLink": {
+    "message": "making a donation.",
+    "description": "Link text in the contribute CTA"
   },
 
-  "donateCta2": {
-    "message": "."
+  "linkBlog": {
+    "message": "AE Creations Blog"
+  },
+
+  "linkAMO": {
+    "message": "Firefox Add-ons Page"
+  },
+
+  "linkForum": {
+    "message": "Help and Support Forums"
   },
 
   "btnClosePg": {

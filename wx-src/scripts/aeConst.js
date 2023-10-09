@@ -6,6 +6,7 @@
 const aeConst = Object.freeze({
   DEBUG: true,
   DEV_BUILD: true,
+  CURR_MAJOR_VER: "5.0",
   
   // Extension GUID
   EXTENSION_ID: "{24cea704-946d-11da-a72b-0800200c9a66}",
@@ -30,6 +31,9 @@ const aeConst = Object.freeze({
 
   DEFAULT_KEYB_SHCT: "F8",
 
-  DONATE_URL: "https://www.paypal.me/aecreations88/7.99cad",
-  L10N_URL: "https://crowdin.com/project/aecreations-panic-button",
+  URL_AMO: "https://addons.mozilla.org/firefox/addon/panic-button/",
+  URL_BLOG: "https://aecreations.blogspot.com/",
+  URL_FORUM: "https://aecreations.io/forums",
+  URL_DONATE: "https://www.paypal.me/aecreations88/7.99cad",
+  URL_L10N: "https://crowdin.com/project/aecreations-panic-button",
 });

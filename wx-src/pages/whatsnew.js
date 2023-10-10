@@ -15,7 +15,7 @@ async function init()
   browser.history.deleteUrl({url: window.location.href});
 
   let extInfo = browser.runtime.getManifest();
-  let contribCTA = browser.i18n.getMessage("contribCTA", aeConst.DONATE_URL);
+  let contribCTA = browser.i18n.getMessage("contribCTA", aeConst.URL_DONATE);
   
   let verSubhdg = document.createTextNode(browser.i18n.getMessage("aboutExtVer", aeConst.CURR_MAJOR_VER));
   $("ver-subhead").appendChild(verSubhdg);

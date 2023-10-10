@@ -277,10 +277,10 @@ async function init(aEvent)
   let usrContribCTA = $("usr-contrib-cta");
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-hdg", "aboutContribHdg"));
   usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());
-  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutDonate", aeConst.DONATE_URL));
+  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutDonate", aeConst.URL_DONATE));
   usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-conj", "aboutContribConj"))
-  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutL10n", aeConst.L10N_URL));
+  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutL10n", aeConst.URL_L10N));
 
   let hyperlinks = document.querySelectorAll("a.hyperlink");
   hyperlinks.forEach(aElt => {

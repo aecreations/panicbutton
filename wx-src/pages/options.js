@@ -38,11 +38,11 @@ async function init(aEvent)
 
   let tabOptions = $("preftab-options-btn");
   tabOptions.addEventListener("click", switchPrefsPanel);
-  tabOptions.ariaSelected = true;
+  tabOptions.setAttribute("aria-selected", "true");
   
   let tabCustomize = $("preftab-customize-btn");
   tabCustomize.addEventListener("click", switchPrefsPanel);
-  tabCustomize.ariaSelected = false;
+  tabCustomize.setAttribute("aria-selected", "false");
   
   browser.history.deleteUrl({url: window.location.href});
 
@@ -549,18 +549,18 @@ function switchPrefsPanel(aEvent)
 
   if (id == "preftab-options-btn") {
     tabCustomize.classList.remove("active-tab");
-    tabCustomize.ariaSelected = false;
+    tabCustomize.setAttribute("aria-selected", "false");
     $("prefpane-customize").classList.remove("active-tab-panel");
     $("prefpane-options").classList.add("active-tab-panel");
   }
   else if (id == "preftab-customize-btn") {
     tabOptions.classList.remove("active-tab");
-    tabOptions.ariaSelected = false;
+    tabOptions.setAttribute("aria-selected", "false");
     $("prefpane-options").classList.remove("active-tab-panel");
     $("prefpane-customize").classList.add("active-tab-panel");
   }
   aEvent.target.classList.add("active-tab");
-  aEvent.target.ariaSelected = true;
+  aEvent.target.setAttribute("aria-selected", "true");
 }
 
 

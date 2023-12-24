@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="16" height="16" version="1.1" xmlns="http://www.w3.org/2000/svg">
- <g transform="translate(0,-16)" stroke="#fff">
-  <rect x=".5" y="17.5" width="15" height="13" fill="#f9f9fa" fill-opacity=".0031372"/>
-  <path d="m1.2725 17.272v2.4531h13.455v-2.4531zm10.451 0.43955 1.9255 0.01797c0.43541 0.0041 0.62969-0.02262 0.62901 0.04237l-0.0153 1.4465c-6.87e-4 0.06497-0.46696 0.04271-0.5433 0.0432l-2.0271 0.01303c0.04066-0.51274 0.0084-1.0036 0.03116-1.5631z" fill="#fff" stroke-width=".54495"/>
-  <path d="m6.0432 23 3.9011 3.8992" fill="none" stroke-linecap="round" stroke-width="2"/>
-  <path d="m9.9434 23-3.8992 3.9011" fill="none" stroke-linecap="round" stroke-width="2"/>
+<svg width="32px" height="32px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+ <g stroke="#fff">
+  <path d="m11.749 13.694 8.5011 8.5011" fill="none" stroke-linecap="round" stroke-width="3.1"/>
+  <path d="m20.251 13.694-8.5011 8.5011" fill="none" stroke-linecap="round" stroke-width="3.1"/>
+  <rect x="1" y="4" width="30" height="24" fill="#f9f9fa" fill-opacity=".0039216" stroke-width="2"/>
+  <path d="m3.4668 6.4668v3.0664h25.066v-3.0664zm21.093 0.08251 3.9051-0.00766-4e-6 2.9311h-3.9051z" fill="#fff" stroke-width=".933"/>
  </g>
 </svg>

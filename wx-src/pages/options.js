@@ -9,6 +9,7 @@ let gActionDescs = [];
 let gRadioPanels = [];
 let gShctKeyModSelected = false;
 let gDialogs = {};
+let gToolbarBtnIcons;
 
 
 function $(aID)
@@ -353,39 +354,7 @@ async function init(aEvent)
   resp = await browser.runtime.sendMessage({
     msgID: "get-toolbar-btn-icons-map"
   });
-  let toolbarBtnIcons = resp.toolbarBtnIconsMap;
-  let revContrastChbox = $("rev-contrast-icon");
-  
-  aeToolbarIconPicker.init(
-    "toolbar-button-icon",
-    toolbarBtnIcons,
-    $("toolbar-button-caption"),
-    $("custom-icon-upload-btn")
-  );
-
-  if (prefs.toolbarBtnIcon == aeToolbarIconPicker.CUSTOM_ICON_IDX) {
-    let customIconRadio = $("custom-icon");
-    customIconRadio.style.visibility = "visible";
-    $("custom-icon-label").style.visibility = "visible";
-
-    let canvas = $("custom-icon-img");
-    let canvasCtx = canvas.getContext("2d");
-    let img = new Image();
-
-    img.onload = function () {
-      canvasCtx.drawImage(this, 0, 0, 36, 36);
-    };
-    img.src = prefs.toolbarBtnData;
-    
-    aeToolbarIconPicker.hasCustomIcon = true;
-    revContrastChbox.disabled = true;
-  }
-  aeToolbarIconPicker.selectedIndex = prefs.toolbarBtnIcon;
-
-  if (prefs.toolbarBtnRevContrastIco) {
-    revContrastChbox.checked = true;
-    $("toolbar-button-icon").setAttribute("colorscheme", "dark");
-  }
+  gToolbarBtnIcons = resp.toolbarBtnIconsMap;
 
   let keybShctChbox = $("shortcut-key");
   let keySelectElt = $("panicbutton-key");
@@ -464,7 +433,7 @@ async function init(aEvent)
   // Close the Change Icon dialog if it is open.
   resp = await browser.runtime.sendMessage({msgID: "ping-change-icon-dlg"});
   if (resp.isChangeIconDlgOpen) {
-    $("preftab-customize-btn").click();
+    tabCustomize.click();
     browser.runtime.sendMessage({msgID: "auto-close-change-icon-dlg"}); 
   }
 
@@ -541,7 +510,7 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
 });
 
 
-function switchPrefsPanel(aEvent)
+async function switchPrefsPanel(aEvent)
 {
   let id = aEvent.target.id;
   let tabOptions = $("preftab-options-btn");
@@ -558,6 +527,42 @@ function switchPrefsPanel(aEvent)
     tabOptions.setAttribute("aria-selected", "false");
     $("prefpane-options").classList.remove("active-tab-panel");
     $("prefpane-customize").classList.add("active-tab-panel");
+
+    if (! aeToolbarIconPicker.isInitialized()) {
+      aeToolbarIconPicker.init(
+        "toolbar-button-icon",
+        gToolbarBtnIcons,
+        $("toolbar-button-caption"),
+        $("custom-icon-upload-btn")
+      );
+
+      let prefs = await aePrefs.getAllPrefs();
+      let revContrastChbox = $("rev-contrast-icon");
+  
+      if (prefs.toolbarBtnRevContrastIco) {
+        revContrastChbox.checked = true;
+        $("toolbar-button-icon").setAttribute("colorscheme", "dark");
+      }
+
+      if (prefs.toolbarBtnIcon == aeToolbarIconPicker.CUSTOM_ICON_IDX) {
+        let customIconRadio = $("custom-icon");
+        customIconRadio.style.visibility = "visible";
+        $("custom-icon-label").style.visibility = "visible";
+
+        let canvas = $("custom-icon-img");
+        let canvasCtx = canvas.getContext("2d");
+        let img = new Image();
+
+        img.onload = function () {
+          canvasCtx.drawImage(this, 0, 0, 36, 36);
+        };
+        img.src = prefs.toolbarBtnData;
+        
+        aeToolbarIconPicker.hasCustomIcon = true;
+        revContrastChbox.disabled = true;
+      }
+      aeToolbarIconPicker.selectedIndex = prefs.toolbarBtnIcon;
+    }
   }
   aEvent.target.classList.add("active-tab");
   aEvent.target.setAttribute("aria-selected", "true");

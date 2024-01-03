@@ -77,8 +77,14 @@ let aeToolbarIconPicker = {
     this._nextElt = aNextElt;
 
     let pickerSty = window.getComputedStyle(document.getElementById("toolbar-button-icon"));
-    let firstIcoSty = window.getComputedStyle(document.querySelector("#default ~ label > canvas"));
     let pickerWidth = parseInt(pickerSty.width);
+    let pickerPaddingL = parseInt(pickerSty.paddingLeft);
+    let pickerPaddingR = parseInt(pickerSty.paddingRight);
+
+    // Deduct the left and right padding when calculating available width.
+    pickerWidth -= pickerPaddingL + pickerPaddingR;
+
+    let firstIcoSty = window.getComputedStyle(document.querySelector("#default ~ label > canvas"));
     let iconWidth = parseInt(firstIcoSty.width);
     let row = 0;
     let leftOffsetIdx = 0;
@@ -94,6 +100,7 @@ let aeToolbarIconPicker = {
       });
 
       leftOffsetPx += iconWidth + 1;
+
       if ((leftOffsetPx + iconWidth) > pickerWidth) {
         row++;
         leftOffsetPx = 0;
@@ -247,6 +254,11 @@ let aeToolbarIconPicker = {
         this._clickedElt = null;
       }
     });
+  },
+
+  isInitialized()
+  {
+    return (!! this._id);
   },
 };
 

@@ -4,8 +4,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 const aeConst = Object.freeze({
-  DEBUG: true,
-  DEV_BUILD: true,
+  DEBUG: false,
+  DEV_BUILD: false,
   CURR_MAJOR_VER: "5.0",
   
   // Extension GUID

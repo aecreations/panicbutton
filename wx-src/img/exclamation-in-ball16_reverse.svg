@@ -1,92 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="16"
-   height="16"
-   id="svg2994"
-   version="1.1"
-   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
-   sodipodi:docname="exclamation-in-ball16_reverse.svg"
-   inkscape:export-filename="/Users/aecreations/Documents/Graphics/Inkscape/Panic Button/Export/exclamation-in-ball16.png"
-   inkscape:export-xdpi="80"
-   inkscape:export-ydpi="80">
-  <defs
-     id="defs2996" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#808080"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="43.999999"
-     inkscape:cx="3.3181812"
-     inkscape:cy="6.7021001"
-     inkscape:current-layer="layer1"
-     showgrid="true"
-     inkscape:document-units="px"
-     inkscape:grid-bbox="true"
-     inkscape:snap-global="false"
-     inkscape:window-width="2048"
-     inkscape:window-height="1026"
-     inkscape:window-x="0"
-     inkscape:window-y="23"
-     inkscape:window-maximized="1"
-     inkscape:document-rotation="0">
-    <inkscape:grid
-       type="xygrid"
-       id="grid3002"
-       empspacing="1"
-       visible="true"
-       enabled="true"
-       snapvisiblegridlinesonly="true" />
-  </sodipodi:namedview>
-  <metadata
-     id="metadata2999">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     id="layer1"
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     transform="translate(0,-48)">
-    <ellipse
-       style="opacity:1;fill:#f9f9fa;fill-opacity:0.00392157;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path1579"
-       cx="8.011364"
-       cy="55.999729"
-       rx="7.2386365"
-       ry="7.2272725" />
-    <path
-       sodipodi:nodetypes="sssssssss"
-       inkscape:connector-curvature="0"
-       id="path2998-9"
-       d="M 9,59.533433 C 9,59.755593 8.8880707,60.118775 8.7071066,60.264364 8.5261424,60.409956 8.2761422,60.5 8,60.5 7.7238576,60.5 7.4738576,60.40995 7.2928934,60.264364 7.1119291,60.118771 7,59.755593 7,59.533433 c 0,-0.22216 0.080259,-0.488109 0.2612213,-0.633698 0.1809643,-0.145592 0.4309645,-0.268046 0.7071069,-0.268046 0.2761423,0 0.5266115,0.123268 0.7075759,0.268856 C 8.8568684,59.046138 9,59.311273 9,59.533433 Z"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.69000244;stroke-opacity:1" />
-    <path
-       sodipodi:nodetypes="sscssssscss"
-       inkscape:connector-curvature="0"
-       id="path3000-1"
-       d="m 8.0027574,56.954209 c -0.2441572,2.61e-4 -0.5868978,-0.134484 -0.6292321,-0.374943 -0.176354,-1.001693 -0.362338,-2.541057 -0.386986,-2.516409 0,0 -0.2600134,-1.866067 -0.1977414,-2.288182 0.030312,-0.20547 0.2660787,-0.331481 0.4461858,-0.434914 0.230273,-0.132242 0.5023058,-0.218836 0.7677736,-0.212476 0.2484607,0.006 0.4927126,0.109287 0.7082392,0.233046 0.1807004,0.103762 0.4142887,0.213038 0.4680644,0.414352 0.081989,0.306932 -0.1402674,2.246146 -0.1402674,2.246146 0,0 -0.116155,1.530589 -0.4215716,2.565452 -0.067575,0.228969 -0.3757324,0.367672 -0.6144645,0.367928 z"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" version="1.1" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(0,-48)">
+  <ellipse cx="8.0114" cy="56" rx="7.2386" ry="7.2273" fill="#f9f9fa" fill-opacity=".0039216" fill-rule="evenodd" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  <g transform="matrix(1.0001 0 0 1 -.0010577 48.003)" stroke-width=".99994">
+   <g fill="#fff" stroke="#fff" stroke-linejoin="round">
+    <path d="m8.0028 8.9542c-0.17606-0.0028377-0.24989-0.16358-0.3721-0.37494-0.31124-0.53827-0.51755-2.5001-0.51755-2.5001l-0.22788-2.4973s-0.00189-0.27548 0.34976-0.46706c0.26083-0.1421 0.50898-0.11145 0.76777-0.11605 0.40006-0.00712 0.98138 0.074236 1.0297 0.32946 0 0 0.073787-0.067479 0.08237 0.38221 0.018969 0.99386-0.20819 2.4105-0.20819 2.4105s-0.18887 1.6639-0.51436 2.4654c-0.089822 0.22119-0.2109 0.37081-0.38948 0.36794z" stroke-width=".99994px"/>
+    <circle cx="8.0035" cy="11.996" r=".99638" opacity=".95" stroke-linecap="round" stroke-width=".99994"/>
+   </g>
   </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="New Exclamation"
-     style="display:inline" />
+ </g>
 </svg>

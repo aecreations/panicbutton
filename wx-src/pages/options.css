@@ -412,7 +412,7 @@ input[type="file"] {
 #custom-icon-upload-btn {
     padding: 3px 20px 3px 20px;
     border: 1px solid var(--color-btn-border);
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 0 0 0 0 transparent;
     background-color: var(--color-btn-bkgd);
 
@@ -523,7 +523,6 @@ input[type="file"] {
     height: 32px;
     margin-bottom: 0;
     padding: 0 24px 0;
-    border-radius: 2px;
     font: caption;
     font-size: 15px !important;
 }

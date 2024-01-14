@@ -96,6 +96,49 @@ button {
     margin-bottom: 24px;
 }
 
+#dlg-content > p {
+    margin-left: 24px;
+}
+
+#ver-subhead {
+    margin-left: 24px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--color-secondary-text);
+}
+
 #dlg-btns {
     text-align: center;
+}
+
+/* Version 4.5 only */
+#ico-screenshots {
+    display: grid;
+    grid-template-columns: 72px 24px 72px;
+    row-gap: 4px;
+    column-gap: 4px;
+    text-align: center;
+    margin-left: 120px;
+}
+
+#ico-screenshots > .old,
+#ico-screenshots > .new {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #e0e0e6;
+    text-align: center;
+}
+
+#ico-screenshots > .new {
+    background-color: #f0f0f4;
+}
+
+#ico-screenshots > .versus {
+    text-align: center;
+    margin-top: 8px;
+}
+
+#ico-screenshots img {
+    width: 24px;
+    height: 24px;
 }

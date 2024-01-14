@@ -5,6 +5,7 @@
 
 let aeConst = {
   DEBUG: false,
+  CURR_MAJOR_VER: "4.5",
   
   // Extension GUID
   EXTENSION_ID: "{24cea704-946d-11da-a72b-0800200c9a66}",

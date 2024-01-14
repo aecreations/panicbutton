@@ -12,13 +12,17 @@ function $(aID)
 
 async function init()
 {
-  browser.history.deleteUrl({ url: window.location.href });
+  browser.history.deleteUrl({url: window.location.href});
 
-  let donateCTA = $("donate-cta");
-  donateCTA.appendChild(createTextNode("donateCta1"));
-  donateCTA.appendChild(createTextNodeWithSpc());
-  donateCTA.appendChild(createHyperlink("donateLink", aeConst.DONATE_URL));
-  donateCTA.appendChild(createTextNode("donateCta2"));
+  let verSubhdg = document.createTextNode(browser.i18n.getMessage("aboutExtVer", aeConst.CURR_MAJOR_VER));
+  $("ver-subhead").appendChild(verSubhdg);
+
+  let contribCTAElt = $("contrib-cta");
+  let contCTATxt = createTextNode("contribCTA");
+  let contLinkElt = createHyperlink("contribLink", aeConst.DONATE_URL);
+  contribCTAElt.appendChild(contCTATxt);
+  contribCTAElt.appendChild(createTextNodeWithSpc());
+  contribCTAElt.appendChild(contLinkElt);
   
   $("btn-close").addEventListener("click", async (aEvent) => { closePage() }); 
 }

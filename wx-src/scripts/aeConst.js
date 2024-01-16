@@ -5,7 +5,7 @@
 
 const aeConst = Object.freeze({
   DEBUG: false,
-  DEV_BUILD: true,
+  DEV_BUILD: false,
   CURR_MAJOR_VER: "5.0",
   
   // Extension GUID

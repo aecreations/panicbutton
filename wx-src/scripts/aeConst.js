@@ -8,12 +8,6 @@ const aeConst = Object.freeze({
   DEV_BUILD: false,
   CURR_MAJOR_VER: "5.0",
   
-  // Extension GUID
-  EXTENSION_ID: "{24cea704-946d-11da-a72b-0800200c9a66}",
-
-  // Host app GUIDs
-  HOSTAPP_FX_GUID: "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}",
-
   PANICBUTTON_ACTION_REPLACE: 0,
   PANICBUTTON_ACTION_MINIMIZE: 1,
   PANICBUTTON_ACTION_QUIT: 2,

@@ -50,7 +50,7 @@
   "options_ui": {
     "page": "pages/options.html",
     "open_in_tab": true,
-    "browser_style": true
+    "browser_style": false
   },
   "default_locale": "en"
 }

@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "__MSG_extName__",
   "description": "__MSG_extDesc__",
-  "version": "4.4.5",
+  "version": "4.4.6",
   "homepage_url": "https://aecreations.io/panicbutton/index.php",
   "author": "AE Creations",
   "browser_specific_settings": {
@@ -50,7 +50,7 @@
   "options_ui": {
     "page": "pages/options.html",
     "open_in_tab": true,
-    "browser_style": true
+    "browser_style": false
   },
   "default_locale": "en"
 }

@@ -903,15 +903,12 @@ async function openChangeIconDlg()
     }
 
     let wnd = await browser.windows.create({
-      url, type: "detached_panel",
+      url, type: "popup",
       width, height,
       left, top
     });
 
     await aePrefs.setPrefs({_changeIconWndID: wnd.id});
-
-    // TO DO: This might not be needed anymore?
-    browser.history.deleteUrl({ url });
   }
   // END nested functions
 

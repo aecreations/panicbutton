@@ -12,8 +12,6 @@ function $(aID)
 
 async function init()
 {
-  browser.history.deleteUrl({url: window.location.href});
-
   let prefs = await aePrefs.getAllPrefs();
   
   if (prefs.toolbarBtnRevContrastIco) {

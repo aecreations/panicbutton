@@ -45,8 +45,6 @@ async function init(aEvent)
   tabCustomize.addEventListener("click", switchPrefsPanel);
   tabCustomize.setAttribute("aria-selected", "false");
   
-  browser.history.deleteUrl({url: window.location.href});
-
   gRadioPanels = [
     {
       radioBtnID: "panic-action-hide-and-replace",

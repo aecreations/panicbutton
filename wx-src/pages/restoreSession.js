@@ -12,8 +12,6 @@ function $(aID)
 
 async function init(aEvent)
 {
-  browser.history.deleteUrl({ url: window.location.href });
-
   $("btn-accept").addEventListener("click", async (aEvent) => {
     let resp = await browser.runtime.sendMessage({
       msgID: "get-restore-sess-passwd",

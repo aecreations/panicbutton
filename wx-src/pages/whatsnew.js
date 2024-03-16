@@ -12,8 +12,6 @@ function $(aID)
 
 async function init()
 {
-  browser.history.deleteUrl({url: window.location.href});
-
   let extInfo = browser.runtime.getManifest();
   let contribCTA = browser.i18n.getMessage("contribCTA", aeConst.URL_DONATE);
   

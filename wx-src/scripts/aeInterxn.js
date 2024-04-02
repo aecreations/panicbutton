@@ -7,6 +7,47 @@
 let aeInterxn = {
   _isMacOS: window.navigator.oscpu.search(/mac/i) != -1,
   
+  initDialogButtonFocusHandlers()
+  {
+    let btns = document.querySelectorAll(".btn");
+
+    btns?.forEach(aBtn => {
+      aBtn.addEventListener("focus", aEvent => {
+        document.querySelector("#btn-accept").classList.remove("default");
+        btns.forEach(aOtherBtns => {
+          aOtherBtns.classList.remove("default");
+        });
+        aEvent.target.classList.add("default");
+      });
+
+      aBtn.addEventListener("blur", aEvent => {
+        aEvent.target.classList.remove("default");
+        document.querySelector("#btn-accept").classList.add("default");
+      });
+    });
+
+    let dlgs = document.querySelectorAll(".lightbox");
+
+    dlgs?.forEach(aDlg => {
+      let dlgBtns = aDlg.querySelectorAll(".dlg-btn");
+
+      dlgBtns?.forEach(aDlgBtn => {
+        aDlgBtn.addEventListener("focus", aEvent => {
+          aDlg.querySelector(".dlg-accept").classList.remove("default");
+          dlgBtns.forEach(aOtherDlgBtns => {
+            aOtherDlgBtns.classList.remove("default");
+          });
+          aEvent.target.classList.add("default");
+        });
+
+        aDlgBtn.addEventListener("blur", aEvent => {
+          aEvent.target.classList.remove("default");
+          aDlg.querySelector(".dlg-accept").classList.add("default");
+        });
+      });
+    });
+  },
+
   suppressBrowserShortcuts(aEvent, aIsDebugging)
   {
     if (aIsDebugging && aEvent.key != "Alt" && aEvent.key != "Control"

@@ -9,6 +9,7 @@ let gActionDescs = [];
 let gRadioPanels = [];
 let gShctKeyModSelected = false;
 let gDialogs = {};
+let gToolbarBtnIcons;
 
 
 function $(aID)
@@ -36,11 +37,14 @@ async function init(aEvent)
     browser.i18n.getMessage("actDescCloseAll")
   ];
 
-  $("preftab-options-btn").addEventListener("click", switchPrefsPanel);
-  $("preftab-customize-btn").addEventListener("click", switchPrefsPanel);
+  let tabOptions = $("preftab-options-btn");
+  tabOptions.addEventListener("click", switchPrefsPanel);
+  tabOptions.setAttribute("aria-selected", "true");
   
-  browser.history.deleteUrl({ url: window.location.href });
-
+  let tabCustomize = $("preftab-customize-btn");
+  tabCustomize.addEventListener("click", switchPrefsPanel);
+  tabCustomize.setAttribute("aria-selected", "false");
+  
   gRadioPanels = [
     {
       radioBtnID: "panic-action-hide-and-replace",
@@ -66,7 +70,7 @@ async function init(aEvent)
 
   initDialogs();
 
-  let resp = await browser.runtime.sendMessage({ msgID: "get-system-info" });
+  let resp = await browser.runtime.sendMessage({msgID: "get-system-info"});
   gOS = resp.os;
   document.body.dataset.os = gOS;
   
@@ -75,15 +79,15 @@ async function init(aEvent)
   if (gOS == "mac") {
     keyModAccelShift = "keyModAccelShiftMac";
     keyModAltShift = "keyModAltShiftMac";
-    $("panicbutton-key-del").innerText = chrome.i18n.getMessage("keyMacDel");
+    $("panicbutton-key-del").innerText = browser.i18n.getMessage("keyMacDel");
   }
   else {
     keyModAccelShift = "keyModAccelShift";
     keyModAltShift = "keyModAltShift";
   }
 
-  $("key-modifiers-accelshift").innerText = chrome.i18n.getMessage(keyModAccelShift);
-  $("key-modifiers-altshift").innerText = chrome.i18n.getMessage(keyModAltShift);
+  $("key-modifiers-accelshift").innerText = browser.i18n.getMessage(keyModAccelShift);
+  $("key-modifiers-altshift").innerText = browser.i18n.getMessage(keyModAltShift);
 
   let locale = browser.i18n.getUILanguage();
   let buttons = document.querySelectorAll("button");
@@ -112,11 +116,11 @@ async function init(aEvent)
       return;
     }
     validateURLTextbox(aEvent.target);
-    aePrefs.setPrefs({ replacementWebPgURL: aEvent.target.value });
+    aePrefs.setPrefs({replacementWebPgURL: aEvent.target.value});
   });
   
   $("restore-sess-snooze-tabs").addEventListener("click", aEvent => {
-    aePrefs.setPrefs({ restoreSessInactvTabsZzz: aEvent.target.checked });
+    aePrefs.setPrefs({restoreSessInactvTabsZzz: aEvent.target.checked});
   });
 
   $("panic-action-minimize-all").addEventListener("click", selectPanicAction);
@@ -135,7 +139,7 @@ async function init(aEvent)
     }
     $("minz-all-restore-from-camo-instr").style.display = isMinzAllCamo ? "block" : "none";
 
-    aePrefs.setPrefs({ showCamouflageWebPg: isMinzAllCamo });
+    aePrefs.setPrefs({showCamouflageWebPg: isMinzAllCamo});
   });
 
   $("minz-all-camouflage-webpg-url").addEventListener("blur", aEvent => {
@@ -145,13 +149,13 @@ async function init(aEvent)
       return;
     }
     validateURLTextbox(aEvent.target);
-    aePrefs.setPrefs({ camouflageWebPgURL: aEvent.target.value });
+    aePrefs.setPrefs({camouflageWebPgURL: aEvent.target.value});
   });
 
   $("panic-action-minimize-current").addEventListener("click", selectPanicAction);
   $("minz-curr-action-opt").addEventListener("change", aEvent => {
     let selectedOpt = aEvent.target.value;
-    aePrefs.setPrefs({ minimizeCurrOpt: selectedOpt });
+    aePrefs.setPrefs({minimizeCurrOpt: selectedOpt});
     toggleRestoreMinimizedWndNote(selectedOpt);
   });
   
@@ -159,7 +163,7 @@ async function init(aEvent)
 
   $("shortcut-key").addEventListener("click", aEvent => {
     let isKeybShct = aEvent.target.checked;
-    aePrefs.setPrefs({ shortcutKey: isKeybShct });
+    aePrefs.setPrefs({shortcutKey: isKeybShct});
 
     $("panicbutton-key").disabled = !isKeybShct;
     $("panicbutton-key-modifiers").disabled = !isKeybShct;
@@ -230,7 +234,7 @@ async function init(aEvent)
     browser.commands.reset(aeConst.CMD_PANIC_BUTTON_ACTION);
 
     // Unhide the two drop-down menus for the keyboard shortcut if they
-    // were hidden because the old shortcut was set from Add-ons Manager.
+    // were hidden because the older shortcut was set from Add-ons Manager.
     let keySelectElt = $("panicbutton-key");
     let keyModSelectElt = $("panicbutton-key-modifiers");
 
@@ -247,12 +251,12 @@ async function init(aEvent)
   });
 
   $("toolbar-button-caption").addEventListener("blur", aEvent => {
-    aePrefs.setPrefs({ toolbarBtnLabel: aEvent.target.value });
+    aePrefs.setPrefs({toolbarBtnLabel: aEvent.target.value});
   });
 
   $("rev-contrast-icon").addEventListener("click", aEvent => {
     let isRevContrast = aEvent.target.checked;   
-    aePrefs.setPrefs({ toolbarBtnRevContrastIco: isRevContrast });
+    aePrefs.setPrefs({toolbarBtnRevContrastIco: isRevContrast});
 
     let toolbarIconPicker = $("toolbar-button-icon");
     if (isRevContrast) {
@@ -272,10 +276,10 @@ async function init(aEvent)
   let usrContribCTA = $("usr-contrib-cta");
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-hdg", "aboutContribHdg"));
   usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());
-  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutDonate", aeConst.DONATE_URL));
+  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutDonate", aeConst.URL_DONATE));
   usrContribCTA.appendChild(aeDOM.createTextNodeWithSpc());
   usrContribCTA.appendChild(aeDOM.createEltWithID("label", "usr-contrib-cta-conj", "aboutContribConj"))
-  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutL10n", aeConst.L10N_URL));
+  usrContribCTA.appendChild(aeDOM.createHyperlink("aboutL10n", aeConst.URL_L10N));
 
   let hyperlinks = document.querySelectorAll("a.hyperlink");
   hyperlinks.forEach(aElt => {
@@ -348,35 +352,7 @@ async function init(aEvent)
   resp = await browser.runtime.sendMessage({
     msgID: "get-toolbar-btn-icons-map"
   });
-  let toolbarBtnIcons = resp.toolbarBtnIconsMap;
-  let toolbarBtnIconID = toolbarBtnIcons[prefs.toolbarBtnIcon];
-  let revContrastChbox = $("rev-contrast-icon");
-  
-  if (prefs.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
-    let customIconRadio = $("custom-icon");
-    customIconRadio.style.visibility = "visible";
-    customIconRadio.checked = true;
-    $("custom-icon-label").style.visibility = "visible";
-
-    let canvas = $("custom-icon-img");
-    let canvasCtx = canvas.getContext("2d");
-    let img = new Image();
-
-    img.onload = function () {
-      canvasCtx.drawImage(this, 0, 0, 36, 36);
-    };
-    img.src = prefs.toolbarBtnData;
-    
-    revContrastChbox.disabled = true;
-  }
-  else {
-    $(toolbarBtnIconID).checked = true;
-  }
-
-  if (prefs.toolbarBtnRevContrastIco) {
-    revContrastChbox.checked = true;
-    $("toolbar-button-icon").setAttribute("colorscheme", "dark");
-  }
+  gToolbarBtnIcons = resp.toolbarBtnIconsMap;
 
   let keybShctChbox = $("shortcut-key");
   let keySelectElt = $("panicbutton-key");
@@ -438,8 +414,8 @@ async function init(aEvent)
     $("shct-note").innerText = browser.i18n.getMessage("prefsOutsideShct");
   }
   else {
-    $("panicbutton-key").style.display = "inline-block";
-    $("panicbutton-key-modifiers").style.display = "inline-block";
+    keySelectElt.style.display = "inline-block";
+    keyModSelectElt.style.display = "inline-block";
     $("shct-note").innerText = browser.i18n.getMessage("prefsShortcutKeyNote");
   }
   
@@ -453,11 +429,13 @@ async function init(aEvent)
   }
 
   // Close the Change Icon dialog if it is open.
-  resp = await browser.runtime.sendMessage({ msgID: "ping-change-icon-dlg" });
+  resp = await browser.runtime.sendMessage({msgID: "ping-change-icon-dlg"});
   if (resp.isChangeIconDlgOpen) {
-    $("preftab-customize-btn").click();
-    browser.runtime.sendMessage({ msgID: "auto-close-change-icon-dlg" }); 
+    tabCustomize.click();
+    browser.runtime.sendMessage({msgID: "auto-close-change-icon-dlg"}); 
   }
+
+  aeInterxn.initDialogButtonFocusHandlers();
 }
 
 
@@ -469,7 +447,7 @@ document.addEventListener("click", aEvent => {
   if (aEvent.target.tagName == "INPUT"
       && aEvent.target.getAttribute("type") == "radio"
       && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
-    aePrefs.setPrefs({ toolbarBtnIcon: aEvent.target.value });
+    aePrefs.setPrefs({toolbarBtnIcon: aEvent.target.value});
 
     let revContrastChbox = $("rev-contrast-icon");
     
@@ -483,19 +461,33 @@ document.addEventListener("click", aEvent => {
 });
 
 window.addEventListener("keydown", aEvent => {
-  if (aEvent.key == "Enter" && aeDialog.isOpen()) {
-    aeDialog.acceptDlgs();
-
-    // Don't trigger any further actions that would have occurred if the
-    // ENTER key was pressed.
+  if (aEvent.key == "Enter") {
+    if (aeDialog.isOpen()) {
+      aeDialog.acceptDlgs();
+    }
+    else {
+      if (aEvent.target.tagName == "BUTTON") {
+        aEvent.target.click();
+      }
+    }
     aEvent.preventDefault();
   }
   else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
     aeDialog.cancelDlgs();
   }
-  else {
-    aeInterxn.suppressBrowserShortcuts(aEvent);
+  else if (aEvent.key == " ") {
+    if (aEvent.target.tagName == "A") {
+      aEvent.target.click();
+    }
   }
+  else {
+    aeInterxn.suppressBrowserShortcuts(aEvent, aeConst.DEBUG);
+  }
+});
+
+
+$("custom-icon-upload-btn").addEventListener("click", aEvent => {
+  $("custom-icon-upload").showPicker();
 });
 
 
@@ -506,31 +498,72 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
     $("preftab-customize-btn").click();
 
     let prefsPgTab = await browser.tabs.getCurrent();
-    browser.windows.update(prefsPgTab.windowId, { focused: true });
-    browser.tabs.update(prefsPgTab.id, { active: true });
+    browser.windows.update(prefsPgTab.windowId, {focused: true});
+    browser.tabs.update(prefsPgTab.id, {active: true});
   }
   else if (aRequest.msgID == "ping-ext-prefs-pg") {
-    let resp = { isExtPrefsPgOpen: true };
+    let resp = {isExtPrefsPgOpen: true};
     return Promise.resolve(resp);
   }
 });
 
 
-function switchPrefsPanel(aEvent)
+async function switchPrefsPanel(aEvent)
 {
   let id = aEvent.target.id;
+  let tabOptions = $("preftab-options-btn");
+  let tabCustomize = $("preftab-customize-btn");
 
   if (id == "preftab-options-btn") {
-    $("preftab-customize-btn").classList.remove("active-tab");
+    tabCustomize.classList.remove("active-tab");
+    tabCustomize.setAttribute("aria-selected", "false");
     $("prefpane-customize").classList.remove("active-tab-panel");
     $("prefpane-options").classList.add("active-tab-panel");
   }
   else if (id == "preftab-customize-btn") {
-    $("preftab-options-btn").classList.remove("active-tab");
+    tabOptions.classList.remove("active-tab");
+    tabOptions.setAttribute("aria-selected", "false");
     $("prefpane-options").classList.remove("active-tab-panel");
     $("prefpane-customize").classList.add("active-tab-panel");
+
+    if (! aeToolbarIconPicker.isInitialized()) {
+      aeToolbarIconPicker.init(
+        "toolbar-button-icon",
+        gToolbarBtnIcons,
+        $("toolbar-button-caption"),
+        $("custom-icon-upload-btn")
+      );
+
+      let prefs = await aePrefs.getAllPrefs();
+      let revContrastChbox = $("rev-contrast-icon");
+  
+      if (prefs.toolbarBtnRevContrastIco) {
+        revContrastChbox.checked = true;
+        $("toolbar-button-icon").setAttribute("colorscheme", "dark");
+      }
+
+      if (prefs.toolbarBtnIcon == aeToolbarIconPicker.CUSTOM_ICON_IDX) {
+        let customIconRadio = $("custom-icon");
+        customIconRadio.style.visibility = "visible";
+        $("custom-icon-label").style.visibility = "visible";
+
+        let canvas = $("custom-icon-img");
+        let canvasCtx = canvas.getContext("2d");
+        let img = new Image();
+
+        img.onload = function () {
+          canvasCtx.drawImage(this, 0, 0, 36, 36);
+        };
+        img.src = prefs.toolbarBtnData;
+        
+        aeToolbarIconPicker.hasCustomIcon = true;
+        revContrastChbox.disabled = true;
+      }
+      aeToolbarIconPicker.selectedIndex = prefs.toolbarBtnIcon;
+    }
   }
   aEvent.target.classList.add("active-tab");
+  aEvent.target.setAttribute("aria-selected", "true");
 }
 
 
@@ -543,17 +576,20 @@ function initDialogs()
   }
 
   gDialogs.setRestoreSessPswd = new aeDialog("#set-password-dlg");
-  gDialogs.setRestoreSessPswd.onInit = () => {
+  gDialogs.setRestoreSessPswd.onInit = function ()
+  {
     $("set-pswd-error").innerText = "";
     $("enter-password").value = "";
     $("confirm-password").value = "";
   };
-  gDialogs.setRestoreSessPswd.onShow = () => {
+
+  gDialogs.setRestoreSessPswd.onShow = function ()
+  {
     $("enter-password").focus();
   };
-  gDialogs.setRestoreSessPswd.onAccept = async () => {
-    let that = gDialogs.setRestoreSessPswd;
-    
+
+  gDialogs.setRestoreSessPswd.onAccept = async function ()
+  {
     let passwd = $("enter-password").value;
     let confirmPasswd = $("confirm-password").value;
 
@@ -578,22 +614,25 @@ function initDialogs()
       $("hide-and-replc-rm-pswd").style.visibility = "visible";
     }, 500);
     
-    that.close();
+    this.close();
   };
 
   gDialogs.changeRestoreSessPswd = new aeDialog("#change-password-dlg");
-  gDialogs.changeRestoreSessPswd.onInit = () => {
+  gDialogs.changeRestoreSessPswd.onInit = function ()
+  {
     $("chg-pswd-error").innerText = "";
     $("old-pswd").value = "";
     $("new-pswd").value = "";
     $("confirm-new-pswd").value = "";
   };
-  gDialogs.changeRestoreSessPswd.onShow = () => {
+
+  gDialogs.changeRestoreSessPswd.onShow = function ()
+  {
     $("old-pswd").focus();
   };
-  gDialogs.changeRestoreSessPswd.onAccept = async () => {
-    let that = gDialogs.changeRestoreSessPswd;
 
+  gDialogs.changeRestoreSessPswd.onAccept = async function ()
+  {
     let oldPswdElt = $("old-pswd");
     let newPswdElt =  $("new-pswd");
     let passwd = $("new-pswd").value;
@@ -622,10 +661,10 @@ function initDialogs()
     if (passwd == "" && confirmPasswd == "") {
       // If both password fields are empty, clear the password as if the user
       // had clicked "Remove Password"
-      await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
+      await browser.runtime.sendMessage({msgID: "rm-restore-sess-passwd"});
 
       resetPasswdPrefs();
-      that.close();
+      this.close();
       return;
     }
 
@@ -634,20 +673,21 @@ function initDialogs()
       passwd
     });
 
-    that.close();
+    this.close();
   };
 
   gDialogs.removeRestoreSessPswd = new aeDialog("#remove-password-dlg");
-  gDialogs.removeRestoreSessPswd.onInit = () => {
+  gDialogs.removeRestoreSessPswd.onInit = function ()
+  {
     $("pswd-for-removal").value = "";
     $("rm-pswd-error").innerText = "";
-  }
-  gDialogs.removeRestoreSessPswd.onShow = () => {
+  };
+  gDialogs.removeRestoreSessPswd.onShow = function ()
+  {
     $("pswd-for-removal").focus();
   };
-  gDialogs.removeRestoreSessPswd.onAccept = async () => {
-    let that = gDialogs.removeRestoreSessPswd;
-
+  gDialogs.removeRestoreSessPswd.onAccept = async function ()
+  {
     let enteredPswdElt = $("pswd-for-removal");
     let enteredPswd = enteredPswdElt.value;
     let resp = await browser.runtime.sendMessage({
@@ -662,30 +702,29 @@ function initDialogs()
       return;
     }
     
-    await browser.runtime.sendMessage({ msgID: "rm-restore-sess-passwd" });
+    await browser.runtime.sendMessage({msgID: "rm-restore-sess-passwd"});
     resetPasswdPrefs();
-    that.close();
+    this.close();
   };
   
   gDialogs.about = new aeDialog("#about-dlg");
   gDialogs.about.extInfo = null;
-  gDialogs.about.onInit = () => {
-    let that = gDialogs.about;
-    
-    if (! that.extInfo) {
-      let extManifest = chrome.runtime.getManifest();
-      that.extInfo = {
+  gDialogs.about.onInit = function ()
+  {
+    if (! this.extInfo) {
+      let extManifest = browser.runtime.getManifest();
+      this.extInfo = {
         name: extManifest.name,
-        version: extManifest.version,
+        version: aeMozVersion.getExtendedVersion(extManifest.version),
         description: extManifest.description,
         homePgURL: extManifest.homepage_url,
       };
     }
 
-    document.getElementById("ext-name").innerText = that.extInfo.name;
-    document.getElementById("ext-ver").innerText = chrome.i18n.getMessage("aboutExtVer", that.extInfo.version);
-    document.getElementById("ext-desc").innerText = that.extInfo.description;
-    document.getElementById("ext-home-pg-link").href = that.extInfo.homePgURL;
+    document.getElementById("ext-name").innerText = this.extInfo.name;
+    document.getElementById("ext-ver").innerText = browser.i18n.getMessage("aboutExtVer", this.extInfo.version);
+    document.getElementById("ext-desc").innerText = this.extInfo.description;
+    document.getElementById("ext-home-pg-link").href = this.extInfo.homePgURL;
   };  
 }
 
@@ -694,7 +733,7 @@ function selectPanicAction(aEvent)
 {
   let selectedActionID = aEvent.target.value;
   switchSelectedActionRadioPanel(selectedActionID);
-  aePrefs.setPrefs({ action: selectedActionID });
+  aePrefs.setPrefs({action: selectedActionID});
 }
 
 
@@ -740,10 +779,13 @@ function setCustomTBIcon(aEvent)
 
       let scaledImgData = canvas.toDataURL("image/png");
       aePrefs.setPrefs({
-        toolbarBtnIcon: aeConst.CUSTOM_ICON_IDX,
+        toolbarBtnIcon: aeToolbarIconPicker.CUSTOM_ICON_IDX,
         toolbarBtnData: scaledImgData,
         toolbarBtnRevContrastIco: false,
       });
+
+      aeToolbarIconPicker.hasCustomIcon = true;
+      aeToolbarIconPicker.selectedIndex = aeToolbarIconPicker.CUSTOM_ICON_IDX;
     };
     
     img.src = encImgData;   
@@ -751,7 +793,6 @@ function setCustomTBIcon(aEvent)
     $("custom-icon-label").style.visibility = "visible";
     let customIconRadio = $("custom-icon");
     customIconRadio.style.visibility = "visible";
-    customIconRadio.checked = true;
 
     let revContrastChbox = $("rev-contrast-icon");
     revContrastChbox.setAttribute("disabled", "true");
@@ -835,14 +876,14 @@ function getLocalizedKeybShct(aShortcutKeyModifiers, aShortcutKey)
 function resetReplacemtWebPageURL(aEvent)
 {
   $("webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
-  aePrefs.setPrefs({ replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });  
+  aePrefs.setPrefs({replacementWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL});  
 }
 
 
 function resetMinzAllCamouflageWebPageURL(aEvent)
 {
   $("minz-all-camouflage-webpg-url").value = aeConst.REPLACE_WEB_PAGE_DEFAULT_URL;
-  aePrefs.setPrefs({ camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL });
+  aePrefs.setPrefs({camouflageWebPgURL: aeConst.REPLACE_WEB_PAGE_DEFAULT_URL});
 }
 
 

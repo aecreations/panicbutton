@@ -12,15 +12,33 @@ function $(aID)
 
 async function init()
 {
-  browser.history.deleteUrl({ url: window.location.href });
+  let extInfo = browser.runtime.getManifest();
+  let contribCTA = browser.i18n.getMessage("contribCTA", aeConst.URL_DONATE);
+  
+  let verSubhdg = document.createTextNode(browser.i18n.getMessage("aboutExtVer", aeConst.CURR_MAJOR_VER));
+  $("ver-subhead").appendChild(verSubhdg);
 
-  let donateCTA = $("donate-cta");
-  donateCTA.appendChild(createTextNode("donateCta1"));
-  donateCTA.appendChild(createTextNodeWithSpc());
-  donateCTA.appendChild(createHyperlink("donateLink", aeConst.DONATE_URL));
-  donateCTA.appendChild(createTextNode("donateCta2"));
+  let contribCTAElt = $("contrib-cta");
+  let contCTATxt = createTextNode("contribCTA");
+  let contLinkElt = createHyperlink("contribLink", aeConst.URL_DONATE);
+  contribCTAElt.appendChild(contCTATxt);
+  contribCTAElt.appendChild(createTextNodeWithSpc());
+  contribCTAElt.appendChild(contLinkElt);
+  
+  document.querySelector("#link-website > a").href = extInfo.homepage_url;
+  document.querySelector("#link-amo > a").href = aeConst.URL_AMO;
+  document.querySelector("#link-blog > a").href = aeConst.URL_BLOG;
+  document.querySelector("#link-forum > a").href= aeConst.URL_FORUM;
   
   $("btn-close").addEventListener("click", async (aEvent) => { closePage() }); 
+
+  let anchorElts = document.getElementsByTagName("A");
+  for (let elt of anchorElts) {
+    elt.addEventListener("click", aEvent => {
+      aEvent.preventDefault();
+      gotoURL(aEvent.target.href);
+    });
+  }
 }
 
 
@@ -38,26 +56,6 @@ function createTextNodeWithSpc()
 }
 
 
-function createEltWithID(aNodeName, aNodeID, aStringKey)
-{
-  let rv = document.createElement(aNodeName);
-  rv.id = aNodeID;
-  let text = document.createTextNode(browser.i18n.getMessage(aStringKey));
-  rv.appendChild(text);
-  return rv;
-}
-
-
-function createEltWithClass(aNodeName, aNodeClass, aStringKey)
-{
-  let rv = document.createElement(aNodeName);
-  rv.className = aNodeClass;
-  let text = document.createTextNode(browser.i18n.getMessage(aStringKey));
-  rv.appendChild(text);
-  return rv;
-}
-
-
 function createHyperlink(aStringKey, aURL)
 {
   let rv = document.createElement("a");
@@ -65,6 +63,12 @@ function createHyperlink(aStringKey, aURL)
   let text = document.createTextNode(browser.i18n.getMessage(aStringKey));
   rv.appendChild(text);
   return rv; 
+}
+
+
+function gotoURL(aURL)
+{
+  browser.tabs.create({url: aURL});
 }
 
 

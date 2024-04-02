@@ -12,9 +12,7 @@ function $(aID)
 
 async function init(aEvent)
 {
-  browser.history.deleteUrl({ url: window.location.href });
-
-  $("btn-ok").addEventListener("click", async (aEvent) => {
+  $("btn-accept").addEventListener("click", async (aEvent) => {
     let resp = await browser.runtime.sendMessage({
       msgID: "get-restore-sess-passwd",
     });
@@ -37,6 +35,8 @@ async function init(aEvent)
   });
 
   $("restore-sess-pswd").focus();
+
+  aeInterxn.initDialogButtonFocusHandlers();
 }
 
 
@@ -55,7 +55,7 @@ window.addEventListener("keydown", aEvent => {
       aeDialog.acceptDlgs();
     }
     else {
-      $("btn-ok").click();
+      $("btn-accept").click();
     }
   }
   else if (aEvent.key == "Escape") {

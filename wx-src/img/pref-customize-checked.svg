@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient9920" x1="17.95" x2="55.26" y1="27.159" y2="64.469" gradientTransform="matrix(.31547 0 0 .31545 1.9589 .11986)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#70b7ff" offset="0"/>
+   <stop stop-color="#5cadff" offset=".51232"/>
+   <stop stop-color="#007af5" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient4036" x1="17.958" x2="8.3102" y1="21.501" y2="7.9272" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#006fe0" offset="0"/>
+   <stop stop-color="#47a2ff" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <rect x=".5" y="1.5" width="25" height="25" rx="4.2866" ry="4.2866" fill="#d6eaff" stroke="#007af5" stroke-linecap="round"/>
+  <ellipse cx="13" cy="14" rx="9.4641" ry="9.4636" fill="url(#linearGradient9920)" stroke="url(#linearGradient4036)" stroke-width="1.0724"/>
+  <g transform="scale(1.1392 .87784)" aria-label="!">
+   <path d="m10.348 16.56-0.28876-4.3223q-0.081213-1.2633-0.081213-1.8138 0-0.74897 0.38802-1.1641 0.39704-0.42411 1.0377-0.42411 0.77604 0 1.0377 0.54142 0.26169 0.5324 0.26169 1.543 0 0.59556-0.06317 1.2092l-0.38802 4.4487q-0.06317 0.79408-0.27071 1.2182-0.20754 0.42411-0.6858 0.42411-0.48728 0-0.67678-0.40607-0.1895-0.41509-0.27071-1.2543zm1.0016 5.9376q-0.55044 0-0.96553-0.35192-0.40607-0.36095-0.40607-1.0016 0-0.55947 0.38802-0.94749 0.39704-0.39704 0.96553-0.39704t0.96553 0.39704q0.40607 0.38802 0.40607 0.94749 0 0.63166-0.40607 0.9926-0.40606 0.36095-0.94749 0.36095z" fill="#fff"/>
+  </g>
+  <g stroke="#007af5">
+   <rect transform="rotate(-48.113)" x="-7.9703" y="28.059" width="18.671" height="4.3003" fill="#99cbff" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="m15.405 24.584-3.0023 6.4041 6.4869-3.2838z" fill="#fff" stroke-linejoin="round" stroke-width=".63184px"/>
+   <path d="m13.6 28.363-1.428 2.8565 2.9623-1.5333z" fill="#007af5" stroke-width=".59221px"/>
+  </g>
+  <path d="m-119.36 16.96v29.148h29.134z" fill="#9889f8" stroke="#625fcd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+  <path d="m-115.9 26.439v16.184h16.176z" fill="#fff" stroke="#625fcd" stroke-linecap="round" stroke-width="1.3906"/>
+ </g>
+</svg>

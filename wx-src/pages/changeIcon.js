@@ -12,8 +12,6 @@ function $(aID)
 
 async function init()
 {
-  browser.history.deleteUrl({ url: window.location.href });
-
   let prefs = await aePrefs.getAllPrefs();
   
   if (prefs.toolbarBtnRevContrastIco) {
@@ -24,12 +22,17 @@ async function init()
     msgID: "get-toolbar-btn-icons-map"
   });
   let toolbarBtnIcons = resp.toolbarBtnIconsMap;
-  let toolbarBtnIconID = toolbarBtnIcons[prefs.toolbarBtnIcon];
 
-  if (prefs.toolbarBtnIcon == aeConst.CUSTOM_ICON_IDX) {
+  aeToolbarIconPicker.init(
+    "toolbar-button-icon",
+    toolbarBtnIcons,
+    $("btn-accept"),
+    $("more-customzns")
+  );
+
+  if (prefs.toolbarBtnIcon == aeToolbarIconPicker.CUSTOM_ICON_IDX) {
     let customIconRadio = $("custom-icon");
     customIconRadio.style.visibility = "visible";
-    customIconRadio.checked = true;
     $("custom-icon-label").style.visibility = "visible";
 
     let canvas = $("custom-icon-img");
@@ -40,15 +43,16 @@ async function init()
       canvasCtx.drawImage(this, 0, 0, 36, 36);
     };
     img.src = prefs.toolbarBtnData;
+    aeToolbarIconPicker.hasCustomIcon = true;
   }
-  else {
-    $(toolbarBtnIconID).checked = true;
-  }
+  aeToolbarIconPicker.selectedIndex = prefs.toolbarBtnIcon;
 
   $("more-customzns").addEventListener("click", async (aEvent) => {
     await browser.runtime.openOptionsPage();
   });
   $("btn-accept").addEventListener("click", aEvent => { closeDlg() });
+
+  aeInterxn.initDialogButtonFocusHandlers();
 
   // Fix for Fx57 bug where bundled page loaded using
   // browser.windows.create won't show contents unless resized.
@@ -63,7 +67,7 @@ async function init()
 
 async function closeDlg()
 {
-  await browser.runtime.sendMessage({ msgID: "close-change-icon-dlg" });
+  await browser.runtime.sendMessage({msgID: "close-change-icon-dlg"});
   browser.windows.remove(browser.windows.WINDOW_ID_CURRENT);
 }
 
@@ -90,11 +94,16 @@ document.addEventListener("click", aEvent => {
 
 
 window.addEventListener("keydown", aEvent => {
-  if (aEvent.key == "Enter" || aEvent.key == "Escape") {
+  if (aEvent.key == "Enter") {
+    // There should only be 1 default button.
+    let defaultBtn = document.querySelector(".default");
+    defaultBtn.click();
+  }
+  else if (aEvent.key == "Escape") {
     closeDlg();
   }
   else {
-    aeInterxn.suppressBrowserShortcuts(aEvent);
+    aeInterxn.suppressBrowserShortcuts(aEvent, aeConst.DEBUG);
   }
 });
 

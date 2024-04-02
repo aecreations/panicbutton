@@ -1,27 +1,30 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_extName__",
   "description": "__MSG_extDesc__",
-  "version": "4.4.6",
+  "version": "5.0",
   "homepage_url": "https://aecreations.io/panicbutton/index.php",
   "author": "AE Creations",
+
   "browser_specific_settings": {
     "gecko": {
-      "strict_min_version": "78.0"
+      "id": "{24cea704-946d-11da-a72b-0800200c9a66}",
+      "strict_min_version": "115.0"
     }
   },
+
   "icons": {
     "48": "img/icon.svg",
     "96": "img/icon.svg"
   },
+
   "permissions": [
-    "activeTab",
     "cookies",
-    "history",
     "menus",
     "storage",
     "tabs"
   ],
+
   "background": {
     "scripts": [
       "scripts/aeConst.js",
@@ -30,7 +33,8 @@
       "background.js"
     ]
   },
-  "browser_action": {
+
+  "action": {
     "default_icon": {
       "16": "img/default16.svg",
       "32": "img/default32.svg",
@@ -39,6 +43,7 @@
     "default_title": "__MSG_defaultBtnLabel__",
     "default_area": "navbar"
   },
+
   "commands": {
     "ae-panicbutton": {
       "suggested_key": {
@@ -47,10 +52,11 @@
       "description": "__MSG_cmdDesc__"
     }
   },
+
   "options_ui": {
     "page": "pages/options.html",
-    "open_in_tab": true,
-    "browser_style": false
+    "open_in_tab": true
   },
+
   "default_locale": "en"
 }

@@ -8,7 +8,6 @@
 
 :root {
     --url-bkgd-img: url("../img/restoreSessionPgBkg.svg");
-    --color-bkgd: none;
     --color-main-border: #ddd;
     --color-main-bkgd: #fefefe;
     --color-main-border-shadow: #e0e0e0;
@@ -98,12 +97,13 @@ input[type="password"] {
 .lightbox {
     padding-left: 24px;
     padding-right: 24px;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 15px;
 }
 
 .lightbox > .dlg-btns > button {
     font-size: 15px !important;
+    border-radius: 4px;
 }
 
 #hlp-dlg {

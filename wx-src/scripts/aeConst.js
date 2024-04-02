@@ -3,15 +3,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-let aeConst = {
+const aeConst = Object.freeze({
   DEBUG: false,
+  DEV_BUILD: false,
+  CURR_MAJOR_VER: "5.0",
   
-  // Extension GUID
-  EXTENSION_ID: "{24cea704-946d-11da-a72b-0800200c9a66}",
-
-  // Host app GUIDs
-  HOSTAPP_FX_GUID: "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}",
-
   PANICBUTTON_ACTION_REPLACE: 0,
   PANICBUTTON_ACTION_MINIMIZE: 1,
   PANICBUTTON_ACTION_QUIT: 2,
@@ -29,6 +25,9 @@ let aeConst = {
 
   DEFAULT_KEYB_SHCT: "F8",
 
-  DONATE_URL: "https://www.paypal.me/aecreations88/7.99cad",
-  L10N_URL: "https://crowdin.com/project/aecreations-panic-button",
-};
+  URL_AMO: "https://addons.mozilla.org/firefox/addon/panic-button/",
+  URL_BLOG: "https://aecreations.blogspot.com/",
+  URL_FORUM: "https://aecreations.io/forums",
+  URL_DONATE: "https://www.paypal.me/aecreations88/7.99cad",
+  URL_L10N: "https://crowdin.com/project/aecreations-panic-button",
+});

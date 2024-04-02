@@ -7,12 +7,14 @@
   <head>
     <meta charset="utf-8">
     <title data-i18n="pswdPrmptHdr"></title>
+
+    <link rel="shortcut icon" href="../img/icon.svg"/>
     <link rel="stylesheet" href="restoreSession.css"/>
   </head>
 
   <body>
     <main id="ae-panicbutton-restore-session-pswd">
-      <div id="dlg-hdr">
+      <div id="dlg-hdr" role="heading">
         <img id="prmpt-icon" src="../img/icon.svg"/>
         <h1 data-i18n="pswdPrmptHdr"></h1>
       </div>
@@ -22,12 +24,12 @@
 	<div id="err-msg" class="error"></div>
       </div>
       <div id="dlg-btns">
-        <button id="btn-cancel" data-i18n="restrSessCancel"></button>
-        <button id="btn-ok" class="default" data-i18n="restrSessAccept"></button>
+        <button id="btn-cancel" class="btn" data-i18n="restrSessCancel"></button>
+        <button id="btn-accept" class="default" data-i18n="restrSessAccept"></button>
       </div>
     </main>
 
-    <div id="hlp-dlg" class="lightbox">
+    <div id="hlp-dlg" class="lightbox" role="dialog" aria-label="Help">
       <div class="dlg-content">
 	<p class="label" data-i18n="msgUnknown"></p>
       </div>

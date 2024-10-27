@@ -12,6 +12,9 @@ function $(aID)
 
 async function init()
 {
+  let {os} = await browser.runtime.getPlatformInfo();
+  aeInterxn.init(os);
+
   let prefs = await aePrefs.getAllPrefs();
   
   if (prefs.toolbarBtnRevContrastIco) {
@@ -52,7 +55,9 @@ async function init()
   });
   $("btn-accept").addEventListener("click", aEvent => { closeDlg() });
 
-  aeInterxn.initDialogButtonFocusHandlers();
+  if (prefs.defDlgBtnFollowsFocus) {
+    aeInterxn.initDialogButtonFocusHandlers();
+  }
 
   // Fix for Fx57 bug where bundled page loaded using
   // browser.windows.create won't show contents unless resized.

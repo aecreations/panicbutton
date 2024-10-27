@@ -512,6 +512,11 @@ void async function ()
     log("Initializing 5.0 user preferences.");
     await aePrefs.setFarallonPrefs(prefs);
   }
+
+  if (! aePrefs.hasMaintopPrefs(prefs)) {
+    log("Initializing 5.0.1 user preferences.");
+    await aePrefs.setMaintopPrefs(prefs);
+  }
   
   init(prefs);
 }();

@@ -439,6 +439,14 @@ async function init(aEvent)
   if (prefs.defDlgBtnFollowsFocus) {
     aeInterxn.initDialogButtonFocusHandlers();
   }
+
+  aeVisual.preloadMsgBoxIcons();
+  aeVisual.cacheIcons(
+    "pref-general.svg",
+    "pref-customize.svg",
+    "pref-general-checked.svg",
+    "pref-customize-checked.svg"
+  );
 }
 
 

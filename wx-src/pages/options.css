@@ -598,6 +598,12 @@ body[data-os="mac"] #change-password-dlg {
     background-size: contain;
 }
 
+body[data-os="win"] #remove-password-dlg .msgbox-icon {
+    width: 48px;
+    height: 48px;
+    background-image: url("../img/confirm-win.png");
+}
+
 body[data-os="mac"] #remove-password-dlg .msgbox-icon {
     background-image: url("../img/question-64-mac.png");
 }

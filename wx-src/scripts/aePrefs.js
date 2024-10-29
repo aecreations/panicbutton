@@ -31,6 +31,7 @@ let aePrefs = {
     minimizeCurrOpt: aeConst.MINIMIZE_CURR_OPT_RESTORE_MINZED_WND,
     restoreSessInactvTabsZzz: true,
     autoAdjustWndPos: null,
+    defDlgBtnFollowsFocus: false,
   },
   
   getPrefKeys()
@@ -164,8 +165,21 @@ let aePrefs = {
     };
 
     await this._addPrefs(aPrefs, newPrefs);
+  },
 
-    // TO DO: Get rid of deprecated prefs if they still exist in storage.
+  hasMaintopPrefs(aPrefs)
+  {
+    // Version 5.0.1
+    return ("defDlgBtnFollowsFocus" in aPrefs);
+  },
+
+  async setMaintopPrefs(aPrefs)
+  {
+    let newPrefs = {
+      defDlgBtnFollowsFocus: false,
+    };
+
+    await this._addPrefs(aPrefs, newPrefs);
   },
 
   
@@ -180,5 +194,5 @@ let aePrefs = {
     }
 
     await this.setPrefs(aNewPrefs);
-  }
+  },
 };

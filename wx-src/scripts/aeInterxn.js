@@ -5,7 +5,12 @@
 
 
 let aeInterxn = {
-  _isMacOS: window.navigator.oscpu.search(/mac/i) != -1,
+  _isMacOS: null,
+
+  init(aOSName)
+  {
+    this._isMacOS = aOSName == "mac";
+  },
   
   initDialogButtonFocusHandlers()
   {
@@ -33,16 +38,22 @@ let aeInterxn = {
 
       dlgBtns?.forEach(aDlgBtn => {
         aDlgBtn.addEventListener("focus", aEvent => {
-          aDlg.querySelector(".dlg-accept").classList.remove("default");
-          dlgBtns.forEach(aOtherDlgBtns => {
-            aOtherDlgBtns.classList.remove("default");
-          });
-          aEvent.target.classList.add("default");
+          let acceptBtn = aDlg.querySelector(".dlg-accept");
+          if (acceptBtn) {
+            acceptBtn.classList.remove("default");
+            dlgBtns.forEach(aOtherDlgBtns => {
+              aOtherDlgBtns.classList.remove("default");
+            });
+            aEvent.target.classList.add("default");
+          }
         });
 
         aDlgBtn.addEventListener("blur", aEvent => {
           aEvent.target.classList.remove("default");
-          aDlg.querySelector(".dlg-accept").classList.add("default");
+          let acceptBtn = aDlg.querySelector(".dlg-accept");
+          if (acceptBtn) {
+            acceptBtn.classList.add("default");
+          }
         });
       });
     });
@@ -97,6 +108,10 @@ let aeInterxn = {
   
   _isAccelKeyPressed(aEvent)
   {
+    if (typeof this._isMacOS != "boolean") {
+      throw new ReferenceError("aeInterxn not initialized");
+    }
+
     let rv = aEvent.ctrlKey;
     if (this._isMacOS) {
       rv = aEvent.metaKey;

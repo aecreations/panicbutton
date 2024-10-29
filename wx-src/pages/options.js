@@ -73,6 +73,7 @@ async function init(aEvent)
   let resp = await browser.runtime.sendMessage({msgID: "get-system-info"});
   gOS = resp.os;
   document.body.dataset.os = gOS;
+  aeInterxn.init(gOS);
   
   let keyModAccelShift, keyModAltShift;
 
@@ -435,7 +436,17 @@ async function init(aEvent)
     browser.runtime.sendMessage({msgID: "auto-close-change-icon-dlg"}); 
   }
 
-  aeInterxn.initDialogButtonFocusHandlers();
+  if (prefs.defDlgBtnFollowsFocus) {
+    aeInterxn.initDialogButtonFocusHandlers();
+  }
+
+  aeVisual.preloadMsgBoxIcons();
+  aeVisual.cacheIcons(
+    "pref-general.svg",
+    "pref-customize.svg",
+    "pref-general-checked.svg",
+    "pref-customize-checked.svg"
+  );
 }
 
 

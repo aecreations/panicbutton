@@ -59,18 +59,31 @@ body {
     color: var(--color-default-text);
 }
 
-main {
+header, main {
     width: 640px;
-    margin: 24px auto 24px auto;
-    padding: 16px;
     border: 1px solid var(--color-main-border);
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 0 0 8px 2px var(--color-main-border-shadow);
     background-color: var(--color-main-bkgd);
 }
 
-body[data-os="mac"] main {
+header {
+    margin: 24px auto 12px auto;
+    padding: 16px;
+}
+
+main {
+    margin: 0 auto 24px auto;
+    padding: 0 16px 16px 16px;
+}
+
+body[data-os="mac"] main,
+body[data-os="mac"] header {
     width: 644px;
+}
+
+header {
+    margin-bottom: 12px;
 }
 
 #addon-icon {
@@ -82,7 +95,7 @@ h2 {
     display: inline-block;
     margin-top: 0;
     margin-right: 6px;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     font-size: 22px;
     font-weight: 600;
     letter-spacing: -0.2px;
@@ -164,11 +177,10 @@ fieldset select.browser-style {
 }
 
 .tab-container {
-    margin-top: 4px;
+    margin-top: 0;
     margin-bottom: 16px;
     margin-left: -16px;
     margin-right: -16px;
-    border-top: 1px solid var(--color-tab-cntr-border);
     border-bottom: 1px solid var(--color-tab-cntr-border);
     text-align: center;
 }
@@ -501,10 +513,10 @@ input[type="file"] {
 }
 
 .lightbox {
-    top: 64px;
+    top: 72px;
     padding-left: 22px;
     padding-right: 22px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 15px;
 }
 
@@ -584,6 +596,7 @@ body[data-os="mac"] #change-password-dlg {
 }
 
 #remove-password-dlg {
+    top: 100px;
     --width: 400px;
     --height: 216px;
 }
@@ -596,6 +609,12 @@ body[data-os="mac"] #change-password-dlg {
     margin-top: 8px;
     background-image: url("../img/question-64.png");
     background-size: contain;
+}
+
+body[data-os="win"] #remove-password-dlg .msgbox-icon {
+    width: 48px;
+    height: 48px;
+    background-image: url("../img/confirm-win.png");
 }
 
 body[data-os="mac"] #remove-password-dlg .msgbox-icon {
@@ -616,7 +635,6 @@ body[data-os="mac"] #remove-password-dlg .msgbox-icon {
 }
 
 #about-dlg {
-    top: 72px;
     --width: 410px;
     --height: 284px;
 }

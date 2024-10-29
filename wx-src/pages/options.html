@@ -13,13 +13,15 @@
   </head>
 
   <body>
-    <main id="ae-panicbutton-preferences">
+    <header>
       <div id="pref-pg-hdr" role="heading">
-        <img id="addon-icon" src="../img/icon.svg"/>
+        <img id="addon-icon" src="../img/icon.svg" role="presentation"/>
         <h2 data-i18n="prefsPgHdg"></h2>
 	<button id="about-btn" data-i18n="aboutBtn"></button>
       </div>
+    </header>
 
+    <main id="ae-panicbutton-preferences">
       <div class="tab-container" role="tablist">
 	<div id="preftab-options" class="tab">
 	  <button id="preftab-options-btn" class="active-tab" role="tab" aria-controls="prefpane-options" data-i18n="prefTabOptions"></button>
@@ -280,6 +282,7 @@
     <script src="../scripts/aeDOM.js"></script>
     <script src="../scripts/aePrefs.js"></script>
     <script src="../scripts/aeInterxn.js"></script>
+    <script src="../scripts/aeVisual.js"></script>
     <script src="../scripts/aeToolbarIconPicker.js"></script>
     <script src="options.js"></script>
   </body>

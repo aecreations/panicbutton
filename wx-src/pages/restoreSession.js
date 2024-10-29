@@ -12,6 +12,9 @@ function $(aID)
 
 async function init(aEvent)
 {
+  let {os} = await browser.runtime.getPlatformInfo();
+  aeInterxn.init(os);
+  
   $("btn-accept").addEventListener("click", async (aEvent) => {
     let resp = await browser.runtime.sendMessage({
       msgID: "get-restore-sess-passwd",
@@ -36,7 +39,10 @@ async function init(aEvent)
 
   $("restore-sess-pswd").focus();
 
-  aeInterxn.initDialogButtonFocusHandlers();
+  let defDlgBtnFollowsFocus = await aePrefs.getPref("defDlgBtnFollowsFocus");
+  if (defDlgBtnFollowsFocus) {
+    aeInterxn.initDialogButtonFocusHandlers();
+  }
 }
 
 

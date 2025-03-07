@@ -3,8 +3,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-let gOS;
-let gHostAppVer;
 let gIsFirstRun = false;
 let gIsMajorVerUpdate = false;
 
@@ -529,14 +527,11 @@ async function init(aPrefs)
     browser.runtime.getPlatformInfo(),
   ]);
 
-  gHostAppVer = brws.version;
-  log(`Panic Button/wx: Host app: ${brws.name} (version ${gHostAppVer})`);
-
-  gOS = platform.os;
-  log("Panic Button/wx: OS: " + gOS);
+  log(`Panic Button/wx: Host app: ${brws.name} (version ${brws.version})`);
+  log("Panic Button/wx: OS: " + platform.os);
 
   if (aPrefs.autoAdjustWndPos === null) {
-    let autoAdjustWndPos = gOS == "win";
+    let autoAdjustWndPos = platform.os == "win";
     await aePrefs.setPrefs({autoAdjustWndPos});
   }
 
@@ -670,10 +665,6 @@ browser.runtime.onMessage.addListener(async (aRequest) => {
   let resp = null;
 
   switch (aRequest.msgID) {
-  case "get-system-info":
-    resp = {os: getOS()};
-    break;
-
   case "get-toolbar-btn-icons-map":
     resp = {toolbarBtnIconsMap: getToolbarButtonIconsMap()};
     break;
@@ -878,7 +869,8 @@ async function openChangeIconDlg()
       log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from currently focused window:`);
       log(wndGeom);
       
-      let topOffset = (gOS == "mac" ? 96 : 128);
+      let {os} = await browser.runtime.getPlatformInfo();
+      let topOffset = (os == "mac" ? 96 : 128);
 
       if (wndGeom === null) {
         // Reached here if unable to calculate window geometry.
@@ -932,12 +924,6 @@ async function openChangeIconDlg()
   else {
     openChgIconDlgHelper();
   }
-}
-
-
-function getOS()
-{
-  return gOS;
 }
 
 

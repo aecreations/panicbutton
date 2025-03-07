@@ -858,10 +858,15 @@ async function openChangeIconDlg()
       return;
     }
     
+    let {os} = await browser.runtime.getPlatformInfo();
     let {autoAdjustWndPos} = await aePrefs.getAllPrefs();
     let width = 404;
     let height = 272;
     let left, top, wndGeom;
+
+    if (os == "win") {
+      height += 10;
+    }
 
     if (autoAdjustWndPos) {
       wndGeom = await getBrwsWndGeometry();
@@ -869,7 +874,6 @@ async function openChangeIconDlg()
       log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from currently focused window:`);
       log(wndGeom);
       
-      let {os} = await browser.runtime.getPlatformInfo();
       let topOffset = (os == "mac" ? 96 : 128);
 
       if (wndGeom === null) {

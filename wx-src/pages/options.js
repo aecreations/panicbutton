@@ -70,8 +70,8 @@ async function init(aEvent)
 
   initDialogs();
 
-  let resp = await browser.runtime.sendMessage({msgID: "get-system-info"});
-  gOS = resp.os;
+  let platform = await browser.runtime.getPlatformInfo();
+  gOS = platform.os;
   document.body.dataset.os = gOS;
   aeInterxn.init(gOS);
   
@@ -350,7 +350,7 @@ async function init(aEvent)
 
   $("toolbar-button-caption").value = prefs.toolbarBtnLabel;
 
-  resp = await browser.runtime.sendMessage({
+  let resp = await browser.runtime.sendMessage({
     msgID: "get-toolbar-btn-icons-map"
   });
   gToolbarBtnIcons = resp.toolbarBtnIconsMap;

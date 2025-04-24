@@ -288,34 +288,49 @@
     "description": "Accept button in the Restore Session Password page"
   },
   "newVerHdg": {
-    "message": "Neue Version installiert!"
+    "message": "Neue Version installiert!",
+    "description": "Header for the What's New page (appears after upgrading Panic Button)"
   },
   "upgrade": {
-    "message": "Panic Button wurde auf Version 4.4 aktualisiert."
+    "message": "Panic Button wurde auf die neueste Version aktualisiert.",
+    "description": "What's New page (appears after upgrading Panic Button)"
   },
   "whatsNew": {
-    "message": "Neues"
+    "message": "Neues",
+    "description": "What's New page (appears after upgrading Panic Button)"
   },
   "whatsNew1": {
-    "message": "Neue Menüoptionen wurden zum Kontextmenü des Panic Button in der Symbolleiste hinzugefügt, womit Änderungen der Schaltfläche in der Symbolleiste mit nur wenigen Klicks ermöglicht werden, oder zur Seite mit den Erweiterungseinstellungen gewechselt werden kann."
+    "message": "Verbesserungen an einigen der integrierten Panic Button Icons",
+    "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
   "whatsNew2": {
-    "message": "Neue Option in den Einstellungen für das Schlummern inaktiver Browser-Tabs beim Wiederherstellen der Browsersitzung nach dem Aufruf der Aktion Ausblenden und Ersetzen"
+    "message": "Erweiterte Tastatur-Navigation auf der Seite Erweiterungs-Einstellungen, Symbol-Dialog ändern und die Sitzungsseite wiederherstellen",
+    "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
   "whatsNew3": {
-    "message": "Die Symbole mit umgekehrtem Kontrast passen jetzt besser zum Dunklen Stil ab Firefox 89"
+    "message": "Weitere Verbesserungen hinter den Kulissen, um die Kompatibilität mit zukünftigen Versionen von Firefox sicherzustellen",
+    "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
-  "donateHdg": {
-    "message": "Spenden!"
+  "contribHdg": {
+    "message": "Beitragen",
+    "description": "Contribution CTA in the What's New page"
   },
-  "donateCta1": {
-    "message": "Unterstütze die Entwicklung von Panic Button durch"
+  "contribCTA": {
+    "message": "Unterstützen Sie die Entwicklung von Panic Button durch",
+    "description": "Call to action (CTA) message to contribute to the development of Panic Button"
   },
-  "donateLink": {
-    "message": "eine kleine Spende leisten"
+  "contribLink": {
+    "message": "Eine Spende tätigen.",
+    "description": "Link text in the contribute CTA"
   },
-  "donateCta2": {
-    "message": "."
+  "linkBlog": {
+    "message": "AE Creations Blog"
+  },
+  "linkAMO": {
+    "message": "Firefox-Add-ons-Seite"
+  },
+  "linkForum": {
+    "message": "Hilfe- und Supportforen"
   },
   "btnClosePg": {
     "message": "Diese Seite schließen"

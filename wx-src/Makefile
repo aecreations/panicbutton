@@ -1,6 +1,6 @@
 # Makefile for Panic Button/wx
 
-EXT_VER=`./getver.pl`
+EXT_VER=`./getver.py`
 DIST_FILE=panicbutton-$(EXT_VER).zip
 EXCLUDE=*~ *\.pl \.devel *\.release Makefile
 

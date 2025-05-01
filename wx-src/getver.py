@@ -56,10 +56,8 @@ def parse_version(version):
     rv['minor'] = minor
     rv['revision'] = revision
     rv['patch'] = patch
-
     pre_major_values = [98, 99, 998, 999]
     pre_revision_values = [97, 98, 99, 998, 999]
-
     try:
         if int(minor) in pre_major_values:
             rv['releaseType'] = RELEASETYPE_PRE_MAJOR
@@ -71,7 +69,6 @@ def parse_version(version):
             rv['releaseType'] = RELEASETYPE_STABLE
     except ValueError:
         sys.stderr.write(f"Error: Invalid MV3 version number: {version}")
-
     return rv
 
 def get_moz_version_suffix(subversion, pre_release_version=1):

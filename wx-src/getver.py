@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+# This helper build script reads the specially-formatted MV3 version number
+# in the extension manifest and converts it to the traditional Mozilla version
+# numbering scheme used to denote pre-release builds.
+# For details on the version numbering scheme used in MV3 extensions, see the
+# source code comments in the aeMozVersion library.
+
 import sys
 import json
 import time

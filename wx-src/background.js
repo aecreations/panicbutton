@@ -235,20 +235,18 @@ let gBrowserSession = {
 
   async restore()
   {
-    let focusedWndID = null;
-    let restoreSessInactvTabsZzz = await aePrefs.getPref("restoreSessInactvTabsZzz");
-
-    let savedWnds = await aePrefs.getPref("_savedWnds");
+    let prefs = await aePrefs.getAllPrefs();
+    let savedWnds = prefs._savedWnds;
     if (! (savedWnds instanceof Array)) {
       throw new TypeError("savedWnds not an Array");
     }
 
-    let readerModeTabIDs = await aePrefs.getPref("_readerModeTabIDs");
+    let readerModeTabIDs = prefs._readerModeTabIDs;
     if (! (readerModeTabIDs instanceof Array)) {
       throw new TypeError("readerModeTabIDs not an Array");
     }   
 
-    let restoreTabGroups = await aePrefs.getPref("restoreTabGroups");
+    let focusedWndID = null;
     readerModeTabIDs = new Set(readerModeTabIDs);
 
     while (savedWnds.length > 0) {
@@ -302,7 +300,7 @@ let gBrowserSession = {
         let isReaderMode = false;
         let tabPpty = {
           windowId: wndID,
-          discarded: restoreSessInactvTabsZzz,
+          discarded: prefs.restoreSessInactvTabsZzz,
           cookieStoreId: savedTab.cookieStoreId,
         };
         if (savedTab.isInReaderMode) {
@@ -319,7 +317,7 @@ let gBrowserSession = {
         }
 
         // Recreate tab groups.
-        if (restoreTabGroups && savedTab.groupId != browser.tabGroups.TAB_GROUP_ID_NONE) {
+        if (prefs.restoreTabGroups && savedTab.groupId != browser.tabGroups.TAB_GROUP_ID_NONE) {
           if (tabGroupIDsMap.has(savedTab.groupId)) {
             let tabGrpID = tabGroupIDsMap.get(savedTab.groupId);
             await browser.tabs.group({groupId: tabGrpID, tabIds: tab.id});
@@ -332,13 +330,13 @@ let gBrowserSession = {
       }
 
       // Restore tab group properties.
-      if (restoreTabGroups) {
+      if (prefs.restoreTabGroups) {
         for (let [oldTabGrpID, newTabGrpID] of tabGroupIDsMap) {
           let oldTabGrp = savedTabGrps[oldTabGrpID];
           browser.tabGroups.update(newTabGrpID, {
             title: oldTabGrp.title,
             color: oldTabGrp.color,
-            collapsed: oldTabGrp.collapsed,
+            collapsed: (prefs.shrinkRestoredTabGrps ? true : oldTabGrp.collapsed),
           });
         }
       }
@@ -384,7 +382,7 @@ let gBrowserSession = {
     }
     // END while
 
-    let replacemtWndID = await aePrefs.getPref("_replacemtWndID");
+    let replacemtWndID = prefs._replacemtWndID;
     let replacemtWnd = await browser.windows.get(replacemtWndID);
     await browser.windows.remove(replacemtWnd.id);
 

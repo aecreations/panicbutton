@@ -124,6 +124,10 @@ async function init(aEvent)
     aePrefs.setPrefs({restoreSessInactvTabsZzz: aEvent.target.checked});
   });
 
+  $("restore-sess-shrink-tabgrps").addEventListener("click", aEvent => {
+    aePrefs.setPrefs({shrinkRestoredTabGrps: aEvent.target.checked});
+  });
+
   $("panic-action-minimize-all").addEventListener("click", selectPanicAction);
 
   $("minz-all-camouflage").addEventListener("click", aEvent => {
@@ -331,6 +335,7 @@ async function init(aEvent)
   });
 
   $("restore-sess-snooze-tabs").checked = prefs.restoreSessInactvTabsZzz;
+  $("restore-sess-shrink-tabgrps").checked = prefs.shrinkRestoredTabGrps;
 
   $("minz-all-camouflage").checked = prefs.showCamouflageWebPg;
   $("minz-all-camouflage-webpg-url").value = prefs.camouflageWebPgURL;

@@ -191,6 +191,11 @@
     "description": "Checkbox option in the extension preferences page"
   },
 
+  "lblShrinkTabGrps": {
+    "message": "Collapse restored tab groups",
+    "description": "Checkbox option in the extension preferences page"
+  },
+
   "labelMinzAllCamoWebPg": {
     "message": "Open a new window after all browser windows are minimized",
     "description": "Checkbox option in the extension preferences page"

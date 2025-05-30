@@ -395,22 +395,12 @@
   },
 
   "whatsNew1": {
-    "message": "Improvements to some of the built-in Panic Button icons",
-    "description": "Description of an enhancement or fix in the new version of Panic Button"
-  },
-
-  "whatsNew2": {
-    "message": "Enhanced keyboard navigation in the extension preferences page, Change Icon dialog, and the Restore Session page",
-    "description": "Description of an enhancement or fix in the new version of Panic Button"
-  },
-
-  "whatsNew3": {
-    "message": "Other behind-the-scenes improvements to ensure compatibility with future versions of Firefox",
+    "message": "If the Panic Button action is set to Hide and Replace, tab groups will be recreated when browser windows and tabs are restored",
     "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
 
   "contribHdg": {
-    "message": "Contribute",
+    "message": "Contribute!",
     "description": "Contribution CTA in the What's New page"
   },
 

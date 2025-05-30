@@ -543,9 +543,6 @@ void async function ()
   }
 
   if (! aePrefs.hasFarallonPrefs(prefs)) {
-    // This should be set when updating to the latest release.
-    gIsMajorVerUpdate = true;
-
     log("Initializing 5.0 user preferences.");
     await aePrefs.setFarallonPrefs(prefs);
   }
@@ -556,6 +553,9 @@ void async function ()
   }
 
   if (! aePrefs.hasAlamedaPrefs(prefs)) {
+    // This should be set when updating to the latest release.
+    gIsMajorVerUpdate = true;
+
     log("Initializing 5.1 user preferences.");
     await aePrefs.setAlamedaPrefs(prefs);
   }

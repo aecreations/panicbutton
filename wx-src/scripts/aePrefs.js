@@ -32,6 +32,7 @@ let aePrefs = {
     restoreSessInactvTabsZzz: true,
     autoAdjustWndPos: null,
     defDlgBtnFollowsFocus: false,
+    restoreTabGroups: true,
   },
   
   getPrefKeys()
@@ -179,6 +180,18 @@ let aePrefs = {
       defDlgBtnFollowsFocus: false,
     };
 
+    await this._addPrefs(aPrefs, newPrefs);
+  },
+
+  hasAlamedaPrefs(aPrefs)
+  {
+    // Version 5.1
+    return ("restoreTabGroups" in aPrefs);
+  },
+
+  async setAlamedaPrefs(aPrefs)
+  {
+    let newPrefs = {restoreTabGroups: true};
     await this._addPrefs(aPrefs, newPrefs);
   },
 

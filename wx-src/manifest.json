@@ -9,7 +9,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "{24cea704-946d-11da-a72b-0800200c9a66}",
-      "strict_min_version": "115.0"
+      "strict_min_version": "139.0"
     }
   },
 
@@ -22,7 +22,8 @@
     "cookies",
     "menus",
     "storage",
-    "tabs"
+    "tabs",
+    "tabGroups"
   ],
 
   "background": {
@@ -30,6 +31,7 @@
       "scripts/aeConst.js",
       "scripts/aePrefs.js",
       "scripts/aeSavedWindow.js",
+      "scripts/aeSavedTabGroup.js",
       "background.js"
     ]
   },

@@ -187,11 +187,13 @@
   },
 
   "labelSnoozeInactTabs": {
-    "message": "When restoring browser session, snooze inactive browser tabs"
+    "message": "When restoring browser session, snooze inactive browser tabs",
+    "description": "Checkbox option in the extension preferences page"
   },
-  
+
   "labelMinzAllCamoWebPg": {
-    "message": "Open a new window after all browser windows are minimized"
+    "message": "Open a new window after all browser windows are minimized",
+    "description": "Checkbox option in the extension preferences page"
   },
 
   "descRstFrmCamoWnd": {
@@ -337,6 +339,11 @@
   
   "aboutHomePgLink": {
     "message": "Visit home page"
+  },
+
+  "aboutCreditsLink": {
+    "message": "Credits",
+    "description": "Link to acknowledgements page"
   },
 
   "aboutLicLink": {

@@ -450,7 +450,11 @@ async function init(aEvent)
     "pref-general.svg",
     "pref-customize.svg",
     "pref-general-checked.svg",
-    "pref-customize-checked.svg"
+    "pref-customize-checked.svg",
+    "pref-general-dk.svg",
+    "pref-customize-dk.svg",
+    "pref-general-checked-dk.svg",
+    "pref-customize-checked-dk.svg"
   );
 }
 

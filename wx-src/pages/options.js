@@ -12,12 +12,6 @@ let gDialogs = {};
 let gToolbarBtnIcons;
 
 
-function $(aID)
-{
-  return document.getElementById(aID);
-}
-
-
 async function init(aEvent)
 {
   function toggleRestoreMinimizedWndNote(aSelectedOpt)
@@ -459,75 +453,6 @@ async function init(aEvent)
 }
 
 
-//
-// Event handlers
-//
-
-document.addEventListener("click", aEvent => {
-  if (aEvent.target.tagName == "INPUT"
-      && aEvent.target.getAttribute("type") == "radio"
-      && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
-    aePrefs.setPrefs({toolbarBtnIcon: aEvent.target.value});
-
-    let revContrastChbox = $("rev-contrast-icon");
-    
-    if (aEvent.target.id == "custom-icon") {
-      revContrastChbox.setAttribute("disabled", "true");
-    }
-    else {
-      revContrastChbox.removeAttribute("disabled");
-    }
-  }
-});
-
-window.addEventListener("keydown", aEvent => {
-  if (aEvent.key == "Enter") {
-    if (aeDialog.isOpen()) {
-      aeDialog.acceptDlgs();
-    }
-    else {
-      if (aEvent.target.tagName == "BUTTON") {
-        aEvent.target.click();
-      }
-    }
-    aEvent.preventDefault();
-  }
-  else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
-    aeDialog.cancelDlgs();
-  }
-  else if (aEvent.key == " ") {
-    if (aEvent.target.tagName == "A") {
-      aEvent.target.click();
-    }
-  }
-  else {
-    aeInterxn.suppressBrowserShortcuts(aEvent, aeConst.DEBUG);
-  }
-});
-
-
-$("custom-icon-upload-btn").addEventListener("click", aEvent => {
-  $("custom-icon-upload").showPicker();
-});
-
-
-browser.runtime.onMessage.addListener(async (aRequest) => {
-  log(`Panic Button/wx::options.js: Received message "${aRequest.msgID}"`);
-
-  if (aRequest.msgID == "ext-prefs-customize") {
-    $("preftab-customize-btn").click();
-
-    let prefsPgTab = await browser.tabs.getCurrent();
-    browser.windows.update(prefsPgTab.windowId, {focused: true});
-    browser.tabs.update(prefsPgTab.id, {active: true});
-  }
-  else if (aRequest.msgID == "ping-ext-prefs-pg") {
-    let resp = {isExtPrefsPgOpen: true};
-    return Promise.resolve(resp);
-  }
-});
-
-
 async function switchPrefsPanel(aEvent)
 {
   let id = aEvent.target.id;
@@ -948,6 +873,98 @@ function closePage()
 }
 
 
+//
+// Event handlers
+//
+
+document.addEventListener("DOMContentLoaded", async (aEvent) => {
+  init();
+});
+
+
+document.addEventListener("contextmenu", aEvent => {
+  if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
+    aEvent.preventDefault();
+  }
+}, false);
+
+
+document.addEventListener("click", aEvent => {
+  if (aEvent.target.tagName == "INPUT"
+      && aEvent.target.getAttribute("type") == "radio"
+      && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
+    aePrefs.setPrefs({toolbarBtnIcon: aEvent.target.value});
+
+    let revContrastChbox = $("rev-contrast-icon");
+    
+    if (aEvent.target.id == "custom-icon") {
+      revContrastChbox.setAttribute("disabled", "true");
+    }
+    else {
+      revContrastChbox.removeAttribute("disabled");
+    }
+  }
+});
+
+
+window.addEventListener("keydown", aEvent => {
+  if (aEvent.key == "Enter") {
+    if (aeDialog.isOpen()) {
+      aeDialog.acceptDlgs();
+    }
+    else {
+      if (aEvent.target.tagName == "BUTTON") {
+        aEvent.target.click();
+      }
+    }
+    aEvent.preventDefault();
+  }
+  else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
+    aeDialog.cancelDlgs();
+  }
+  else if (aEvent.key == " ") {
+    if (aEvent.target.tagName == "A") {
+      aEvent.target.click();
+    }
+  }
+  else {
+    aeInterxn.suppressBrowserShortcuts(aEvent, aeConst.DEBUG);
+  }
+});
+
+
+$("custom-icon-upload-btn").addEventListener("click", aEvent => {
+  $("custom-icon-upload").showPicker();
+});
+
+
+browser.runtime.onMessage.addListener(async (aRequest) => {
+  log(`Panic Button/wx::options.js: Received message "${aRequest.msgID}"`);
+
+  if (aRequest.msgID == "ext-prefs-customize") {
+    $("preftab-customize-btn").click();
+
+    let prefsPgTab = await browser.tabs.getCurrent();
+    browser.windows.update(prefsPgTab.windowId, {focused: true});
+    browser.tabs.update(prefsPgTab.id, {active: true});
+  }
+  else if (aRequest.msgID == "ping-ext-prefs-pg") {
+    let resp = {isExtPrefsPgOpen: true};
+    return Promise.resolve(resp);
+  }
+});
+
+
+//
+// Utilities
+//
+
+function $(aID)
+{
+  return document.getElementById(aID);
+}
+
+
 function onError(aError)
 {
   console.error("Panic Button/wx: %s", aError);
@@ -958,12 +975,3 @@ function log(aMessage)
 {
   if (aeConst.DEBUG) { console.log(aMessage); }
 }
-
-
-document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
-
-document.addEventListener("contextmenu", aEvent => {
-  if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
-    aEvent.preventDefault();
-  }
-}, false);

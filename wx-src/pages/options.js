@@ -331,6 +331,14 @@ async function init(aEvent)
   $("restore-sess-snooze-tabs").checked = prefs.restoreSessInactvTabsZzz;
   $("restore-sess-shrink-tabgrps").checked = prefs.shrinkRestoredTabGrps;
 
+  if (!prefs.restoreTabGroups) {
+    let restoreSessOptsElt = $("restore-sess-options");
+    let opts = restoreSessOptsElt.querySelectorAll(".restore-tabgrps-opt");
+    opts.forEach(aElt => {
+      aElt.style.display = "none";
+    });
+  }
+
   $("minz-all-camouflage").checked = prefs.showCamouflageWebPg;
   $("minz-all-camouflage-webpg-url").value = prefs.camouflageWebPgURL;
 

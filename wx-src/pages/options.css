@@ -370,6 +370,10 @@ fieldset select.browser-style {
     margin-bottom: 0;
 }
 
+#restore-sess-options > .row {
+    margin-bottom: 2px;
+}
+
 #minz-all-camouflage-label[data-locale|="pt"] {
     letter-spacing: -0.3px;
 }

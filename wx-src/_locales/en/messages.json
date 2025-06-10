@@ -407,7 +407,7 @@
   },
 
   "whatsNew1": {
-    "message": "If the Panic Button action is set to Hide and Replace, tab groups will be recreated when browser windows and tabs are restored",
+    "message": "If the Panic Button action is set to Hide and Replace, tab groups will be recreated when the browser windows and tabs are restored",
     "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
 

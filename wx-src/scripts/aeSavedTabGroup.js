@@ -3,18 +3,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-class aeSavedWindow
+class aeSavedTabGroup
 {
-  constructor(aActiveTabIdx, aNumPinnedTabs, aWndInfo)
+  constructor(aID, aTitle, aColor, aIsCollapsed)
   {
-    this.activeTabIdx = aActiveTabIdx;
-    this.numPinnedTabs = aNumPinnedTabs;
-    this.info = aWndInfo;
-    this.tabGroups = {};
-  }
-
-  setTabGroups(aTabGroups)
-  {
-    this.tabGroups = aTabGroups;
+    this.id = aID;
+    this.title = aTitle;
+    this.color = aColor;
+    this.collapsed = aIsCollapsed;
   }
 }

@@ -205,12 +205,25 @@ let gBrowserSession = {
         }
       };
 
+      // Save tab groups.
+      let tabGrps = {};
+      for (let i = 0; i < wnd.tabs.length; i++) {        
+        let tab = wnd.tabs[i];
+        if (tab.groupId != browser.tabGroups.TAB_GROUP_ID_NONE) {
+          if (! (tab.groupId in tabGrps)) {
+            let tg = await browser.tabGroups.get(tab.groupId);
+            tabGrps[tab.groupId] = new aeSavedTabGroup(tg.id, tg.title, tg.color, tg.collapsed);
+          }
+        }
+      }
+
       let savedWnds = await aePrefs.getPref("_savedWnds");
       if (! (savedWnds instanceof Array)) {
         throw new TypeError("savedWnds not an Array");
       }
       
       let savedWnd = new aeSavedWindow(activeTabIdx, numPinnedTabs, wnd);
+      savedWnd.setTabGroups(tabGrps);
       savedWnds.push(savedWnd);
       await aePrefs.setPrefs({_savedWnds: savedWnds});
 
@@ -222,21 +235,20 @@ let gBrowserSession = {
 
   async restore()
   {
-    let focusedWndID = null;
-    let restoreSessInactvTabsZzz = await aePrefs.getPref("restoreSessInactvTabsZzz");
-
-    let savedWnds = await aePrefs.getPref("_savedWnds");
+    let prefs = await aePrefs.getAllPrefs();
+    let savedWnds = prefs._savedWnds;
     if (! (savedWnds instanceof Array)) {
       throw new TypeError("savedWnds not an Array");
     }
 
-    let readerModeTabIDs = await aePrefs.getPref("_readerModeTabIDs");
+    let readerModeTabIDs = prefs._readerModeTabIDs;
     if (! (readerModeTabIDs instanceof Array)) {
       throw new TypeError("readerModeTabIDs not an Array");
     }   
 
+    let focusedWndID = null;
     readerModeTabIDs = new Set(readerModeTabIDs);
-    
+
     while (savedWnds.length > 0) {
       let closedWnd = savedWnds.shift();
       let wndPpty = {
@@ -253,6 +265,7 @@ let gBrowserSession = {
       }
 
       let savedTabs = [];
+      let savedTabGrps = closedWnd.tabGroups;
       
       if (closedWnd.info.tabs.length == 1) {
         let savedTab = closedWnd.info.tabs[0];
@@ -280,27 +293,53 @@ let gBrowserSession = {
 
       let createdWnd = await browser.windows.create(wndPpty);
       let wndID = createdWnd.id;
+      let tabGroupIDsMap = new Map();
 
-      savedTabs.forEach(async (aTab) => {
+      for (let i = 0; i < savedTabs.length; i++) {
+        let savedTab = savedTabs[i];
         let isReaderMode = false;
         let tabPpty = {
           windowId: wndID,
-          discarded: restoreSessInactvTabsZzz,
-          cookieStoreId: aTab.cookieStoreId,
+          discarded: prefs.restoreSessInactvTabsZzz,
+          cookieStoreId: savedTab.cookieStoreId,
         };
-        if (aTab.isInReaderMode) {
-          tabPpty.url = this._sanitizeReaderModeURL(aTab.url);
+        if (savedTab.isInReaderMode) {
+          tabPpty.url = this._sanitizeReaderModeURL(savedTab.url);
           isReaderMode = true;
         }
         else {
-          tabPpty.url = aTab.url;
+          tabPpty.url = savedTab.url;
         }
 
         let tab = await browser.tabs.create(tabPpty);
         if (isReaderMode) {
           readerModeTabIDs.add(tab.id);
         }
-      });
+
+        // Recreate tab groups.
+        if (prefs.restoreTabGroups && savedTab.groupId != browser.tabGroups.TAB_GROUP_ID_NONE) {
+          if (tabGroupIDsMap.has(savedTab.groupId)) {
+            let tabGrpID = tabGroupIDsMap.get(savedTab.groupId);
+            await browser.tabs.group({groupId: tabGrpID, tabIds: tab.id});
+          }
+          else {
+            let newTabGrpID = await browser.tabs.group({tabIds: tab.id});
+            tabGroupIDsMap.set(savedTab.groupId, newTabGrpID);
+          }
+        }
+      }
+
+      // Restore tab group properties.
+      if (prefs.restoreTabGroups) {
+        for (let [oldTabGrpID, newTabGrpID] of tabGroupIDsMap) {
+          let oldTabGrp = savedTabGrps[oldTabGrpID];
+          browser.tabGroups.update(newTabGrpID, {
+            title: oldTabGrp.title,
+            color: oldTabGrp.color,
+            collapsed: (prefs.shrinkRestoredTabGrps ? true : oldTabGrp.collapsed),
+          });
+        }
+      }
 
       if (savedTabs.length > 0) {
         // Get rid of dummy browser tab.
@@ -343,7 +382,7 @@ let gBrowserSession = {
     }
     // END while
 
-    let replacemtWndID = await aePrefs.getPref("_replacemtWndID");
+    let replacemtWndID = prefs._replacemtWndID;
     let replacemtWnd = await browser.windows.get(replacemtWndID);
     await browser.windows.remove(replacemtWnd.id);
 
@@ -504,9 +543,6 @@ void async function ()
   }
 
   if (! aePrefs.hasFarallonPrefs(prefs)) {
-    // This should be set when updating to the latest release.
-    gIsMajorVerUpdate = true;
-
     log("Initializing 5.0 user preferences.");
     await aePrefs.setFarallonPrefs(prefs);
   }
@@ -514,6 +550,14 @@ void async function ()
   if (! aePrefs.hasMaintopPrefs(prefs)) {
     log("Initializing 5.0.1 user preferences.");
     await aePrefs.setMaintopPrefs(prefs);
+  }
+
+  if (! aePrefs.hasAlamedaPrefs(prefs)) {
+    // This should be set when updating to the latest release.
+    gIsMajorVerUpdate = true;
+
+    log("Initializing 5.1 user preferences.");
+    await aePrefs.setAlamedaPrefs(prefs);
   }
   
   init(prefs);

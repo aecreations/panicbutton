@@ -6,7 +6,7 @@
 const aeConst = Object.freeze({
   DEBUG: false,
   DEV_BUILD: false,
-  CURR_MAJOR_VER: "5.0",
+  CURR_MAJOR_VER: "5.1",
   
   PANICBUTTON_ACTION_REPLACE: 0,
   PANICBUTTON_ACTION_MINIMIZE: 1,

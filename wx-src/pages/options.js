@@ -12,12 +12,6 @@ let gDialogs = {};
 let gToolbarBtnIcons;
 
 
-function $(aID)
-{
-  return document.getElementById(aID);
-}
-
-
 async function init(aEvent)
 {
   function toggleRestoreMinimizedWndNote(aSelectedOpt)
@@ -122,6 +116,10 @@ async function init(aEvent)
   
   $("restore-sess-snooze-tabs").addEventListener("click", aEvent => {
     aePrefs.setPrefs({restoreSessInactvTabsZzz: aEvent.target.checked});
+  });
+
+  $("restore-sess-shrink-tabgrps").addEventListener("click", aEvent => {
+    aePrefs.setPrefs({shrinkRestoredTabGrps: aEvent.target.checked});
   });
 
   $("panic-action-minimize-all").addEventListener("click", selectPanicAction);
@@ -331,6 +329,15 @@ async function init(aEvent)
   });
 
   $("restore-sess-snooze-tabs").checked = prefs.restoreSessInactvTabsZzz;
+  $("restore-sess-shrink-tabgrps").checked = prefs.shrinkRestoredTabGrps;
+
+  if (!prefs.restoreTabGroups) {
+    let restoreSessOptsElt = $("restore-sess-options");
+    let opts = restoreSessOptsElt.querySelectorAll(".restore-tabgrps-opt");
+    opts.forEach(aElt => {
+      aElt.style.display = "none";
+    });
+  }
 
   $("minz-all-camouflage").checked = prefs.showCamouflageWebPg;
   $("minz-all-camouflage-webpg-url").value = prefs.camouflageWebPgURL;
@@ -445,78 +452,13 @@ async function init(aEvent)
     "pref-general.svg",
     "pref-customize.svg",
     "pref-general-checked.svg",
-    "pref-customize-checked.svg"
+    "pref-customize-checked.svg",
+    "pref-general-dk.svg",
+    "pref-customize-dk.svg",
+    "pref-general-checked-dk.svg",
+    "pref-customize-checked-dk.svg"
   );
 }
-
-
-//
-// Event handlers
-//
-
-document.addEventListener("click", aEvent => {
-  if (aEvent.target.tagName == "INPUT"
-      && aEvent.target.getAttribute("type") == "radio"
-      && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
-    aePrefs.setPrefs({toolbarBtnIcon: aEvent.target.value});
-
-    let revContrastChbox = $("rev-contrast-icon");
-    
-    if (aEvent.target.id == "custom-icon") {
-      revContrastChbox.setAttribute("disabled", "true");
-    }
-    else {
-      revContrastChbox.removeAttribute("disabled");
-    }
-  }
-});
-
-window.addEventListener("keydown", aEvent => {
-  if (aEvent.key == "Enter") {
-    if (aeDialog.isOpen()) {
-      aeDialog.acceptDlgs();
-    }
-    else {
-      if (aEvent.target.tagName == "BUTTON") {
-        aEvent.target.click();
-      }
-    }
-    aEvent.preventDefault();
-  }
-  else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
-    aeDialog.cancelDlgs();
-  }
-  else if (aEvent.key == " ") {
-    if (aEvent.target.tagName == "A") {
-      aEvent.target.click();
-    }
-  }
-  else {
-    aeInterxn.suppressBrowserShortcuts(aEvent, aeConst.DEBUG);
-  }
-});
-
-
-$("custom-icon-upload-btn").addEventListener("click", aEvent => {
-  $("custom-icon-upload").showPicker();
-});
-
-
-browser.runtime.onMessage.addListener(async (aRequest) => {
-  log(`Panic Button/wx::options.js: Received message "${aRequest.msgID}"`);
-
-  if (aRequest.msgID == "ext-prefs-customize") {
-    $("preftab-customize-btn").click();
-
-    let prefsPgTab = await browser.tabs.getCurrent();
-    browser.windows.update(prefsPgTab.windowId, {focused: true});
-    browser.tabs.update(prefsPgTab.id, {active: true});
-  }
-  else if (aRequest.msgID == "ping-ext-prefs-pg") {
-    let resp = {isExtPrefsPgOpen: true};
-    return Promise.resolve(resp);
-  }
-});
 
 
 async function switchPrefsPanel(aEvent)
@@ -939,6 +881,98 @@ function closePage()
 }
 
 
+//
+// Event handlers
+//
+
+document.addEventListener("DOMContentLoaded", async (aEvent) => {
+  init();
+});
+
+
+document.addEventListener("contextmenu", aEvent => {
+  if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
+    aEvent.preventDefault();
+  }
+}, false);
+
+
+document.addEventListener("click", aEvent => {
+  if (aEvent.target.tagName == "INPUT"
+      && aEvent.target.getAttribute("type") == "radio"
+      && aEvent.target.getAttribute("name") == "toolbar-button-icon") {
+    aePrefs.setPrefs({toolbarBtnIcon: aEvent.target.value});
+
+    let revContrastChbox = $("rev-contrast-icon");
+    
+    if (aEvent.target.id == "custom-icon") {
+      revContrastChbox.setAttribute("disabled", "true");
+    }
+    else {
+      revContrastChbox.removeAttribute("disabled");
+    }
+  }
+});
+
+
+window.addEventListener("keydown", aEvent => {
+  if (aEvent.key == "Enter") {
+    if (aeDialog.isOpen()) {
+      aeDialog.acceptDlgs();
+    }
+    else {
+      if (aEvent.target.tagName == "BUTTON") {
+        aEvent.target.click();
+      }
+    }
+    aEvent.preventDefault();
+  }
+  else if (aEvent.key == "Escape" && aeDialog.isOpen()) {
+    aeDialog.cancelDlgs();
+  }
+  else if (aEvent.key == " ") {
+    if (aEvent.target.tagName == "A") {
+      aEvent.target.click();
+    }
+  }
+  else {
+    aeInterxn.suppressBrowserShortcuts(aEvent, aeConst.DEBUG);
+  }
+});
+
+
+$("custom-icon-upload-btn").addEventListener("click", aEvent => {
+  $("custom-icon-upload").showPicker();
+});
+
+
+browser.runtime.onMessage.addListener(async (aRequest) => {
+  log(`Panic Button/wx::options.js: Received message "${aRequest.msgID}"`);
+
+  if (aRequest.msgID == "ext-prefs-customize") {
+    $("preftab-customize-btn").click();
+
+    let prefsPgTab = await browser.tabs.getCurrent();
+    browser.windows.update(prefsPgTab.windowId, {focused: true});
+    browser.tabs.update(prefsPgTab.id, {active: true});
+  }
+  else if (aRequest.msgID == "ping-ext-prefs-pg") {
+    let resp = {isExtPrefsPgOpen: true};
+    return Promise.resolve(resp);
+  }
+});
+
+
+//
+// Utilities
+//
+
+function $(aID)
+{
+  return document.getElementById(aID);
+}
+
+
 function onError(aError)
 {
   console.error("Panic Button/wx: %s", aError);
@@ -949,12 +983,3 @@ function log(aMessage)
 {
   if (aeConst.DEBUG) { console.log(aMessage); }
 }
-
-
-document.addEventListener("DOMContentLoaded", async (aEvent) => { init() });
-
-document.addEventListener("contextmenu", aEvent => {
-  if (aEvent.target.tagName != "INPUT" && aEvent.target.getAttribute("type") != "text") {
-    aEvent.preventDefault();
-  }
-}, false);

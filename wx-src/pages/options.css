@@ -26,6 +26,11 @@
     --color-about-btn-border: #ededf0;
     --color-about-btn-border-hover: #ededf0;
     --color-about-btn: black;
+
+    --url-icon-preftab-general: url("../img/pref-general.svg");
+    --url-icon-preftab-general-checked: url("../img/pref-general-checked.svg");
+    --url-icon-preftab-customize: url("../img/pref-customize.svg");
+    --url-icon-preftab-customize-checked: url("../img/pref-customize-checked.svg");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,6 +54,11 @@
 	--color-about-btn-border: #4a4a4f;
 	--color-about-btn-border-hover: #b1b1b3;
 	--color-about-btn: #f9f9fa;
+
+	--url-icon-preftab-general: url("../img/pref-general-dk.svg");
+	--url-icon-preftab-general-checked: url("../img/pref-general-checked-dk.svg");
+	--url-icon-preftab-customize: url("../img/pref-customize-dk.svg");
+	--url-icon-preftab-customize-checked: url("../img/pref-customize-checked-dk.svg");
     }
 }
 
@@ -255,19 +265,19 @@ fieldset select.browser-style {
 }
 
 #preftab-options-btn {
-    background-image: url("../img/pref-general.svg");
+    background-image: var(--url-icon-preftab-general);
 }
 
 #preftab-options-btn.active-tab {
-    background-image: url("../img/pref-general-checked.svg");
+    background-image: var(--url-icon-preftab-general-checked);
 }
 
 #preftab-customize-btn {
-    background-image: url("../img/pref-customize.svg");
+    background-image: var(--url-icon-preftab-customize);
 }
 
 #preftab-customize-btn.active-tab {
-    background-image: url("../img/pref-customize-checked.svg");
+    background-image: var(--url-icon-preftab-customize-checked);
 }
 
 .tab-panel {
@@ -358,6 +368,10 @@ fieldset select.browser-style {
 #restore-sess-options {
     margin-top: 12px;
     margin-bottom: 0;
+}
+
+#restore-sess-options > .row {
+    margin-bottom: 2px;
 }
 
 #minz-all-camouflage-label[data-locale|="pt"] {

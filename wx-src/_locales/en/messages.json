@@ -187,11 +187,18 @@
   },
 
   "labelSnoozeInactTabs": {
-    "message": "When restoring browser session, snooze inactive browser tabs"
+    "message": "When restoring browser session, snooze inactive browser tabs",
+    "description": "Checkbox option in the extension preferences page"
   },
-  
+
+  "lblShrinkTabGrps": {
+    "message": "Collapse restored tab groups",
+    "description": "Checkbox option in the extension preferences page"
+  },
+
   "labelMinzAllCamoWebPg": {
-    "message": "Open a new window after all browser windows are minimized"
+    "message": "Open a new window after all browser windows are minimized",
+    "description": "Checkbox option in the extension preferences page"
   },
 
   "descRstFrmCamoWnd": {
@@ -339,6 +346,11 @@
     "message": "Visit home page"
   },
 
+  "aboutCreditsLink": {
+    "message": "Credits",
+    "description": "Link to acknowledgements page"
+  },
+
   "aboutLicLink": {
     "message": "License information"
   },
@@ -395,22 +407,12 @@
   },
 
   "whatsNew1": {
-    "message": "Improvements to some of the built-in Panic Button icons",
-    "description": "Description of an enhancement or fix in the new version of Panic Button"
-  },
-
-  "whatsNew2": {
-    "message": "Enhanced keyboard navigation in the extension preferences page, Change Icon dialog, and the Restore Session page",
-    "description": "Description of an enhancement or fix in the new version of Panic Button"
-  },
-
-  "whatsNew3": {
-    "message": "Other behind-the-scenes improvements to ensure compatibility with future versions of Firefox",
+    "message": "If the Panic Button action is set to Hide and Replace, tab groups will be recreated when the browser windows and tabs are restored",
     "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
 
   "contribHdg": {
-    "message": "Contribute",
+    "message": "Contribute!",
     "description": "Contribution CTA in the What's New page"
   },
 

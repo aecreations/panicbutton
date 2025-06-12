@@ -45,8 +45,13 @@
 		<button id="hide-and-replc-set-pswd" data-i18n="setPswd"></button>
 		<button id="hide-and-replc-rm-pswd" data-i18n="removePswd"></button>
 	      </div>
-              <div id="restore-sess-options" class="browser-style">
-                <input type="checkbox" id="restore-sess-snooze-tabs" class="checkbox-s"/><label for="restore-sess-snooze-tabs" data-i18n="labelSnoozeInactTabs"></label>
+              <div id="restore-sess-options">
+                <div class="row browser-style">
+                  <input type="checkbox" id="restore-sess-snooze-tabs" class="checkbox-s"/><label for="restore-sess-snooze-tabs" data-i18n="labelSnoozeInactTabs"></label>
+                </div>
+                <div class="row restore-tabgrps-opt browser-style">
+                  <input type="checkbox" id="restore-sess-shrink-tabgrps" class="checkbox-s"/><label for="restore-sess-shrink-tabgrps" data-i18n="lblShrinkTabGrps"></label>
+                </div>
               </div>
 	    </div>
 	  </div>
@@ -261,7 +266,12 @@
 	    <label id="ext-author" data-i18n="aboutAuthor"></label>
 	    <a id="ext-home-pg-link" class="hyperlink" data-i18n="aboutHomePgLink"></a>
           </div>
-	  <label id="translations-ack" class="about-content-row" data-i18n="aboutTrans"></label>
+          <div class="about-content-row">
+	    <label id="translations-ack" data-i18n="aboutTrans"></label>
+<!--
+	    <a href="../credits.txt" id="credits-link" class="hyperlink" data-i18n="aboutCreditsLink"></a>
+-->
+          </div>
           <div class="about-content-row">
 	    <a href="../LICENSE.txt" id="aboutLicLink" class="hyperlink" data-i18n="aboutLicLink"></a>
           </div>

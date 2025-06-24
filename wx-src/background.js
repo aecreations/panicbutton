@@ -125,6 +125,23 @@ let gBrowserWindows = {
     aePrefs.setPrefs({_minzWndID: null});
   },
 
+  async getCurrWndGeometry()
+  {
+    let rv = null;
+    let wnd = await browser.windows.getCurrent();
+    
+    if (wnd) {
+      rv = {
+        width: wnd.width,
+        height: wnd.height,
+        left: wnd.left,
+        top: wnd.top,
+      };
+    }
+
+    return rv;
+  },
+
 
   //
   // Private helper methods
@@ -133,7 +150,14 @@ let gBrowserWindows = {
   async _openCamouflageWnd(aCamouflageURL)
   {
     let rv;
-    let wnd = await browser.windows.create({url: aCamouflageURL});
+    let wndGeom = await this.getCurrWndGeometry();
+    let wndPpty = {url: aCamouflageURL};
+    if (wndGeom) {
+      wndPpty.width = wndGeom.width;
+      wndPpty.height = wndGeom.height;
+    }
+
+    let wnd = await browser.windows.create(wndPpty);
     let camoWndID = wnd.id;
     info("Panic Button/wx: gBrowserWindows.openCamouflageWnd(): Camouflage window ID: " + camoWndID);
     await aePrefs.setPrefs({_camoWndID: camoWndID});
@@ -164,7 +188,14 @@ let gBrowserSession = {
     let replacemtWndID = null;
 
     if (aReplacementURL) {
-      let replcWnd = await browser.windows.create({url: aReplacementURL});
+      let wndGeom = await gBrowserWindows.getCurrWndGeometry();
+      let wndPpty = {url: aReplacementURL};
+      if (wndGeom) {
+        wndPpty.width = wndGeom.width;
+        wndPpty.height = wndGeom.height;
+      }
+
+      let replcWnd = await browser.windows.create(wndPpty);
       replacemtWndID = replcWnd.id;
       
       await aePrefs.setPrefs({
@@ -871,23 +902,6 @@ async function openChangeIconDlg()
 {
   let url = browser.runtime.getURL("pages/changeIcon.html");
 
-  async function getBrwsWndGeometry()
-  {
-    let rv = null;
-    let wnd = await browser.windows.getCurrent();
-    
-    if (wnd) {
-      rv = {
-        width: wnd.width,
-        height: wnd.height,
-        left: wnd.left,
-        top: wnd.top,
-      };
-    }
-
-    return rv;
-  }
-
   async function openChgIconDlgHelper()
   {
     // Don't open the Change Icon dialog if the extension preferences page is
@@ -913,7 +927,7 @@ async function openChangeIconDlg()
     }
 
     if (autoAdjustWndPos) {
-      wndGeom = await getBrwsWndGeometry();
+      wndGeom = await gBrowserWindows.getCurrWndGeometry();
 
       log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from currently focused window:`);
       log(wndGeom);

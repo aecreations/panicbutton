@@ -606,7 +606,7 @@ async function init(aPrefs)
   log("Panic Button/wx: OS: " + platform.os);
 
   if (aPrefs.autoAdjustWndPos === null) {
-    let autoAdjustWndPos = platform.os == "win";
+    let autoAdjustWndPos = ["win", "mac"].includes(platform.os);
     await aePrefs.setPrefs({autoAdjustWndPos});
   }
 
@@ -917,7 +917,7 @@ async function openChangeIconDlg()
     }
     
     let {os} = await browser.runtime.getPlatformInfo();
-    let {autoAdjustWndPos} = await aePrefs.getAllPrefs();
+    let autoAdjustWndPos = await aePrefs.getPref("autoAdjustWndPos");
     let width = 404;
     let height = 272;
     let left, top, wndGeom;

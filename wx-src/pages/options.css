@@ -469,10 +469,6 @@ fieldset select.browser-style {
     height: calc(100% - 30px);
 }
 
-#custom-icon, #custom-icon-label {
-    visibility: hidden;
-}
-
 #custom-icon-label img {
     max-width: 36px;
     max-height: 36px;

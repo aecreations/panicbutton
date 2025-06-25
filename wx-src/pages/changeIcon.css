@@ -36,10 +36,6 @@ label {
     transition-property: box-shadow;
 }
 
-#custom-icon, #custom-icon-label {
-    visibility: hidden;
-}
-
 #dlg-buttons {
     position: absolute;
     bottom: 18px;

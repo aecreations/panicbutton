@@ -755,6 +755,8 @@ function setCustomTBIcon(aEvent)
     let revContrastChbox = $("rev-contrast-icon");
     revContrastChbox.setAttribute("disabled", "true");
     revContrastChbox.checked = false;
+
+    $("toolbar-button-icon").removeAttribute("colorscheme");
   });
 
   fileReader.readAsDataURL(imgFile);
@@ -909,9 +911,13 @@ document.addEventListener("click", aEvent => {
     aePrefs.setPrefs({toolbarBtnIcon: aEvent.target.value});
 
     let revContrastChbox = $("rev-contrast-icon");
+    let toolbarIconPicker = $("toolbar-button-icon");
     
     if (aEvent.target.id == "custom-icon") {
       revContrastChbox.setAttribute("disabled", "true");
+      revContrastChbox.checked = false;
+      toolbarIconPicker.removeAttribute("colorscheme");
+      aePrefs.setPrefs({toolbarBtnRevContrastIco: false});
     }
     else {
       revContrastChbox.removeAttribute("disabled");

@@ -303,3 +303,8 @@
 #toolbar-button-icon[colorscheme="dark"] > #letter-a + label > canvas {
     background-image: var(--url-icon-letter-a-dk);
 }
+
+#toolbar-button-icon > #custom-icon,
+#toolbar-button-icon > #custom-icon-label {
+    visibility: hidden;
+}

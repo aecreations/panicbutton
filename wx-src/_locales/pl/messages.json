@@ -142,10 +142,16 @@
     "message": "Hasła nie są identyczne."
   },
   "labelSnoozeInactTabs": {
-    "message": "Podczas przywracania sesji przeglądarki, uśpij nieaktywne karty przeglądarki"
+    "message": "Podczas przywracania sesji przeglądarki, uśpij nieaktywne karty przeglądarki",
+    "description": "Checkbox option in the extension preferences page"
+  },
+  "lblShrinkTabGrps": {
+    "message": "Zwiń przywrócone grupy kart",
+    "description": "Checkbox option in the extension preferences page"
   },
   "labelMinzAllCamoWebPg": {
-    "message": "Otwórz nowe okno po zminimalizowaniu wszystkich okien przeglądarki"
+    "message": "Otwórz nowe okno po zminimalizowaniu wszystkich okien przeglądarki",
+    "description": "Checkbox option in the extension preferences page"
   },
   "descRstFrmCamoWnd": {
     "message": "Aby przywrócić sesję przeglądarki, kliknij ponownie \"Panic Button\"."
@@ -256,6 +262,10 @@
   "aboutHomePgLink": {
     "message": "Odwiedź stronę WWW"
   },
+  "aboutCreditsLink": {
+    "message": "Autorzy",
+    "description": "Link to acknowledgements page"
+  },
   "aboutLicLink": {
     "message": "Informacje o licencji"
   },
@@ -300,15 +310,7 @@
     "description": "What's New page (appears after upgrading Panic Button)"
   },
   "whatsNew1": {
-    "message": "Ulepszenia niektórych wbudowanych we wtyczkę ikon",
-    "description": "Description of an enhancement or fix in the new version of Panic Button"
-  },
-  "whatsNew2": {
-    "message": "Ulepszona nawigacja za pomocą klawiatury na stronie ustawień rozszerzenia, okno zmiany ikony i strona przywracania sesji",
-    "description": "Description of an enhancement or fix in the new version of Panic Button"
-  },
-  "whatsNew3": {
-    "message": "Inne ulepszenia mające na celu zapewnienie kompatybilności z przyszłymi wersjami Firefoksa",
+    "message": "Jeśli akcja przycisku Panic jest ustawiona na \"Ukryj i zastąp\", grupy zakładek zostaną odtworzone po przywróceniu okien i kart przeglądarki",
     "description": "Description of an enhancement or fix in the new version of Panic Button"
   },
   "contribHdg": {

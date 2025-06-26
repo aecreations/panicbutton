@@ -33,8 +33,8 @@ async function init()
     $("more-customzns")
   );
 
+  let customIconRadio = $("custom-icon");
   if (prefs.toolbarBtnIcon == aeToolbarIconPicker.CUSTOM_ICON_IDX) {
-    let customIconRadio = $("custom-icon");
     customIconRadio.style.visibility = "visible";
     $("custom-icon-label").style.visibility = "visible";
 
@@ -48,6 +48,10 @@ async function init()
     img.src = prefs.toolbarBtnData;
     aeToolbarIconPicker.hasCustomIcon = true;
   }
+  else {
+    customIconRadio.setAttribute("disabled", "true");
+  }
+
   aeToolbarIconPicker.selectedIndex = prefs.toolbarBtnIcon;
 
   $("more-customzns").addEventListener("click", async (aEvent) => {

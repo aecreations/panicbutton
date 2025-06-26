@@ -1,11 +1,11 @@
-PANIC BUTTON
-============= Credits
+PANIC BUTTON 5.1
+================= Credits
 
 
 Many thanks to the Crowdin contributors who provided localizations for this
 version of Panic Button:
 
-                 . . . . . . . .  
+Polish  . . . . . . . . . .  jeleniogorzanin
 
 
 If you're fluent in English and another world language and would like to help

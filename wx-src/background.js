@@ -23,8 +23,10 @@ let gBrowserWindows = {
   {
     log("Panic Button/wx: gBrowserWindows.minimizeAll()");
 
-    let minzWndStates = [];
+    let wndGeom = await this.getCurrWndGeometry();
     let wnds = await browser.windows.getAll();
+    let minzWndStates = [];
+
     for (let wnd of wnds) {
       minzWndStates.push({
         id: wnd.id,
@@ -38,7 +40,7 @@ let gBrowserWindows = {
 
     let {showCamouflageWebPg, camouflageWebPgURL} = await aePrefs.getAllPrefs();
     if (showCamouflageWebPg) {
-      this._openCamouflageWnd(camouflageWebPgURL);
+      this._openCamouflageWnd(camouflageWebPgURL, wndGeom);
     }    
   },
 
@@ -147,19 +149,16 @@ let gBrowserWindows = {
   // Private helper methods
   //
   
-  async _openCamouflageWnd(aCamouflageURL)
+  async _openCamouflageWnd(aCamouflageURL, aWndGeometry)
   {
     let rv;
-    let wndGeom = await this.getCurrWndGeometry();
     let wndPpty = {url: aCamouflageURL};
-    if (wndGeom) {
-      wndPpty.width = wndGeom.width;
-      wndPpty.height = wndGeom.height;
-    }
+    wndPpty.width = aWndGeometry.width;
+    wndPpty.height = aWndGeometry.height;
 
     let wnd = await browser.windows.create(wndPpty);
     let camoWndID = wnd.id;
-    info("Panic Button/wx: gBrowserWindows.openCamouflageWnd(): Camouflage window ID: " + camoWndID);
+    info("Panic Button/wx: gBrowserWindows._openCamouflageWnd(): Camouflage window ID: " + camoWndID);
     await aePrefs.setPrefs({_camoWndID: camoWndID});
     rv = camoWndID;
     

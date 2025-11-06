@@ -20,6 +20,8 @@
     --color-tab-bkgd-selected: #f0f0f4;
     --color-tab-text-active: #0a84ff;
     --color-radio-panel-bkgd: #f9f9fa;
+    --color-webapp-warn-bkgd: #B5D9FF;
+    --color-webapp-warn-actv-bkgd: #f0f0f4;
     --color-about-btn-bkgd: #f9f9fa;
     --color-about-btn-bkgd-hover: #ededf0;
     --color-about-btn-bkgd-active: #d7d7db;
@@ -48,6 +50,8 @@
 	--color-tab-bkgd-selected: #4a4a55;
 	--color-tab-text-active: #45a1ff;
 	--color-radio-panel-bkgd: #38383d;
+	--color-webapp-warn-bkgd: #00458C;
+	--color-webapp-warn-actv-bkgd: #4a4a4f;
 	--color-about-btn-bkgd: #2a2a2e;
 	--color-about-btn-bkgd-hover: #38383d;
 	--color-about-btn-bkgd-active: #4a4a4f;
@@ -320,6 +324,29 @@ fieldset select.browser-style {
 
 .panic-action-options {
     display: none;
+}
+
+#webapp-warn {
+    display: none;
+}
+
+body[data-os="win"] #webapp-warn {
+    display: block;
+    margin-left: 28px;
+    margin-bottom: 10px;
+    padding: 6px 8px 6px 32px;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: var(--color-webapp-warn-actv-bkgd);
+    background-image: url("../img/msgbar-warn.svg");
+    background-size: 16px;
+    background-position-x: 8px;
+    background-position-y: 8px;
+    background-repeat: no-repeat;
+}
+
+body[data-os="win"] .active-radio-panel #webapp-warn {
+    background-color: var(--color-webapp-warn-bkgd);
 }
 
 #webpg-url, #minz-all-camouflage-webpg-url {

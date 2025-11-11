@@ -66,6 +66,10 @@
   "actDescHideAndReplace": {
     "message": "Zastępuje sesję przeglądarki pojedynczym oknem wyświetlającym stronę internetową w określonej lokalizacji. Ponowne kliknięcie \"Panic Button\" przywraca sesję przeglądarki."
   },
+  "hideAndReplcWebAppWarn": {
+    "message": "Niekompatybilne z oknami aplikacji internetowych. Jeśli masz jakieś witryny uruchomione w oknach aplikacji internetowych, wybierz zamiast tego opcję \"Minimalizuj wszystkie okna\".",
+    "description": "Warning about incompatibility of the Hide and Replace action with web app windows"
+  },
   "actMinimizeAll": {
     "message": "Minimalizuj wszystkie okna"
   },

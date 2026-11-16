@@ -33,6 +33,7 @@
     "scripts": [
       "scripts/aeConst.js",
       "scripts/aePrefs.js",
+      "scripts/aeVersionCmp.js",
       "scripts/aeSavedWindow.js",
       "scripts/aeSavedTabGroup.js",
       "background.js"

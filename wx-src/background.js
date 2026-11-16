@@ -3,6 +3,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+const WND_SIZE_ADJ_LINUX = 60;
+
 let gIsFirstRun = false;
 let gIsMajorVerUpdate = false;
 
@@ -914,15 +916,21 @@ async function openChangeIconDlg()
       browser.runtime.sendMessage({msgID: "ext-prefs-customize"});
       return;
     }
-    
-    let {os} = await browser.runtime.getPlatformInfo();
-    let autoAdjustWndPos = await aePrefs.getPref("autoAdjustWndPos");
+
+    let [brws, platform, autoAdjustWndPos] = await Promise.all([
+      browser.runtime.getBrowserInfo(),
+      browser.runtime.getPlatformInfo(),
+      aePrefs.getPref("autoAdjustWndPos"),
+    ]);
     let width = 404;
     let height = 272;
     let left, top, wndGeom;
 
-    if (os == "win") {
+    if (platform.os == "win") {
       height += 10;
+    }
+    else if (platform.os == "linux" && aeVersionCmp(brws.version, "160.0") >= 0) {
+      height += WND_SIZE_ADJ_LINUX;
     }
 
     if (autoAdjustWndPos) {
@@ -931,7 +939,7 @@ async function openChangeIconDlg()
       log(`Panic Button/wx: openChangeIconDlg() > openChgIconDlgHelper(): Retrieved window geometry data from currently focused window:`);
       log(wndGeom);
       
-      let topOffset = (os == "mac" ? 96 : 128);
+      let topOffset = (platform.os == "mac" ? 96 : 128);
 
       if (wndGeom === null) {
         // Reached here if unable to calculate window geometry.

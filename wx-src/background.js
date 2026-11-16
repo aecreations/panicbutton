@@ -25,7 +25,7 @@ let gBrowserWindows = {
   {
     log("Panic Button/wx: gBrowserWindows.minimizeAll()");
 
-    let wndGeom = await this.getCurrWndGeometry();
+    let wndGeom = await this.getFirstWndGeometry();
     let wnds = await browser.windows.getAll();
     let minzWndStates = [];
 
@@ -146,6 +146,23 @@ let gBrowserWindows = {
     return rv;
   },
 
+  async getFirstWndGeometry()
+  {
+    let rv = null;
+    let wnds = await browser.windows.getAll();
+    if (wnds.length > 0) {
+      let wnd = wnds[0];
+      rv = {
+        width: wnd.width,
+        height: wnd.height,
+        left: wnd.left,
+        top: wnd.top,
+      };
+    }
+
+    return rv;
+  },
+
 
   //
   // Private helper methods
@@ -189,7 +206,7 @@ let gBrowserSession = {
     let replacemtWndID = null;
 
     if (aReplacementURL) {
-      let wndGeom = await gBrowserWindows.getCurrWndGeometry();
+      let wndGeom = await gBrowserWindows.getFirstWndGeometry();
       let wndPpty = {url: aReplacementURL};
       if (wndGeom) {
         wndPpty.width = wndGeom.width;
@@ -207,7 +224,7 @@ let gBrowserSession = {
 
     for (let wnd of wnds) {
       if (wnd.id == replacemtWndID) {
-	continue;
+        continue;
       }
 
       // Don't save the Change Icon popup window.
